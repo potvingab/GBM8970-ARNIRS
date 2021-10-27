@@ -1,0 +1,49 @@
+newmtl GIRL_LowPolyTest:lambert8SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 17ab7d30-nen.jpg
+Ni 1.00
+newmtl GIRL_LowPolyTest:lambert9SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 12c56d30-nen.jpg
+Ni 1.00
+newmtl GIRL_LowPolyTest:lambert10SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 12c56d30-nen.jpg
+Ni 1.00
+newmtl GIRL_LowPolyTest:lambert11SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 1751db30-nen.jpg
+Ni 1.00
+newmtl GIRL_LowPolyTest:lambert12SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 17b596f0-nen.jpg
+Ni 1.00
+newmtl GIRL_LowPolyTest:lambert13SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 180d94b0-nen.jpg
+Ni 1.00
+newmtl GIRL_LowPolyTest:lambert14SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 17b596f0-nen.jpg
+Ni 1.00

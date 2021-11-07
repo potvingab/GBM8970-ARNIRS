@@ -22,8 +22,8 @@ public class RED : MonoBehaviour {
         Debug.Log("You have clicked the red button!");
         Questions.randQuestion = -1;
         Questions.selectedAnswers = "RED";
-        string createText = "RED" + Environment.NewLine;
-        File.AppendAllText(@"C:\Users\HP\Documents\4 année\Projet Intégrateur\answers.txt", createText);
+        //string createText = "RED" + Environment.NewLine;
+        //File.AppendAllText(@"C:\Users\HP\Documents\4 année\Projet Intégrateur\answers.txt", createText);
 
    
     }

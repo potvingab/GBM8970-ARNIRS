@@ -54,7 +54,7 @@ public class TestFichierTemps : MonoBehaviour {
 
     }
     // Use this for initialization
-    public void CreateCheckpoint(string nom) {
+    public void CreateCheckpoint() {
 
         string fileName = @"C:\Users\achil\TempsVRNIRS.txt";
         using (StreamWriter sw = File.AppendText(fileName))
@@ -62,7 +62,7 @@ public class TestFichierTemps : MonoBehaviour {
             // Add some text to file    
             //Byte[] title = new System.Text.UTF8Encoding(true).GetBytes("\n Checkpoint ");
             //sw.Write(title, 0, title.Length);
-            sw.Write("\n Checkpoint " + nom + " ");
+            sw.Write("\n Checkpoint ");
 
             //Byte[] temps_init = new System.Text.UTF8Encoding(true).GetBytes(DateTime.Now.ToString("H:mm:ss zzz"));
             //sw.Write(temps_init, 0, temps_init.Length);

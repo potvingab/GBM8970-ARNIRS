@@ -1,6 +1,6 @@
 OSXStandalone
 PlayerPath?
-/Users/gabrielpotvin/Desktop/jupyter/Projet/GBM8970-VRNIRS/VRNIRS/build_mac/build_mac.app
+/Users/gabrielpotvin/Desktop/jupyter/Projet/GBM8970-VRNIRS/VRNIRS/build.app
 SceneListBegin?
 Assets/Scenes/Menu.unity
 Assets/Scenes/N-back.unity

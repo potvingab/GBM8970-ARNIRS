@@ -6,30 +6,41 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public static bool randomizer = false;
+    public static string mode;
 
     public void PlayNBack()
     {
-        randomizer = false;
+        if (mode == "RANDOM"){
+            randomizer = true;
+        }
+        else{
+            randomizer = false;
+        }
         SceneManager.LoadScene("N-back");
     }
 
-    public void PlayNBackRandom()
-    {
-        randomizer = true;
-        SceneManager.LoadScene("N-back");
-    }
+    // public void PlayNBackRandom()
+    // {
+    //     randomizer = true;
+    //     SceneManager.LoadScene("N-back");
+    // }
 
     public void PlayStroop()
     {
-        randomizer = false;
+        if (mode == "RANDOM"){
+            randomizer = true;
+        }
+        else{
+            randomizer = false;
+        }
         SceneManager.LoadScene("Stroop");
     }
 
-    public void PlayStroopRandom()
-    {
-        randomizer = true;
-        SceneManager.LoadScene("Stroop");
-    }
+    // public void PlayStroopRandom()
+    // {
+    //     randomizer = true;
+    //     SceneManager.LoadScene("Stroop");
+    // }
 
 
     public void QuitGame()

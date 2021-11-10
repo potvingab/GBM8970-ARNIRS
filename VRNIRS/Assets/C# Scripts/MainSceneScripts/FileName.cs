@@ -13,7 +13,6 @@ public class FileName : MonoBehaviour {
     public static string timeStamp;
     public static string mode;
 
-
     public void GenerateFileName()
     {
         nameOfFileOriginal = nameOfFileTMP.text;
@@ -30,8 +29,6 @@ public class FileName : MonoBehaviour {
 
         nameOfFile = path + "/" + nameOfFile;
 
-
-     
     }
 
     public void AddTestType(string testType)

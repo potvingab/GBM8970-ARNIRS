@@ -61,6 +61,7 @@
      <Compile Include="Assets\C# Scripts\MainSceneScripts\NumberOfObjects.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\Object3DSelection.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\RealistBool.cs" />
+     <Compile Include="Assets\C# Scripts\MainSceneScripts\Sequence.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\SetText.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\SliderScript.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\VariablesHolder.cs" />

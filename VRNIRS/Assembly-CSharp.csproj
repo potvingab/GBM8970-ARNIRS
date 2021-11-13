@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\C# Scripts\MainSceneScripts\BoolArrayHolder.cs" />
+     <Compile Include="Assets\C# Scripts\MainSceneScripts\ChooseParadigm.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\FileName.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\MainMenu.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\ModelAnimation.cs" />
@@ -65,6 +66,8 @@
      <Compile Include="Assets\C# Scripts\MainSceneScripts\SetText.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\SliderScript.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\VariablesHolder.cs" />
+     <Compile Include="Assets\C# Scripts\MainSceneScripts\VariablesHolderStroop.cs" />
+     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\ChangeText.cs" />
      <Compile Include="Assets\C# Scripts\SampleSceneSciprts\Destroyer.cs" />
      <Compile Include="Assets\C# Scripts\SampleSceneSciprts\Move.cs" />
      <Compile Include="Assets\C# Scripts\SampleSceneSciprts\PauseMenu.cs" />

@@ -4,27 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Text;
+using TMPro;
 
 public class RED : MonoBehaviour {
 
+    List<string> question = new List<string> { "BLUE", "RED", "GREEN" };
+    List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
     public Button redButton;
-	void Start () {
-        Button btnState = redButton.GetComponent<Button>();
-        btnState.onClick.AddListener(TaskOnClick);
+    public GameObject text;
+    void Start () {
+        //Button btnState = redButton.GetComponent<Button>();
+        //btnState.onClick.AddListener(TaskOnClick);
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-    void TaskOnClick()
+    public void changeText()
     {
         Debug.Log("You have clicked the red button!");
-        Questions.randQuestion = -1;
         Questions.selectedAnswers = "RED";
-        //string createText = "RED" + Environment.NewLine;
-        //File.AppendAllText(@"C:\Users\HP\Documents\4 année\Projet Intégrateur\answers.txt", createText);
+        if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
+        {
+            Questions.results += 1;
 
-   
+        }
+        Questions.randQuestion = Random.Range(0, 3);
+        Questions.randColor = Random.Range(0, 3);
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = question[Questions.randQuestion];
+        text.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.colors[Questions.randColor];
+        Debug.Log(Questions.results);
+
+
     }
 }

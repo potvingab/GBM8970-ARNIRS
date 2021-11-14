@@ -8,57 +8,29 @@ using System.IO;
 
 public class Questions : MonoBehaviour
 {
+    public GameObject text;
     List<string> question = new List<string> { "BLUE", "RED", "GREEN"};
-    List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
-    public static int randQuestion = -1; //Empêche le changement de l'affichage constant des questions
-    public static int index = 0;
     public static string selectedAnswers;
     public static int results = 0;
-    public static int iteration = 5;
-
+    public static int randQuestion;
+    public static int randColor;
+    public static Color[] colors = { Color.green, Color.red, Color.blue };
+   
     void Start()
     {
-        //int i = 0;
-        //while (i <= iteration & randQuestion == -1)
-        //{
-        //    randQuestion = Random.Range(0, 3);
-        //    GetComponent<TMPro.TextMeshProUGUI>().text = question[randQuestion];
+        
 
+        randQuestion = Random.Range(0, 3);
+        randColor = Random.Range(0, 3);
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = question[randQuestion];
+        text.GetComponent<TMPro.TextMeshProUGUI>().color = colors[randColor];
 
-        //    if (correctAnswer[index] == selectedAnswers)
-        //    {
-        //       results += 1;
-
-        //     }
-        //    i++;
-        //    Debug.Log(selectedAnswers);
-        //}
     }
+
 
     void Update()
     {
-        if (randQuestion == -1)
-        {
-            randQuestion = Random.Range(0, 3);
-        }
 
-        if (randQuestion > -1)
-        {
-            GetComponent<TMPro.TextMeshProUGUI>().text = question[randQuestion];
-            index = randQuestion;
-        }
-
-        if (correctAnswer[index] == selectedAnswers)
-        {
-            results += 1;
-            selectedAnswers = "x";
-         
-        }
-        //foreach (var i in selectedAnswers)
-        //{
-        //    Debug.Log(i);
-        //}
-        Debug.Log(results);
     }
 
 }

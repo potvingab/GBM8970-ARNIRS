@@ -7,7 +7,7 @@ using System.Text;
 using TMPro;
 
 public class GREEN : MonoBehaviour {
-
+    public GameObject answer;
     List<string> question = new List<string> { "BLUE", "RED", "GREEN" };
     List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
     public Button greenButton;
@@ -25,10 +25,11 @@ public class GREEN : MonoBehaviour {
     }
     public void changeText()
     {
-       Debug.Log("You have clicked the green button!");
-       Questions.selectedAnswers = "GREEN";
+        Debug.Log("You have clicked the green button!");
+        Questions.selectedAnswers = "GREEN";
+        answer.GetComponent<TMPro.TextMeshProUGUI>().text = "GREEN";
 
-       if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
+        if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
         {
             Questions.results += 1;
 

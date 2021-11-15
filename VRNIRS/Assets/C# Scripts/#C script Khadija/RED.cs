@@ -8,6 +8,7 @@ using TMPro;
 
 public class RED : MonoBehaviour {
 
+    public GameObject answer;
     List<string> question = new List<string> { "BLUE", "RED", "GREEN" };
     List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
     public Button redButton;
@@ -25,6 +26,7 @@ public class RED : MonoBehaviour {
     {
         Debug.Log("You have clicked the red button!");
         Questions.selectedAnswers = "RED";
+        answer.GetComponent<TMPro.TextMeshProUGUI>().text = "RED";
         if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
         {
             Questions.results += 1;

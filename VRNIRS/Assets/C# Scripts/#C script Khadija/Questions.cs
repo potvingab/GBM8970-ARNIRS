@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using System.Linq;
 using System.IO;
-
+using UnityEngine.SceneManagement;
 
 public class Questions : MonoBehaviour
 {
     public GameObject text;
+    public GameObject timer;
+    public static float timeValue = 10;
     List<string> question = new List<string> { "BLUE", "RED", "GREEN"};
     public static string selectedAnswers;
     public static int results = 0;
@@ -30,7 +32,15 @@ public class Questions : MonoBehaviour
 
     void Update()
     {
-
+        if (timeValue >= 0)
+        {
+            timer.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format("{0:00}", Mathf.FloorToInt(timeValue));
+            timeValue -= Time.deltaTime;
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
 }

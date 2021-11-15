@@ -9,7 +9,7 @@ public class BLUE : MonoBehaviour {
 
     List<string> question = new List<string> { "BLUE", "RED", "GREEN" };
     List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
-    public Button blueButton;
+    public static Button blueButton;
     public GameObject text;
     public GameObject answer;
     void Start()
@@ -26,8 +26,11 @@ public class BLUE : MonoBehaviour {
     public void changeText()
     {
         Debug.Log("You have clicked the blue button!");
-        Questions.selectedAnswers = "BLUE";
-        answer.GetComponent<TMPro.TextMeshProUGUI>().text = "BLUE";
+        Questions.selectedAnswers = "BLUE  ";
+        Questions.displayAnswers.Add("BLUE ");
+        answer.GetComponent<TMPro.TextMeshProUGUI>().text += Questions.selectedAnswers;
+
+        Questions.total += 1;
         if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
         {
             Questions.results += 1;

@@ -10,7 +10,8 @@ public class GREEN : MonoBehaviour {
     public GameObject answer;
     List<string> question = new List<string> { "BLUE", "RED", "GREEN" };
     List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
-    public Button greenButton;
+    
+    public static Button greenButton;
     public GameObject text;
     void Start()
     {   
@@ -26,9 +27,11 @@ public class GREEN : MonoBehaviour {
     public void changeText()
     {
         Debug.Log("You have clicked the green button!");
-        Questions.selectedAnswers = "GREEN";
-        answer.GetComponent<TMPro.TextMeshProUGUI>().text = "GREEN";
+        Questions.selectedAnswers = "GREEN ";
+        Questions.displayAnswers.Add("GREEN ");
+        answer.GetComponent<TMPro.TextMeshProUGUI>().text += Questions.selectedAnswers;
 
+        Questions.total += 1;
         if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
         {
             Questions.results += 1;
@@ -38,6 +41,6 @@ public class GREEN : MonoBehaviour {
        Questions.randColor = Random.Range(0, 3);
        text.GetComponent<TMPro.TextMeshProUGUI>().text = question[Questions.randQuestion];
        text.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.colors[Questions.randColor];
-       Debug.Log(Questions.results);
+       Debug.Log(Questions.displayAnswers);
     }
 }

@@ -11,7 +11,7 @@ public class RED : MonoBehaviour {
     public GameObject answer;
     List<string> question = new List<string> { "BLUE", "RED", "GREEN" };
     List<string> correctAnswer = new List<string> { "BLUE", "RED", "GREEN" };
-    public Button redButton;
+    public static Button redButton;
     public GameObject text;
     void Start () {
         //Button btnState = redButton.GetComponent<Button>();
@@ -25,8 +25,10 @@ public class RED : MonoBehaviour {
     public void changeText()
     {
         Debug.Log("You have clicked the red button!");
-        Questions.selectedAnswers = "RED";
-        answer.GetComponent<TMPro.TextMeshProUGUI>().text = "RED";
+        Questions.selectedAnswers = "RED ";
+        Questions.displayAnswers.Add("RED ");
+        answer.GetComponent<TMPro.TextMeshProUGUI>().text += Questions.selectedAnswers;
+        Questions.total += 1;
         if (correctAnswer[Questions.randQuestion] == Questions.selectedAnswers)
         {
             Questions.results += 1;

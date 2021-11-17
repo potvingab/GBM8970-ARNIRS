@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 26
+  controlID: 49
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 27
+  controlID: 50
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 28
+  controlID: 51
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -366,10 +366,10 @@ MonoBehaviour:
     height: 343
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 273.63504}
-    m_SelectedIDs: 5e200000
-    m_LastClickedID: 8286
-    m_ExpandedIDs: e6fbffff000000003c1b0000a41b0000e61b0000c01c0000da1d00003e1f0000601f0000de1f0000
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 461b0000
+    m_LastClickedID: 6982
+    m_ExpandedIDs: e6fbffff00000000461b0000761d0000721f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -534,19 +534,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/C# Scripts/MainSceneScripts
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/C# Scripts/MainSceneScripts
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 90.2}
-    m_SelectedIDs: 0e180000
-    m_LastClickedID: 6158
+    scrollPos: {x: 0, y: 217.98332}
+    m_SelectedIDs: 3e100000
+    m_LastClickedID: 4158
     m_ExpandedIDs: 00000000c60c0000100e0000781300004618000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0

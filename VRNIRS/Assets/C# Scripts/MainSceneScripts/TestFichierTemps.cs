@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.IO;
+using System.Diagnostics;
+using System.Threading;
 
 public class TestFichierTemps : MonoBehaviour {
 
@@ -12,23 +14,12 @@ public class TestFichierTemps : MonoBehaviour {
     public static string nameOfFileTempsOriginal;
     public static string timeStamp_test;
     public static string mode;
+    public Stopwatch stopWatch;
 
     public void GenerateFichierTemps()
     {
-        Console.Write("allo");
-        nameOfFileTempsOriginal = nameOfFileTMP.text;
-        timeStamp_test = DateTime.Now.ToString("0-HHmmssfff");
-        nameOfFileTemps = nameOfFileTMP.text + "_" + timeStamp_test;
-        Debug.Log(nameOfFileTemps);
-
-        string path = Application.dataPath + "/Saves";
-
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
-
-        nameOfFileTemps = path + "/" + nameOfFileTemps;
+        stopWatch = new Stopwatch();
+        stopWatch.Start();
 
         string fileName = @"C:\Users\achil\TempsVRNIRS.txt";
 
@@ -49,6 +40,15 @@ public class TestFichierTemps : MonoBehaviour {
 
             Byte[] temps_init = new System.Text.UTF8Encoding(true).GetBytes(DateTime.Now.ToString("H:mm:ss.fff"));
             fs.Write(temps_init, 0, temps_init.Length);
+
+            Thread.Sleep(100);
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            stopWatch.Start();
+
+            Byte[] temps_init_stopW = new System.Text.UTF8Encoding(true).GetBytes("\n verif "+elapsedTime);
+            fs.Write(temps_init_stopW, 0, temps_init_stopW.Length);
         }
 
 
@@ -67,6 +67,13 @@ public class TestFichierTemps : MonoBehaviour {
             //Byte[] temps_init = new System.Text.UTF8Encoding(true).GetBytes(DateTime.Now.ToString("H:mm:ss zzz"));
             //sw.Write(temps_init, 0, temps_init.Length);
             sw.Write(DateTime.Now.ToString("H:mm:ss.fff"));
+
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            stopWatch.Start();
+
+            sw.Write("\n verif " + elapsedTime);
         }
     }
 	

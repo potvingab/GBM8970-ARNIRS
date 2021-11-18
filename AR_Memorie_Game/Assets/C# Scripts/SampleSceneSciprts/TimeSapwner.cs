@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 public class TimeSapwner : MonoBehaviour {
 
@@ -167,6 +168,30 @@ public class TimeSapwner : MonoBehaviour {
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
 	}
 
+    public void CreateCheckpoint(string nom)
+    {
+
+        string fileName = @"C:\Users\achil\TempsVRNIRS.txt";
+        using (StreamWriter sw = File.AppendText(fileName))
+        {
+            // Add some text to file    
+            //Byte[] title = new System.Text.UTF8Encoding(true).GetBytes("\n Checkpoint ");
+            //sw.Write(title, 0, title.Length);
+            sw.Write("\n Checkpoint; " + nom + " ;");
+
+            //Byte[] temps_init = new System.Text.UTF8Encoding(true).GetBytes(DateTime.Now.ToString("H:mm:ss zzz"));
+            //sw.Write(temps_init, 0, temps_init.Length);
+            sw.Write(DateTime.Now.ToString("H:mm:ss.fff"));
+
+            //stopWatch.Stop();
+            //TimeSpan ts = stopWatch.Elapsed;
+            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            //stopWatch.Start();
+
+            //sw.Write("\n verif " + elapsedTime);
+        }
+    }
+
     public void SpawnObject()
     {
         if(VariablesHolder.GameSpeed == 1)
@@ -297,6 +322,7 @@ public class TimeSapwner : MonoBehaviour {
                     CancelInvoke("SpawnObject");
                 }
                 order++;
+                CreateCheckpoint("Spawn");
                 PauseMenu.clickPosition += 1;
                 PauseMenu.SameObject = false;
             }

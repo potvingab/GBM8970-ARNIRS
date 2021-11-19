@@ -53,11 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\C# Scripts\#C script Khadija\BLUE.cs" />
-     <Compile Include="Assets\C# Scripts\#C script Khadija\GREEN.cs" />
-     <Compile Include="Assets\C# Scripts\#C script Khadija\Questions.cs" />
-     <Compile Include="Assets\C# Scripts\#C script Khadija\RED.cs" />
-     <Compile Include="Assets\C# Scripts\#C script Khadija\SceneSwitcher.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\BoolArrayHolder.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\FileName.cs" />
      <Compile Include="Assets\C# Scripts\MainSceneScripts\MainMenu.cs" />
@@ -73,12 +68,14 @@
      <Compile Include="Assets\C# Scripts\MenuScripts\ChooseParadigm.cs" />
      <Compile Include="Assets\C# Scripts\MenuScripts\Sequence.cs" />
      <Compile Include="Assets\C# Scripts\MenuScripts\VariablesHolderStroop.cs" />
-     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\Destroyer.cs" />
-     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\Move.cs" />
-     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\PauseMenu.cs" />
-     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\SpeedChanger.cs" />
-     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\test.cs" />
-     <Compile Include="Assets\C# Scripts\SampleSceneSciprts\TimeSapwner.cs" />
+     <Compile Include="Assets\C# Scripts\NBackScripts\Destroyer.cs" />
+     <Compile Include="Assets\C# Scripts\NBackScripts\Move.cs" />
+     <Compile Include="Assets\C# Scripts\NBackScripts\PauseMenu.cs" />
+     <Compile Include="Assets\C# Scripts\NBackScripts\SpeedChanger.cs" />
+     <Compile Include="Assets\C# Scripts\NBackScripts\test.cs" />
+     <Compile Include="Assets\C# Scripts\NBackScripts\TimeSapwner.cs" />
+     <Compile Include="Assets\C# Scripts\StroopScripts\Answer.cs" />
+     <Compile Include="Assets\C# Scripts\StroopScripts\Questions.cs" />
      <Compile Include="Assets\MetaSDK\Meta\Binding\Api\ButtonApi.cs" />
      <Compile Include="Assets\MetaSDK\Meta\Binding\Api\CameraApi.cs" />
      <Compile Include="Assets\MetaSDK\Meta\Binding\Api\CompositorApi.cs" />

@@ -10,7 +10,8 @@ public class Answer : MonoBehaviour {
 
     public GameObject selectedAnswersShown; // List of selected answers shown in the searcher's view
     public GameObject colorButton; // Button selected by the participant (RED, BLUE or GREEN)
-	public static string color; // Color of the button (RED, BLUE or GREEN)
+
+    public static string color; // Color of the button (RED, BLUE or GREEN)
 
     public void changeText()
     {

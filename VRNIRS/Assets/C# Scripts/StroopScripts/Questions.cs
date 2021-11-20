@@ -14,9 +14,9 @@ public class Questions : MonoBehaviour
 
     // Objects in participant's view
     public GameObject questionHolder;
-    public Button redButton;
-    public Button greenButton;
-    public Button blueButton;
+    public GameObject redButton;
+    public GameObject greenButton;
+    public GameObject blueButton;
 
     // Objectfs in searcher's view
     public GameObject timer;

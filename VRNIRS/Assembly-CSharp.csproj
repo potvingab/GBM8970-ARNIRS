@@ -76,6 +76,7 @@
      <Compile Include="Assets\C# Scripts\NBackScripts\TimeSapwner.cs" />
      <Compile Include="Assets\C# Scripts\StroopScripts\Answer.cs" />
      <Compile Include="Assets\C# Scripts\StroopScripts\Questions.cs" />
+     <Compile Include="Assets\C# Scripts\StroopScripts\Response.cs" />
      <Compile Include="Assets\MetaSDK\Meta\Binding\Api\ButtonApi.cs" />
      <Compile Include="Assets\MetaSDK\Meta\Binding\Api\CameraApi.cs" />
      <Compile Include="Assets\MetaSDK\Meta\Binding\Api\CompositorApi.cs" />
@@ -407,7 +408,6 @@
      <Compile Include="Assets\MetaSDK\MetaExamples\Assets\Scripts\GazeExampleScript.cs" />
      <Compile Include="Assets\MetaSDK\MetaExamples\Assets\Scripts\MetaPointCloudExample.cs" />
      <Compile Include="Assets\MetaSDK\MetaExamples\Assets\Scripts\SwipeIntensityLightControl.cs" />
-     <Compile Include="Assets\Response.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

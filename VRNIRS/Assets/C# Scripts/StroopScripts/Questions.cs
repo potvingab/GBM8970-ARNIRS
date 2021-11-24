@@ -37,6 +37,7 @@ public class Questions : MonoBehaviour
     public static int numCorrectAnswers = 0;
     public static int numTotalAnswers = 0;
     public static bool flagEndTimer = false;
+    public static bool flagBeginTimer = false;
 
     // An instance is needed to use the method "CreateNewRandomQuestion" in other scripts
     void Awake()
@@ -69,41 +70,45 @@ public class Questions : MonoBehaviour
 
     void Update()
     {
-        // Each second, if there's still time on the timer, print the time and decrease it
-        if (timeValue > 0)
+        if (flagBeginTimer == true)
         {
-            timer.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Time left: {0:00}", Mathf.FloorToInt(timeValue));
-            timeValue -= Time.deltaTime;
-        }
-        // If there's not time left
-        else
-        {
-            if (flagEndTimer == false)
+            // Each second, if there's still time on the timer, print the time and decrease it
+            if (timeValue > 0)
             {
-                // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
-                for (int i=0; i<selectedAnswers.Count; i++)
+                timer.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Time left: {0:00}", Mathf.FloorToInt(timeValue));
+                timeValue -= Time.deltaTime;
+            }
+            // If there's not time left
+            else
+            {
+                if (flagEndTimer == false)
                 {
-                    if (correctAnswers[i] == selectedAnswers[i])
+                    // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
+                    for (int i=0; i<selectedAnswers.Count; i++)
                     {
-                        numCorrectAnswers += 1;
+                        if (correctAnswers[i] == selectedAnswers[i])
+                        {
+                            numCorrectAnswers += 1;
+                        }
                     }
+                    // Show the result
+                    totalResults.gameObject.SetActive(true);
+                    totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
+                    // Show the button "Continue"
+                    buttonContinue.gameObject.SetActive(true);
+                    // Change the text of the questionHolder to "END"
+                    questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
+                    questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
+                    // Hide the green, red and blue buttons
+                    greenButton.gameObject.SetActive(false);
+                    redButton.gameObject.SetActive(false);
+                    blueButton.gameObject.SetActive(false);
+                    // Change the flag to compute the result only one time
+                    flagEndTimer = true;
                 }
-                // Show the result
-                totalResults.gameObject.SetActive(true);
-                totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
-                // Show the button "Continue"
-                buttonContinue.gameObject.SetActive(true);
-                // Change the text of the questionHolder to "END"
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
-                // Hide the green, red and blue buttons
-                greenButton.gameObject.SetActive(false);
-                redButton.gameObject.SetActive(false);
-                blueButton.gameObject.SetActive(false);
-                // Change the flag to compute the result only one time
-                flagEndTimer = true;
             }
         }
+        
     }
     public void EndTest()
     {
@@ -118,6 +123,10 @@ public class Questions : MonoBehaviour
         timeValue = VariablesHolderStroop.stroopTrialTime;
         numCorrectAnswers = 0;
         numTotalAnswers = 0;
+    }
+    public void StartTimer()
+    {
+        flagBeginTimer = true;
     }
 
 }

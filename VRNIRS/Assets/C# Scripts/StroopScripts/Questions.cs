@@ -58,6 +58,8 @@ public class Questions : MonoBehaviour
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
         // Change the color of questionHolder to the random color
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
+        Response.CreateCheckpoint("Question");
+        Response.TriggerArduino("0");
     }
 
     void Start()

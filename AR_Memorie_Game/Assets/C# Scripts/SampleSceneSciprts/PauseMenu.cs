@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Ports;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
+    public static SerialPort serialPort = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
     public static bool GameIsPaused = false;
 
     public static bool SameObject = false;
@@ -98,7 +100,10 @@ public class PauseMenu : MonoBehaviour {
                     SameObject = true;
                     clicks[clickPosition] = currentLevelString;
 
-                    CreateCheckpoint("Same");
+                    TimeSapwner.CreateCheckpoint("Same");
+                    serialPort.Open();
+                    serialPort.WriteLine("0");
+                    serialPort.Close();
                 }
                 if (Input.GetKeyDown(KeyCode.D))
                 {
@@ -111,7 +116,10 @@ public class PauseMenu : MonoBehaviour {
                     SameObject = true;
                     clicks[clickPosition] = currentLevelString;
 
-                    CreateCheckpoint("Diff");
+                    TimeSapwner.CreateCheckpoint("Diff");
+                    serialPort.Open();
+                    serialPort.WriteLine("0");
+                    serialPort.Close();
                 }
             }
             ChangeText();
@@ -421,7 +429,7 @@ public class PauseMenu : MonoBehaviour {
         SaveCondition = true;
     }
 
-    public void CreateCheckpoint(string nom)
+    /*public void CreateCheckpoint(string nom)
     {
 
         string fileName = @"C:\Users\achil\TempsVRNIRS.txt";
@@ -443,7 +451,7 @@ public class PauseMenu : MonoBehaviour {
 
             //sw.Write("\n verif " + elapsedTime);
         }
-    }
+    }*/
 }
 
 

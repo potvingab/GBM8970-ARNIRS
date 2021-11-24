@@ -4,9 +4,11 @@ using UnityEngine;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Ports;
 
 public class TimeSapwner : MonoBehaviour {
 
+    public static SerialPort serialPort = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
     public Transform spawnPos1;
     public Transform spawnPos2;
     public Transform spawnPos3;
@@ -65,8 +67,6 @@ public class TimeSapwner : MonoBehaviour {
     public static string[] levelNames = { "Tutorial 1", "Tutorial 2", "Tutorial 3", "Tutotial 4",
         "Tutotial 5", "Tutotial 6", "Tutotial 7", "Level 1", "Level 2", "Level 3", "Level 4",
     "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12"};
-
-
 
     public static int[] spawneeWanted;
 
@@ -168,7 +168,7 @@ public class TimeSapwner : MonoBehaviour {
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
 	}
 
-    public void CreateCheckpoint(string nom)
+    public static void CreateCheckpoint(string nom)
     {
 
         string fileName = @"C:\Users\achil\TempsVRNIRS.txt";
@@ -323,6 +323,9 @@ public class TimeSapwner : MonoBehaviour {
                 }
                 order++;
                 CreateCheckpoint("Spawn");
+                serialPort.Open();
+                serialPort.WriteLine("1");
+                serialPort.Close();
                 PauseMenu.clickPosition += 1;
                 PauseMenu.SameObject = false;
             }

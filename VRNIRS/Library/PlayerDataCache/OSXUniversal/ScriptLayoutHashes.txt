@@ -3,6 +3,7 @@ PlayerPath?
 /Users/gabrielpotvin/Desktop/jupyter/Projet/GBM8970-VRNIRS/build_mac2/README.app
 SceneListBegin?
 Assets/Scenes/Menu.unity
+Assets/Scenes/Instruction.unity
 Assets/Scenes/Stroop.unity
 SceneListEnd?
 356f946af3435fb2320301f90dee50fa Assembly-CSharp.dll:Meta.HandInput.Utility.InteractionVisualManager
@@ -157,7 +158,8 @@ d06d3fc8e0de98f324846ac023270b62 Assembly-CSharp.dll:Meta.Mouse.MetaInputModule
 a8b6a2fe7c6fc02ed10e67f701c49964 Assembly-CSharp.dll:Meta.AlignToHeadset
 382b8ef512fa8d6108723a01b57af65b UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 d22c788799ee45d8676254eccf20e8b8 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
-266815199421d8168e60295d42469f9a Assembly-CSharp.dll:.Questions
+3f79490549f41e5cb4f176308fdafe18 Assembly-CSharp.dll:.Sequence
+665622cff03e2954fa2dda938abafb56 Assembly-CSharp.dll:.Questions
 43c22f3dae461a0a051c392da749be40 Assembly-CSharp.dll:TMPro.Examples.WarpTextExample
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaBehaviourInternal
 d75dc834c5dec688db75a55a1724c90f UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -171,6 +173,7 @@ e28b89b5b885bc04cc8af40b8c40c642 Assembly-CSharp.dll:.RealistBool
 accac87204353b11aafb0586d24b8851 Assembly-CSharp.dll:Meta.Reconstruction.EnvironmentScanController
 1655e5cbdafc3f52a798a8128c8c7c12 Assembly-CSharp.dll:TMPro.TMP_TextEventHandler
 34d219cdf8a72aef75c203b036a85318 Assembly-CSharp.dll:TMPro.Examples.Benchmark01
+f6e59526852db1063dd24b0bf5f4910f Assembly-CSharp.dll:.Response
 ab87db8f56b1cab792c727ea752ddd6d Assembly-CSharp.dll:Meta.Buttons.SoundEffectTrigger
 5272004824313f74260855c06ceec105 Assembly-CSharp.dll:Meta.Buttons.MetaButtonGameObjectEventBroadcaster
 24a0c34e1b3e8900ad212214811f9936 Assembly-CSharp.dll:Meta.SlamUI.SlamUIMessages
@@ -194,6 +197,7 @@ ec03df613a42d839a8e63829ef87b010 Assembly-CSharp.dll:Meta.Events.AudioEventTrigg
 486cd95c82d8305219c352c06b776e1f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.Extensions.QuaternionExtensions
 1dab5b2440e011188e5c627f5102bd43 Assembly-CSharp.dll:Meta.Mouse.MetaMouseCursorState
+0b76ec22ff665fca1c17b7a5cd2c48c0 Assembly-CSharp.dll:.ChooseParadigm
 d4bce373b5388e04f022573ef6e20c4f Assembly-CSharp.dll:Meta.Buttons.CubeButtonEventReaction
 4d5e54e84c4a4e2f9b56f797337c1353 Assembly-CSharp.dll:Meta.Examples.SwipeIntensityLightControl
 1ab9c1b147f5070484fa96a05764dab4 Assembly-CSharp.dll:Meta.HandsProvider
@@ -204,8 +208,6 @@ eaf0bcdb10d442a4029d615f41d09957 Unity.TextMeshPro.dll:TMPro.TextContainer
 59836d25a498568b8f417e74aa6ba1e0 Assembly-CSharp.dll:Meta.Mouse.DragScale
 e5930b3f3763871ca43745d91dd968d4 Assembly-CSharp.dll:.ChatController
 2eb3a23d57b9cae436b3a319c8c34e10 Assembly-CSharp.dll:Meta.GrabInteraction
-486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.SceneSwitcher
-e89e5d7fa6259e0df52cc9681ff8dfe4 Assembly-CSharp.dll:.GREEN
 2eb3a23d57b9cae436b3a319c8c34e10 Assembly-CSharp.dll:Meta.TwoHandGrabInteraction
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.test
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.TestingPlayerPrefs
@@ -254,8 +256,8 @@ e033f131358cea5a0eabf9561e781deb UnityEngine.TestRunner.dll:UnityEngine.TestTool
 70f7dc248db3379548a88e8d4fa049f8 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 28a95668dd28649297d595834fe8417e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 28a95668dd28649297d595834fe8417e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
-a5da8566d94f948e07fc071c3c6650e8 Assembly-CSharp.dll:.BLUE
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:TMPro.Examples.SimpleScript
+49fc60bf4d51ee65c8db19f9aa0d9aa5 Assembly-CSharp.dll:.Answer
 9597aee016b0a8fa3d8229c079402e96 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.XYSwipeMonitor
 1a90b221dc803408fbafa883c12bcab4 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioListenerExtension
 70f7dc248db3379548a88e8d4fa049f8 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
@@ -304,7 +306,6 @@ c285c6b14dec4aba47b8d201cc3868bb Assembly-CSharp.dll:Meta.Audio.AudioRandomizer
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.SetText
 e04611b8715e6833d2bd7010fc6be10b Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 8ce712c004fddf1ebc65ee6757cd994e Assembly-CSharp.dll:TMPro.Examples.TMPro_InstructionOverlay
-e89e5d7fa6259e0df52cc9681ff8dfe4 Assembly-CSharp.dll:.RED
 dc3e9b8514fadbd51a31b2cf29aa0a06 Assembly-CSharp.dll:Meta.BoundaryChecker
 190293f34685b9382ac31c3887ffeea1 Assembly-CSharp.dll:.MetaPointCloudExample
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:TMPro.Examples.TeleType
@@ -315,6 +316,7 @@ d6847627ba7741c18a9d5258fc293648 Assembly-CSharp.dll:TMPro.Examples.VertexShakeA
 dd223b2cbb523615eee8980d99d61ddd Assembly-CSharp.dll:.EnvMapAnimator
 c38aaac7fc9376a2d4cc310fb0172381 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.SwipeOneAxisRotationInteraction
 93307bd34e39d73fd24e00ec39c25a91 Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
+1bd0cd4940f9c1e7121fe6a73d047cdb Assembly-CSharp.dll:.VariablesHolderStroop
 5f8415495e4b8aa77fc6e1060031812e Assembly-CSharp.dll:Meta.WebcamOffCanvasHandler
 6733ec7d71a3e6397f2d71ad33f9c329 Assembly-CSharp.dll:.TestFichierTemps
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaContextBridge
@@ -323,6 +325,3 @@ c38aaac7fc9376a2d4cc310fb0172381 Assembly-CSharp.dll:Meta.HandInput.SwipeInterac
 c053eca1fa93f9e791d4f2670ad69004 Assembly-CSharp.dll:Meta.SlamTrackingMessageController
 59e67af6cc97c60b8dbce3167a17c5ec Assembly-CSharp.dll:Meta.TurnTableInteraction
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.VariablesHolder
-3f79490549f41e5cb4f176308fdafe18 Assembly-CSharp.dll:.Sequence
-0b76ec22ff665fca1c17b7a5cd2c48c0 Assembly-CSharp.dll:.ChooseParadigm
-1bd0cd4940f9c1e7121fe6a73d047cdb Assembly-CSharp.dll:.VariablesHolderStroop

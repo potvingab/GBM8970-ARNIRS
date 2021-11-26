@@ -26,12 +26,6 @@ public class Response : Interaction
     protected override void Engage() // When it's in the zone, hand close
     {
         _handFeature = GrabbingHands[0];
-        if (_handFeature == null)
-        {
-            _selectedGameObject = Instantiate(cube); //create a clone to move  object
-
-        }
-        Debug.Log("Button grabbed");
         changeText();
     }
 

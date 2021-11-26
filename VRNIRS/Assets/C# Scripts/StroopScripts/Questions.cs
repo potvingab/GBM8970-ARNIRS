@@ -52,6 +52,7 @@ public class Questions : MonoBehaviour
 
     public void CreateNewRandomQuestion()
     {
+        Debug.Log("CreateQuestion");
         // Sample random indices between 0 and 2
         indexRandQuestion = UnityEngine.Random.Range(0, 3);
         indexRandColor = UnityEngine.Random.Range(0, 3);
@@ -63,10 +64,9 @@ public class Questions : MonoBehaviour
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
         // Change the color of questionHolder to the random color
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
+        timeStartQuestion = DateTime.Now;
         Response.CreateCheckpoint("Question");
         Response.TriggerArduino("0");
-        Questions.timeStartQuestion = DateTime.Now;
-        Debug.Log(Questions.timeStartQuestion);
     }
 
     void Start()
@@ -75,7 +75,6 @@ public class Questions : MonoBehaviour
         buttonContinue.gameObject.SetActive(false);
         totalResults.gameObject.SetActive(false);
         averageResponseTime.gameObject.SetActive(false);
-        CreateNewRandomQuestion();
     }
 
     void Update()
@@ -102,11 +101,6 @@ public class Questions : MonoBehaviour
                         }
                     }
                     // Show the result
-                    timeEndQuestion = DateTime.Now; // a supprimer
-                    Debug.Log(timeEndQuestion);
-                    Debug.Log(Questions.timeStartQuestion);
-                    Debug.Log((timeEndQuestion - timeStartQuestion).TotalMilliseconds);
-                    responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalMilliseconds); // a supprimer
                     totalResults.gameObject.SetActive(true);
                     totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
                     averageResponseTime.gameObject.SetActive(true);
@@ -145,6 +139,7 @@ public class Questions : MonoBehaviour
     {
         flagBeginTimer = true;
         Response.CreateCheckpoint("StartOfTheTimer");
+        CreateNewRandomQuestion();
     }
 
 }

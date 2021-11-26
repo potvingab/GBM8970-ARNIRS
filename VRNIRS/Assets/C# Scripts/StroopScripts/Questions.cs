@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,6 +24,7 @@ public class Questions : MonoBehaviour
     public GameObject totalResults;
     public Button buttonContinue;
     public GameObject correctAnswersShown;
+    public GameObject averageResponseTime;
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.stroopTrialTime; 
@@ -38,6 +40,9 @@ public class Questions : MonoBehaviour
     public static int numTotalAnswers = 0;
     public static bool flagEndTimer = false;
     public static bool flagBeginTimer = false;
+    public static List<double> responseTimes = new List<double>();
+    public static DateTime timeStartQuestion;
+    public static DateTime timeEndQuestion;
 
     // An instance is needed to use the method "CreateNewRandomQuestion" in other scripts
     void Awake()
@@ -48,18 +53,19 @@ public class Questions : MonoBehaviour
     public void CreateNewRandomQuestion()
     {
         // Sample random indices between 0 and 2
-        indexRandQuestion = Random.Range(0, 3);
-        indexRandColor = Random.Range(0, 3);
+        indexRandQuestion = UnityEngine.Random.Range(0, 3);
+        indexRandColor = UnityEngine.Random.Range(0, 3);
         // Change the text of questionHolder to the random question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
         Debug.Log(possibleQuestions[indexRandQuestion]);
         // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexRandQuestion]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+        correctAnswers.Add(possibleQuestions[indexRandColor]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
         // Change the color of questionHolder to the random color
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
         Response.CreateCheckpoint("Question");
         Response.TriggerArduino("0");
+        timeStartQuestion = DateTime.Now;
     }
 
     void Start()
@@ -67,6 +73,7 @@ public class Questions : MonoBehaviour
         // The button "Continue" and the result are hidden in the beginning
         buttonContinue.gameObject.SetActive(false);
         totalResults.gameObject.SetActive(false);
+        averageResponseTime.gameObject.SetActive(false);
         CreateNewRandomQuestion();
     }
 
@@ -94,8 +101,12 @@ public class Questions : MonoBehaviour
                         }
                     }
                     // Show the result
+                    timeEndQuestion = DateTime.Now; // a supprimer
+                    responseTimes.Add((Questions.timeEndQuestion - Questions.timeStartQuestion).TotalMilliseconds); // a supprimer
                     totalResults.gameObject.SetActive(true);
                     totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
+                    averageResponseTime.gameObject.SetActive(true);
+                    averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time (sec): " + Queryable.Average(responseTimes.AsQueryable()).ToString();
                     // Show the button "Continue"
                     buttonContinue.gameObject.SetActive(true);
                     // Change the text of the questionHolder to "END"
@@ -129,6 +140,7 @@ public class Questions : MonoBehaviour
     public void StartTimer()
     {
         flagBeginTimer = true;
+        Response.CreateCheckpoint("StartOfTheTimer");
     }
 
 }

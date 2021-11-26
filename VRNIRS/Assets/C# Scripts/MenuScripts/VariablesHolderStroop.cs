@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VariablesHolderStroop : MonoBehaviour {
-	// Values to store
-	public static string stroopGameMode;
-	public static int stroopTrialTime;
+	// Values to store (with default values)
+	public static string stroopGameMode; // "Random" or "Fixed"
+	public static int stroopTrialTime; // Trial time in seconds
 	public static int stroopNumberTrials;
-	public static List<string> stroopSequence = new List<string>();
+	public static List<string> stroopSequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
 	public static List<int> stroopSequenceLevels = new List<int>();
-	// Where to find the values
+	public static string arduinoPort = "COM3";
+	public static string fileName;
+	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;
 	public GameObject Dropdown1;
@@ -28,13 +31,9 @@ public class VariablesHolderStroop : MonoBehaviour {
 	public GameObject DropdownLevel6;
 	public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
-
-	void Start () {
-		// Default values
-		stroopGameMode = "Fixed";
-		stroopTrialTime = 90;
-		stroopNumberTrials = 1;
-	}
+	// Where to find the values (FileName scene)
+	public GameObject inputFileName;
+	public GameObject inputArduinoPort;
 	
 	public void ChangeParameters() {
 		// Update "time (one trial)"
@@ -42,11 +41,13 @@ public class VariablesHolderStroop : MonoBehaviour {
 		if (stroopTrialTime == 0){
 			stroopTrialTime = 90;
 		}
+		Debug.Log("Trial time: " + stroopTrialTime);
 		// Update "number of trials"
 		int.TryParse(inputNumberTrials.GetComponent<Text>().text, out stroopNumberTrials);
 		if (stroopNumberTrials == 0){
 			stroopNumberTrials = 1;
 		}
+		Debug.Log("Number of trials: " + stroopNumberTrials);
 		// Update "sequence"
 		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6 };
 		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6 };
@@ -54,6 +55,8 @@ public class VariablesHolderStroop : MonoBehaviour {
 			stroopSequence.Add(Dropdowns[i].GetComponent<Text>().text);
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].GetComponent<Text>().text));
 		}
+		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
+		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()));
 		// Update "game mode"
 		if (ButtonRandom.GetComponent<Toggle>().isOn == true){
 			stroopGameMode = "Random";
@@ -61,5 +64,16 @@ public class VariablesHolderStroop : MonoBehaviour {
 		else{
 			stroopGameMode = "Fixed";
 		}
+		Debug.Log("Game mode: " + stroopGameMode);
+		Response.CreateCheckpoint("EndOfMenu");
+	}
+
+	public void ChangeFileNameAndPort() {
+		// Update "file name"
+		fileName = inputFileName.GetComponent<TMPro.TextMeshProUGUI>().text;
+		Debug.Log("File name: " + fileName);
+		// Update "Arduino port"
+		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
+		Debug.Log("Arduino port: " + arduinoPort);
 	}
 }

@@ -65,7 +65,8 @@ public class Questions : MonoBehaviour
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
         Response.CreateCheckpoint("Question");
         Response.TriggerArduino("0");
-        timeStartQuestion = DateTime.Now;
+        Questions.timeStartQuestion = DateTime.Now;
+        Debug.Log(Questions.timeStartQuestion);
     }
 
     void Start()
@@ -102,7 +103,10 @@ public class Questions : MonoBehaviour
                     }
                     // Show the result
                     timeEndQuestion = DateTime.Now; // a supprimer
-                    responseTimes.Add((Questions.timeEndQuestion - Questions.timeStartQuestion).TotalMilliseconds); // a supprimer
+                    Debug.Log(timeEndQuestion);
+                    Debug.Log(Questions.timeStartQuestion);
+                    Debug.Log((timeEndQuestion - timeStartQuestion).TotalMilliseconds);
+                    responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalMilliseconds); // a supprimer
                     totalResults.gameObject.SetActive(true);
                     totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
                     averageResponseTime.gameObject.SetActive(true);

@@ -70,18 +70,19 @@ public class Response : Interaction
 
     public void changeText()
     {
+        Debug.Log("ChangeText");
         Questions.timeEndQuestion = DateTime.Now;
         Questions.responseTimes.Add((Questions.timeEndQuestion - Questions.timeStartQuestion).TotalSeconds);
         // Add the answer selected by the participant (RED, BLUE or GREEN) to the list of selectedAnswers
         Questions.selectedAnswers.Add(color);
         // Add the selected answer to the list shown in the searcher's view
         selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (color + " ");
-        CreateCheckpoint("Response: " + color);
-        TriggerArduino("1");
         // Increase the total number of answers
         Questions.numTotalAnswers += 1;
         // Create and show a new random question
         Questions.Instance.CreateNewRandomQuestion();
+        CreateCheckpoint("Response: " + color);
+        TriggerArduino("1");
     }
 
 }

@@ -44,10 +44,26 @@ public class Questions : MonoBehaviour
     public static DateTime timeStartQuestion;
     public static DateTime timeEndQuestion;
 
+    // Pages of the scene
+    public GameObject canvasChercheurInstructions;
+    public GameObject canvasChercheurJeu;
+    public GameObject canvasParticipantInstructions;
+    public GameObject canvasParticipantJeu;
+
     // An instance is needed to use the method "CreateNewRandomQuestion" in other scripts
     void Awake()
     {
         Instance = this;
+        canvasChercheurInstructions.SetActive(true);
+        canvasParticipantInstructions.SetActive(true);
+		canvasChercheurJeu.SetActive(false);
+        canvasParticipantJeu.SetActive(false);
+        if (VariablesHolderStroop.useMeta == false){
+            GameObject metaCamera = GameObject.Find("MetaCameraRig");
+            GameObject metaHands = GameObject.Find("MetaHands");
+            Destroy(metaCamera);
+            Destroy(metaHands);
+        }
     }
 
     public void CreateNewRandomQuestion()
@@ -67,14 +83,6 @@ public class Questions : MonoBehaviour
         timeStartQuestion = DateTime.Now;
         Response.CreateCheckpoint("Question");
         Response.TriggerArduino("0");
-    }
-
-    void Start()
-    {
-        // The button "Continue" and the result are hidden in the beginning
-        buttonContinue.gameObject.SetActive(false);
-        totalResults.gameObject.SetActive(false);
-        averageResponseTime.gameObject.SetActive(false);
     }
 
     void Update()
@@ -101,9 +109,12 @@ public class Questions : MonoBehaviour
                         }
                     }
                     // Show the result
-                    totalResults.gameObject.SetActive(true);
                     totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
-                    averageResponseTime.gameObject.SetActive(true);
+                    if (responseTimes.Count==0)
+                    {
+                        timeEndQuestion = DateTime.Now;
+                        responseTimes.Add((Questions.timeEndQuestion - Questions.timeStartQuestion).TotalSeconds);
+                    }
                     averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time (sec): " + Queryable.Average(responseTimes.AsQueryable()).ToString();
                     // Show the button "Continue"
                     buttonContinue.gameObject.SetActive(true);
@@ -139,6 +150,10 @@ public class Questions : MonoBehaviour
     {
         flagBeginTimer = true;
         Response.CreateCheckpoint("StartOfTheTimer");
+        canvasChercheurInstructions.SetActive(false);
+        canvasParticipantInstructions.SetActive(false);
+		canvasChercheurJeu.SetActive(true);
+        canvasParticipantJeu.SetActive(true);
         CreateNewRandomQuestion();
     }
 

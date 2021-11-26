@@ -14,6 +14,7 @@ public class VariablesHolderStroop : MonoBehaviour {
 	public static List<int> stroopSequenceLevels = new List<int>();
 	public static string arduinoPort = "COM3";
 	public static string fileName;
+	public static bool useMeta;
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;
@@ -31,9 +32,26 @@ public class VariablesHolderStroop : MonoBehaviour {
 	public GameObject DropdownLevel6;
 	public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
+	public GameObject ToggleMeta;
 	// Where to find the values (FileName scene)
 	public GameObject inputFileName;
 	public GameObject inputArduinoPort;
+	// Pages of the scene
+	public GameObject paradigmChoicePage;
+	public GameObject FileNameNBackPage;
+	public GameObject FileNameStroopPage;
+	public GameObject OptionsNBackPage;
+	public GameObject OptionsStroopPage;
+	public GameObject Options3DPage;
+
+	void Awake(){
+		paradigmChoicePage.SetActive(true);
+		FileNameNBackPage.SetActive(false);
+		FileNameStroopPage.SetActive(false);
+		OptionsNBackPage.SetActive(false);
+		OptionsStroopPage.SetActive(false);
+		Options3DPage.SetActive(false);
+	}
 	
 	public void ChangeParameters() {
 		// Update "time (one trial)"
@@ -66,6 +84,7 @@ public class VariablesHolderStroop : MonoBehaviour {
 		}
 		Debug.Log("Game mode: " + stroopGameMode);
 		Response.CreateCheckpoint("EndOfMenu");
+		useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
 	}
 
 	public void ChangeFileNameAndPort() {

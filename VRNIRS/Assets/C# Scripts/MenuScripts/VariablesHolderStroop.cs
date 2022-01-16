@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using SFB;
+using TMPro;
 
 public class VariablesHolderStroop : MonoBehaviour {
 	// Values to store (with default values)
@@ -55,13 +58,15 @@ public class VariablesHolderStroop : MonoBehaviour {
 	
 	public void ChangeParameters() {
 		// Update "time (one trial)"
-		int.TryParse(inputTime.GetComponent<Text>().text, out stroopTrialTime);
+		//int.TryParse(inputTime.GetComponent<Text>().text, out stroopTrialTime);
+		int.TryParse(inputTime.GetComponent<TMP_InputField>().text, out stroopTrialTime);
 		if (stroopTrialTime == 0){
 			stroopTrialTime = 90;
 		}
 		Debug.Log("Trial time: " + stroopTrialTime);
 		// Update "number of trials"
-		int.TryParse(inputNumberTrials.GetComponent<Text>().text, out stroopNumberTrials);
+		//int.TryParse(inputNumberTrials.GetComponent<Text>().text, out stroopNumberTrials);
+		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out stroopNumberTrials);
 		if (stroopNumberTrials == 0){
 			stroopNumberTrials = 1;
 		}
@@ -94,5 +99,56 @@ public class VariablesHolderStroop : MonoBehaviour {
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
+	}
+
+	public void SaveParameters(){
+		ChangeParameters();
+		string[] parameters = {"AR Stroop Study Parameters", "Trial Time:" + stroopTrialTime.ToString(), "Number Trials:" + stroopNumberTrials.ToString(), "Sequence:" + String.Join(",", stroopSequence.ToArray()), "Sequence Levels:" + String.Join(",", stroopSequenceLevels.Select(x => x.ToString()).ToArray()), "Game Mode:" + stroopGameMode, "Use Meta:" + useMeta.ToString()};
+		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
+		if (!string.IsNullOrEmpty(path)) {
+            File.WriteAllText(path, string.Join("\n", parameters));
+        }
+	}
+
+	public void LoadParameters(){
+		// TODO: Dropdowns en TMPro pour arranger bug (pas modification)
+		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+		if (path.Length > 0) {
+            string allParameters = File.ReadAllText(path[0]);
+			Debug.Log(allParameters);
+			string[] parameters = allParameters.Split('\n');
+			Debug.Log(parameters[1].Split(':')[1]);
+	
+			//inputTime.GetComponent<Text>().text = parameters[1].Split(':')[1];
+			inputTime.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
+
+			int.TryParse(parameters[2].Split(':')[1], out stroopNumberTrials);
+			//inputNumberTrials.GetComponent<Text>().text = stroopNumberTrials.ToString();
+			inputNumberTrials.GetComponent<TMP_InputField>().text = stroopNumberTrials.ToString();
+			Sequence.Instance.StoreNumber();
+
+			string[] seq = parameters[3].Split(':')[1].Split(',');
+			string[] seqLevels = parameters[4].Split(':')[1].Split(',');
+			var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6 };
+			var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6 };
+			for (int i = 0; i < seq.Length; i++) {
+				Dropdowns[i].GetComponent<Text>().text = seq[i];
+				DropdownsLevel[i].GetComponent<Text>().text = seqLevels[i];
+			}
+
+			if (parameters[5].Split(':')[1] == "Random"){
+				ButtonRandom.GetComponent<Toggle>().isOn = true;
+			}
+			else{
+				ButtonRandom.GetComponent<Toggle>().isOn = false;
+			}
+
+			if (parameters[6].Split(':')[1] == "True"){
+				ToggleMeta.GetComponent<Toggle>().isOn = true;
+			}
+			else{
+				ToggleMeta.GetComponent<Toggle>().isOn = false;
+			}
+        }
 	}
 }

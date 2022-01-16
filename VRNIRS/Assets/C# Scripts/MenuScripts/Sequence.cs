@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Sequence : MonoBehaviour {
+
+	public static Sequence Instance;
 
 	public static int numberTrials = 1;
 	public GameObject inputField;
@@ -19,8 +22,14 @@ public class Sequence : MonoBehaviour {
 	public GameObject DropdownLevel5;
 	public GameObject DropdownLevel6;
 
+	void Awake()
+    {
+        Instance = this;
+	}
+
 	public void StoreNumber() {
-		string nb = inputField.GetComponent<Text>().text;
+		//string nb = inputField.GetComponent<Text>().text;
+		string nb = inputField.GetComponent<TMP_InputField>().text;
 		int.TryParse(nb, out numberTrials);
 
 		if (numberTrials == 1){

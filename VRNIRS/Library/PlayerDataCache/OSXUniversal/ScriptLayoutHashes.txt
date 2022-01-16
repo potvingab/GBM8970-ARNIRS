@@ -159,7 +159,7 @@ a8b6a2fe7c6fc02ed10e67f701c49964 Assembly-CSharp.dll:Meta.AlignToHeadset
 382b8ef512fa8d6108723a01b57af65b UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 d22c788799ee45d8676254eccf20e8b8 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
 3f79490549f41e5cb4f176308fdafe18 Assembly-CSharp.dll:.Sequence
-665622cff03e2954fa2dda938abafb56 Assembly-CSharp.dll:.Questions
+5e7feda6ffb76024a05e1859f85b1f24 Assembly-CSharp.dll:.Questions
 43c22f3dae461a0a051c392da749be40 Assembly-CSharp.dll:TMPro.Examples.WarpTextExample
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaBehaviourInternal
 d75dc834c5dec688db75a55a1724c90f UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -299,6 +299,7 @@ eabb14b55dc317646709e1aaab0543fb Assembly-CSharp.dll:TMPro.Examples.Benchmark02
 bf424c287838e2eb6351a9a2e4f32960 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.SwipeXYRotateInteraction
 e21aa24dc1e5198def592b9315c3a77c Assembly-CSharp.dll:.ModelAnimation
 9ecabe4a6b0b699f4890bde3b3e4b3b9 Assembly-CSharp.dll:TMPro.Examples.TMP_UiFrameRateCounter
+ac23ae7a6030077394efdc31f1243fa5 Assembly-CSharp.dll:.ChooseFolder
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:TMPro.Examples.VertexColorCycler
 7e7ee21ab8ff1f2eb206565d6caa2bfd Assembly-CSharp.dll:TMPro.Examples.VertexZoom
 42b7b3d8edbc0bb5ea51574c36843314 Assembly-CSharp.dll:Meta.HandInput.SpeedDehooker
@@ -316,7 +317,7 @@ d6847627ba7741c18a9d5258fc293648 Assembly-CSharp.dll:TMPro.Examples.VertexShakeA
 dd223b2cbb523615eee8980d99d61ddd Assembly-CSharp.dll:.EnvMapAnimator
 c38aaac7fc9376a2d4cc310fb0172381 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.SwipeOneAxisRotationInteraction
 93307bd34e39d73fd24e00ec39c25a91 Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
-1bd0cd4940f9c1e7121fe6a73d047cdb Assembly-CSharp.dll:.VariablesHolderStroop
+c9236e131b6207c54eafe4ff5377c524 Assembly-CSharp.dll:.VariablesHolderStroop
 5f8415495e4b8aa77fc6e1060031812e Assembly-CSharp.dll:Meta.WebcamOffCanvasHandler
 6733ec7d71a3e6397f2d71ad33f9c329 Assembly-CSharp.dll:.TestFichierTemps
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaContextBridge
@@ -325,3 +326,9 @@ c38aaac7fc9376a2d4cc310fb0172381 Assembly-CSharp.dll:Meta.HandInput.SwipeInterac
 c053eca1fa93f9e791d4f2670ad69004 Assembly-CSharp.dll:Meta.SlamTrackingMessageController
 59e67af6cc97c60b8dbce3167a17c5ec Assembly-CSharp.dll:Meta.TurnTableInteraction
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.VariablesHolder
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.BasicSample
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleOpenFileText
+522bc9091a6e9e45b6623f6e55f20468 Assembly-CSharp.dll:.CanvasSampleOpenFileImage
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleSaveFileImage
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleOpenFileTextMultiple
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleSaveFileText

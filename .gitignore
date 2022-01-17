@@ -1,6 +1,6 @@
-VRNIRS/\UserSettings\/Apps/Concordia/VRNIRS/default.json
-VRNIRS/\UserSettings\/Users/default.json
-VRNIRS/C:\example\file.txt
+/UserSettings\/Apps/Concordia/VRNIRS/default.json
+/UserSettings\/Users/default.json
+/C:\example\file.txt
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #

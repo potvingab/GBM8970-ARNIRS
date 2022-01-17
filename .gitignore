@@ -1,22 +1,20 @@
-/UserSettings\/Apps/Concordia/VRNIRS/default.json
-/UserSettings\/Users/default.json
-/C:\example\file.txt
+VRNIRS/C:\example\file.txt
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+VRNIRS/[Ll]ibrary/
+VRNIRS/[Tt]emp/
+VRNIRS/[Oo]bj/
+VRNIRS/[Bb]uild/
+VRNIRS/[Bb]uilds/
+VRNIRS/[Ll]ogs/
+VRNIRS/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
-/[Mm]emoryCaptures/
+VRNIRS/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

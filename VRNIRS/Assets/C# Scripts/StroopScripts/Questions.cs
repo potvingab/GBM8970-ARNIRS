@@ -122,6 +122,7 @@ public class Questions : MonoBehaviour
                     // Change the text of the questionHolder to "END"
                     questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
                     questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
+                    questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.black;
                     // Hide the green, red and blue buttons
                     greenButton.gameObject.SetActive(false);
                     redButton.gameObject.SetActive(false);

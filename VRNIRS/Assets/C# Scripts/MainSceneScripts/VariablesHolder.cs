@@ -14,7 +14,6 @@ public class VariablesHolder : MonoBehaviour {
 
     void Awake()
     {
-        
         DontDestroyOnLoad(transform.gameObject);
     }
     

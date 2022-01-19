@@ -21,18 +21,18 @@ public class VariablesHolderStroop : MonoBehaviour {
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;
-	public GameObject Dropdown1;
-	public GameObject Dropdown2;
-	public GameObject Dropdown3;
-	public GameObject Dropdown4;
-	public GameObject Dropdown5;
-	public GameObject Dropdown6;
-	public GameObject DropdownLevel1;
-	public GameObject DropdownLevel2;
-	public GameObject DropdownLevel3;
-	public GameObject DropdownLevel4;
-	public GameObject DropdownLevel5;
-	public GameObject DropdownLevel6;
+	public Dropdown Dropdown1;
+	public Dropdown Dropdown2;
+	public Dropdown Dropdown3;
+	public Dropdown Dropdown4;
+	public Dropdown Dropdown5;
+	public Dropdown Dropdown6;
+	public Dropdown DropdownLevel1;
+	public Dropdown DropdownLevel2;
+	public Dropdown DropdownLevel3;
+	public Dropdown DropdownLevel4;
+	public Dropdown DropdownLevel5;
+	public Dropdown DropdownLevel6;
 	public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
 	public GameObject ToggleMeta;
@@ -75,8 +75,11 @@ public class VariablesHolderStroop : MonoBehaviour {
 		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6 };
 		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6 };
 		for (int i = 0; i < stroopNumberTrials; i++) {
-			stroopSequence.Add(Dropdowns[i].GetComponent<Text>().text);
-			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].GetComponent<Text>().text));
+			//stroopSequence.Add(Dropdowns[i].GetComponent<Text>().text);
+			//stroopSequence.Add(Dropdowns[i].itemText.text);
+			//stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].itemText.text));
+			stroopSequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
+			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
 		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
 		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()));
@@ -102,47 +105,48 @@ public class VariablesHolderStroop : MonoBehaviour {
 	}
 
 	public void SaveParameters(){
+		// Update the values of the parameters
 		ChangeParameters();
+		// Create a string that contains the name and value of all the parameters
 		string[] parameters = {"AR Stroop Study Parameters", "Trial Time:" + stroopTrialTime.ToString(), "Number Trials:" + stroopNumberTrials.ToString(), "Sequence:" + String.Join(",", stroopSequence.ToArray()), "Sequence Levels:" + String.Join(",", stroopSequenceLevels.Select(x => x.ToString()).ToArray()), "Game Mode:" + stroopGameMode, "Use Meta:" + useMeta.ToString()};
+		// Open the file explorer (to choose the path and name of the file)
 		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
+		// Write the file
 		if (!string.IsNullOrEmpty(path)) {
             File.WriteAllText(path, string.Join("\n", parameters));
         }
 	}
 
 	public void LoadParameters(){
-		// TODO: Dropdowns en TMPro pour arranger bug (pas modification)
+		// Open the file explorer (to select the file)
 		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+		// Read the file
 		if (path.Length > 0) {
+			// Read all the parameters
             string allParameters = File.ReadAllText(path[0]);
-			Debug.Log(allParameters);
 			string[] parameters = allParameters.Split('\n');
-			Debug.Log(parameters[1].Split(':')[1]);
-	
-			//inputTime.GetComponent<Text>().text = parameters[1].Split(':')[1];
+			// Load the time (one trial)"
 			inputTime.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
-
+			// Load the "number of trials" and show the right number of dropdowns
 			int.TryParse(parameters[2].Split(':')[1], out stroopNumberTrials);
-			//inputNumberTrials.GetComponent<Text>().text = stroopNumberTrials.ToString();
 			inputNumberTrials.GetComponent<TMP_InputField>().text = stroopNumberTrials.ToString();
 			Sequence.Instance.StoreNumber();
-
+			// Load the "sequence" and "sequence levels"
 			string[] seq = parameters[3].Split(':')[1].Split(',');
 			string[] seqLevels = parameters[4].Split(':')[1].Split(',');
 			var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6 };
 			var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6 };
 			for (int i = 0; i < seq.Length; i++) {
-				Dropdowns[i].GetComponent<Text>().text = seq[i];
-				DropdownsLevel[i].GetComponent<Text>().text = seqLevels[i];
+				Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
+				DropdownsLevel[i].value = DropdownsLevel[i].options.FindIndex(option => option.text == seqLevels[i]);
 			}
-
+			// Load the "game mode"
 			if (parameters[5].Split(':')[1] == "Random"){
 				ButtonRandom.GetComponent<Toggle>().isOn = true;
 			}
 			else{
 				ButtonRandom.GetComponent<Toggle>().isOn = false;
 			}
-
 			if (parameters[6].Split(':')[1] == "True"){
 				ToggleMeta.GetComponent<Toggle>().isOn = true;
 			}

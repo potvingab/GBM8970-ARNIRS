@@ -10,7 +10,6 @@ public class ChooseFolder : MonoBehaviour {
 
 	public void OpenExplorer () {
 		string[] directory = StandaloneFileBrowser.OpenFolderPanel("Select Folder", "", true);
-		Debug.Log(directory[0]);
 		inputFileName.GetComponent<TMP_InputField>().text = directory[0] + "\\" + DateTime.Now.ToString("yyyy_MM_dd_H_mm") + ".txt";
 	}
 }

@@ -39,6 +39,7 @@ public class VariablesHolderStroop : MonoBehaviour {
 	// Where to find the values (FileName scene)
 	public GameObject inputFileName;
 	public GameObject inputArduinoPort;
+	public GameObject errorMessageFileName;
 	// Pages of the scene
 	public GameObject paradigmChoicePage;
 	public GameObject FileNameNBackPage;
@@ -58,14 +59,12 @@ public class VariablesHolderStroop : MonoBehaviour {
 	
 	public void ChangeParameters() {
 		// Update "time (one trial)"
-		//int.TryParse(inputTime.GetComponent<Text>().text, out stroopTrialTime);
 		int.TryParse(inputTime.GetComponent<TMP_InputField>().text, out stroopTrialTime);
 		if (stroopTrialTime == 0){
 			stroopTrialTime = 90;
 		}
 		Debug.Log("Trial time: " + stroopTrialTime);
 		// Update "number of trials"
-		//int.TryParse(inputNumberTrials.GetComponent<Text>().text, out stroopNumberTrials);
 		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out stroopNumberTrials);
 		if (stroopNumberTrials == 0){
 			stroopNumberTrials = 1;
@@ -75,9 +74,6 @@ public class VariablesHolderStroop : MonoBehaviour {
 		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6 };
 		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6 };
 		for (int i = 0; i < stroopNumberTrials; i++) {
-			//stroopSequence.Add(Dropdowns[i].GetComponent<Text>().text);
-			//stroopSequence.Add(Dropdowns[i].itemText.text);
-			//stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].itemText.text));
 			stroopSequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
@@ -102,6 +98,15 @@ public class VariablesHolderStroop : MonoBehaviour {
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
+		// Check if valid inputs
+		if ((fileName.Contains("\\")) && (arduinoPort.Contains("COM"))) {
+			errorMessageFileName.SetActive(false);
+			FileNameStroopPage.SetActive(false);
+			OptionsStroopPage.SetActive(true);
+        }
+		else{
+			errorMessageFileName.SetActive(true);
+		}
 	}
 
 	public void SaveParameters(){

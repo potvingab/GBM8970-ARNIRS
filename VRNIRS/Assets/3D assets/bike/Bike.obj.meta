@@ -28,6 +28,17 @@ ModelImporter:
     400020: Wheel_a
     400022: Wheel_b
     2100000: lambert4SG
+    2100002: aMat
+    2100004: bMat
+    2100006: cMat
+    2100008: FrameMat
+    2100010: HelmMat
+    2100012: Pedal_aMat
+    2100014: Pedal_bMat
+    2100016: Pedal_cMat
+    2100018: SaddleMat
+    2100020: Wheel_aMat
+    2100022: Wheel_bMat
     2300000: a
     2300002: b
     2300004: c
@@ -113,7 +124,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 0.001
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

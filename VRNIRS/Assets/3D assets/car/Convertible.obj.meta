@@ -8,6 +8,7 @@ ModelImporter:
     400000: //RootNode
     400002: Convertible_mesh
     2100000: Convertible_mat1
+    2100002: Convertible_meshMat
     2300000: Convertible_mesh
     3300000: Convertible_mesh
     4300000: Convertible_mesh
@@ -63,7 +64,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.5
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

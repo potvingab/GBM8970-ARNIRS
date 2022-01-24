@@ -8,6 +8,7 @@ ModelImporter:
     400000: Geo_Cat
     400002: //RootNode
     2100000: lambert2SG
+    2100002: Geo_CatMat
     2300000: Geo_Cat
     3300000: Geo_Cat
     4300000: Geo_Cat
@@ -63,7 +64,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

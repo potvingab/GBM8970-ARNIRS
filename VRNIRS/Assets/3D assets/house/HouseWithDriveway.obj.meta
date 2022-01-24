@@ -8,6 +8,7 @@ ModelImporter:
     400000: //RootNode
     400002: HouseWithDriveway_Mesh
     2100000: HouseWithDriveway_Mat
+    2100002: HouseWithDriveway_MeshMat
     2300000: HouseWithDriveway_Mesh
     3300000: HouseWithDriveway_Mesh
     4300000: HouseWithDriveway_Mesh
@@ -63,7 +64,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

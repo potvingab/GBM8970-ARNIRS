@@ -9,6 +9,7 @@ ModelImporter:
     400002: //RootNode
     2100000: lambert12SG
     2100002: lambert11SG
+    2100004: defaultMat
     2300000: default
     3300000: default
     4300000: default
@@ -65,7 +66,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.4
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

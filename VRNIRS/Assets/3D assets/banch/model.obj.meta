@@ -25,6 +25,15 @@ ModelImporter:
     400018: //RootNode
     2100000: mat20
     2100002: mat19
+    2100004: mesh1064794239Mat
+    2100006: mesh1447054442Mat
+    2100008: mesh1480869683Mat
+    2100010: mesh1698771934Mat
+    2100012: mesh1857767654Mat
+    2100014: mesh2086105856Mat
+    2100016: mesh361907561Mat
+    2100018: mesh447724109Mat
+    2100020: mesh613786310Mat
     2300000: mesh1064794239
     2300002: mesh1447054442
     2300004: mesh1480869683
@@ -104,7 +113,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 2
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

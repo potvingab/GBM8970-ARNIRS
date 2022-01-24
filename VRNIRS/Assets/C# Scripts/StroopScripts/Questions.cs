@@ -31,7 +31,7 @@ public class Questions : MonoBehaviour
 
     // New variables used
     public static List<string> possibleQuestions = new List<string>{ "BLUE", "RED", "GREEN"};
-    public static Color[] possibleColors = { Color.green, Color.red, Color.blue };
+    public static Color[] possibleColors = { Color.blue, Color.red, Color.green };
     public static int indexRandQuestion;
     public static int indexRandColor;
     public static List<string> selectedAnswers = new List<string>(); // Answers selected by the participant
@@ -43,6 +43,10 @@ public class Questions : MonoBehaviour
     public static List<double> responseTimes = new List<double>();
     public static DateTime timeStartQuestion;
     public static DateTime timeEndQuestion;
+    public Image BackgroundImage; // New variable level 1 
+    public Image Rectangle; // New variable level 4
+    
+    
 
     // Pages of the scene
     public GameObject canvasChercheurInstructions;
@@ -66,9 +70,90 @@ public class Questions : MonoBehaviour
         }
     }
 
+    //Level 0
+    public void negativeControl()
+    {
+        Debug.Log("negativeControl");
+        //setActive the right components
+        BackgroundImage.gameObject.SetActive(false);
+        Rectangle.gameObject.SetActive(false);
+        questionHolder.gameObject.SetActive(true);
+
+        // Sample random indices between 0 and 2
+        indexRandQuestion = UnityEngine.Random.Range(0, 3);
+        // The color of the text is the same as the text
+        indexRandColor = indexRandQuestion;
+        // Change the text of questionHolder to the random question
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
+        Debug.Log(possibleQuestions[indexRandQuestion]);
+        // Add the correct answer to the list correctAnswers
+        correctAnswers.Add(possibleQuestions[indexRandQuestion]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+        // Change the color of questionHolder to the random color
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
+        timeStartQuestion = DateTime.Now;
+        Response.CreateCheckpoint("Question");
+        Response.TriggerArduino("0");
+    }
+
+    //Level 1
+    public void changeBackgroundColor()
+    {
+        Debug.Log("changeBackgroundColor");
+        //setActive the right components
+        BackgroundImage.gameObject.SetActive(true);
+        Rectangle.gameObject.SetActive(false);
+        questionHolder.gameObject.SetActive(false);
+
+        // Sample random indices between 0 and 2
+        indexRandColor = UnityEngine.Random.Range(0, 3);
+        // Change the color of the backgroundColor to the random color
+        BackgroundImage.color = possibleColors[indexRandColor];
+        Debug.Log(possibleColors[indexRandColor]);
+        // Add the correct answer to the list correctAnswers
+        correctAnswers.Add(possibleQuestions[indexRandColor]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
+
+        //timeStartQuestion = DateTime.Now;
+        //Response.CreateCheckpoint("Question");
+        //Response.TriggerArduino("0");
+    }
+
+    //Level 2
+    public void readText()
+    {
+        Debug.Log("readText");
+        //setActive the right components
+        BackgroundImage.gameObject.SetActive(false);
+        Rectangle.gameObject.SetActive(false);
+        questionHolder.gameObject.SetActive(true);
+
+        // Sample random indices between 0 and 2
+        indexRandQuestion = UnityEngine.Random.Range(0, 3);
+        // Change the color of questionHolder to the black
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
+        // Change the text of questionHolder to the random question
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
+        Debug.Log(possibleQuestions[indexRandQuestion]);
+        // Add the correct answer to the list correctAnswers
+        correctAnswers.Add(possibleQuestions[indexRandQuestion]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+        timeStartQuestion = DateTime.Now;
+        Response.CreateCheckpoint("Question");
+        Response.TriggerArduino("0");
+    }
+
+    //Level 3
     public void CreateNewRandomQuestion()
     {
         Debug.Log("CreateQuestion");
+        //setActive the right components
+        BackgroundImage.gameObject.SetActive(false);
+        Rectangle.gameObject.SetActive(false);
+        questionHolder.gameObject.SetActive(true);
+
         // Sample random indices between 0 and 2
         indexRandQuestion = UnityEngine.Random.Range(0, 3);
         indexRandColor = UnityEngine.Random.Range(0, 3);
@@ -84,6 +169,44 @@ public class Questions : MonoBehaviour
         timeStartQuestion = DateTime.Now;
         Response.CreateCheckpoint("Question");
         Response.TriggerArduino("0");
+    }
+    //Level 4
+    public void randomRectangle()
+    {
+        Debug.Log("randomRectangle");
+        BackgroundImage.gameObject.SetActive(false);
+        questionHolder.gameObject.SetActive(true);
+
+        // Sample random indices either true or false 
+        bool randomBool = UnityEngine.Random.Range(0, 2) > 0;
+        Rectangle.gameObject.SetActive(randomBool);
+        Debug.Log(randomBool);
+        // Sample random indices between 0 and 2
+        indexRandQuestion = UnityEngine.Random.Range(0, 3);
+        indexRandColor = UnityEngine.Random.Range(0, 3);
+        // Change the text of questionHolder to the random question
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
+        Debug.Log(possibleQuestions[indexRandQuestion]);
+        // Change the color of questionHolder to the random color
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
+        if(randomBool==true)
+        {
+            // Add the color as the correct answer to the list correctAnswers
+            correctAnswers.Add(possibleQuestions[indexRandColor]);
+            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
+        }
+        else {
+            // Add the text as the correct answer to the list correctAnswers
+            correctAnswers.Add(possibleQuestions[indexRandQuestion]);
+            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+
+        }
+
+        timeStartQuestion = DateTime.Now;
+        Response.CreateCheckpoint("Question");
+        Response.TriggerArduino("0");
+
     }
 
     void Update()
@@ -148,15 +271,46 @@ public class Questions : MonoBehaviour
         numCorrectAnswers = 0;
         numTotalAnswers = 0;
     }
-    public void StartTimer()
-    {
-        flagBeginTimer = true;
-        Response.CreateCheckpoint("StartOfTheTimer");
-        canvasChercheurInstructions.SetActive(false);
-        canvasParticipantInstructions.SetActive(false);
-		canvasChercheurJeu.SetActive(true);
-        canvasParticipantJeu.SetActive(true);
-        CreateNewRandomQuestion();
+    //  //Avant
+    //  public void StartTimer()
+    //  {
+    //      flagBeginTimer = true;
+    //      Response.CreateCheckpoint("StartOfTheTimer");
+    //      canvasChercheurInstructions.SetActive(false);
+    //      canvasParticipantInstructions.SetActive(false);
+    //canvasChercheurJeu.SetActive(true);
+    //      canvasParticipantJeu.SetActive(true);
+    //      CreateNewRandomQuestion();
+    //  }
+
+    //Après
+    //Obtenir sequence dont le premier est toujours 0 et ajouter les autres en fonction du input du chercheur
+    //public static List<Action> LevelSequence = new List<Action> { Level0, Level1, Level2, Level3, Level4 };
+    //int positionSequence = 0;
+    //public void StartTimer()
+    //{
+    //    flagBeginTimer = true;
+    //    Response.CreateCheckpoint("StartOfTheTimer");
+    //    canvasChercheurInstructions.SetActive(false);
+    //    canvasParticipantInstructions.SetActive(false);
+    //    canvasChercheurJeu.SetActive(true);
+    //    canvasParticipantJeu.SetActive(true);
+    //    LevelSequence[positionSequence];
+    //}
+    
+    //// 
+    //public void BouttonContinueOnCLick()
+    //{
+    //    positionSequence + 1;
+    //    StartTimer();
+    //    Level0 = negativeControl();
+    //    Level1 = changeBackgroundColor();
+    //    Level2 = readText();
+    //    Level3 = CreateNewRandomQuestion();
+    //    Level4 = randomRectangle();
+
+     
     }
+ 
 
 }

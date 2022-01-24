@@ -11,6 +11,7 @@ ModelImporter:
     2100002: 03___Default
     2100004: 01___Default
     2100006: default
+    2100008: defaultMat
     2300000: default
     3300000: default
     4300000: default
@@ -66,7 +67,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.03
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

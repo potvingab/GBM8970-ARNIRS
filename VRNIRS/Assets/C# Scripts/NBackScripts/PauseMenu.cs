@@ -66,7 +66,7 @@ public class PauseMenu : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         currentLevelString = "--";
-        currentLevelObjects = TimeSapwner.allArrayInt[TimeSapwner.currentLevel];
+        currentLevelObjects = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (GameIsPaused)
@@ -81,7 +81,7 @@ public class PauseMenu : MonoBehaviour {
             }
         }
 
-        gameObjectListTitle.text = TimeSapwner.levelNames[TimeSapwner.currentLevel];
+        gameObjectListTitle.text = TimeSpawner.levelNames[TimeSpawner.currentLevel];
 
         if (!SameObject)
         {
@@ -90,22 +90,22 @@ public class PauseMenu : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.S))
                 {
                     currentLevelString = "Same";
-                    TimeSapwner.reactionTime.Stop();
+                    TimeSpawner.reactionTime.Stop();
                     endTime = DateTime.Now.Millisecond;
-                    differenceTime = endTime - TimeSapwner.startTime;
-                    reactionTime[clickPosition] = TimeSapwner.reactionTime.ElapsedMilliseconds.ToString();
-                    UnityEngine.Debug.Log(differenceTime + " : " + TimeSapwner.reactionTime.ElapsedMilliseconds);
+                    differenceTime = endTime - TimeSpawner.startTime;
+                    reactionTime[clickPosition] = TimeSpawner.reactionTime.ElapsedMilliseconds.ToString();
+                    UnityEngine.Debug.Log(differenceTime + " : " + TimeSpawner.reactionTime.ElapsedMilliseconds);
                     SameObject = true;
                     clicks[clickPosition] = currentLevelString;
                 }
                 if (Input.GetKeyDown(KeyCode.D))
                 {
                     currentLevelString = "Diff";
-                    TimeSapwner.reactionTime.Stop();
+                    TimeSpawner.reactionTime.Stop();
                     endTime = DateTime.Now.Millisecond;
-                    differenceTime = Math.Abs(endTime - TimeSapwner.startTime);
-                    reactionTime[clickPosition] = TimeSapwner.reactionTime.ElapsedMilliseconds.ToString();
-                    UnityEngine.Debug.Log(differenceTime + " : " + TimeSapwner.reactionTime.ElapsedMilliseconds);
+                    differenceTime = Math.Abs(endTime - TimeSpawner.startTime);
+                    reactionTime[clickPosition] = TimeSpawner.reactionTime.ElapsedMilliseconds.ToString();
+                    UnityEngine.Debug.Log(differenceTime + " : " + TimeSpawner.reactionTime.ElapsedMilliseconds);
                     SameObject = true;
                     clicks[clickPosition] = currentLevelString;
                 }
@@ -113,7 +113,7 @@ public class PauseMenu : MonoBehaviour {
             ChangeText();
         }
 
-        if(TimeSapwner.order == NumberOfObjects.numberOfObjects + 1 && SaveCondition)
+        if(TimeSpawner.order == NumberOfObjects.numberOfObjects + 1 && SaveCondition)
         {
             GetPercentageForLevel();
             SaveLevelInfo();
@@ -128,7 +128,7 @@ public class PauseMenu : MonoBehaviour {
         {
             string titleString = "id,timestamp,n-back,mode,type\n";
             UnityEngine.Debug.Log(FileName.nameOfFileOriginal);
-            titleString += FileName.nameOfFileOriginal.Substring(0, FileName.nameOfFileOriginal.Length - 1) + "," + FileName.timeStamp + "," + NBack.nBackNumber + "," + FileName.mode + ",VISUAL\n";
+            titleString += FileName.nameOfFileOriginal.Substring(0, FileName.nameOfFileOriginal.Length - 1) + "," + FileName.timeStamp + "," + VariablesHolder.nBackNumber + "," + FileName.mode + ",VISUAL\n";
             titleString += "Block,Condition,Total Accuracy,Mean Response Time,Weighted Response Time";
             for (int i = 1; i <= NumberOfObjects.numberOfObjects; i++)
             {
@@ -137,15 +137,15 @@ public class PauseMenu : MonoBehaviour {
             File.WriteAllText(FileName.nameOfFile, titleString + "\n");
         }
         string levelString = "";
-        if (TimeSapwner.currentLevel < 7)
+        if (TimeSpawner.currentLevel < 7)
         {
-            levelString += "T" + (TimeSapwner.currentLevel + 1);
+            levelString += "T" + (TimeSpawner.currentLevel + 1);
         }
         else
         {
-            levelString += (TimeSapwner.currentLevel - 6);
+            levelString += (TimeSpawner.currentLevel - 6);
         }
-        if (TimeSapwner.allArrayInt[TimeSapwner.currentLevel][0] == 9)
+        if (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
         {
             levelString += ",1,100,0,0";
             for (int i = 0; i < NumberOfObjects.numberOfObjects; i++)
@@ -155,18 +155,18 @@ public class PauseMenu : MonoBehaviour {
         }
         else
         {
-            levelString += "," + blockCondition[TimeSapwner.currentLevel];
+            levelString += "," + blockCondition[TimeSpawner.currentLevel];
 
             string postAccuracy = "";
-            int accuracy = NumberOfObjects.numberOfObjects - NBack.nBackNumber;
+            int accuracy = NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber;
             int n = accuracy;
             int meanRT = 0;
             int weightedRT = 0;
             int correctAnswers = 0;
 
-            for (int i = 0; i < NBack.nBackNumber; i++)
+            for (int i = 0; i < VariablesHolder.nBackNumber; i++)
             {
-                postAccuracy += "," + (TimeSapwner.allArrayInt[TimeSapwner.currentLevel][i] + 1);
+                postAccuracy += "," + (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][i] + 1);
                 postAccuracy += ",0";
                 if (clicks[i] == "Same")
                 {
@@ -183,16 +183,16 @@ public class PauseMenu : MonoBehaviour {
                 postAccuracy += "," + reactionTime[i];
             }
 
-            for (int i = NBack.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
+            for (int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
             {
-                postAccuracy += "," + (TimeSapwner.allArrayInt[TimeSapwner.currentLevel][i] + 1);
+                postAccuracy += "," + (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][i] + 1);
                
                 int rt = 2000;
                 if (reactionTime[i] != "--")
                 {
                     rt = int.Parse(reactionTime[i]);
                 }
-                if (TimeSapwner.allArrayInt[TimeSapwner.currentLevel][i] == TimeSapwner.allArrayInt[TimeSapwner.currentLevel][i - NBack.nBackNumber])
+                if (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][i] == TimeSpawner.allArrayInt[TimeSpawner.currentLevel][i - VariablesHolder.nBackNumber])
                 {
                     postAccuracy += ",1";
                     if (clicks[i] == "Same")
@@ -253,30 +253,30 @@ public class PauseMenu : MonoBehaviour {
 
     public void GetPercentageForLevel()
     {
-        int percentage = NumberOfObjects.numberOfObjects - NBack.nBackNumber;
-        string textLevel = levelTextSelecters[TimeSapwner.currentLevel].text;
+        int percentage = NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber;
+        string textLevel = levelTextSelecters[TimeSpawner.currentLevel].text;
 
-        int[] currentLeveObjectsPerc = TimeSapwner.allArrayInt[TimeSapwner.currentLevel];
+        int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
 
-        if(allLevelResults[TimeSapwner.currentLevel] != "")
+        if(allLevelResults[TimeSpawner.currentLevel] != "")
         {
-            for(int i = NBack.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
+            for(int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
             {
                 if(currentLeveObjectsPerc[i] == 9)
                 {
 
                 }
-                else if(currentLeveObjectsPerc[i] == currentLeveObjectsPerc[i - NBack.nBackNumber] && clicks[i] != "Same")
+                else if(currentLeveObjectsPerc[i] == currentLeveObjectsPerc[i - VariablesHolder.nBackNumber] && clicks[i] != "Same")
                 {
                     percentage -= 1;
                 }
-                else if (currentLeveObjectsPerc[i] != currentLeveObjectsPerc[i - NBack.nBackNumber] && clicks[i] != "Diff")
+                else if (currentLeveObjectsPerc[i] != currentLeveObjectsPerc[i - VariablesHolder.nBackNumber] && clicks[i] != "Diff")
                 {
                     percentage -= 1;
                 }
             }
-            percentage = (int)(((float)percentage / (float)(NumberOfObjects.numberOfObjects - NBack.nBackNumber)) * 100);
-            levelTextSelecters[TimeSapwner.currentLevel].text = TimeSapwner.levelNames[TimeSapwner.currentLevel]
+            percentage = (int)(((float)percentage / (float)(NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber)) * 100);
+            levelTextSelecters[TimeSpawner.currentLevel].text = TimeSpawner.levelNames[TimeSpawner.currentLevel]
                 + ": " + percentage + "%";
 
         }
@@ -286,7 +286,7 @@ public class PauseMenu : MonoBehaviour {
     {
         gameObjectList.text = "";
 
-        int[] currentLeveObjectsPerc = TimeSapwner.allArrayInt[TimeSapwner.currentLevel];
+        int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
 
         for (int i = 0; i < NumberOfObjects.numberOfObjects; i++)
         {
@@ -310,7 +310,7 @@ public class PauseMenu : MonoBehaviour {
             }
             
         }
-        allLevelResults[TimeSapwner.currentLevel] = gameObjectList.text;
+        allLevelResults[TimeSpawner.currentLevel] = gameObjectList.text;
     }
 
     public void Resume ()
@@ -331,7 +331,7 @@ public class PauseMenu : MonoBehaviour {
     public void Restart()
     {
         Destroyer.objectDestroyed = 0;
-        TimeSapwner.order = -1;
+        TimeSpawner.order = -1;
         clickPosition = -2;
         clicks = new string[15] { "--", "--", "--", "--",
         "--", "--", "--", "--", "--", "--", "--", "--",
@@ -345,9 +345,9 @@ public class PauseMenu : MonoBehaviour {
 
     public void NextLevel()
     {
-        TimeSapwner.currentLevel += 1;
+        TimeSpawner.currentLevel += 1;
         Destroyer.objectDestroyed = 0;
-        TimeSapwner.order = -1;
+        TimeSpawner.order = -1;
         clickPosition = -2;
         clicks = new string[15] { "--", "--", "--", "--",
         "--", "--", "--", "--", "--", "--", "--", "--",
@@ -361,9 +361,9 @@ public class PauseMenu : MonoBehaviour {
 
     public void SkipTutorials()
     {
-        TimeSapwner.currentLevel = 7;
+        TimeSpawner.currentLevel = 7;
         Destroyer.objectDestroyed = 0;
-        TimeSapwner.order = -1;
+        TimeSpawner.order = -1;
         clickPosition = -2;
         clicks = new string[15] { "--", "--", "--", "--",
         "--", "--", "--", "--", "--", "--", "--", "--",
@@ -382,11 +382,11 @@ public class PauseMenu : MonoBehaviour {
 
     public void BackToEndScreen()
     {
-        if (TimeSapwner.currentLevel < 7)
+        if (TimeSpawner.currentLevel < 7)
         {
             endScreen.SetActive(true);
         }
-        else if(TimeSapwner.currentLevel == 18)
+        else if(TimeSpawner.currentLevel == 18)
         {
             endScreenFinal.SetActive(true);
         }
@@ -401,8 +401,8 @@ public class PauseMenu : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         VariablesHolder.GameSpeed = 1;
         GameIsPaused = false;
-        TimeSapwner.currentLevel = 0;
-        TimeSapwner.order = -1;
+        TimeSpawner.currentLevel = 0;
+        TimeSpawner.order = -1;
         Destroyer.objectDestroyed = 0;
         clickPosition = -2;
         clicks = new string[15] { "--", "--", "--", "--",

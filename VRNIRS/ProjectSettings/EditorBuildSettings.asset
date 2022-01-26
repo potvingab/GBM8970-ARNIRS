@@ -8,13 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 5ee14a164fedc4d77bac296462605be8
-  - enabled: 1
-    path: Assets/Scenes/N-back.unity
+  - enabled: 0
+    path: Assets/Scenes/N-backsaved.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
-    path: Assets/Scenes/Instruction.unity
-    guid: 9dfbfa5b06758454ab3f0d4cda2171d0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Stroop.unity
     guid: fb91fc468a70b2e4382e7f4d0b253f95
+  - enabled: 1
+    path: Assets/Scenes/N-back.unity
+    guid: 45b463abfaead475f9eb9a4ff265d2f9
   m_configObjects: {}

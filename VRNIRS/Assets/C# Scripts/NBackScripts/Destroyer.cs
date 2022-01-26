@@ -29,14 +29,14 @@ public class Destroyer : MonoBehaviour {
         {
             //for (int i = 0; i < objectdestroyed + 2; i++)
             //{
-            //    gameobjectlist.text = gameobjectlist.text + (timesapwner.spawneewanted[i].name + "\n");
+            //    gameobjectlist.text = gameobjectlist.text + (TimeSpawner.spawneewanted[i].name + "\n");
             //}
             levelListScreen.SetActive(false);
-            if(TimeSapwner.currentLevel < 7)
+            if(TimeSpawner.currentLevel < 7)
             {
                 endScreen.SetActive(true);
             }
-            else if(TimeSapwner.currentLevel == 18)
+            else if(TimeSpawner.currentLevel == 18)
             {
                 endScreenFinal.SetActive(true);
             }

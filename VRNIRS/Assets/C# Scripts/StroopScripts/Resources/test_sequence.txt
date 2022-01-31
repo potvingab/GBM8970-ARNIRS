@@ -1,0 +1,5 @@
+ink, word, square
+R,G,0
+B,R,0
+B,G,1
+make sure there are not Enter after or in between the lines, Make sure you keep this warning line

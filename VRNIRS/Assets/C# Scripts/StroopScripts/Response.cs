@@ -74,10 +74,25 @@ public class Response : Interaction
         // Increase the total number of answers
         Questions.numTotalAnswers += 1;
         // Create and show a new random question
-        Questions.Instance.CreateNewRandomQuestion();
-        CreateCheckpoint("Response: " + color);
-        TriggerArduino("1");
+        switch (VariablesHolderStroop.stroopSequenceLevels[Questions.currentIndexSeq])
+        {
+            case 1:
+                Questions.Instance.backgroundColor();
+                break;
+
+            case 2:
+                Questions.Instance.blackText();
+                break;
+
+            case 3:
+                Questions.Instance.inkColor();
+                break;
+
+            case 4:
+                Questions.Instance.randomRectangle();
+                break;
+        }
+        //CreateCheckpoint("Response: " + color);
+        //TriggerArduino("1");
     }
-
 }
-

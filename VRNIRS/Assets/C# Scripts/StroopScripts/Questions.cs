@@ -32,7 +32,7 @@ public class Questions : MonoBehaviour
     public static int currentIndexSeq = 0;
 
     // New variables used
-    public static List<string> possibleQuestions = new List<string>{ "BLUE", "RED", "GREEN"};
+    public static List<string> possibleQuestions = new List<string>{ "GREEN", "RED", "BLUE" };
     public static Color[] possibleColors = { Color.green, Color.red, Color.blue };
     public static int indexRandQuestion;
     public static int indexRandColor;

@@ -31648,8 +31648,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1315341100}
-        m_MethodName: PlayStroop
+      - m_Target: {fileID: 512993240}
+        m_MethodName: ChangeParameters
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -31659,8 +31659,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 512993240}
-        m_MethodName: ChangeParameters
+      - m_Target: {fileID: 1315341100}
+        m_MethodName: PlayStroop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

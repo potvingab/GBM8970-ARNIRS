@@ -93,8 +93,6 @@ public class Questions : MonoBehaviour
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
         timeStartQuestion = DateTime.Now;
-        //Response.CreateCheckpoint("Question");
-        //Response.TriggerArduino("0");
     }
 
     public void playLevel()
@@ -118,6 +116,7 @@ public class Questions : MonoBehaviour
                 totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results";
                 buttonContinue.gameObject.SetActive(false);
                 // Prepare the right level
+                Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {
                     case 1:
@@ -142,6 +141,7 @@ public class Questions : MonoBehaviour
             else
             {
                 // Do things for single task (for now, only write "single task")
+                Response.CreateCheckpoint("Level: Single Task (Walk)");
                 buttonContinue.gameObject.SetActive(false);
                 selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -162,6 +162,7 @@ public class Questions : MonoBehaviour
         else
         {
             // Do things for final screen after all levels (for now, only write "END")
+            Response.CreateCheckpoint("Final screen");
             buttonContinue.gameObject.SetActive(false);
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -198,9 +199,8 @@ public class Questions : MonoBehaviour
         correctAnswers.Add(possibleQuestions[indexRandColor]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
 
-        //timeStartQuestion = DateTime.Now;
-        //Response.CreateCheckpoint("Question");
-        //Response.TriggerArduino("0");
+        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandColor]);
+        Response.TriggerArduino("0");
     }
 
     public void blackText()
@@ -225,8 +225,9 @@ public class Questions : MonoBehaviour
         correctAnswers.Add(possibleQuestions[indexRandQuestion]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
         timeStartQuestion = DateTime.Now;
-        //Response.CreateCheckpoint("Question");
-        //Response.TriggerArduino("0");
+
+        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandQuestion]);
+        Response.TriggerArduino("0");
     }
 
     //Level 3
@@ -253,8 +254,9 @@ public class Questions : MonoBehaviour
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
         timeStartQuestion = DateTime.Now;
-        //Response.CreateCheckpoint("Question");
-        //Response.TriggerArduino("0");
+
+        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandColor]);
+        Response.TriggerArduino("0");
     }
     //Level 4
     public void randomRectangle()
@@ -281,19 +283,18 @@ public class Questions : MonoBehaviour
         {
             // Add the color as the correct answer to the list correctAnswers
             correctAnswers.Add(possibleQuestions[indexRandColor]);
+            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandColor]);
             correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
         }
         else {
             // Add the text as the correct answer to the list correctAnswers
             correctAnswers.Add(possibleQuestions[indexRandQuestion]);
+            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandQuestion]);
             correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
 
         }
-
         timeStartQuestion = DateTime.Now;
-        //Response.CreateCheckpoint("Question");
-        //Response.TriggerArduino("0");
-
+        Response.TriggerArduino("0");
     }
 
     void Update()
@@ -320,12 +321,14 @@ public class Questions : MonoBehaviour
                 }
                 // Show the result (researcher's view)
                 totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
+                Response.CreateCheckpoint("Result: " + numCorrectAnswers + "/" + numTotalAnswers);
                 if (responseTimes.Count==0)
                 {
                     timeEndQuestion = DateTime.Now;
                     responseTimes.Add((Questions.timeEndQuestion - Questions.timeStartQuestion).TotalSeconds);
                 }
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time (sec): " + Queryable.Average(responseTimes.AsQueryable()).ToString();
+                Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
                 // Show the button "Continue" (researcher's view)
                 buttonContinue.gameObject.SetActive(true);
                 // Change the text of the questionHolder (player's view)

@@ -47,18 +47,22 @@ public class Response : Interaction
 
     public static void TriggerArduino(string line)
     {
-        serialPort.Open();
+        // 0: Question
+        // 1: Response
         serialPort.WriteLine(line);
-        serialPort.Close();
+    }
+
+    void Start()
+    {
+        serialPort.Open();
     }
 
     public static void CreateCheckpoint(string nom)
     {
-        //string fileName = @"C:\Users\achil\TempsVRNIRS.txt";
         using (StreamWriter sw = File.AppendText(fileName))
         {
-            sw.Write("\n Checkpoint; " + nom + " ;");
-            sw.Write(DateTime.Now.ToString("H:mm:ss.fff"));
+            sw.Write("Checkpoint; " + nom + "; ");
+            sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
         }
     }
 
@@ -73,6 +77,9 @@ public class Response : Interaction
         selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (color + " ");
         // Increase the total number of answers
         Questions.numTotalAnswers += 1;
+        CreateCheckpoint("Response: " + color);
+        Response.TriggerArduino("1");
+
         // Create and show a new random question
         switch (VariablesHolderStroop.stroopSequenceLevels[Questions.currentIndexSeq])
         {
@@ -92,7 +99,5 @@ public class Response : Interaction
                 Questions.Instance.randomRectangle();
                 break;
         }
-        //CreateCheckpoint("Response: " + color);
-        //TriggerArduino("1");
     }
 }

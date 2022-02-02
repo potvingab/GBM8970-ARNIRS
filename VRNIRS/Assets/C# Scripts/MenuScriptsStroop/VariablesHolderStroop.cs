@@ -105,7 +105,7 @@ public class VariablesHolderStroop : MonoBehaviour {
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
 		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
-		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()));
+		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()) );
 		// Update "game mode"
 		if (ButtonRandom.GetComponent<Toggle>().isOn == true){
 			stroopGameMode = "Random";
@@ -114,7 +114,6 @@ public class VariablesHolderStroop : MonoBehaviour {
 			stroopGameMode = "Fixed";
 		}
 		Debug.Log("Game mode: " + stroopGameMode);
-		Response.CreateCheckpoint("EndOfMenu");
 		useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
 	}
 
@@ -126,7 +125,7 @@ public class VariablesHolderStroop : MonoBehaviour {
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
 		// Check if valid inputs
-		if ((fileName.Contains("\\")) && (arduinoPort.Contains("COM"))) {
+		if ((fileName.Contains("/"))) {
 			errorMessageFileName.SetActive(false);
 			FileNameStroopPage.SetActive(false);
 			OptionsStroopPage.SetActive(true);
@@ -176,13 +175,15 @@ public class VariablesHolderStroop : MonoBehaviour {
 			if (parameters[5].Split(':')[1] == "Random"){
 				ButtonRandom.GetComponent<Toggle>().isOn = true;
 			}
-			else{
+			else
+			{
 				ButtonRandom.GetComponent<Toggle>().isOn = false;
 			}
 			if (parameters[6].Split(':')[1] == "True"){
 				ToggleMeta.GetComponent<Toggle>().isOn = true;
 			}
-			else{
+			else
+			{
 				ToggleMeta.GetComponent<Toggle>().isOn = false;
 			}
         }

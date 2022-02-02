@@ -75,7 +75,7 @@ public class VariablesHolder : MonoBehaviour {
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
 		// Check if valid inputs
-		if ((fileName.Contains("\\")) && (arduinoPort.Contains("COM"))) {
+		if ((fileName.Contains("/")) && (arduinoPort.Contains("COM"))) {
 			errorMessageFileName.SetActive(false);
 			FileNameNBackPage.SetActive(false);
 			OptionsNBackPage.SetActive(true);

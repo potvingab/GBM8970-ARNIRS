@@ -14,7 +14,7 @@ public class Response : Interaction
 {
 	// Parameter from the menu scene
 	public static string fileName = VariablesHolderStroop.fileName; 
-    public static SerialPort serialPort = new SerialPort(VariablesHolderStroop.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
+    public static SerialPort serialPort = new SerialPort(VariablesHolder.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
     // New variables
     public GameObject selectedAnswersShown; // List of selected answers shown in the searcher's view
     public GameObject cube; // Button selected by the participant (RED, BLUE or GREEN)
@@ -50,7 +50,10 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
+        //if (!serialPort.IsOpen)
+        //    serialPort.Open();
         //serialPort.WriteLine(line);
+        //CreateCheckpoint("Test Délai");
     }
     
     public static void CreateCheckpoint(string nom)

@@ -1,0 +1,20 @@
+Parameter; Filename: C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\build\VRNIRS_Data/2022_02_02_15_19.txt​
+Parameter; Arduino Port: COM3​
+Parameter; Trial Time: 90
+Parameter; Number Trials: 1
+Parameter; Sequence: Dual Task
+Parameter; Sequence Levels: 1
+Parameter; Game Mode: Random
+Checkpoint; End of Menu; 15:20:00.456
+Checkpoint; Level: Dual Task 1; 15:20:05.776
+Checkpoint; Question shown. True response: RED; 15:20:05.787
+Checkpoint; Participant's response: RED; 15:20:23.475
+Checkpoint; Question shown. True response: GREEN; 15:20:23.481
+Checkpoint; Participant's response: RED; 15:20:26.859
+Checkpoint; Question shown. True response: GREEN; 15:20:26.864
+Checkpoint; Participant's response: GREEN; 15:20:33.737
+Checkpoint; Question shown. True response: BLUE; 15:20:33.743
+Checkpoint; Participant's response: RED; 15:20:36.988
+Checkpoint; Question shown. True response: RED; 15:20:36.995
+Checkpoint; Participant's response: RED; 15:20:39.335
+Checkpoint; Question shown. True response: GREEN; 15:20:39.340

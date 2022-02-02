@@ -171,3 +171,5 @@ C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\obj\Debug\Assembl
 C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\obj\Debug\Assembly-CSharp.dll
 C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\obj\Debug\Assembly-CSharp.pdb
+C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\Temp\bin\Debug\Ookii.Dialogs.dll
+C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\Temp\bin\Debug\System.Windows.Forms.dll

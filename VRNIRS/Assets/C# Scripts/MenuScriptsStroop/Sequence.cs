@@ -74,10 +74,6 @@ public class Sequence : MonoBehaviour {
 		string nb = inputField.GetComponent<TMP_InputField>().text;
 		int.TryParse(nb, out numberTrials);
 
-		if (numberTrials > 12){
-			numberTrials = 12;
-		}
-
 		// Show the right number of Dropdowns
 		for (int i = 0; i < Dropdowns.Count; i++){
 			Dropdowns[i].SetActive(false);

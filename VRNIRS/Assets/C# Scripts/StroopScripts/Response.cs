@@ -49,14 +49,10 @@ public class Response : Interaction
     {
         // 0: Question
         // 1: Response
-        serialPort.WriteLine(line);
+        // Enlever commentaire si on utilise l'Arduino
+        //serialPort.WriteLine(line);
     }
-
-    void Start()
-    {
-        serialPort.Open();
-    }
-
+    
     public static void CreateCheckpoint(string nom)
     {
         using (StreamWriter sw = File.AppendText(fileName))

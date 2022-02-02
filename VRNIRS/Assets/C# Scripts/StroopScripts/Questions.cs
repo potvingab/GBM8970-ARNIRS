@@ -18,6 +18,7 @@ public class Questions : MonoBehaviour
     public GameObject redButton;
     public GameObject greenButton;
     public GameObject blueButton;
+    public GameObject instructions;
 
     // Objectfs in searcher's view
     public GameObject timer;
@@ -40,7 +41,6 @@ public class Questions : MonoBehaviour
     public static List<string> correctAnswers = new List<string>(); // Correct answers (created by CreateNewRandomQuestion)
     public static int numCorrectAnswers = 0;
     public static int numTotalAnswers = 0;
-    public static bool flagEndTimer = false;
     public static bool flagBeginTimer = false;
     public static List<double> responseTimes = new List<double>();
     public static DateTime timeStartQuestion;
@@ -97,7 +97,7 @@ public class Questions : MonoBehaviour
 
     public void playLevel()
     // Called by the "Start" button or "Continue" button
-    // Play the right level accoridng to the sequence
+    // Play the right level according to the sequence
     {
         if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials){
             if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")
@@ -183,6 +183,7 @@ public class Questions : MonoBehaviour
     public void backgroundColor()
     {
         // Level 1: Background Color
+        // TODO: Instructions = "Select the color of the rectangle.\n Are you ready?"
         Debug.Log("backgroundColor");
 
         // setActive the right components
@@ -206,6 +207,7 @@ public class Questions : MonoBehaviour
     public void blackText()
     {
         // Level 2: Black Text
+        // TODO: Instructions = "Select the written color.\n Are you ready?"
         Debug.Log("blackText");
 
         // setActive the right components
@@ -234,9 +236,10 @@ public class Questions : MonoBehaviour
     public void inkColor()
     {
         // Level 3: Ink Color (not the written color)
+        // TODO: Instructions = "Select the color of the ink that the letters are printed in and not the written color.\n Are you ready?"
         Debug.Log("CreateQuestion");
-
-        // setActive the right components
+        
+        // Set Active the right components
         BackgroundImage.gameObject.SetActive(false);
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
@@ -262,7 +265,10 @@ public class Questions : MonoBehaviour
     public void randomRectangle()
     {
         // Level 4: Ink Color by default, Written Color if rectangle
+        // TODO: Instructions = "By default, select the color of the ink that the letters are printed in and not the written color.\n If the text is framed, select the written color.\n Are you ready?"
         Debug.Log("randomRectangle");
+       
+        // Set Active the right components
         BackgroundImage.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
 

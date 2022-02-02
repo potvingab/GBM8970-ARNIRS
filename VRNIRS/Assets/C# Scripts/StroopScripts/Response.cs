@@ -73,7 +73,7 @@ public class Response : Interaction
         selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (color + " ");
         // Increase the total number of answers
         Questions.numTotalAnswers += 1;
-        CreateCheckpoint("Response: " + color);
+        CreateCheckpoint("Participant's response: " + color);
         Response.TriggerArduino("1");
 
         // Create and show a new random question

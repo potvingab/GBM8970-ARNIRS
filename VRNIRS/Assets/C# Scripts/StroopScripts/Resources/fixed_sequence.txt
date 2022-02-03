@@ -1,0 +1,8 @@
+Niveau 1
+R;B;R;G;R;B;G;B;R;G;B;G;R;G;R;G;B;R;B;G;R;G;B;R;G;R;G;B;END
+Niveau 2
+R;B;B;R;G;END
+Niveau 3 
+R,B;R,G;B,G;B,G;R,R;END
+Niveau 4
+R,B,0;R,G,1;B,G,0;B,R,1;END,END,END

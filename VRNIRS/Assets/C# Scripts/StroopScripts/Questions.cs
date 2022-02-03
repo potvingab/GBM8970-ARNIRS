@@ -35,8 +35,15 @@ public class Questions : MonoBehaviour
     // New variables used
     public static List<string> possibleQuestions = new List<string>{ "GREEN", "RED", "BLUE" };
     public static Color[] possibleColors = { Color.green, Color.red, Color.blue };
-    public static int indexRandQuestion;
-    public static int indexRandColor;
+    public static int indexQuestion;
+    public static int indexColor;
+    public static bool bool_Square;
+
+    public static int number_questions_fs;
+    public static int n_question_fixed = 0;
+    public static int line = 0;
+
+    public static string[] question;
     public static List<string> selectedAnswers = new List<string>(); // Answers selected by the participant
     public static List<string> correctAnswers = new List<string>(); // Correct answers (created by CreateNewRandomQuestion)
     public static int numCorrectAnswers = 0;
@@ -80,18 +87,18 @@ public class Questions : MonoBehaviour
         questionHolder.gameObject.SetActive(true);
 
         // Sample random indices between 0 and 2
-        indexRandQuestion = UnityEngine.Random.Range(0, 3);
+        indexQuestion = UnityEngine.Random.Range(0, 3);
         // The color of the text is the same as the text
-        indexRandColor = indexRandQuestion;
+        indexColor = indexQuestion;
         // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
-        Debug.Log(possibleQuestions[indexRandQuestion]);
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
+        Debug.Log(possibleQuestions[indexQuestion]);
         // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexRandQuestion]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+        correctAnswers.Add(possibleQuestions[indexQuestion]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexQuestion] + " ");
         // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
         timeStartQuestion = DateTime.Now;
     }
 
@@ -115,8 +122,20 @@ public class Questions : MonoBehaviour
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
                 totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results";
                 buttonContinue.gameObject.SetActive(false);
-                // Prepare the right level
-                Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+
+                //Read the file if fixed sequence
+
+                if (VariablesHolderStroop.stroopGameMode == "Fixed")
+                {
+                    TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
+                    string all_Info = txt.text;
+                    string[] info_Line = all_Info.Split('\n');
+                    //the starting line according to the level and read this line
+                    line = 2*VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] -1;  
+                    question = info_Line[line].Split(';');
+                }
+                    // Prepare the right level
+                    Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {
                     case 1:
@@ -191,20 +210,36 @@ public class Questions : MonoBehaviour
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(false);
 
-        // Sample random indices between 0 and 2
-        indexRandColor = UnityEngine.Random.Range(0, 3);
-        // Change the color of the backgroundColor to the random color
-        BackgroundImage.color = possibleColors[indexRandColor];
-        Debug.Log(possibleColors[indexRandColor]);
-        // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexRandColor]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
+        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        {
+            if (question[n_question_fixed].Split(',')[0] == "END")
+            {
+                Debug.Log("end of trial");
+                n_question_fixed = 0;
+            }
+            string ink_color = question[n_question_fixed].Split(',')[0];
+            indexColor = file_convert(ink_color);
+            n_question_fixed++;
+        }
+        else
+        {
+            // Sample random indices between 0 and 2
+            indexColor = UnityEngine.Random.Range(0, 3);
 
-        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandColor]);
+        }
+        // Change the color of the backgroundColor to the random color
+        BackgroundImage.color = possibleColors[indexColor];
+        Debug.Log(possibleColors[indexColor]);
+        // Add the correct answer to the list correctAnswers
+        correctAnswers.Add(possibleQuestions[indexColor]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
+
+        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
         Response.TriggerArduino("0");
+ 
     }
 
-    public void blackText()
+        public void blackText()
     {
         // Level 2: Black Text
         // TODO: Instructions = "Select the written color.\n Are you ready?"
@@ -215,20 +250,32 @@ public class Questions : MonoBehaviour
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
 
-        // Sample random indices between 0 and 2
-        indexRandQuestion = UnityEngine.Random.Range(0, 3);
+        //Fixed sequence
+        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        {
+            string ink_color = question[n_question_fixed].Split(',')[0];
+            indexQuestion = file_convert(ink_color);
+            n_question_fixed++;
+        }
+        //Random sequence
+        else
+        {
+            // Sample random indices between 0 and 2
+            indexQuestion = UnityEngine.Random.Range(0, 3);
+        }
+
         // Change the color of questionHolder to the black
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
-        // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
-        Debug.Log(possibleQuestions[indexRandQuestion]);
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor]; //POURQUOI?? 
+        // Change the text of questionHolder to the question
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
+        //Debug.Log(possibleQuestions[indexQuestion]);
         // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexRandQuestion]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+        correctAnswers.Add(possibleQuestions[indexQuestion]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexQuestion] + " ");
         timeStartQuestion = DateTime.Now;
 
-        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandQuestion]);
+        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexQuestion]);
         Response.TriggerArduino("0");
     }
 
@@ -244,23 +291,43 @@ public class Questions : MonoBehaviour
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
 
-        // Sample random indices between 0 and 2
-        indexRandQuestion = UnityEngine.Random.Range(0, 3);
-        indexRandColor = UnityEngine.Random.Range(0, 3);
-        // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
-        Debug.Log(possibleQuestions[indexRandQuestion]);
+        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        {
+            if (question[n_question_fixed].Split(',')[0] == "END")
+            {
+                Debug.Log("end of trial");
+                n_question_fixed = 0;
+            }
+            string ink_color = question[n_question_fixed].Split(',')[0];
+            indexColor = file_convert(ink_color);
+            string word_color = question[n_question_fixed].Split(',')[1];
+            indexQuestion = file_convert(word_color);
+            n_question_fixed++;
+        }
+        //Ramdom sequence
+        else
+        {
+            // Sample random indices between 0 and 2
+            indexQuestion = UnityEngine.Random.Range(0, 3);
+            indexColor = UnityEngine.Random.Range(0, 3);
+        }
+
+            // Change the text of questionHolder to the random question
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
+        Debug.Log(possibleQuestions[indexQuestion]);
         // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexRandColor]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
+        correctAnswers.Add(possibleQuestions[indexColor]);
+        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
         // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
         timeStartQuestion = DateTime.Now;
 
-        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandColor]);
+        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
         Response.TriggerArduino("0");
     }
+    
+    
     //Level 4
     public void randomRectangle()
     {
@@ -271,43 +338,116 @@ public class Questions : MonoBehaviour
         // Set Active the right components
         BackgroundImage.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
+        
+        //fixed sequence
+        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        {
+           
+            if (question[n_question_fixed].Split(',')[0] == "END")
+            {
+                Debug.Log("end of trial");
+                n_question_fixed = 0;
+            }
 
-        // Sample random indices either true or false 
-        bool randomBool = UnityEngine.Random.Range(0, 2) > 0;
-        Rectangle.gameObject.SetActive(randomBool);
-        Debug.Log(randomBool);
-        // Sample random indices between 0 and 2
-        indexRandQuestion = UnityEngine.Random.Range(0, 3);
-        indexRandColor = UnityEngine.Random.Range(0, 3);
+            string ink_color = question[n_question_fixed].Split(',')[0];
+            string word_color = question[n_question_fixed].Split(',')[1];
+            string square = question[n_question_fixed].Split(',')[2];
+
+            indexColor = file_convert(ink_color);
+            indexQuestion = file_convert(word_color);
+           
+            switch (square)
+            {
+                case "0":
+                    bool_Square = true;
+                    break;
+                case "1":
+                    bool_Square = false;
+                    break;
+            }
+            n_question_fixed++;
+
+        }
+        //Random sequence
+        else
+        {
+            // Sample random indices either true or false 
+            bool_Square = UnityEngine.Random.Range(0, 2) > 0;
+
+            Debug.Log(bool_Square);
+            // Sample random indices between 0 and 2
+            indexQuestion = UnityEngine.Random.Range(0, 3);
+            indexColor = UnityEngine.Random.Range(0, 3);
+        }
+        Rectangle.gameObject.SetActive(bool_Square);
         // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexRandQuestion];
-        Debug.Log(possibleQuestions[indexRandQuestion]);
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
+        Debug.Log(possibleQuestions[indexQuestion]);
         // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexRandColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexRandColor];
-        if (randomBool == true)
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
+        if (bool_Square == true)
         {
             // Add the color as the correct answer to the list correctAnswers
-            correctAnswers.Add(possibleQuestions[indexRandColor]);
-            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandColor]);
-            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandColor] + " ");
+            correctAnswers.Add(possibleQuestions[indexColor]);
+            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
+            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
         }
         else {
             // Add the text as the correct answer to the list correctAnswers
-            correctAnswers.Add(possibleQuestions[indexRandQuestion]);
-            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexRandQuestion]);
-            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexRandQuestion] + " ");
+            correctAnswers.Add(possibleQuestions[indexQuestion]);
+            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexQuestion]);
+            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexQuestion] + " ");
 
         }
         timeStartQuestion = DateTime.Now;
         Response.TriggerArduino("0");
     }
 
+
+    int file_convert(string color)
+    {
+        int index=0;
+        switch (color)
+        {
+            case "G":
+                index = 0;
+                break;
+            case "R":
+                index = 1;
+                break;
+
+            case "B":
+                index = 2;
+                break;
+
+            default:
+                n_question_fixed = 0;
+                color = question[n_question_fixed].Split(',')[0];
+                switch (color)
+                {
+                    case "G":
+                        index = 0;
+                        break;
+                    case "R":
+                        index = 1;
+                        break;
+
+                    case "B":
+                        index = 2;
+                        break;
+                }
+                break;
+
+        }
+        return index;
+    }
+
     void Update()
     {
         if (flagBeginTimer == true)
         {
-            Debug.Log(timeValue);
+            //Debug.Log(timeValue);
             // Each second, if there's still time on the timer, print the time and decrease it
             if (timeValue > 0)
             {
@@ -361,4 +501,6 @@ public class Questions : MonoBehaviour
             }
         }
     }
+
+
 }

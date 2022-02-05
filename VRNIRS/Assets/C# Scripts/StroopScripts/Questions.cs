@@ -18,7 +18,8 @@ public class Questions : MonoBehaviour
     public GameObject redButton;
     public GameObject greenButton;
     public GameObject blueButton;
-    public GameObject instructions;
+    public GameObject instructionLevel;
+   
 
     // Objectfs in searcher's view
     public GameObject timer;
@@ -27,6 +28,12 @@ public class Questions : MonoBehaviour
     public GameObject correctAnswersShown;
     public GameObject selectedAnswersShown;
     public GameObject averageResponseTime;
+    public Button playButton;
+    public Button instructionButton;
+    public GameObject textLevel;
+    public GameObject textCalibraton;
+    public Button buttonQuit;
+    public Button buttonNew;
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.stroopTrialTime;
@@ -100,62 +107,108 @@ public class Questions : MonoBehaviour
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
         timeStartQuestion = DateTime.Now;
+        
     }
-
     public void playLevel()
+    {
+        if(currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
+        {
+            // Set active the right objects
+            canvasChercheurInstructions.SetActive(false);
+            canvasParticipantInstructions.gameObject.SetActive(false);
+            canvasChercheurJeu.SetActive(true);
+            canvasParticipantJeu.SetActive(true);
+            greenButton.gameObject.SetActive(true);
+            redButton.gameObject.SetActive(true);
+            blueButton.gameObject.SetActive(true);
+            questionHolder.gameObject.SetActive(true);
+            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Correct Answers: ";
+            selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
+            averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
+            totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results";
+            buttonContinue.gameObject.SetActive(false);
+            buttonQuit.gameObject.SetActive(false);
+            buttonNew.gameObject.SetActive(false);
+
+            //Read the file if fixed sequence
+
+            if (VariablesHolderStroop.stroopGameMode == "Fixed")
+            {
+                TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
+                string all_Info = txt.text;
+                string[] info_Line = all_Info.Split('\n');
+                //the starting line according to the level and read this line
+                line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+                question = info_Line[line].Split(';');
+            }
+
+
+            // Prepare the right level
+            Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
+            {
+                case 1:
+                    backgroundColor();
+                    break;
+
+                case 2:
+                    blackText();
+                    break;
+
+                case 3:
+                    inkColor();
+                    break;
+
+                case 4:
+                    randomRectangle();
+                    break;
+            }
+            // Start the timer ("Update" function is executed)
+            flagBeginTimer = true;
+            
+        }
+        
+
+    }
+    public void playInstruction() 
     // Called by the "Start" button or "Continue" button
     // Play the right level according to the sequence
     {
         if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials){
             if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")
             {
-                // Set active the right objects
-                canvasChercheurInstructions.SetActive(false);
-                canvasParticipantInstructions.SetActive(false);
-                canvasChercheurJeu.SetActive(true);
-                canvasParticipantJeu.SetActive(true);
-                greenButton.gameObject.SetActive(true);
-                redButton.gameObject.SetActive(true);
-                blueButton.gameObject.SetActive(true);
-                correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Correct Answers: ";
-                selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
-                averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
-                totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results";
-                buttonContinue.gameObject.SetActive(false);
-
-                //Read the file if fixed sequence
-
-                if (VariablesHolderStroop.stroopGameMode == "Fixed")
-                {
-                    TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
-                    string all_Info = txt.text;
-                    string[] info_Line = all_Info.Split('\n');
-                    //the starting line according to the level and read this line
-                    line = 2*VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] -1;  
-                    question = info_Line[line].Split(';');
-                }
-                    // Prepare the right level
-                    Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+                canvasChercheurJeu.gameObject.SetActive(false);
+                questionHolder.gameObject.SetActive(false);
+                canvasParticipantInstructions.gameObject.SetActive(true);
+                canvasChercheurInstructions.gameObject.SetActive(true);
+                instructionButton.gameObject.SetActive(true);
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {
+
                     case 1:
-                        backgroundColor();
+                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
                         break;
 
                     case 2:
-                        blackText();
+                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
                         break;
 
                     case 3:
-                        inkColor();
+                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the word. that the letters are printed in and not the written color.\n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString() ;
                         break;
 
                     case 4:
-                        randomRectangle();
+                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
                         break;
                 }
-                // Start the timer ("Update" function is executed)
-                flagBeginTimer = true;
+
+                playButton.gameObject.SetActive(true);
+                instructionButton.gameObject.SetActive(false);
+                textCalibraton.gameObject.SetActive(false);
             }
             else
             {
@@ -178,6 +231,7 @@ public class Questions : MonoBehaviour
                 flagBeginTimer = true;
             }
         }
+        
         else
         {
             // Do things for final screen after all levels (for now, only write "END")
@@ -196,6 +250,8 @@ public class Questions : MonoBehaviour
             greenButton.gameObject.SetActive(false);
             redButton.gameObject.SetActive(false);
             blueButton.gameObject.SetActive(false);
+            buttonQuit.gameObject.SetActive(true);
+            buttonNew.gameObject.SetActive(true);
         }
     }
 
@@ -501,6 +557,17 @@ public class Questions : MonoBehaviour
             }
         }
     }
+    public void QuitGame()
+    {
+        
+        Application.Quit();
+    }
+    public void BackToMenu()
+    {
 
+        SceneManager.LoadScene(0);
+        //Peut-etre ajouter un checkpoint pour signifier un nouveau test??
+    }
 
 }
+

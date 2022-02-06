@@ -19,12 +19,13 @@ public class Questions : MonoBehaviour
     public GameObject greenButton;
     public GameObject blueButton;
     public GameObject instructionLevel;
-   
+    public AudioSource beep;
 
     // Objectfs in searcher's view
     public GameObject timer;
     public GameObject totalResults;
     public Button buttonContinue;
+    public Button buttonRestart;
     public GameObject correctAnswersShown;
     public GameObject selectedAnswersShown;
     public GameObject averageResponseTime;
@@ -107,8 +108,8 @@ public class Questions : MonoBehaviour
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
         timeStartQuestion = DateTime.Now;
-        
     }
+
     public void playLevel()
     {
         if(currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
@@ -124,24 +125,33 @@ public class Questions : MonoBehaviour
             questionHolder.gameObject.SetActive(true);
             correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Correct Answers: ";
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
-            averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
-            totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results";
+            averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: ";
+            totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results: ";
             buttonContinue.gameObject.SetActive(false);
+            buttonRestart.gameObject.SetActive(false);
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
 
             //Read the file if fixed sequence
-
             if (VariablesHolderStroop.stroopGameMode == "Fixed")
             {
-                TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
-                string all_Info = txt.text;
+                // If custom "fixed colors file"
+                string all_Info;
+                if (VariablesHolderStroop.fixedFile.Contains("Niveau")) // changer pour mieux verif
+                {
+                    all_Info = VariablesHolderStroop.fixedFile;
+                }
+                else
+                {
+                    TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
+                    all_Info = txt.text;
+                }
+                Debug.Log(all_Info);
                 string[] info_Line = all_Info.Split('\n');
                 //the starting line according to the level and read this line
                 line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
                 question = info_Line[line].Split(';');
             }
-
 
             // Prepare the right level
             Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
@@ -165,11 +175,9 @@ public class Questions : MonoBehaviour
             }
             // Start the timer ("Update" function is executed)
             flagBeginTimer = true;
-            
         }
-        
-
     }
+
     public void playInstruction() 
     // Called by the "Start" button or "Continue" button
     // Play the right level according to the sequence
@@ -205,7 +213,6 @@ public class Questions : MonoBehaviour
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
                         break;
                 }
-
                 playButton.gameObject.SetActive(true);
                 instructionButton.gameObject.SetActive(false);
                 textCalibraton.gameObject.SetActive(false);
@@ -215,6 +222,7 @@ public class Questions : MonoBehaviour
                 // Do things for single task (for now, only write "single task")
                 Response.CreateCheckpoint("Level: Single Task (Walk)");
                 buttonContinue.gameObject.SetActive(false);
+                buttonRestart.gameObject.SetActive(false);
                 selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "";
                 totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -229,6 +237,7 @@ public class Questions : MonoBehaviour
                 redButton.gameObject.SetActive(false);
                 blueButton.gameObject.SetActive(false);
                 flagBeginTimer = true;
+                timeStartQuestion = DateTime.Now;
             }
         }
         
@@ -237,6 +246,7 @@ public class Questions : MonoBehaviour
             // Do things for final screen after all levels (for now, only write "END")
             Response.CreateCheckpoint("Final screen");
             buttonContinue.gameObject.SetActive(false);
+            buttonRestart.gameObject.SetActive(false);
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "";
             totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -289,10 +299,10 @@ public class Questions : MonoBehaviour
         // Add the correct answer to the list correctAnswers
         correctAnswers.Add(possibleQuestions[indexColor]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
+        timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
         Response.TriggerArduino("0");
- 
     }
 
         public void blackText()
@@ -422,8 +432,8 @@ public class Questions : MonoBehaviour
                     break;
             }
             n_question_fixed++;
-
         }
+
         //Random sequence
         else
         {
@@ -494,7 +504,6 @@ public class Questions : MonoBehaviour
                         break;
                 }
                 break;
-
         }
         return index;
     }
@@ -522,17 +531,21 @@ public class Questions : MonoBehaviour
                     }
                 }
                 // Show the result (researcher's view)
-                totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
+                totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format("Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
                 Response.CreateCheckpoint("Result: " + numCorrectAnswers + "/" + numTotalAnswers);
                 if (responseTimes.Count==0)
                 {
                     timeEndQuestion = DateTime.Now;
-                    responseTimes.Add((Questions.timeEndQuestion - Questions.timeStartQuestion).TotalSeconds);
+                    responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalSeconds);
                 }
-                averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time (sec): " + Queryable.Average(responseTimes.AsQueryable()).ToString();
+                Debug.Log(String.Join(",", responseTimes.Select(x => x.ToString()).ToArray()));
+                averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
                 Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
                 // Show the button "Continue" (researcher's view)
                 buttonContinue.gameObject.SetActive(true);
+                buttonRestart.gameObject.SetActive(true);
+                // Play a sound
+                beep.Play();
                 // Change the text of the questionHolder (player's view)
                 BackgroundImage.gameObject.SetActive(false);
                 Rectangle.gameObject.SetActive(false);
@@ -550,24 +563,30 @@ public class Questions : MonoBehaviour
                 numCorrectAnswers = 0;
                 numTotalAnswers = 0;
                 // Play the next level in the sequence next time
-                currentIndexSeq += 1;
+                currentIndexSeq++;
                 // Change the flag to compute the result only one time
                 flagBeginTimer = false;
                 timeValue = VariablesHolderStroop.stroopTrialTime;
             }
         }
     }
+
     public void QuitGame()
     {
-        
         Application.Quit();
     }
+    
     public void BackToMenu()
     {
-
         SceneManager.LoadScene(0);
         //Peut-etre ajouter un checkpoint pour signifier un nouveau test??
     }
 
-}
+    public void Restart()
+    {
+        currentIndexSeq--;
+        n_question_fixed--;
+        playInstruction();
+    }
 
+}

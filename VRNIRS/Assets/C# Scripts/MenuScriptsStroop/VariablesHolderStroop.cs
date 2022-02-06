@@ -8,7 +8,8 @@ using UnityEngine.UI;
 using SFB;
 using TMPro;
 
-public class VariablesHolderStroop : MonoBehaviour {
+public class VariablesHolderStroop : MonoBehaviour 
+{
 	// Values to store (with default values)
 	public static string stroopGameMode; // "Random" or "Fixed"
 	public static int stroopTrialTime; // Trial time in seconds
@@ -18,6 +19,7 @@ public class VariablesHolderStroop : MonoBehaviour {
 	public static string arduinoPort = "COM3";
 	public static string fileName;
 	public static bool useMeta;
+	public static string fixedFile;
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;
@@ -48,6 +50,9 @@ public class VariablesHolderStroop : MonoBehaviour {
 	public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
 	public GameObject ToggleMeta;
+	public GameObject ButtonLoadFixed;
+	public GameObject checkSaved;
+	public GameObject checkFixed;
 	// Where to find the values (FileName scene)
 	public GameObject inputFileName;
 	public GameObject inputArduinoPort;
@@ -60,7 +65,8 @@ public class VariablesHolderStroop : MonoBehaviour {
 	public GameObject OptionsStroopPage;
 	public GameObject Options3DPage;
 
-	void Awake(){
+	void Awake()
+	{
 		paradigmChoicePage.SetActive(true);
 		FileNameNBackPage.SetActive(false);
 		FileNameStroopPage.SetActive(false);
@@ -73,6 +79,9 @@ public class VariablesHolderStroop : MonoBehaviour {
 		inputNumberTrials.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
             FieldValueChanged(inputNumberTrials.GetComponent<TMP_InputField>());
         	});
+		ButtonFixed.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
+            ButtonFixedValueChanged(ButtonFixed.GetComponent<Toggle>(), ButtonLoadFixed);
+        	});
 	}
 
 	void FieldValueChanged(TMP_InputField inp)
@@ -82,17 +91,32 @@ public class VariablesHolderStroop : MonoBehaviour {
 		inp.text = Math.Min(12, numTrials).ToString();
 		Sequence.Instance.StoreNumber();
     }
+
+	void ButtonFixedValueChanged(Toggle tog, GameObject loadFixed)
+	{
+		if (tog.isOn)
+		{
+			loadFixed.SetActive(true);
+		}
+		else
+		{
+			loadFixed.SetActive(false);
+		}
+	}
 	
-	public void ChangeParameters() {
+	public void ChangeParameters() 
+	{
 		// Update "time (one trial)"
 		int.TryParse(inputTime.GetComponent<TMP_InputField>().text, out stroopTrialTime);
-		if (stroopTrialTime == 0){
+		if (stroopTrialTime == 0)
+		{
 			stroopTrialTime = 90;
 		}
 		Debug.Log("Trial time: " + stroopTrialTime);
 		// Update "number of trials"
 		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out stroopNumberTrials);
-		if (stroopNumberTrials == 0){
+		if (stroopNumberTrials == 0)
+		{
 			stroopNumberTrials = 1;
 		}
 		Debug.Log("Number of trials: " + stroopNumberTrials);
@@ -101,24 +125,28 @@ public class VariablesHolderStroop : MonoBehaviour {
 		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
 		stroopSequence = new List<string>();
 		stroopSequenceLevels = new List<int>();
-		for (int i = 0; i < stroopNumberTrials; i++) {
+		for (int i = 0; i < stroopNumberTrials; i++)
+		{
 			stroopSequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
 		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
 		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()) );
 		// Update "game mode"
-		if (ButtonRandom.GetComponent<Toggle>().isOn == true){
+		if (ButtonRandom.GetComponent<Toggle>().isOn == true)
+		{
 			stroopGameMode = "Random";
 		}
-		else{
+		else
+		{
 			stroopGameMode = "Fixed";
 		}
 		Debug.Log("Game mode: " + stroopGameMode);
 		useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
 	}
 
-	public void ChangeFileNameAndPort() {
+	public void ChangeFileNameAndPort() 
+	{
 		// Update "file name"
 		fileName = inputFileName.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("File name: " + fileName);
@@ -161,10 +189,10 @@ public class VariablesHolderStroop : MonoBehaviour {
         //    errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename and port. \n IO Port Exception: " + ioex.Message;
         //    errorMessageFileName.SetActive(true);
         //}
-
     }
 
-	public void SaveParameters(){
+	public void SaveParameters()
+	{
 		// Update the values of the parameters
 		ChangeParameters();
 		// Create a string that contains the name and value of all the parameters
@@ -174,14 +202,21 @@ public class VariablesHolderStroop : MonoBehaviour {
 		// Write the file
 		if (!string.IsNullOrEmpty(path)) {
             File.WriteAllText(path, string.Join("\n", parameters));
+			checkSaved.SetActive(true);
         }
+		else
+		{
+			checkSaved.SetActive(false);
+		}
 	}
 
-	public void LoadParameters(){
+	public void LoadParameters()
+	{
 		// Open the file explorer (to select the file)
 		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
 		// Read the file
-		if (path.Length > 0) {
+		if (path.Length > 0)
+		{
 			// Read all the parameters
             string allParameters = File.ReadAllText(path[0]);
 			string[] parameters = allParameters.Split('\n');
@@ -216,5 +251,20 @@ public class VariablesHolderStroop : MonoBehaviour {
 				ToggleMeta.GetComponent<Toggle>().isOn = false;
 			}
         }
+	}
+	public void SelectFixedFile()
+	{
+		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
+		Debug.Log("Fixed file: " + path);
+		if (path.Length > 0)
+		{
+			fixedFile = File.ReadAllText(path);
+			Debug.Log(fixedFile);
+			checkFixed.SetActive(true);
+		}
+		else
+		{
+			checkFixed.SetActive(false);
+		}
 	}
 }

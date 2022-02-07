@@ -30,6 +30,7 @@ public class Questions : MonoBehaviour
     public GameObject selectedAnswersShown;
     public GameObject averageResponseTime;
     public Button playButton;
+    public Button playTutoButton; //PROBLEME
     public Button instructionButton;
     public GameObject textLevel;
     public GameObject textCalibraton;
@@ -47,9 +48,6 @@ public class Questions : MonoBehaviour
     public static int indexColor;
     public static bool bool_Square;
 
-    public static int number_questions_fs;
-    public static int n_question_fixed = 0;
-    public static int line = 0;
 
     public static string[] question;
     public static List<string> selectedAnswers = new List<string>(); // Answers selected by the participant
@@ -62,6 +60,13 @@ public class Questions : MonoBehaviour
     public static DateTime timeEndQuestion;
     public Image BackgroundImage; // New variable level 1 
     public Image Rectangle; // New variable level 4
+
+    //fixed sequence variables
+    public static int n_question_fixed = 0;
+    public static int line = 0;
+    public static bool flagTuto = false;
+    public static bool end_of_trial = false;
+
 
     // Pages of the scene
     public GameObject canvasChercheurInstructions;
@@ -127,6 +132,7 @@ public class Questions : MonoBehaviour
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: ";
             totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results: ";
+            timer.gameObject.SetActive(true);
             buttonContinue.gameObject.SetActive(false);
             buttonRestart.gameObject.SetActive(false);
             buttonQuit.gameObject.SetActive(false);
@@ -137,20 +143,22 @@ public class Questions : MonoBehaviour
             {
                 // If custom "fixed colors file"
                 string all_Info;
-                if (VariablesHolderStroop.fixedFile.Contains("Niveau")) // changer pour mieux verif
-                {
-                    all_Info = VariablesHolderStroop.fixedFile;
-                }
-                else
-                {
+                //if (VariablesHolderStroop.fixedFile.Contains("Niveau")) // changer pour mieux verif
+                //{
+                    //all_Info = VariablesHolderStroop.fixedFile;
+                //}
+                //else
+                //{
                     TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
                     all_Info = txt.text;
-                }
-                Debug.Log(all_Info);
+                //}
+                //Debug.Log(all_Info);
                 string[] info_Line = all_Info.Split('\n');
                 //the starting line according to the level and read this line
                 line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+
                 question = info_Line[line].Split(';');
+                n_question_fixed = 0;
             }
 
             // Prepare the right level
@@ -214,6 +222,7 @@ public class Questions : MonoBehaviour
                         break;
                 }
                 playButton.gameObject.SetActive(true);
+                //playTutoButton.gameObject.SetActive(true);
                 instructionButton.gameObject.SetActive(false);
                 textCalibraton.gameObject.SetActive(false);
             }
@@ -265,6 +274,70 @@ public class Questions : MonoBehaviour
         }
     }
 
+
+    public void playTuto()
+    {
+        flagTuto = true;
+        n_question_fixed = 0;
+
+        timeValue = 1; //i dont know...
+
+        if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
+        {
+            // Set active the right objects
+            canvasChercheurInstructions.SetActive(false);
+            canvasParticipantInstructions.gameObject.SetActive(false);
+            canvasChercheurJeu.SetActive(true);
+            canvasParticipantJeu.SetActive(true);
+            greenButton.gameObject.SetActive(true);
+            redButton.gameObject.SetActive(true);
+            blueButton.gameObject.SetActive(true);
+            questionHolder.gameObject.SetActive(true);
+
+            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Correct Answers: ";
+            selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
+            averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
+            totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results";
+            buttonContinue.gameObject.SetActive(false);
+            buttonQuit.gameObject.SetActive(false);
+            buttonNew.gameObject.SetActive(false);
+            timer.gameObject.SetActive(false);
+
+
+            TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset)); // change name
+            string all_Info = txt.text;
+            string[] info_Line = all_Info.Split('\n');
+
+            //the starting line according to the level and read this line
+            line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+            question = info_Line[line].Split(';');
+
+
+            // Prepare the right level
+            Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
+            {
+                case 1:
+                    backgroundColor();
+                    break;
+
+                case 2:
+                    blackText();
+                    break;
+
+                case 3:
+                    inkColor();
+                    break;
+
+                case 4:
+                    randomRectangle();
+                    break;
+            }
+        }
+    }
+
+
+
     public void backgroundColor()
     {
         // Level 1: Background Color
@@ -276,17 +349,24 @@ public class Questions : MonoBehaviour
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(false);
 
-        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        //Fixed sequence or tutorial
+        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
         {
-            if (question[n_question_fixed].Split(',')[0] == "END")
+            Debug.Log(question[n_question_fixed].Split(',')[0]);
+
+            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                n_question_fixed = 0;
+                end_of_trial = true;
+                //timeValue = 0;
+                return;
+
             }
-            string ink_color = question[n_question_fixed].Split(',')[0];
-            indexColor = file_convert(ink_color);
+            Debug.Log(question[n_question_fixed].Split(',')[0]);
+            indexColor = file_convert(question[n_question_fixed].Split(',')[0]);
             n_question_fixed++;
         }
+        //Random sequence
         else
         {
             // Sample random indices between 0 and 2
@@ -303,9 +383,10 @@ public class Questions : MonoBehaviour
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
         Response.TriggerArduino("0");
+        return;
     }
 
-        public void blackText()
+    public void blackText()
     {
         // Level 2: Black Text
         // TODO: Instructions = "Select the written color.\n Are you ready?"
@@ -316,11 +397,19 @@ public class Questions : MonoBehaviour
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
 
-        //Fixed sequence
-        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        //Fixed sequence or tutorial
+        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
         {
-            string ink_color = question[n_question_fixed].Split(',')[0];
-            indexQuestion = file_convert(ink_color);
+            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
+            {
+                Debug.Log("end of trial");
+                end_of_trial = true;
+                return;
+                //timeValue = 0;
+
+            }
+            Debug.Log(question[n_question_fixed].Split(',')[0]);
+            indexQuestion = file_convert(question[n_question_fixed].Split(',')[0]);
             n_question_fixed++;
         }
         //Random sequence
@@ -343,6 +432,7 @@ public class Questions : MonoBehaviour
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexQuestion]);
         Response.TriggerArduino("0");
+        return;
     }
 
     //Level 3
@@ -357,19 +447,25 @@ public class Questions : MonoBehaviour
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
 
-        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        //Fixed sequence or tutorial
+        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
         {
-            if (question[n_question_fixed].Split(',')[0] == "END")
+            Debug.Log(question[n_question_fixed].Split(',')[0]);
+
+            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                n_question_fixed = 0;
+                end_of_trial = true;
+                //timeValue = 0;
+                return;
+
             }
-            string ink_color = question[n_question_fixed].Split(',')[0];
-            indexColor = file_convert(ink_color);
-            string word_color = question[n_question_fixed].Split(',')[1];
-            indexQuestion = file_convert(word_color);
+            Debug.Log(question[n_question_fixed].Split(',')[0]);
+            indexColor = file_convert(question[n_question_fixed].Split(',')[0]);
+            indexQuestion = file_convert(question[n_question_fixed].Split(',')[1]);
             n_question_fixed++;
         }
+
         //Ramdom sequence
         else
         {
@@ -391,6 +487,7 @@ public class Questions : MonoBehaviour
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
         Response.TriggerArduino("0");
+        return;
     }
     
     
@@ -404,34 +501,33 @@ public class Questions : MonoBehaviour
         // Set Active the right components
         BackgroundImage.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
-        
-        //fixed sequence
-        if (VariablesHolderStroop.stroopGameMode == "Fixed")
+        //Fixed sequence or tutorial
+        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
         {
-           
-            if (question[n_question_fixed].Split(',')[0] == "END")
+            Debug.Log(question[n_question_fixed].Split(',')[0]);
+
+            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                n_question_fixed = 0;
+                //timeValue = 0;
+                end_of_trial = true;
+                return;
+
             }
+            indexColor = file_convert(question[n_question_fixed].Split(',')[0]);
+            indexQuestion = file_convert(question[n_question_fixed].Split(',')[0]);
 
-            string ink_color = question[n_question_fixed].Split(',')[0];
-            string word_color = question[n_question_fixed].Split(',')[1];
-            string square = question[n_question_fixed].Split(',')[2];
-
-            indexColor = file_convert(ink_color);
-            indexQuestion = file_convert(word_color);
-           
-            switch (square)
+            switch (question[n_question_fixed].Split(',')[2])
             {
                 case "0":
-                    bool_Square = true;
+                    bool_Square = false;
                     break;
                 case "1":
-                    bool_Square = false;
+                    bool_Square = true;
                     break;
             }
             n_question_fixed++;
+
         }
 
         //Random sequence
@@ -468,44 +564,7 @@ public class Questions : MonoBehaviour
         }
         timeStartQuestion = DateTime.Now;
         Response.TriggerArduino("0");
-    }
-
-
-    int file_convert(string color)
-    {
-        int index=0;
-        switch (color)
-        {
-            case "G":
-                index = 0;
-                break;
-            case "R":
-                index = 1;
-                break;
-
-            case "B":
-                index = 2;
-                break;
-
-            default:
-                n_question_fixed = 0;
-                color = question[n_question_fixed].Split(',')[0];
-                switch (color)
-                {
-                    case "G":
-                        index = 0;
-                        break;
-                    case "R":
-                        index = 1;
-                        break;
-
-                    case "B":
-                        index = 2;
-                        break;
-                }
-                break;
-        }
-        return index;
+        return;
     }
 
     void Update()
@@ -519,9 +578,10 @@ public class Questions : MonoBehaviour
                 timer.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Time left: {0:00}", Mathf.FloorToInt(timeValue));
                 timeValue -= Time.deltaTime;
             }
+        }
             // If there's not time left
-            else
-            {
+        if (timeValue <=0 || end_of_trial == true )
+        {
                 // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
                 for (int i=0; i<selectedAnswers.Count; i++)
                 {
@@ -538,7 +598,7 @@ public class Questions : MonoBehaviour
                     timeEndQuestion = DateTime.Now;
                     responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalSeconds);
                 }
-                Debug.Log(String.Join(",", responseTimes.Select(x => x.ToString()).ToArray()));
+                //Debug.Log(String.Join(",", responseTimes.Select(x => x.ToString()).ToArray()));
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
                 Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
                 // Show the button "Continue" (researcher's view)
@@ -563,12 +623,18 @@ public class Questions : MonoBehaviour
                 numCorrectAnswers = 0;
                 numTotalAnswers = 0;
                 // Play the next level in the sequence next time
-                currentIndexSeq++;
+                if (flagTuto == false)
+                {
+                    currentIndexSeq += 1;
+                }
                 // Change the flag to compute the result only one time
+
                 flagBeginTimer = false;
+                end_of_trial = false;
                 timeValue = VariablesHolderStroop.stroopTrialTime;
-            }
+                flagTuto = false;
         }
+       
     }
 
     public void QuitGame()
@@ -584,9 +650,33 @@ public class Questions : MonoBehaviour
 
     public void Restart()
     {
-        currentIndexSeq--;
-        n_question_fixed--;
+        if (flagTuto == false)
+        {
+            currentIndexSeq--;
+        }
+        //n_question_fixed--;
         playInstruction();
+    }
+
+
+
+    int file_convert(string color)
+    {
+        int index = 0;
+        switch (color)
+        {
+            case "G":
+                index = 0;
+                break;
+            case "R":
+                index = 1;
+                break;
+
+            case "B":
+                index = 2;
+                break;
+        }
+        return index;
     }
 
 }

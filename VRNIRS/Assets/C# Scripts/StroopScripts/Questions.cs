@@ -608,7 +608,8 @@ public class Questions : MonoBehaviour
                 buttonContinue.gameObject.SetActive(true);
                 buttonRestart.gameObject.SetActive(true);
                 // Play a sound
-                beep.Play();
+                beep.Play(); //PROBLEME!!!
+
                 // Change the text of the questionHolder (player's view)
                 BackgroundImage.gameObject.SetActive(false);
                 Rectangle.gameObject.SetActive(false);

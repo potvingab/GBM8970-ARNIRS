@@ -116,8 +116,9 @@ public class Questions : MonoBehaviour
     }
 
     public void playLevel()
-    {
-        if(currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
+         // Called by the "Instruction" button or "Continue" button
+    {   // Play the right level according to the sequence
+        if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
         {
             // Set active the right objects
             canvasChercheurInstructions.SetActive(false);
@@ -186,9 +187,9 @@ public class Questions : MonoBehaviour
         }
     }
 
-    public void playInstruction() 
-    // Called by the "Start" button or "Continue" button
-    // Play the right level according to the sequence
+    public void playInstruction()
+    // Called by the "Instruction" button or "Continue" button
+    // Play the right intructioon according to the sequence
     {
         if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials){
             if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")
@@ -198,6 +199,7 @@ public class Questions : MonoBehaviour
                 canvasParticipantInstructions.gameObject.SetActive(true);
                 canvasChercheurInstructions.gameObject.SetActive(true);
                 instructionButton.gameObject.SetActive(true);
+                // Display the instruction to the participant's view and the level number
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {
 
@@ -581,7 +583,8 @@ public class Questions : MonoBehaviour
         }
             // If there's not time left
         if (timeValue <=0 || end_of_trial == true )
-        {
+        {       
+
                 // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
                 for (int i=0; i<selectedAnswers.Count; i++)
                 {

@@ -19,7 +19,7 @@ public class Questions : MonoBehaviour
     public GameObject greenButton;
     public GameObject blueButton;
     public GameObject instructionLevel;
-    public AudioSource beep;
+    public static AudioSource beep;
 
     // Objectfs in searcher's view
     public GameObject timer;

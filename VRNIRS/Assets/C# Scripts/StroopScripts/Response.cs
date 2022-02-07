@@ -26,6 +26,7 @@ public class Response : Interaction
     protected override void Engage() // When it's in the zone, hand close
     {
         _handFeature = GrabbingHands[0];
+        Questions.beep.Play();
         changeText();
     }
 

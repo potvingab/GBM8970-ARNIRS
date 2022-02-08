@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using SFB;
 using TMPro;
+using System.Text.RegularExpressions;
 
 public class VariablesHolderStroop : MonoBehaviour 
 {
@@ -53,6 +54,7 @@ public class VariablesHolderStroop : MonoBehaviour
 	public GameObject ButtonLoadFixed;
 	public GameObject checkSaved;
 	public GameObject checkFixed;
+	public GameObject errorText;
 	// Where to find the values (FileName scene)
 	public GameObject inputFileName;
 	public GameObject inputArduinoPort;
@@ -217,6 +219,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Read the file
 		if (path.Length > 0)
 		{
+			errorText.SetActive(false);
 			// Read all the parameters
             string allParameters = File.ReadAllText(path[0]);
 			string[] parameters = allParameters.Split('\n');
@@ -251,20 +254,69 @@ public class VariablesHolderStroop : MonoBehaviour
 				ToggleMeta.GetComponent<Toggle>().isOn = false;
 			}
         }
+		else
+		{
+			errorText.GetComponent<Text>().text = "Error: The parameters file is not valid.";
+			errorText.SetActive(true);
+		}
 	}
+
 	public void SelectFixedFile()
 	{
 		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
 		Debug.Log("Fixed file: " + path);
 		if (path.Length > 0)
 		{
-			fixedFile = File.ReadAllText(path);
-			Debug.Log(fixedFile);
-			checkFixed.SetActive(true);
+			var possibleFixedFile = File.ReadAllText(path);
+			if (CheckValidFileFixed(possibleFixedFile))
+			{
+				fixedFile = possibleFixedFile;
+				checkFixed.SetActive(true);
+				errorText.SetActive(false);
+			}
+			else
+			{
+				checkFixed.SetActive(false);
+				errorText.GetComponent<Text>().text = "Error: The fixed colors sequence file is not valid. Read the instruction manual for more information.";
+				errorText.SetActive(true);
+			}
 		}
 		else
 		{
 			checkFixed.SetActive(false);
+			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
+			errorText.SetActive(true);
 		}
+	}
+
+	public bool CheckValidFileFixed(string fixedFile)
+	{
+		string[] lines = fixedFile.Split('\n');
+		if (
+			(lines.Count() == 8) && 
+			(Regex.Replace(lines[0], @"\s", "") == "Niveau1") && 
+			(Regex.Replace(lines[2], @"\s", "") == "Niveau2") && 
+			(Regex.Replace(lines[4], @"\s", "") == "Niveau3") && 
+			(Regex.Replace(lines[6], @"\s", "") == "Niveau4") &&
+			(lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()) &&
+			(lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()) &&
+			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 
+			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()) &&
+			(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11) && 
+			((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count()) &&
+			(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
+			)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public void CheckValidFileParameters()
+	{
+
 	}
 }

@@ -30,7 +30,7 @@ public class Questions : MonoBehaviour
     public GameObject selectedAnswersShown;
     public GameObject averageResponseTime;
     public Button playButton;
-    public Button playTutoButton; //PROBLEME
+    public GameObject playTutoButton;
     public Button instructionButton;
     public GameObject textLevel;
     public GameObject textCalibraton;
@@ -224,7 +224,7 @@ public class Questions : MonoBehaviour
                         break;
                 }
                 playButton.gameObject.SetActive(true);
-                //playTutoButton.gameObject.SetActive(true);
+                playTutoButton.gameObject.SetActive(true);
                 instructionButton.gameObject.SetActive(false);
                 textCalibraton.gameObject.SetActive(false);
             }

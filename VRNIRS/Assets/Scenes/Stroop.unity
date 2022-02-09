@@ -5567,7 +5567,7 @@ MonoBehaviour:
   selectedAnswersShown: {fileID: 701770042}
   averageResponseTime: {fileID: 1426149303}
   playButton: {fileID: 963702116}
-  playTutoButton: {fileID: 0}
+  playTutoButton: {fileID: 2076951162}
   instructionButton: {fileID: 835959003}
   textLevel: {fileID: 1698432675}
   textCalibraton: {fileID: 165465065}
@@ -6072,7 +6072,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2076951163
 RectTransform:
   m_ObjectHideFlags: 0

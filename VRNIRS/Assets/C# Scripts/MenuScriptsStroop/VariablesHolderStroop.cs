@@ -303,8 +303,8 @@ public class VariablesHolderStroop : MonoBehaviour
 			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 
 			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()) &&
 			(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11) && 
-			((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count()) &&
-			(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
+			((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count())
+			//(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
 			)
 		{
 			return true;

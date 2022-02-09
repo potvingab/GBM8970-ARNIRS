@@ -1,9 +1,10 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/HP/Documents/4 année/Projet Intégrateur/GBM8970-VRNIRS/VRNIRS/VRNIRS.exe
+C:/Users/sandrine/Documents/Build/VRNIRS.exe
 SceneListBegin?
-Assets/Scenes/Instruction.unity
+Assets/Scenes/Menu.unity
 Assets/Scenes/Stroop.unity
+Assets/Scenes/N-back.unity
 SceneListEnd?
 356f946af3435fb2320301f90dee50fa Assembly-CSharp.dll:Meta.HandInput.Utility.InteractionVisualManager
 c422dd62785a6d0afa870fbd111886ce Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
@@ -71,6 +72,7 @@ a44114bd4fa541174f78b4bb92bacb48 UnityEngine.UI.dll:UnityEngine.EventSystems.Sta
 e90403eeda069970e0b9de1533de13a6 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 2d58ca16854b99daea8c45e9c0f367b7 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 16da51d1b62ef6d4ee1849350434023b UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.BasicSample
 439a0ff705ecf71e5487656e9456e775 Assembly-CSharp.dll:.BoolArrayHolder
 50b0b141074b216c8b53b1bd467f73c9 Unity.TextMeshPro.dll:TMPro.TMP_InputField
 90eca9812b7b2abb85f6d2ac8b4ba16a Assembly-CSharp.dll:Meta.Mouse.MetaMouseMessage
@@ -152,11 +154,14 @@ d06d3fc8e0de98f324846ac023270b62 Assembly-CSharp.dll:Meta.Mouse.MetaInputModule
 4828feb9a44cf2b448bfac068468db54 Assembly-CSharp.dll:Meta.HandInput.HandCursor
 23d50109817411f096cf4f6ce3f43b61 Assembly-CSharp.dll:Meta.StereoCameraObjectOutline
 0b5016eeb804ed0f58fbd7953d190ff5 Assembly-CSharp.dll:Meta.HandInput.Utility.MetaCubeStateVisualsManager
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleOpenFileText
 1b8e83c83f5da5a5e888031b95784214 Assembly-CSharp.dll:TMPro.Examples.Benchmark03
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.Buttons.MetaButtonEventBroadcaster
 a8b6a2fe7c6fc02ed10e67f701c49964 Assembly-CSharp.dll:Meta.AlignToHeadset
 382b8ef512fa8d6108723a01b57af65b UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 d22c788799ee45d8676254eccf20e8b8 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
+a5d4b09bb66fb0b09bb6e7a7037eb215 Assembly-CSharp.dll:.Sequence
+f74d748bedfc298c5a30fbe30aec703e Assembly-CSharp.dll:.Questions
 43c22f3dae461a0a051c392da749be40 Assembly-CSharp.dll:TMPro.Examples.WarpTextExample
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaBehaviourInternal
 d75dc834c5dec688db75a55a1724c90f UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -165,11 +170,11 @@ e1ea12ca952c81d81a9a21fdf34446ed UnityEngine.HoloLens.dll:UnityEngine.EventSyste
 98d69a140ec0084cde3b6a5e09aea295 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 dfd33ff9ae3ce8d7ca1f22b475ec2387 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 a3c4f6168fdec1e9debee096e97ab787 Assembly-CSharp.dll:TMPro.Examples.TMP_TextEventCheck
-e28b89b5b885bc04cc8af40b8c40c642 Assembly-CSharp.dll:.RealistBool
 96f3ea9f23b6f08e60710ebb4af49174 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 accac87204353b11aafb0586d24b8851 Assembly-CSharp.dll:Meta.Reconstruction.EnvironmentScanController
 1655e5cbdafc3f52a798a8128c8c7c12 Assembly-CSharp.dll:TMPro.TMP_TextEventHandler
 34d219cdf8a72aef75c203b036a85318 Assembly-CSharp.dll:TMPro.Examples.Benchmark01
+f6e59526852db1063dd24b0bf5f4910f Assembly-CSharp.dll:.Response
 ab87db8f56b1cab792c727ea752ddd6d Assembly-CSharp.dll:Meta.Buttons.SoundEffectTrigger
 5272004824313f74260855c06ceec105 Assembly-CSharp.dll:Meta.Buttons.MetaButtonGameObjectEventBroadcaster
 24a0c34e1b3e8900ad212214811f9936 Assembly-CSharp.dll:Meta.SlamUI.SlamUIMessages
@@ -191,22 +196,23 @@ ba82b1c126952dc56a6491a27f506417 Assembly-CSharp.dll:Meta.ScaleMeshToParentRectT
 7e7ee21ab8ff1f2eb206565d6caa2bfd Assembly-CSharp.dll:TMPro.Examples.VertexJitter
 ec03df613a42d839a8e63829ef87b010 Assembly-CSharp.dll:Meta.Events.AudioEventTrigger
 486cd95c82d8305219c352c06b776e1f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
+522bc9091a6e9e45b6623f6e55f20468 Assembly-CSharp.dll:.CanvasSampleOpenFileImage
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.Extensions.QuaternionExtensions
 1dab5b2440e011188e5c627f5102bd43 Assembly-CSharp.dll:Meta.Mouse.MetaMouseCursorState
+0b76ec22ff665fca1c17b7a5cd2c48c0 Assembly-CSharp.dll:.ChooseParadigm
 d4bce373b5388e04f022573ef6e20c4f Assembly-CSharp.dll:Meta.Buttons.CubeButtonEventReaction
 4d5e54e84c4a4e2f9b56f797337c1353 Assembly-CSharp.dll:Meta.Examples.SwipeIntensityLightControl
 1ab9c1b147f5070484fa96a05764dab4 Assembly-CSharp.dll:Meta.HandsProvider
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleSaveFileImage
 1b0388e4d15f00f5ac2497d7c0c525b9 Assembly-CSharp.dll:Meta.HandInput.HandTrigger
-2c8eb8ea8c6c0c9d6d8146b7751fa6cc Assembly-CSharp.dll:.NBack
 3e03205f6d43c748f91658c5a49c20e4 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.XYSwipeFeedback
 eaf0bcdb10d442a4029d615f41d09957 Unity.TextMeshPro.dll:TMPro.TextContainer
 59836d25a498568b8f417e74aa6ba1e0 Assembly-CSharp.dll:Meta.Mouse.DragScale
 e5930b3f3763871ca43745d91dd968d4 Assembly-CSharp.dll:.ChatController
 2eb3a23d57b9cae436b3a319c8c34e10 Assembly-CSharp.dll:Meta.GrabInteraction
-486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.SceneSwitcher
 2eb3a23d57b9cae436b3a319c8c34e10 Assembly-CSharp.dll:Meta.TwoHandGrabInteraction
-486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.test
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.TestingPlayerPrefs
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleOpenFileTextMultiple
 d3985f23b121be7ae04a7237d84c9372 Assembly-CSharp.dll:TMPro.Examples.TMP_ExampleScript_01
 1427c25d7832d9866ab4db4a12c7a454 Assembly-CSharp.dll:Meta.MetaReconstruction
 3bcd7b1cb50ca4013c4b3ecb99196ed6 Assembly-CSharp.dll:.PauseMenu
@@ -289,11 +295,12 @@ f7dde43371003df0435af6f9df05256c Assembly-CSharp.dll:TMPro.Examples.Benchmark04
 1b8e83c83f5da5a5e888031b95784214 Assembly-CSharp.dll:TMPro.Examples.TextMeshSpawner
 5e68cfe7714c02719b379ba047cad42d Assembly-CSharp.dll:Meta.Plugin.MetaCompositor
 7e7ee21ab8ff1f2eb206565d6caa2bfd Assembly-CSharp.dll:TMPro.Examples.VertexShakeB
-ca49f62f4ccedfdceec28af3270c988d Assembly-CSharp.dll:.TimeSapwner
+ca49f62f4ccedfdceec28af3270c988d Assembly-CSharp.dll:.TimeSpawner
 eabb14b55dc317646709e1aaab0543fb Assembly-CSharp.dll:TMPro.Examples.Benchmark02
 bf424c287838e2eb6351a9a2e4f32960 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.SwipeXYRotateInteraction
 e21aa24dc1e5198def592b9315c3a77c Assembly-CSharp.dll:.ModelAnimation
 9ecabe4a6b0b699f4890bde3b3e4b3b9 Assembly-CSharp.dll:TMPro.Examples.TMP_UiFrameRateCounter
+ac23ae7a6030077394efdc31f1243fa5 Assembly-CSharp.dll:.ChooseFolder
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:TMPro.Examples.VertexColorCycler
 7e7ee21ab8ff1f2eb206565d6caa2bfd Assembly-CSharp.dll:TMPro.Examples.VertexZoom
 42b7b3d8edbc0bb5ea51574c36843314 Assembly-CSharp.dll:Meta.HandInput.SpeedDehooker
@@ -311,6 +318,8 @@ d6847627ba7741c18a9d5258fc293648 Assembly-CSharp.dll:TMPro.Examples.VertexShakeA
 dd223b2cbb523615eee8980d99d61ddd Assembly-CSharp.dll:.EnvMapAnimator
 c38aaac7fc9376a2d4cc310fb0172381 Assembly-CSharp.dll:Meta.HandInput.SwipeInteraction.SwipeOneAxisRotationInteraction
 93307bd34e39d73fd24e00ec39c25a91 Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
+e1ce0bb1cfbad2307f65317ab8812412 Assembly-CSharp.dll:.VariablesHolderStroop
+a17cd4792634d336e26e9d06b5a5ba6d Assembly-CSharp.dll:.CanvasSampleSaveFileText
 5f8415495e4b8aa77fc6e1060031812e Assembly-CSharp.dll:Meta.WebcamOffCanvasHandler
 6733ec7d71a3e6397f2d71ad33f9c329 Assembly-CSharp.dll:.TestFichierTemps
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaContextBridge
@@ -318,4 +327,4 @@ c38aaac7fc9376a2d4cc310fb0172381 Assembly-CSharp.dll:Meta.HandInput.SwipeInterac
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Meta.MetaBehaviour
 c053eca1fa93f9e791d4f2670ad69004 Assembly-CSharp.dll:Meta.SlamTrackingMessageController
 59e67af6cc97c60b8dbce3167a17c5ec Assembly-CSharp.dll:Meta.TurnTableInteraction
-486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.VariablesHolder
+04f212d9f0af7c3e8112a72a79c46f81 Assembly-CSharp.dll:.VariablesHolder

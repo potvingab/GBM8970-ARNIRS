@@ -102,12 +102,12 @@ public class TimeSpawner : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-        if (VariablesHolder.useMeta == false){
-            GameObject metaCamera = GameObject.Find("MetaCameraRig");
-            GameObject metaHands = GameObject.Find("MetaHands");
-            Destroy(metaCamera);
-            Destroy(metaHands);
-        }
+        //if (VariablesHolder.useMeta == false){
+         //   GameObject metaCamera = GameObject.Find("MetaCameraRig");
+          //  GameObject metaHands = GameObject.Find("MetaHands");
+            //Destroy(metaCamera);
+            //Destroy(metaHands);
+        //}
 
         Tutorial1Int = new int[15] {3, 8, 8, 0, 0, 7, 0, 1, 1, 8, 5, 5, 4, 7, 5};
 

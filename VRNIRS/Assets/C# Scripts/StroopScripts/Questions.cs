@@ -282,8 +282,6 @@ public class Questions : MonoBehaviour
         flagTuto = true;
         n_question_fixed = 0;
 
-        timeValue = 1; //i dont know...
-
         if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
         {
             // Set active the right objects
@@ -359,8 +357,8 @@ public class Questions : MonoBehaviour
             if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                end_of_trial = true;
-                //timeValue = 0;
+                
+                timeValue = 0;
                 return;
 
             }
@@ -511,8 +509,9 @@ public class Questions : MonoBehaviour
             if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                //timeValue = 0;
-                end_of_trial = true;
+                timeValue = 0;
+                Debug.Log(timeValue);
+                //end_of_trial = true;
                 return;
 
             }
@@ -608,7 +607,7 @@ public class Questions : MonoBehaviour
                 buttonContinue.gameObject.SetActive(true);
                 buttonRestart.gameObject.SetActive(true);
                 // Play a sound
-                beep.Play(); //PROBLEME!!!
+                beep.Play(); 
 
                 // Change the text of the questionHolder (player's view)
                 BackgroundImage.gameObject.SetActive(false);
@@ -658,7 +657,7 @@ public class Questions : MonoBehaviour
         {
             currentIndexSeq--;
         }
-        //n_question_fixed--;
+        
         playInstruction();
     }
 

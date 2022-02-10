@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections;using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
+
 
     public static bool GameIsPaused = false;
 
@@ -97,6 +97,9 @@ public class PauseMenu : MonoBehaviour {
                     UnityEngine.Debug.Log(differenceTime + " : " + TimeSpawner.reactionTime.ElapsedMilliseconds);
                     SameObject = true;
                     clicks[clickPosition] = currentLevelString;
+
+                    TimeSpawner.CreateCheckpoint("Same");
+                    TimeSpawner.TriggerArduino("1");
                 }
                 if (Input.GetKeyDown(KeyCode.D))
                 {
@@ -108,6 +111,9 @@ public class PauseMenu : MonoBehaviour {
                     UnityEngine.Debug.Log(differenceTime + " : " + TimeSpawner.reactionTime.ElapsedMilliseconds);
                     SameObject = true;
                     clicks[clickPosition] = currentLevelString;
+
+                    TimeSpawner.CreateCheckpoint("Diff");
+                    TimeSpawner.TriggerArduino("1");
                 }
             }
             ChangeText();

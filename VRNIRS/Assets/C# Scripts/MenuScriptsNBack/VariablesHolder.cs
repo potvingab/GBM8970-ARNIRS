@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class VariablesHolder : MonoBehaviour {
     public static float speed;
@@ -73,15 +74,20 @@ public class VariablesHolder : MonoBehaviour {
 		Debug.Log("File name: " + fileName);
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
+        arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
 		Debug.Log("Arduino port: " + arduinoPort);
-		// Check if valid inputs
-		if ((fileName.Contains("/")) && (arduinoPort.Contains("COM"))) {
-			errorMessageFileName.SetActive(false);
-			FileNameNBackPage.SetActive(false);
-			OptionsNBackPage.SetActive(true);
+        Debug.Log(arduinoPort == "COM3");
+        Debug.Log(arduinoPort.Length);
+        // Check if valid inputs
+        if ((fileName.Contains("/")) && (arduinoPort.Contains("COM")))
+        {
+            errorMessageFileName.SetActive(false);
+            FileNameNBackPage.SetActive(false);
+            OptionsNBackPage.SetActive(true);
         }
-		else{
-			errorMessageFileName.SetActive(true);
-		}
-	}
+        else
+        {
+            errorMessageFileName.SetActive(true);
+        }
+    }
 }

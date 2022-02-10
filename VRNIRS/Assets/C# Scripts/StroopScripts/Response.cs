@@ -14,7 +14,7 @@ public class Response : Interaction
 {
 	// Parameter from the menu scene
 	public static string fileName = VariablesHolderStroop.fileName; 
-    public static SerialPort serialPort = new SerialPort(VariablesHolder.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
+    public static SerialPort serialPort = new SerialPort(VariablesHolderStroop.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
     // New variables
     public GameObject selectedAnswersShown; // List of selected answers shown in the searcher's view
     public GameObject cube; // Button selected by the participant (RED, BLUE or GREEN)
@@ -51,10 +51,10 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //if (!serialPort.IsOpen)
-        //    serialPort.Open();
-        //serialPort.WriteLine(line);
-        //CreateCheckpoint("Test Délai");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
+        CreateCheckpoint("Test Délai");
     }
     
     public static void CreateCheckpoint(string nom)
@@ -78,7 +78,7 @@ public class Response : Interaction
         // Increase the total number of answers
         Questions.numTotalAnswers += 1;
         CreateCheckpoint("Participant's response: " + color);
-        Response.TriggerArduino("1");
+        Response.TriggerArduino("0");
 
         // Create and show a new random question
         switch (VariablesHolderStroop.stroopSequenceLevels[Questions.currentIndexSeq])

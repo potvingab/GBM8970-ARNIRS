@@ -157,40 +157,40 @@ public class VariablesHolderStroop : MonoBehaviour
 		Debug.Log("Arduino port: " + arduinoPort);
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
-        if ((fileName.Contains("/")))
-        {
-            errorMessageFileName.SetActive(false);
-            FileNameStroopPage.SetActive(false);
-            OptionsStroopPage.SetActive(true);
-        }
-        else
-        {
-            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
-            errorMessageFileName.SetActive(true);
-        }
-
-        // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
-        //try
+        //if ((fileName.Contains("/")))
         //{
-        //    //if (!Response.serialPort.IsOpen)
-        //    //    Response.serialPort.Open();
-        //    if ((fileName.Contains("/")))
-        //    {
-        //        errorMessageFileName.SetActive(false);
-        //        FileNameStroopPage.SetActive(false);
-        //        OptionsStroopPage.SetActive(true);
-        //    }
-        //    else
-        //    {
-        //        errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
-        //        errorMessageFileName.SetActive(true);
-        //    }
+        //    errorMessageFileName.SetActive(false);
+        //    FileNameStroopPage.SetActive(false);
+        //    OptionsStroopPage.SetActive(true);
         //}
-        //catch (IOException ioex)
+        //else
         //{
-        //    errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename and port. \n IO Port Exception: " + ioex.Message;
+        //    errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
         //    errorMessageFileName.SetActive(true);
         //}
+
+        // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
+        try
+        {
+            //if (!Response.serialPort.IsOpen)
+            //    Response.serialPort.Open();
+            if ((fileName.Contains("/")))
+            {
+                errorMessageFileName.SetActive(false);
+                FileNameStroopPage.SetActive(false);
+                OptionsStroopPage.SetActive(true);
+            }
+            else
+            {
+                errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
+                errorMessageFileName.SetActive(true);
+            }
+        }
+        catch (IOException ioex)
+        {
+            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename and port. \n IO Port Exception: " + ioex.Message;
+            errorMessageFileName.SetActive(true);
+        }
     }
 
 	public void SaveParameters()

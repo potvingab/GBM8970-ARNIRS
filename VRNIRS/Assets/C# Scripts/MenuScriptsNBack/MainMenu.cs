@@ -11,6 +11,17 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayNBack()
     {
+        using (StreamWriter sw = File.AppendText(VariablesHolder.fileName))
+        {
+            sw.Write("Parameter; " + "Filename: " + VariablesHolder.fileName + "\n");
+            sw.Write("Parameter; " + "Arduino Port: " + VariablesHolder.arduinoPort + "\n");
+            //sw.Write("Parameter; " + "Trial Time: " + VariablesHolderStroop.stroopTrialTime.ToString() + "\n");
+            //sw.Write("Parameter; " + "Number Trials: " + VariablesHolderStroop.stroopNumberTrials.ToString() + "\n");
+            //sw.Write("Parameter; " + "Sequence: " + String.Join(",", VariablesHolderStroop.stroopSequence.ToArray()) + "\n");
+            //sw.Write("Parameter; " + "Sequence Levels: " + String.Join(", ", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
+            //sw.Write("Parameter; " + "Game Mode: " + VariablesHolderStroop.stroopGameMode + "\n");
+        }
+        TimeSpawner.CreateCheckpoint("End of Menu");
         SceneManager.LoadScene("N-back");
     }
 

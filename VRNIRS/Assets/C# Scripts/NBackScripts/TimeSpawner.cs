@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using System;
+using System.IO.Ports;
 using System.Diagnostics;
 
 public class TimeSpawner : MonoBehaviour {
 
+    public static string fileName = VariablesHolder.fileName;
+    
+    public static SerialPort serialPort = new SerialPort(VariablesHolder.arduinoPort, 9600, Parity.None, 8, StopBits.One);
     public Transform spawnPos1;
     public Transform spawnPos2;
     public Transform spawnPos3;
@@ -169,9 +174,30 @@ public class TimeSpawner : MonoBehaviour {
 
     void Start ()
     {
+
         
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
 	}
+
+    public static void TriggerArduino(string line)
+    {
+        // 0: Question
+        // 1: Response
+        // Enlever commentaire si on utilise l'Arduino
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
+        CreateCheckpoint("Test Délai");
+    }
+
+    public static void CreateCheckpoint(string nom)
+    {
+        using (StreamWriter sw = File.AppendText(VariablesHolder.fileName))
+        {
+            sw.Write("Checkpoint; " + nom + "; ");
+            sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
+        }
+    }
 
     public void SpawnObject()
     {
@@ -303,6 +329,8 @@ public class TimeSpawner : MonoBehaviour {
                     CancelInvoke("SpawnObject");
                 }
                 order++;
+                CreateCheckpoint("Spawn");
+                TriggerArduino("0");
                 PauseMenu.clickPosition += 1;
                 PauseMenu.SameObject = false;
             }

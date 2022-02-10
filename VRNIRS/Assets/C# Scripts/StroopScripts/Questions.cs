@@ -164,6 +164,7 @@ public class Questions : MonoBehaviour
 
             // Prepare the right level
             Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            Response.TriggerArduino("2");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 1:
@@ -256,6 +257,7 @@ public class Questions : MonoBehaviour
         {
             // Do things for final screen after all levels (for now, only write "END")
             Response.CreateCheckpoint("Final screen");
+            Response.TriggerArduino("3");
             buttonContinue.gameObject.SetActive(false);
             buttonRestart.gameObject.SetActive(false);
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -317,6 +319,7 @@ public class Questions : MonoBehaviour
 
             // Prepare the right level
             Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            Response.TriggerArduino("2");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 1:
@@ -384,7 +387,7 @@ public class Questions : MonoBehaviour
         timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
-        Response.TriggerArduino("0");
+        Response.TriggerArduino("1");
         return;
     }
 
@@ -433,7 +436,7 @@ public class Questions : MonoBehaviour
         timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexQuestion]);
-        Response.TriggerArduino("0");
+        Response.TriggerArduino("1");
         return;
     }
 
@@ -488,7 +491,7 @@ public class Questions : MonoBehaviour
         timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
-        Response.TriggerArduino("0");
+        Response.TriggerArduino("1");
         return;
     }
     
@@ -565,7 +568,7 @@ public class Questions : MonoBehaviour
 
         }
         timeStartQuestion = DateTime.Now;
-        Response.TriggerArduino("0");
+        Response.TriggerArduino("1");
         return;
     }
 
@@ -605,8 +608,7 @@ public class Questions : MonoBehaviour
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
                 Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
                 // Show the button "Continue" (researcher's view)
-                buttonContinue.gameObject.SetActive(true);
-                buttonRestart.gameObject.SetActive(true);
+                buttonContinue.gameObject.SetActive(true);                buttonRestart.gameObject.SetActive(true);
                 // Play a sound
                 beep.Play(); //PROBLEME!!!
 

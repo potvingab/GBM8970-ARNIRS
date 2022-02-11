@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class Questions : MonoBehaviour
 {
-    // An instance is needed to use the method "CreateNewRandomQuestion" in other scripts
+    // An instance is needed to use the method "Question" in other scripts
     public static Questions Instance;
 
     // Objects in participant's view
@@ -20,7 +20,7 @@ public class Questions : MonoBehaviour
     public GameObject blueButton;
     public GameObject instructionLevel;
     public AudioSource beep;
-
+    
     // Objectfs in searcher's view
     public GameObject timer;
     public GameObject totalResults;
@@ -90,30 +90,6 @@ public class Questions : MonoBehaviour
         }
     }
 
-    // Level 0: Negative Control (pas encore dans le jeu)
-    public void BaseLine()
-    {
-        Debug.Log("BaseLine");
-        // setActive the right components
-        BackgroundImage.gameObject.SetActive(false);
-        Rectangle.gameObject.SetActive(false);
-        questionHolder.gameObject.SetActive(true);
-        
-        // Sample random indices between 0 and 2
-        indexQuestion = UnityEngine.Random.Range(0, 3);
-        // The color of the text is the same as the text
-        indexColor = indexQuestion;
-        // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
-        Debug.Log(possibleQuestions[indexQuestion]);
-        // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexQuestion]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexQuestion] + " ");
-        // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
-        timeStartQuestion = DateTime.Now;
-    }
 
     public void playLevel()
          // Called by the "Instruction" button or "Continue" button
@@ -168,23 +144,24 @@ public class Questions : MonoBehaviour
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 0:
-                    BaseLine();
+                    
+                    Levels.Instance.BaseLine();
                     break;
 
                 case 1:
-                    backgroundColor();
+                    Levels.Instance.backgroundColor();
                     break;
 
                 case 2:
-                    blackText();
+                    Levels.Instance.blackText();
                     break;
 
                 case 3:
-                    inkColor();
+                    Levels.Instance.inkColor();
                     break;
 
                 case 4:
-                    randomRectangle();
+                    Levels.Instance.randomRectangle();
                     break;
             }
             // Start the timer ("Update" function is executed)
@@ -329,255 +306,24 @@ public class Questions : MonoBehaviour
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 1:
-                    backgroundColor();
+                    Levels.Instance.backgroundColor();
                     break;
 
                 case 2:
-                    blackText();
+                    Levels.Instance.blackText();
                     break;
 
                 case 3:
-                    inkColor();
+                    Levels.Instance.inkColor();
                     break;
 
                 case 4:
-                    randomRectangle();
+                    Levels.Instance.randomRectangle();
                     break;
             }
         }
     }
 
-
-
-    public void backgroundColor()
-    {
-        // Level 1: Background Color
-        // TODO: Instructions = "Select the color of the rectangle.\n Are you ready?"
-        Debug.Log("backgroundColor");
-
-        // setActive the right components
-        BackgroundImage.gameObject.SetActive(true);
-        Rectangle.gameObject.SetActive(false);
-        questionHolder.gameObject.SetActive(false);
-
-        //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
-        {
-            Debug.Log(question[n_question_fixed].Split(',')[0]);
-
-            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
-            {
-                Debug.Log("end of trial");
-                
-                timeValue = 0;
-                return;
-
-            }
-            Debug.Log(question[n_question_fixed].Split(',')[0]);
-            indexColor = file_convert(question[n_question_fixed].Split(',')[0]);
-            n_question_fixed++;
-        }
-        //Random sequence
-        else
-        {
-            // Sample random indices between 0 and 2
-            indexColor = UnityEngine.Random.Range(0, 3);
-
-        }
-        // Change the color of the backgroundColor to the random color
-        BackgroundImage.color = possibleColors[indexColor];
-        Debug.Log(possibleColors[indexColor]);
-        // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexColor]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
-        timeStartQuestion = DateTime.Now;
-
-        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
-        Response.TriggerArduino("1");
-        return;
-    }
-
-    public void blackText()
-    {
-        // Level 2: Black Text
-        // TODO: Instructions = "Select the written color.\n Are you ready?"
-        Debug.Log("blackText");
-
-        // setActive the right components
-        BackgroundImage.gameObject.SetActive(false);
-        Rectangle.gameObject.SetActive(false);
-        questionHolder.gameObject.SetActive(true);
-
-        //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
-        {
-            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
-            {
-                Debug.Log("end of trial");
-                end_of_trial = true;
-                return;
-                //timeValue = 0;
-
-            }
-            Debug.Log(question[n_question_fixed].Split(',')[0]);
-            indexQuestion = file_convert(question[n_question_fixed].Split(',')[0]);
-            n_question_fixed++;
-        }
-        //Random sequence
-        else
-        {
-            // Sample random indices between 0 and 2
-            indexQuestion = UnityEngine.Random.Range(0, 3);
-        }
-
-        // Change the color of questionHolder to the black
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor]; //POURQUOI?? 
-        // Change the text of questionHolder to the question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
-        //Debug.Log(possibleQuestions[indexQuestion]);
-        // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexQuestion]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexQuestion] + " ");
-        timeStartQuestion = DateTime.Now;
-
-        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexQuestion]);
-        Response.TriggerArduino("1");
-        return;
-    }
-
-    //Level 3
-    public void inkColor()
-    {
-        // Level 3: Ink Color (not the written color)
-        // TODO: Instructions = "Select the color of the ink that the letters are printed in and not the written color.\n Are you ready?"
-        Debug.Log("CreateQuestion");
-        
-        // Set Active the right components
-        BackgroundImage.gameObject.SetActive(false);
-        Rectangle.gameObject.SetActive(false);
-        questionHolder.gameObject.SetActive(true);
-
-        //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
-        {
-            Debug.Log(question[n_question_fixed].Split(',')[0]);
-
-            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
-            {
-                Debug.Log("end of trial");
-                end_of_trial = true;
-                //timeValue = 0;
-                return;
-
-            }
-            Debug.Log(question[n_question_fixed].Split(',')[0]);
-            indexColor = file_convert(question[n_question_fixed].Split(',')[0]);
-            indexQuestion = file_convert(question[n_question_fixed].Split(',')[1]);
-            n_question_fixed++;
-        }
-
-        //Ramdom sequence
-        else
-        {
-            // Sample random indices between 0 and 2
-            indexQuestion = UnityEngine.Random.Range(0, 3);
-            indexColor = UnityEngine.Random.Range(0, 3);
-        }
-
-            // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
-        Debug.Log(possibleQuestions[indexQuestion]);
-        // Add the correct answer to the list correctAnswers
-        correctAnswers.Add(possibleQuestions[indexColor]);
-        correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
-        // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
-        timeStartQuestion = DateTime.Now;
-
-        Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
-        Response.TriggerArduino("1");
-        return;
-    }
-    
-    
-    //Level 4
-    public void randomRectangle()
-    {
-        // Level 4: Ink Color by default, Written Color if rectangle
-        // TODO: Instructions = "By default, select the color of the ink that the letters are printed in and not the written color.\n If the text is framed, select the written color.\n Are you ready?"
-        Debug.Log("randomRectangle");
-       
-        // Set Active the right components
-        BackgroundImage.gameObject.SetActive(false);
-        questionHolder.gameObject.SetActive(true);
-        //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || flagTuto == true)
-        {
-            Debug.Log(question[n_question_fixed].Split(',')[0]);
-
-            if (question[n_question_fixed].Split(',')[0] != "R" && question[n_question_fixed].Split(',')[0] != "B" && question[n_question_fixed].Split(',')[0] != "G")
-            {
-                Debug.Log("end of trial");
-                timeValue = 0;
-                Debug.Log(timeValue);
-                //end_of_trial = true;
-                return;
-
-            }
-            indexColor = file_convert(question[n_question_fixed].Split(',')[0]);
-            indexQuestion = file_convert(question[n_question_fixed].Split(',')[0]);
-
-            switch (question[n_question_fixed].Split(',')[2])
-            {
-                case "0":
-                    bool_Square = false;
-                    break;
-                case "1":
-                    bool_Square = true;
-                    break;
-            }
-            n_question_fixed++;
-
-        }
-
-        //Random sequence
-        else
-        {
-            // Sample random indices either true or false 
-            bool_Square = UnityEngine.Random.Range(0, 2) > 0;
-
-            Debug.Log(bool_Square);
-            // Sample random indices between 0 and 2
-            indexQuestion = UnityEngine.Random.Range(0, 3);
-            indexColor = UnityEngine.Random.Range(0, 3);
-        }
-        Rectangle.gameObject.SetActive(bool_Square);
-        // Change the text of questionHolder to the random question
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = possibleQuestions[indexQuestion];
-        Debug.Log(possibleQuestions[indexQuestion]);
-        // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = possibleColors[indexColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = possibleColors[indexColor];
-        if (bool_Square == true)
-        {
-            // Add the color as the correct answer to the list correctAnswers
-            correctAnswers.Add(possibleQuestions[indexColor]);
-            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexColor]);
-            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexColor] + " ");
-        }
-        else {
-            // Add the text as the correct answer to the list correctAnswers
-            correctAnswers.Add(possibleQuestions[indexQuestion]);
-            Response.CreateCheckpoint("Question shown. True response: " + possibleQuestions[indexQuestion]);
-            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (possibleQuestions[indexQuestion] + " ");
-
-        }
-        timeStartQuestion = DateTime.Now;
-        Response.TriggerArduino("1");
-        return;
-    }
 
     void Update()
     {
@@ -671,25 +417,6 @@ public class Questions : MonoBehaviour
         playInstruction();
     }
 
-
-
-    int file_convert(string color)
-    {
-        int index = 0;
-        switch (color)
-        {
-            case "G":
-                index = 0;
-                break;
-            case "R":
-                index = 1;
-                break;
-
-            case "B":
-                index = 2;
-                break;
-        }
-        return index;
-    }
+ 
 
 }

@@ -1825,6 +1825,59 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 701770042}
   m_CullTransparentMesh: 0
+--- !u!1 &719779216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 719779218}
+  - component: {fileID: 719779217}
+  m_Layer: 0
+  m_Name: VariablesLevels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &719779217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 719779216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b1ec8ac7475324d9ed183fce8f6aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionHolder: {fileID: 455754223}
+  BackgroundImage: {fileID: 1275676897}
+  Rectangle: {fileID: 1188686088}
+  correctAnswersShown: {fileID: 1522336587}
+  canvasChercheurInstructions: {fileID: 2126471742}
+  canvasParticipantInstructions: {fileID: 1097801785}
+  canvasChercheurJeu: {fileID: 1193219676}
+  canvasParticipantJeu: {fileID: 1181350946}
+--- !u!224 &719779218
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 719779216}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 334, y: 15.199997}
+  m_SizeDelta: {x: 100, y: 98.4}
+  m_Pivot: {x: 0.5, y: 0.23682913}
 --- !u!1001 &721955900
 Prefab:
   m_ObjectHideFlags: 0

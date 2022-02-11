@@ -83,22 +83,22 @@ public class Response : Interaction
         switch (VariablesHolderStroop.stroopSequenceLevels[Questions.currentIndexSeq])
         {
             case 0:
-                Questions.Instance.BaseLine();
+                Levels.Instance.BaseLine();
                 break;
             case 1:
-                Questions.Instance.backgroundColor();
+                Levels.Instance.backgroundColor();
                 break;
 
             case 2:
-                Questions.Instance.blackText();
+                Levels.Instance.blackText();
                 break;
 
             case 3:
-                Questions.Instance.inkColor();
+                Levels.Instance.inkColor();
                 break;
 
             case 4:
-                Questions.Instance.randomRectangle();
+                Levels.Instance.randomRectangle();
                 break;
         }
     }

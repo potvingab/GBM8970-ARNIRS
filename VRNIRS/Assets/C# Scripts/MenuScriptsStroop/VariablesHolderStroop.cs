@@ -127,7 +127,11 @@ public class VariablesHolderStroop : MonoBehaviour
 		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
 		stroopSequence = new List<string>();
 		stroopSequenceLevels = new List<int>();
-		for (int i = 0; i < stroopNumberTrials; i++)
+
+        // Obligation de faire le baseline en premier
+        stroopSequence.Add("Signle task");
+        stroopSequenceLevels.Add(0);
+        for (int i = 0; i < stroopNumberTrials; i++)
 		{
 			stroopSequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));

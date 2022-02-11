@@ -91,14 +91,14 @@ public class Questions : MonoBehaviour
     }
 
     // Level 0: Negative Control (pas encore dans le jeu)
-    public void negativeControl()
+    public void BaseLine()
     {
-        Debug.Log("negativeControl");
+        Debug.Log("BaseLine");
         // setActive the right components
         BackgroundImage.gameObject.SetActive(false);
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
-
+        
         // Sample random indices between 0 and 2
         indexQuestion = UnityEngine.Random.Range(0, 3);
         // The color of the text is the same as the text
@@ -118,7 +118,7 @@ public class Questions : MonoBehaviour
     public void playLevel()
          // Called by the "Instruction" button or "Continue" button
     {   // Play the right level according to the sequence
-        if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
+        if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1))
         {
             // Set active the right objects
             canvasChercheurInstructions.SetActive(false);
@@ -167,6 +167,10 @@ public class Questions : MonoBehaviour
             Response.TriggerArduino("2");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
+                case 0:
+                    BaseLine();
+                    break;
+
                 case 1:
                     backgroundColor();
                     break;
@@ -192,7 +196,7 @@ public class Questions : MonoBehaviour
     // Called by the "Instruction" button or "Continue" button
     // Play the right intructioon according to the sequence
     {
-        if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials){
+        if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1)){
             if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")
             {
                 canvasChercheurJeu.gameObject.SetActive(false);
@@ -200,32 +204,36 @@ public class Questions : MonoBehaviour
                 canvasParticipantInstructions.gameObject.SetActive(true);
                 canvasChercheurInstructions.gameObject.SetActive(true);
                 instructionButton.gameObject.SetActive(true);
+                playTutoButton.gameObject.SetActive(true);
                 // Display the instruction to the participant's view and the level number
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {
-
+                    case 0:
+                        playTutoButton.gameObject.SetActive(false);
+                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 0";
+                        break;
                     case 1:
                         instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
-                        break;
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 1";
+                        break; 
 
                     case 2:
                         instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 2 ";
                         break;
 
                     case 3:
                         instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the word. that the letters are printed in and not the written color.\n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString() ;
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 3" ;
                         break;
 
                     case 4:
                         instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL " + (currentIndexSeq + 1).ToString();
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 4 ";
                         break;
                 }
                 playButton.gameObject.SetActive(true);
-                playTutoButton.gameObject.SetActive(true);
                 instructionButton.gameObject.SetActive(false);
                 textCalibraton.gameObject.SetActive(false);
             }
@@ -284,7 +292,7 @@ public class Questions : MonoBehaviour
         flagTuto = true;
         n_question_fixed = 0;
 
-        if (currentIndexSeq < VariablesHolderStroop.stroopNumberTrials)
+        if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1))
         {
             // Set active the right objects
             canvasChercheurInstructions.SetActive(false);

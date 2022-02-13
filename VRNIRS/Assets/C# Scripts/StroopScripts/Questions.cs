@@ -36,6 +36,7 @@ public class Questions : MonoBehaviour
     public GameObject textCalibraton;
     public Button buttonQuit;
     public Button buttonNew;
+    public GameObject whiteBackgrounds;
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.stroopTrialTime;
@@ -110,6 +111,7 @@ public class Questions : MonoBehaviour
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: ";
             totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "Results: ";
             timer.gameObject.SetActive(true);
+            whiteBackgrounds.gameObject.SetActive(true);
             buttonContinue.gameObject.SetActive(false);
             buttonRestart.gameObject.SetActive(false);
             buttonQuit.gameObject.SetActive(false);
@@ -188,7 +190,7 @@ public class Questions : MonoBehaviour
                     case 0:
                         playTutoButton.gameObject.SetActive(false);
                         instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 0";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "CONTROL";
                         break;
                     case 1:
                         instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
@@ -260,6 +262,8 @@ public class Questions : MonoBehaviour
             blueButton.gameObject.SetActive(false);
             buttonQuit.gameObject.SetActive(true);
             buttonNew.gameObject.SetActive(true);
+            timer.gameObject.SetActive(false);
+            whiteBackgrounds.gameObject.SetActive(false);
         }
     }
 

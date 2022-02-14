@@ -100,7 +100,7 @@ public class Questions : MonoBehaviour
         //Baseline
         if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
         {
-            playTuto();
+            playTuto(); // the baseline works the same way as the tutorial
             return;
         }
 
@@ -182,7 +182,7 @@ public class Questions : MonoBehaviour
 
     public void playInstruction()
     // Called by the "Instruction" button or "Continue" button
-    // Play the right intructioon according to the sequence
+    // Play the right intruction according to the sequence
     {
         if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1)){
             if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")

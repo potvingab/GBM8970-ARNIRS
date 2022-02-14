@@ -67,6 +67,7 @@ public class Questions : MonoBehaviour
     public static int line = 0;
     public static bool flagTuto = false;
     public static bool end_of_trial = false;
+    public static bool flagRestart = false;
 
 
     // Pages of the scene
@@ -95,6 +96,14 @@ public class Questions : MonoBehaviour
     public void playLevel()
          // Called by the "Instruction" button or "Continue" button
     {   // Play the right level according to the sequence
+        flagTuto = false;
+        //Baseline
+        if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
+        {
+            playTuto();
+            return;
+        }
+
         if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1))
         {
             // Set active the right objects
@@ -182,8 +191,41 @@ public class Questions : MonoBehaviour
                 questionHolder.gameObject.SetActive(false);
                 canvasParticipantInstructions.gameObject.SetActive(true);
                 canvasChercheurInstructions.gameObject.SetActive(true);
+
+
+                if (flagTuto == true && flagRestart == false)
+                {
+                    playTutoButton.gameObject.SetActive(false);
+                    playButton.gameObject.SetActive(true);
+                    Debug.Log("A");
+                }
+                if (flagTuto == false && flagRestart == false)
+                {
+                    playTutoButton.gameObject.SetActive(true);
+                    playButton.gameObject.SetActive(true);
+                    Debug.Log("B");
+
+                }
+
+                if (flagRestart == true)
+                {
+                    if (flagTuto == false)
+                    {
+                        playTutoButton.gameObject.SetActive(false);
+                        playButton.gameObject.SetActive(true);
+                        Debug.Log("C");
+                    }
+                    else
+                    {
+                        playTutoButton.gameObject.SetActive(true);
+                        playButton.gameObject.SetActive(false);
+                        Debug.Log("D");
+                    }
+                    flagRestart = false;
+                }
+
                 instructionButton.gameObject.SetActive(true);
-                playTutoButton.gameObject.SetActive(true);
+                //playTutoButton.gameObject.SetActive(true);
                 // Display the instruction to the participant's view and the level number
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {
@@ -212,7 +254,7 @@ public class Questions : MonoBehaviour
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 4 ";
                         break;
                 }
-                playButton.gameObject.SetActive(true);
+                
                 instructionButton.gameObject.SetActive(false);
                 textCalibraton.gameObject.SetActive(false);
             }
@@ -293,14 +335,26 @@ public class Questions : MonoBehaviour
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
             timer.gameObject.SetActive(false);
+            TextAsset txt;
 
+            if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
+            {
+                txt = (TextAsset)Resources.Load("Baseline", typeof(TextAsset));
+                line = 1;
+                flagTuto = false;
 
-            TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset)); // change name
+            }
+            else
+            {
+                txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset)); // change name
+                line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+            }
+  
             string all_Info = txt.text;
             string[] info_Line = all_Info.Split('\n');
 
             //the starting line according to the level and read this line
-            line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+            
             question = info_Line[line].Split(';');
 
 
@@ -309,6 +363,9 @@ public class Questions : MonoBehaviour
             Response.TriggerArduino("2");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
+                case 0:
+                    Levels.Instance.BaseLine();
+                    break;
                 case 1:
                     Levels.Instance.backgroundColor();
                     break;
@@ -395,7 +452,7 @@ public class Questions : MonoBehaviour
                 flagBeginTimer = false;
                 end_of_trial = false;
                 timeValue = VariablesHolderStroop.stroopTrialTime;
-                flagTuto = false;
+               
         }
        
     }
@@ -416,8 +473,13 @@ public class Questions : MonoBehaviour
         if (flagTuto == false)
         {
             currentIndexSeq--;
+
         }
-        
+        flagRestart = true;
+        Debug.Log("!!!!!");
+        Debug.Log(flagRestart);
+        Debug.Log("!!!!!");
+        Debug.Log(flagTuto);
         playInstruction();
     }
 

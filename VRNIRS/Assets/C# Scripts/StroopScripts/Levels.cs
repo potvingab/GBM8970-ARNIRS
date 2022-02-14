@@ -51,6 +51,7 @@ public class Levels : MonoBehaviour {
                 break;
             case "R":
                 index = 1;
+                Debug.Log(index);
                 break;
 
             case "B":
@@ -67,20 +68,30 @@ public class Levels : MonoBehaviour {
         BackgroundImage.gameObject.SetActive(false);
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
+       
+        if (Questions.question[Questions.n_question_fixed].Split(',')[0] != "R" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "B" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "G")
+        {
 
-        // Sample random indices between 0 and 2
-        Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
-        // The color of the text is the same as the text
-        Questions.indexColor = Questions.indexQuestion;
-        // Change the text of questionHolder to the random question
+            Debug.Log("end of trial");
+            Questions.timeValue = 0;
+            return;
+        }
+        Questions.indexQuestion = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
+        Questions.n_question_fixed++;
+     
+
+
+        // Change the text of questionHolder to the  question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
+        Debug.Log("^^");
+        Debug.Log(Questions.indexQuestion);
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexQuestion]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexQuestion] + " ");
-        // Change the color of questionHolder to the random color
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.possibleColors[Questions.indexColor];
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor];
+        
+        // Change the color of questionHolder to the color
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.possibleColors[Questions.indexQuestion];
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexQuestion];
         Questions.timeStartQuestion = DateTime.Now;
     }
 
@@ -108,7 +119,7 @@ public class Levels : MonoBehaviour {
                 return;
 
             }
-            Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
+            
             Questions.indexColor = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
             Questions.n_question_fixed++;
         }

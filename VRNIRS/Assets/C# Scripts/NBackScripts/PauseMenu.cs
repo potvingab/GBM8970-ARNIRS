@@ -367,7 +367,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void SkipTutorials()
     {
-        TimeSpawner.currentLevel = 7;
+        TimeSpawner.currentLevel = 7; //Nombre de tuto
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;

@@ -66,8 +66,10 @@ public class TimeSpawner : MonoBehaviour {
 
     //public static GameObject[][] allArray;
 
-    public static string[] levelNames = { "Tutorial 1", "Tutorial 2", "Tutorial 3", "Tutotial 4",
-        "Tutotial 5", "Tutotial 6", "Tutotial 7", "Level 1", "Level 2", "Level 3", "Level 4",
+    //level name doit venir du menu
+
+    public static string[] levelNames = { "Tutorial 1", "Tutorial 2", "Tutorial 3", "Tutorial 4",
+        "Tutorial 5", "Tutorial 6", "Tutorial 7", "Level 1", "Level 2", "Level 3", "Level 4",
     "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12"};
 
 
@@ -163,7 +165,7 @@ public class TimeSpawner : MonoBehaviour {
 
         }
 
-
+        //doit etre modifiable en fonction du menu
         allArrayInt = new int[][] {Tutorial1Int, Tutorial2Int, Tutorial3Int, Tutorial4Int, Tutorial5Int, Tutorial6Int, Tutorial7Int,
             blanc1Int, level1Int, level2Int, level3Int, level4Int, blanc1Int, blanc1Int, level5Int, level6Int, level7Int, level8Int, blanc1Int};
 

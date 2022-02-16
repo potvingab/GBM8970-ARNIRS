@@ -92,6 +92,7 @@ public class VariablesHolder : MonoBehaviour
         Debug.Log("Arduino port: " + arduinoPort);
         Debug.Log(arduinoPort == "COM3");
         Debug.Log(arduinoPort.Length);
+        TimeSpawner.TriggerArduino("C");
         // Check if valid inputs
         if ((fileName.Contains("/")) && (arduinoPort.Contains("COM")))
         {

@@ -184,10 +184,10 @@ public class TimeSpawner : MonoBehaviour {
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        serialPort.WriteLine(line);
-        CreateCheckpoint("Test Délai");
+        //if (!serialPort.IsOpen)
+        //    serialPort.Open();
+        //serialPort.WriteLine(line);
+        //CreateCheckpoint("Test Délai");
     }
 
     public static void CreateCheckpoint(string nom)
@@ -210,6 +210,7 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     spawneeObject = StartObject;
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
+                    UnityEngine.Debug.Log("Start Object");
                 }
                 else if (order == NumberOfObjects.numberOfObjects)
                 {
@@ -259,8 +260,12 @@ public class TimeSpawner : MonoBehaviour {
                         else
                         {
                             spawneeObject = spawneesNormal[spawneeWanted[order]];
+                            
+                            
+                            
                         }
 
+                        UnityEngine.Debug.Log("Spawn " + spawneeObject);
                         int side = UnityEngine.Random.Range(0, 2);
                         if (side == 0)
                         {
@@ -285,7 +290,16 @@ public class TimeSpawner : MonoBehaviour {
                             else
                             {
                                 startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
+                                GameObject clone = Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
+                                UnityEngine.Debug.Log("Meta :" + VariablesHolder.useMeta);
+                                UnityEngine.Debug.Log("Audio :" + VariablesHolder.useAudio);
+                                UnityEngine.Debug.Log("Visuel :" + VariablesHolder.useVisual);
+                                if (VariablesHolder.useAudio)
+                                {
+                                    AudioSource sound = clone.GetComponent<AudioSource>();
+                                    UnityEngine.Debug.Log(sound);
+                                    sound.Play();
+                                }    
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
@@ -314,7 +328,15 @@ public class TimeSpawner : MonoBehaviour {
                             else
                             {
                                 startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
+                                GameObject clone = Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
+                                UnityEngine.Debug.Log("Audio :" + VariablesHolder.useAudio);
+                                UnityEngine.Debug.Log("Visuel :" + VariablesHolder.useVisual);
+                                if (VariablesHolder.useAudio)
+                                {
+                                    AudioSource sound = clone.GetComponent<AudioSource>();
+                                    UnityEngine.Debug.Log(sound);
+                                    sound.Play();
+                                }
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }

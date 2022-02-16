@@ -272,6 +272,7 @@ public class Questions : MonoBehaviour
                 Rectangle.gameObject.SetActive(false);
                 questionHolder.gameObject.SetActive(true);
                 questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK";
+                textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK (Walk)";
                 questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
                 questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.black;
                 greenButton.gameObject.SetActive(false);
@@ -346,7 +347,7 @@ public class Questions : MonoBehaviour
             }
             else
             {
-                txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset)); // change name
+                txt = (TextAsset)Resources.Load("tutorial", typeof(TextAsset)); // change name
                 line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
             }
   
@@ -476,10 +477,12 @@ public class Questions : MonoBehaviour
 
         }
         flagRestart = true;
-        Debug.Log("!!!!!");
-        Debug.Log(flagRestart);
-        Debug.Log("!!!!!");
-        Debug.Log(flagTuto);
+        numCorrectAnswers = 0;
+        numTotalAnswers = 0;
+        selectedAnswers = new List<string>(); // Answers selected by the participant
+        correctAnswers = new List<string>(); // Correct answers 
+        responseTimes = new List<double>();
+
         playInstruction();
     }
 

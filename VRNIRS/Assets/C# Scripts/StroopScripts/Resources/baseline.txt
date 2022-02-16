@@ -1,2 +1,0 @@
-Baseline
-R;G;B;G;B;R;END

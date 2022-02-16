@@ -50,10 +50,10 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //if (!serialPort.IsOpen)
-        //    serialPort.Open();
-        //serialPort.WriteLine(line);
-        //CreateCheckpoint("Test Délai");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
+        CreateCheckpoint("Test Délai");
     }
     
     public static void CreateCheckpoint(string nom)
@@ -76,29 +76,26 @@ public class Response : Interaction
         selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (color + " ");
         // Increase the total number of answers
         Questions.numTotalAnswers += 1;
-        CreateCheckpoint("Participant's response: " + color + ". Response time: " + (Questions.timeEndQuestion - Questions.timeStartQuestion).TotalSeconds + "sec");
+        CreateCheckpoint("Participant's response: " + color);
         Response.TriggerArduino("0");
 
         // Create and show a new random question
         switch (VariablesHolderStroop.stroopSequenceLevels[Questions.currentIndexSeq])
         {
-            case 0:
-                Levels.Instance.BaseLine();
-                break;
             case 1:
-                Levels.Instance.backgroundColor();
+                Questions.Instance.backgroundColor();
                 break;
 
             case 2:
-                Levels.Instance.blackText();
+                Questions.Instance.blackText();
                 break;
 
             case 3:
-                Levels.Instance.inkColor();
+                Questions.Instance.inkColor();
                 break;
 
             case 4:
-                Levels.Instance.randomRectangle();
+                Questions.Instance.randomRectangle();
                 break;
         }
     }

@@ -1,6 +1,0 @@
-id,timestamp,n-back,mode,type
-,20210728-182647,2,FIXED,VISUAL
-Block,Condition,Total Accuracy,Mean Response Time,Weighted Response Time,Item 1,Expected Answer 1,Subject Answer 1,Accuracy 1,Response Time 1,Item 2,Expected Answer 2,Subject Answer 2,Accuracy 2,Response Time 2,Item 3,Expected Answer 3,Subject Answer 3,Accuracy 3,Response Time 3,Item 4,Expected Answer 4,Subject Answer 4,Accuracy 4,Response Time 4,Item 5,Expected Answer 5,Subject Answer 5,Accuracy 5,Response Time 5
-T1,2,0,0,2000,4,0,0,1,--,9,0,0,1,--,9,2,0,0,--,1,2,0,0,--,1,2,0,0,--
-T2,2,0,0,2000,2,0,0,1,--,8,0,0,1,--,5,2,0,0,--,8,1,0,0,--,1,2,0,0,--
-T3,2,0,0,2000,5,0,0,1,--,3,0,0,1,--,6,2,0,0,--,7,2,0,0,--,6,1,0,0,--

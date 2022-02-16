@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
-using System.Collections;using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour {
+public class PauseMenu : MonoBehaviour
+{
 
 
     public static bool GameIsPaused = false;
@@ -55,7 +57,7 @@ public class PauseMenu : MonoBehaviour {
 
     public static string currentLevelString = "";
     public static int[] currentLevelObjects;
-    public static int[] blockCondition = new int[19] {2,2,2,2,2,2,2,1,2,3,3,2,1,1,2,3,3,2,1};
+    public static int[] blockCondition = new int[19] { 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 1 };
 
 
     public void Awake()
@@ -64,7 +66,8 @@ public class PauseMenu : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         currentLevelString = "--";
         currentLevelObjects = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
         if (Input.GetKeyDown(KeyCode.P))
@@ -85,7 +88,7 @@ public class PauseMenu : MonoBehaviour {
 
         if (!SameObject)
         {
-            if(clickPosition >= 0 && clickPosition < NumberOfObjects.numberOfObjects)
+            if (clickPosition >= 0 && clickPosition < NumberOfObjects.numberOfObjects)
             {
                 if (Input.GetKeyDown(KeyCode.S))
                 {
@@ -119,7 +122,7 @@ public class PauseMenu : MonoBehaviour {
             ChangeText();
         }
 
-        if(TimeSpawner.order == NumberOfObjects.numberOfObjects + 1 && SaveCondition)
+        if (TimeSpawner.order == NumberOfObjects.numberOfObjects + 1 && SaveCondition)
         {
             GetPercentageForLevel();
             SaveLevelInfo();
@@ -192,7 +195,7 @@ public class PauseMenu : MonoBehaviour {
             for (int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
             {
                 postAccuracy += "," + (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][i] + 1);
-               
+
                 int rt = 2000;
                 if (reactionTime[i] != "--")
                 {
@@ -264,15 +267,15 @@ public class PauseMenu : MonoBehaviour {
 
         int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
 
-        if(allLevelResults[TimeSpawner.currentLevel] != "")
+        if (allLevelResults[TimeSpawner.currentLevel] != "")
         {
-            for(int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
+            for (int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
             {
-                if(currentLeveObjectsPerc[i] == 9)
+                if (currentLeveObjectsPerc[i] == 9)
                 {
 
                 }
-                else if(currentLeveObjectsPerc[i] == currentLeveObjectsPerc[i - VariablesHolder.nBackNumber] && clicks[i] != "Same")
+                else if (currentLeveObjectsPerc[i] == currentLeveObjectsPerc[i - VariablesHolder.nBackNumber] && clicks[i] != "Same")
                 {
                     percentage -= 1;
                 }
@@ -296,7 +299,7 @@ public class PauseMenu : MonoBehaviour {
 
         for (int i = 0; i < NumberOfObjects.numberOfObjects; i++)
         {
-            if(currentLeveObjectsPerc[i] == 9)
+            if (currentLeveObjectsPerc[i] == 9)
             {
                 gameObjectList.text = "Just Moving trough the scene.";
                 break;
@@ -314,12 +317,12 @@ public class PauseMenu : MonoBehaviour {
                 //
                 gameObjectList.text = gameObjectList.text + (orderObject[currentLevelObjects[i]].name + ": " + clicks[i] + "; ");
             }
-            
+
         }
         allLevelResults[TimeSpawner.currentLevel] = gameObjectList.text;
     }
 
-    public void Resume ()
+    public void Resume()
     {
         pauseMenuUI.SetActive(false);
         pauseMenuUIHead.SetActive(true);
@@ -392,7 +395,7 @@ public class PauseMenu : MonoBehaviour {
         {
             endScreen.SetActive(true);
         }
-        else if(TimeSpawner.currentLevel == 18)
+        else if (TimeSpawner.currentLevel == 18)
         {
             endScreenFinal.SetActive(true);
         }

@@ -11,8 +11,6 @@ public class VariablesHolder : MonoBehaviour {
 	public static string fileName;
     public static string gameMode; 
     public static bool useMeta;
-    public static bool useVisual;
-    public static bool useAudio;
     public static int nBackNumber;
     public static bool realistCheck;
 
@@ -24,8 +22,6 @@ public class VariablesHolder : MonoBehaviour {
     public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
 	public GameObject ToggleMeta;
-    public GameObject ToggleVisual;
-    public GameObject ToggleAudio;
     public Slider NBackSlider;
     public Slider NBackLevelSlider;
     public GameObject ToggleReal;
@@ -59,22 +55,17 @@ public class VariablesHolder : MonoBehaviour {
 
     public void ChangeParameters() {
         // Update "game mode"
-        useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
-        useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
-        Debug.Log(useVisual);
-        Debug.Log(useAudio);
-        if (ButtonRandom.GetComponent<Toggle>().isOn == true){
+		if (ButtonRandom.GetComponent<Toggle>().isOn == true){
 			gameMode = "Random";
 		}
 		else{
 			gameMode = "Fixed";
 		}
 		Debug.Log("Game mode: " + gameMode);
-		//TimeSpawner.CreateCheckpoint("EndOfMenu");
+		Response.CreateCheckpoint("EndOfMenu");
 		useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
         realistCheck = ToggleMeta.GetComponent<Toggle>().isOn;
         Debug.Log("Real: " + realistCheck.ToString());
-        
     }
 
     public void ChangeFileNameAndPort() {

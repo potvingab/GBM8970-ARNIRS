@@ -146,6 +146,7 @@ public class PauseMenu : MonoBehaviour
             }
             File.WriteAllText(FileName.nameOfFile, titleString + "\n");
         }
+        //ATTENTION!!!!!!
         string levelString = "";
         if (TimeSpawner.currentLevel < 7)
         {
@@ -155,6 +156,7 @@ public class PauseMenu : MonoBehaviour
         {
             levelString += (TimeSpawner.currentLevel - 6);
         }
+        //if single walk
         if (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
         {
             levelString += ",1,100,0,0";
@@ -396,6 +398,7 @@ public class PauseMenu : MonoBehaviour
         {
             endScreen.SetActive(true);
         }
+        //ATTENTION!!number of level max!!
         else if (TimeSpawner.currentLevel == 18)
         {
             endScreenFinal.SetActive(true);

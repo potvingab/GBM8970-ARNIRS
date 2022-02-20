@@ -154,7 +154,7 @@ public class TimeSpawner : MonoBehaviour
         }
         else
         {
-            
+
             level1Int = new int[15] { 0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8 };
 
             level2Int = new int[15] { 2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4 };
@@ -375,15 +375,13 @@ public class TimeSpawner : MonoBehaviour
     }
     public int[] LevelGenerater(string name)
     {
-        int[] sequence = new int[NumberOfObjects.numberOfObjects];
-        
+        int[] sequence;
+
         switch (name)
         {
+
             case "single walk":
-                for (int i = 0; i < NumberOfObjects.numberOfObjects; ++i)
-                {
-                    sequence[i] = 9;
-                }
+                sequence = new int[15] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 };
                 break;
 
 
@@ -395,42 +393,18 @@ public class TimeSpawner : MonoBehaviour
                 else
                     sequence = ReadFile(currentLevel);
                 break;
+               
+
+
         }
+
         return sequence;
     }
 
 
-    public int[] ReadFile(int level)
-    {
-        int[] sequence;
-        switch (level)
+        public int[] ReadFile(int level)
         {
-            case 1:
-                sequence = new int[15] { 0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8 };
-                break;
-            case 2:
-                sequence = new int[15] { 2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4 };
-                break;
-            case 3:
-                sequence = new int[15] { 7, 6, 3, 6, 8, 6, 7, 3, 1, 3, 0, 6, 0, 8, 0 };
-                break;
-            case 4:
-                sequence = new int[15] { 2, 0, 4, 0, 3, 7, 3, 5, 8, 5, 2, 5, 0, 8, 0 };
-                break;
-            case 5:
-                sequence = new int[15] { 7, 4, 7, 0, 3, 0, 5, 1, 5, 3, 6, 2, 3, 1, 0 };
-                break;
-            case 6:
-                sequence = new int[15] { 4, 8, 0, 2, 1, 2, 4, 4, 6, 7, 6, 3, 8, 4, 7 };
-                break;
-            case 7:
-                sequence = new int[15] { 0, 5, 6, 5, 2, 7, 2, 8, 0, 6, 0, 2, 5, 2, 4 };
-                break;
-            default:
-                sequence = new int[15] { 7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0 };
-                break;
+            int [] sequence = new int[15] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 };
+            return sequence;
         }
-    return sequence;
-
-    }
 }

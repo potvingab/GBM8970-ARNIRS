@@ -83,8 +83,8 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-        //Edit to have the name!! 
-        //gameObjectListTitle.text = TimeSpawner.levelNames[TimeSpawner.currentLevel];
+
+        gameObjectListTitle.text = TimeSpawner.levelNames[TimeSpawner.currentLevel];
 
         if (!SameObject)
         {
@@ -285,9 +285,8 @@ public class PauseMenu : MonoBehaviour
                 }
             }
             percentage = (int)(((float)percentage / (float)(NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber)) * 100);
-            //Edit for the name, use current level
-            //levelTextSelecters[TimeSpawner.currentLevel].text = TimeSpawner.levelNames[TimeSpawner.currentLevel]+ ": " + percentage + "%";
-
+            levelTextSelecters[TimeSpawner.currentLevel].text = TimeSpawner.levelNames[TimeSpawner.currentLevel]
+                + ": " + percentage + "%";
 
         }
     }

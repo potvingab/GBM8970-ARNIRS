@@ -144,7 +144,7 @@ SubShader {
 			float3	viewDir			: TEXCOORD3;
 			
 		#if (UNDERLAY_ON || UNDERLAY_INNER)
-			float4	texcoord2		: TEXCOORD4;		// ,v, scale, bias
+			float4	texcoord2		: TEXCOORD4;		// u,v, scale, bias
 			fixed4	underlayColor	: COLOR1;
 		#endif
 			float4 textures			: TEXCOORD5;

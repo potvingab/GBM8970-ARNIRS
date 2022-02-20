@@ -137,6 +137,7 @@ public class PauseMenu : MonoBehaviour
         {
             string titleString = "id,timestamp,n-back,mode,type\n";
             UnityEngine.Debug.Log(FileName.nameOfFileOriginal);
+            //ATTNETION null??
             titleString += FileName.nameOfFileOriginal.Substring(0, FileName.nameOfFileOriginal.Length - 1) + "," + FileName.timeStamp + "," + VariablesHolder.nBackNumber + "," + FileName.mode + ",VISUAL\n";
             titleString += "Block,Condition,Total Accuracy,Mean Response Time,Weighted Response Time";
             for (int i = 1; i <= NumberOfObjects.numberOfObjects; i++)

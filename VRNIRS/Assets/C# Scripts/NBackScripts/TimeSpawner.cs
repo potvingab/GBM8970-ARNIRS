@@ -29,6 +29,7 @@ public class TimeSpawner : MonoBehaviour
     public static int startTime;
     public static Stopwatch reactionTime = new Stopwatch();
 
+    /*
     public static int[] Tutorial1Int;
     public static int[] Tutorial2Int;
     public static int[] Tutorial3Int;
@@ -36,6 +37,7 @@ public class TimeSpawner : MonoBehaviour
     public static int[] Tutorial5Int;
     public static int[] Tutorial6Int;
     public static int[] Tutorial7Int;
+
     public static int[] blanc1Int;
     public static int[] level1Int;
     public static int[] level2Int;
@@ -45,6 +47,11 @@ public class TimeSpawner : MonoBehaviour
     public static int[] level6Int;
     public static int[] level7Int;
     public static int[] level8Int;
+
+    */
+    public static int[] level;
+    //public static GameObject[] level;
+
 
     public static GameObject[] Tutorial1;
     public static GameObject[] Tutorial2;
@@ -62,10 +69,18 @@ public class TimeSpawner : MonoBehaviour
     public static GameObject[] level6;
     public static GameObject[] level7;
     public static GameObject[] level8;
+    
 
     public static int[][] allArrayInt;
+    //ATTENTION
+    public static GameObject[][] allArray;
 
-    //public static GameObject[][] allArray;
+
+    //To move to menu!
+    public static List<string> NBackSequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
+    public static List<int> NBackSequenceN = new List<int>(); //N of each N-back
+
+
 
     public static string[] levelNames = { "Tutorial 1", "Tutorial 2", "Tutorial 3", "Tutotial 4",
         "Tutotial 5", "Tutotial 6", "Tutotial 7", "Level 1", "Level 2", "Level 3", "Level 4",
@@ -103,6 +118,68 @@ public class TimeSpawner : MonoBehaviour
         }
         return spawneeWanted;
     }
+    public int[] LevelGenerater(string name)
+    {
+        int[] sequence = new int[NumberOfObjects.numberOfObjects];
+
+        switch (name)
+        {
+            case "Single Task (Walk)":
+                for (int i = 0; i < NumberOfObjects.numberOfObjects; ++i)
+                {
+                    sequence[i] = 9;
+                }
+                break;
+
+
+            default:
+                if (VariablesHolder.gameMode == "Random")
+                {
+                    sequence = ArrayMaker();
+                }
+                else
+                    sequence = ReadFile(currentLevel);
+                break;
+        }
+        return sequence;
+    }
+
+
+    public int[] ReadFile(int level)
+    {
+        int[] sequence;
+        UnityEngine.Debug.Log("@@@");
+        UnityEngine.Debug.Log(level + 1);
+        switch (level+1)
+        {
+            case 1:
+                sequence = new int[15] { 0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8 };
+                break;
+            case 2:
+                sequence = new int[15] { 2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4 };
+                break;
+            case 3:
+                sequence = new int[15] { 7, 6, 3, 6, 8, 6, 7, 3, 1, 3, 0, 6, 0, 8, 0 };
+                break;
+            case 4:
+                sequence = new int[15] { 2, 0, 4, 0, 3, 7, 3, 5, 8, 5, 2, 5, 0, 8, 0 };
+                break;
+            case 5:
+                sequence = new int[15] { 7, 4, 7, 0, 3, 0, 5, 1, 5, 3, 6, 2, 3, 1, 0 };
+                break;
+            case 6:
+                sequence = new int[15] { 4, 8, 0, 2, 1, 2, 4, 4, 6, 7, 6, 3, 8, 4, 7 };
+                break;
+            case 7:
+                sequence = new int[15] { 0, 5, 6, 5, 2, 7, 2, 8, 0, 6, 0, 2, 5, 2, 4 };
+                break;
+            default:
+                sequence = new int[15] { 7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0 };
+                break;
+        }
+        return sequence;
+
+    }
 
 
     // Use this for initialization
@@ -115,6 +192,9 @@ public class TimeSpawner : MonoBehaviour
         //Destroy(metaHands);
         //}
 
+
+        //File pour tutorial
+        /*
         Tutorial1Int = new int[15] { 3, 8, 8, 0, 0, 7, 0, 1, 1, 8, 5, 5, 4, 7, 5 };
 
         Tutorial2Int = new int[15] { 1, 7, 4, 7, 0, 8, 0, 3, 1, 3, 8, 3, 4, 6, 3 };
@@ -129,19 +209,14 @@ public class TimeSpawner : MonoBehaviour
 
         Tutorial7Int = new int[15] { 5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8 };
 
-        blanc1Int = new int[15] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 };
+        level = new int[15] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
+        
 
 
         if (VariablesHolder.gameMode == "Random")
         {
-            level1Int = ArrayMaker();
-            level2Int = ArrayMaker();
-            level3Int = ArrayMaker();
-            level4Int = ArrayMaker();
-            level5Int = ArrayMaker();
-            level6Int = ArrayMaker();
-            level7Int = ArrayMaker();
-            level8Int = ArrayMaker();
+            level = ArrayMaker();
+
         }
         else
         {
@@ -163,15 +238,41 @@ public class TimeSpawner : MonoBehaviour
             level8Int = new int[15] { 7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0 };
 
         }
+        */
+        //formation of the
 
+        //allArrayInt = new int[][] {Tutorial1Int, Tutorial2Int, Tutorial3Int, Tutorial4Int, Tutorial5Int, Tutorial6Int, Tutorial7Int,
+        //  blanc1Int, level1Int, level2Int, level3Int, level4Int, blanc1Int, blanc1Int, level5Int, level6Int, level7Int, level8Int, blanc1Int};
 
-        allArrayInt = new int[][] {Tutorial1Int, Tutorial2Int, Tutorial3Int, Tutorial4Int, Tutorial5Int, Tutorial6Int, Tutorial7Int,
-            blanc1Int, level1Int, level2Int, level3Int, level4Int, blanc1Int, blanc1Int, level5Int, level6Int, level7Int, level8Int, blanc1Int};
-
-        /*
+        //ATTENTION
         allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
-            blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};*/
+            blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
+        //ATTENTION number of level
+
+        //TEMP! 
+        NBackSequence.Add("dual task");
+        NBackSequence.Add("dual task");
+        NBackSequence.Add("dual task");
+        allArrayInt = new int[3][];
+        for (int i = 0; i < 3; ++i)
+        {
+            
+            UnityEngine.Debug.Log(i);
+            //int[] tuto_temp = tutoGenerator(NBackSequence[currentLevel]);
+            //allArrayInt[i] = (tuto_temp);
+            UnityEngine.Debug.Log(NBackSequence[currentLevel]);
+            int[] level_temp = LevelGenerater(NBackSequence[currentLevel]);
+            //Number of questions
+            allArrayInt[i] = level_temp;
+            UnityEngine.Debug.Log(allArrayInt[0][0]);
+                
+            
+        }
+
     }
+            
+        
+        
 
     void Start()
     {
@@ -185,10 +286,10 @@ public class TimeSpawner : MonoBehaviour
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        serialPort.WriteLine(line);
-        CreateCheckpoint("Test Délai");
+        //if (!serialPort.IsOpen)
+        //  serialPort.Open();
+        //serialPort.WriteLine(line);
+        //CreateCheckpoint("Test Délai");
     }
 
     public static void CreateCheckpoint(string nom)
@@ -202,6 +303,11 @@ public class TimeSpawner : MonoBehaviour
 
     public void SpawnObject()
     {
+
+        //NBackSequence = new List<string>();
+
+
+
         if (VariablesHolder.GameSpeed == 1)
         {
             if (order < NumberOfObjects.numberOfObjects + 1)
@@ -220,8 +326,11 @@ public class TimeSpawner : MonoBehaviour
                 }
                 else
                 {
-                    spawneeWanted = allArrayInt[currentLevel];
-                    if (spawneeWanted == blanc1Int)
+                    int[] level = allArrayInt[currentLevel];
+
+
+                    //spawneeWanted = allArrayInt[currentLevel];
+                    if (NBackSequence[currentLevel] == "Single Task (Walk)")
                     {
                         spawneeObject = EmptyObject;
                         int side = UnityEngine.Random.Range(0, 2);
@@ -242,25 +351,25 @@ public class TimeSpawner : MonoBehaviour
                     }
                     else
                     {
-                        UnityEngine.Debug.Log(spawneeWanted[order]);
+                        UnityEngine.Debug.Log(level[order]);
                         bool tree = false;
                         bool house = false;
                         if (VariablesHolder.realistCheck)
                         {
-                            if (spawneesReal[spawneeWanted[order]].name == "House")
+                            if (spawneesReal[level[order]].name == "House")
                             {
                                 house = true;
                             }
-                            if (spawneesReal[spawneeWanted[order]].name == "Tree")
+                            if (spawneesReal[level[order]].name == "Tree")
                             {
                                 tree = true;
                             }
 
-                            spawneeObject = spawneesReal[spawneeWanted[order]];
+                            spawneeObject = spawneesReal[level[order]];
                         }
                         else
                         {
-                            spawneeObject = spawneesNormal[spawneeWanted[order]];
+                            spawneeObject = spawneesNormal[level[order]];
 
 
 
@@ -361,4 +470,5 @@ public class TimeSpawner : MonoBehaviour
 
 
     }
+
 }

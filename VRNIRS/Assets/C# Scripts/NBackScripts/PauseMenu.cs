@@ -357,10 +357,10 @@ public class PauseMenu : MonoBehaviour
         TimeSpawner.currentLevel += 1;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        clickPosition = -2;
+        clickPosition = -2; //we think: -nBackNumber
         clicks = new string[15] { "--", "--", "--", "--",
         "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
+        "--", "--", "--"}; //15: c'est le nombre d,objet qui défile
         reactionTime = new string[15] { "--", "--", "--", "--",
         "--", "--", "--", "--", "--", "--", "--", "--",
         "--", "--", "--"};
@@ -370,7 +370,7 @@ public class PauseMenu : MonoBehaviour
 
     public void SkipTutorials()
     {
-        TimeSpawner.currentLevel = 7; //Nombre de tuto
+        TimeSpawner.currentLevel = 7; //ATTENTION Nombre de tuto
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
@@ -395,7 +395,7 @@ public class PauseMenu : MonoBehaviour
         {
             endScreen.SetActive(true);
         }
-        else if (TimeSpawner.currentLevel == 18)
+        else if (TimeSpawner.currentLevel == 18) //ATTENTION nombre de sequence lenght of for the menu
         {
             endScreenFinal.SetActive(true);
         }
@@ -418,7 +418,7 @@ public class PauseMenu : MonoBehaviour
         "--", "--", "--", "--", "--", "--", "--", "--",
         "--", "--", "--"};
         allLevelResults = new string[19] {"", "", "", "", "", "", "", "",
-        "","","","","","","","","","", ""};
+        "","","","","","","","","","", ""};//ATTENTION  jsp
         reactionTime = new string[15] { "--", "--", "--", "--",
         "--", "--", "--", "--", "--", "--", "--", "--",
         "--", "--", "--"};

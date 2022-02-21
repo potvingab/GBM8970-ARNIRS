@@ -6,11 +6,10 @@ using System;
 using System.IO.Ports;
 using System.Diagnostics;
 
-public class TimeSpawner : MonoBehaviour
-{
+public class TimeSpawner : MonoBehaviour {
 
     public static string fileName = VariablesHolder.fileName;
-
+    
     public static SerialPort serialPort = new SerialPort(VariablesHolder.arduinoPort, 9600, Parity.None, 8, StopBits.One);
     public Transform spawnPos1;
     public Transform spawnPos2;
@@ -87,7 +86,7 @@ public class TimeSpawner : MonoBehaviour
 
             if (VariablesHolder.realistCheck)
             {
-                y = UnityEngine.Random.Range(0, spawneesReal.Length);
+               y = UnityEngine.Random.Range(0, spawneesReal.Length);
             }
             else
             {
@@ -111,25 +110,25 @@ public class TimeSpawner : MonoBehaviour
     private void Awake()
     {
         //if (VariablesHolder.useMeta == false){
-        //   GameObject metaCamera = GameObject.Find("MetaCameraRig");
-        //  GameObject metaHands = GameObject.Find("MetaHands");
-        //Destroy(metaCamera);
-        //Destroy(metaHands);
+         //   GameObject metaCamera = GameObject.Find("MetaCameraRig");
+          //  GameObject metaHands = GameObject.Find("MetaHands");
+            //Destroy(metaCamera);
+            //Destroy(metaHands);
         //}
 
-        Tutorial1Int = new int[15] { 3, 8, 8, 0, 0, 7, 0, 1, 1, 8, 5, 5, 4, 7, 5 };
+        Tutorial1Int = new int[15] {3, 8, 8, 0, 0, 7, 0, 1, 1, 8, 5, 5, 4, 7, 5};
 
-        Tutorial2Int = new int[15] { 1, 7, 4, 7, 0, 8, 0, 3, 1, 3, 8, 3, 4, 6, 3 };
+        Tutorial2Int = new int[15] {1, 7, 4, 7, 0, 8, 0, 3, 1, 3, 8, 3, 4, 6, 3};
 
-        Tutorial3Int = new int[15] { 4, 2, 5, 6, 5, 3, 8, 5, 8, 7, 4, 0, 4, 6, 8 };
+        Tutorial3Int = new int[15] {4, 2, 5, 6, 5, 3, 8, 5, 8, 7, 4, 0, 4, 6, 8};
 
-        Tutorial4Int = new int[15] { 7, 1, 1, 3, 1, 0, 6, 0, 7, 6, 7, 8, 5, 8, 2 };
+        Tutorial4Int = new int[15] {7, 1, 1, 3, 1, 0, 6, 0, 7, 6, 7, 8, 5, 8, 2};
 
-        Tutorial5Int = new int[15] { 2, 7, 2, 8, 5, 8, 3, 2, 3, 4, 8, 4, 1, 4, 5 };
+        Tutorial5Int = new int[15] {2, 7, 2, 8, 5, 8, 3, 2, 3, 4, 8, 4, 1, 4, 5};
 
-        Tutorial6Int = new int[15] { 5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8 };
+        Tutorial6Int = new int[15] {5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8};
 
-        Tutorial7Int = new int[15] { 5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8 };
+        Tutorial7Int = new int[15] {5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8};
 
         blanc1Int = new int[15] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 };
 
@@ -147,22 +146,21 @@ public class TimeSpawner : MonoBehaviour
         }
         else
         {
+            level1Int = new int[15] {0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8};
 
-            level1Int = new int[15] { 0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8 };
+            level2Int = new int[15] {2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4};
 
-            level2Int = new int[15] { 2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4 };
+            level3Int = new int[15] {7, 6, 3, 6, 8, 6, 7, 3, 1, 3, 0, 6, 0, 8, 0};
 
-            level3Int = new int[15] { 7, 6, 3, 6, 8, 6, 7, 3, 1, 3, 0, 6, 0, 8, 0 };
+            level4Int = new int[15] {2, 0, 4, 0, 3, 7, 3, 5, 8, 5, 2, 5, 0, 8, 0};
 
-            level4Int = new int[15] { 2, 0, 4, 0, 3, 7, 3, 5, 8, 5, 2, 5, 0, 8, 0 };
+            level5Int = new int[15] {7, 4, 7, 0, 3, 0, 5, 1, 5, 3, 6, 2, 3, 1, 0};
 
-            level5Int = new int[15] { 7, 4, 7, 0, 3, 0, 5, 1, 5, 3, 6, 2, 3, 1, 0 };
+            level6Int = new int[15] {4, 8, 0, 2, 1, 2, 4, 4, 6, 7, 6, 3, 8, 4, 7};
 
-            level6Int = new int[15] { 4, 8, 0, 2, 1, 2, 4, 4, 6, 7, 6, 3, 8, 4, 7 };
+            level7Int = new int[15] {0, 5, 6, 5, 2, 7, 2, 8, 0, 6, 0, 2, 5, 2, 4};
 
-            level7Int = new int[15] { 0, 5, 6, 5, 2, 7, 2, 8, 0, 6, 0, 2, 5, 2, 4 };
-
-            level8Int = new int[15] { 7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0 };
+            level8Int = new int[15] {7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0};
 
         }
 
@@ -175,22 +173,22 @@ public class TimeSpawner : MonoBehaviour
             blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};*/
     }
 
-    void Start()
+    void Start ()
     {
 
-
+        
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
-    }
+	}
 
     public static void TriggerArduino(string line)
     {
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //if (!serialPort.IsOpen)
-        //    serialPort.Open();
-        //serialPort.WriteLine(line);
-        //CreateCheckpoint("Test Délai");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
+        CreateCheckpoint("Test Délai");
     }
 
     public static void CreateCheckpoint(string nom)
@@ -204,16 +202,15 @@ public class TimeSpawner : MonoBehaviour
 
     public void SpawnObject()
     {
-        if (VariablesHolder.GameSpeed == 1)
+        if(VariablesHolder.GameSpeed == 1)
         {
             if (order < NumberOfObjects.numberOfObjects + 1)
             {
                 GameObject spawneeObject;
-                if (order == -1)
+                if(order == -1)
                 {
                     spawneeObject = StartObject;
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
-                    UnityEngine.Debug.Log("Start Object");
                 }
                 else if (order == NumberOfObjects.numberOfObjects)
                 {
@@ -223,7 +220,7 @@ public class TimeSpawner : MonoBehaviour
                 else
                 {
                     spawneeWanted = allArrayInt[currentLevel];
-                    if (spawneeWanted == blanc1Int)
+                    if(spawneeWanted == blanc1Int)
                     {
                         spawneeObject = EmptyObject;
                         int side = UnityEngine.Random.Range(0, 2);
@@ -263,19 +260,15 @@ public class TimeSpawner : MonoBehaviour
                         else
                         {
                             spawneeObject = spawneesNormal[spawneeWanted[order]];
-
-
-
                         }
 
-                        UnityEngine.Debug.Log("Spawn " + spawneeObject);
                         int side = UnityEngine.Random.Range(0, 2);
                         if (side == 0)
                         {
                             if (house && VariablesHolder.realistCheck)
                             {
                                 Vector3 temp = new Vector3(2.0f, 0, 0);
-                                startTime = DateTime.Now.Millisecond;
+                                startTime = DateTime.Now.Millisecond; 
                                 Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
                                 reactionTime.Reset();
                                 reactionTime.Start();
@@ -293,20 +286,11 @@ public class TimeSpawner : MonoBehaviour
                             else
                             {
                                 startTime = DateTime.Now.Millisecond;
-                                GameObject clone = Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
-                                UnityEngine.Debug.Log("Meta :" + VariablesHolder.useMeta);
-                                UnityEngine.Debug.Log("Audio :" + VariablesHolder.useAudio);
-                                UnityEngine.Debug.Log("Visuel :" + VariablesHolder.useVisual);
-                                if (VariablesHolder.useAudio)
-                                {
-                                    AudioSource sound = clone.GetComponent<AudioSource>();
-                                    UnityEngine.Debug.Log(sound);
-                                    sound.Play();
-                                }
+                                Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
-
+                            
                         }
                         else
                         {
@@ -331,23 +315,15 @@ public class TimeSpawner : MonoBehaviour
                             else
                             {
                                 startTime = DateTime.Now.Millisecond;
-                                GameObject clone = Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
-                                UnityEngine.Debug.Log("Audio :" + VariablesHolder.useAudio);
-                                UnityEngine.Debug.Log("Visuel :" + VariablesHolder.useVisual);
-                                if (VariablesHolder.useAudio)
-                                {
-                                    AudioSource sound = clone.GetComponent<AudioSource>();
-                                    UnityEngine.Debug.Log(sound);
-                                    sound.Play();
-                                }
+                                Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
-
+                            
                         }
                     }
-
-
+                    
+                    
                 }
                 if (stopSpawning)
                 {
@@ -360,7 +336,7 @@ public class TimeSpawner : MonoBehaviour
                 PauseMenu.SameObject = false;
             }
         }
-
-
+       
+       
     }
 }

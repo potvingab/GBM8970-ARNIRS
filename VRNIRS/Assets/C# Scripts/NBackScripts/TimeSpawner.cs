@@ -80,12 +80,9 @@ public class TimeSpawner : MonoBehaviour
     public static List<string> NBackSequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
     public static List<int> NBackSequenceN = new List<int>(); //N of each N-back
 
-
-
-    public static string[] levelNames = { "Tutorial 1", "Tutorial 2", "Tutorial 3", "Tutotial 4",
-        "Tutotial 5", "Tutotial 6", "Tutotial 7", "Level 1", "Level 2", "Level 3", "Level 4",
-    "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12"};
-
+    public static string[] levelNames = new string[2*3]; 
+    public int line;
+    public static string[] SequenceFromFile;
 
 
     public static int[] spawneeWanted;
@@ -118,7 +115,8 @@ public class TimeSpawner : MonoBehaviour
         }
         return spawneeWanted;
     }
-    public int[] LevelGenerater(string name)
+
+    public int[] LevelGenerater(string name, int nLevel)
     {
         int[] sequence = new int[NumberOfObjects.numberOfObjects];
 
@@ -138,45 +136,46 @@ public class TimeSpawner : MonoBehaviour
                     sequence = ArrayMaker();
                 }
                 else
-                    sequence = ReadFile(currentLevel);
+                    sequence = ReadFile(nLevel, "FixedSequenceNBack", NumberOfObjects.numberOfObjects);
                 break;
         }
         return sequence;
     }
 
+    public int[] TutorialGenerator(int nLevel,int tutorialNumberofObject)
+    {
+        int[] sequence = new int[tutorialNumberofObject];
+        //Name of file!!
+        sequence = ReadFile(nLevel, "FixedSequenceNBack", 15);
+         
+        return sequence;
+    }
 
-    public int[] ReadFile(int level)
+
+    public int[] ReadFile(int level, string nameOfFile, int numberOfObjects)
     {
         int[] sequence;
-        UnityEngine.Debug.Log("@@@");
-        UnityEngine.Debug.Log(level + 1);
-        switch (level+1)
+        sequence = new int[numberOfObjects];
+        string allInfo;
+        TextAsset txt = (TextAsset)Resources.Load(nameOfFile, typeof(TextAsset));
+
+        allInfo = txt.text;
+        UnityEngine.Debug.Log(allInfo);
+
+        string[] InfoLine = allInfo.Split('\n');
+        UnityEngine.Debug.Log(InfoLine[1]);
+
+        //the starting line according to the level and read this line
+        line = 2 * (level+1) - 1;
+        SequenceFromFile = InfoLine[line].Split(';');
+
+        
+        UnityEngine.Debug.Log(NumberOfObjects.numberOfObjects);
+        for (int i = 0; i < NumberOfObjects.numberOfObjects; ++i)
         {
-            case 1:
-                sequence = new int[15] { 0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8 };
-                break;
-            case 2:
-                sequence = new int[15] { 2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4 };
-                break;
-            case 3:
-                sequence = new int[15] { 7, 6, 3, 6, 8, 6, 7, 3, 1, 3, 0, 6, 0, 8, 0 };
-                break;
-            case 4:
-                sequence = new int[15] { 2, 0, 4, 0, 3, 7, 3, 5, 8, 5, 2, 5, 0, 8, 0 };
-                break;
-            case 5:
-                sequence = new int[15] { 7, 4, 7, 0, 3, 0, 5, 1, 5, 3, 6, 2, 3, 1, 0 };
-                break;
-            case 6:
-                sequence = new int[15] { 4, 8, 0, 2, 1, 2, 4, 4, 6, 7, 6, 3, 8, 4, 7 };
-                break;
-            case 7:
-                sequence = new int[15] { 0, 5, 6, 5, 2, 7, 2, 8, 0, 6, 0, 2, 5, 2, 4 };
-                break;
-            default:
-                sequence = new int[15] { 7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0 };
-                break;
+            sequence[i] = Convert.ToInt32(SequenceFromFile[i]);
         }
+
         return sequence;
 
     }
@@ -245,30 +244,37 @@ public class TimeSpawner : MonoBehaviour
         //  blanc1Int, level1Int, level2Int, level3Int, level4Int, blanc1Int, blanc1Int, level5Int, level6Int, level7Int, level8Int, blanc1Int};
 
         //ATTENTION
-        allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
-            blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
+        //allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
+            //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
         //ATTENTION number of level
 
         //TEMP! 
         NBackSequence.Add("dual task");
         NBackSequence.Add("dual task");
         NBackSequence.Add("dual task");
-        allArrayInt = new int[3][];
-        for (int i = 0; i < 3; ++i)
+
+        allArrayInt = new int[2*3][];
+        for (int nLevel = 0; nLevel < 3; ++nLevel)
         {
             
-            UnityEngine.Debug.Log(i);
-            //int[] tuto_temp = tutoGenerator(NBackSequence[currentLevel]);
-            //allArrayInt[i] = (tuto_temp);
-            UnityEngine.Debug.Log(NBackSequence[currentLevel]);
-            int[] level_temp = LevelGenerater(NBackSequence[currentLevel]);
-            //Number of questions
-            allArrayInt[i] = level_temp;
-            UnityEngine.Debug.Log(allArrayInt[0][0]);
-                
-            
-        }
+            UnityEngine.Debug.Log(nLevel);
+            int[] tutoTemp = TutorialGenerator(nLevel, 5);
 
+            allArrayInt[2*nLevel] = (tutoTemp);
+            UnityEngine.Debug.Log(NBackSequence[currentLevel]);
+            levelNames[2 * nLevel] = "Tutorial " + (nLevel + 1);
+
+
+
+            int[] LevelTemp = LevelGenerater(NBackSequence[nLevel], nLevel);
+            //Number of questions
+            allArrayInt[2 * nLevel +1] = LevelTemp;
+            UnityEngine.Debug.Log(allArrayInt[0][0]);
+            levelNames[2 * nLevel+1] = "Level " + (nLevel + 1);
+
+
+        }
+        UnityEngine.Debug.Log(levelNames[1]);
     }
             
         
@@ -303,9 +309,6 @@ public class TimeSpawner : MonoBehaviour
 
     public void SpawnObject()
     {
-
-        //NBackSequence = new List<string>();
-
 
 
         if (VariablesHolder.GameSpeed == 1)

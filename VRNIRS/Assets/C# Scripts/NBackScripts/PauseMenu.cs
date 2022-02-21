@@ -331,6 +331,9 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUIHead.SetActive(true);
         VariablesHolder.GameSpeed = 1;
         GameIsPaused = false;
+
+        //gameObjectListTitle.text = TimeSpawner.levelNames[TimeSpawner.currentLevel];
+        //ChangeText();
     }
 
     void Pause()
@@ -345,12 +348,16 @@ public class PauseMenu : MonoBehaviour
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
-        clicks = new string[15] { "--", "--", "--", "--",
-        "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
-        reactionTime = new string[15] { "--", "--", "--", "--",
-        "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
+        clicks = new string[NumberOfObjects.numberOfObjects];
+        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        //ATTENTION
+       
+        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        {
+            clicks[nObject] = "--";
+            reactionTime[nObject] = "--";
+        }
+
         pauseMenuUIHead.SetActive(true);
         SaveCondition = true;
     }
@@ -361,28 +368,35 @@ public class PauseMenu : MonoBehaviour
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
-        clicks = new string[15] { "--", "--", "--", "--",
-        "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
-        reactionTime = new string[15] { "--", "--", "--", "--",
-        "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
+        clicks = new string[NumberOfObjects.numberOfObjects];
+        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        //ATTENTION
+
+        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        {
+            clicks[nObject] = "--";
+            reactionTime[nObject] = "--";
+        }
         pauseMenuUIHead.SetActive(true);
         SaveCondition = true;
     }
 
     public void SkipTutorials()
     {
-        TimeSpawner.currentLevel = 7;
+        //ATTENTION
+        TimeSpawner.currentLevel +=2;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
-        clicks = new string[15] { "--", "--", "--", "--",
-        "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
-        reactionTime = new string[15] { "--", "--", "--", "--",
-        "--", "--", "--", "--", "--", "--", "--", "--",
-        "--", "--", "--"};
+        clicks = new string[NumberOfObjects.numberOfObjects];
+        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        //ATTENTION
+
+        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        {
+            clicks[nObject] = "--";
+            reactionTime[nObject] = "--";
+        }
         pauseMenuUIHead.SetActive(true);
         SaveCondition = true;
     }
@@ -394,12 +408,12 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToEndScreen()
     {
-        if (TimeSpawner.currentLevel < 7)
+        if (TimeSpawner.currentLevel < 1)
         {
             endScreen.SetActive(true);
         }
         //ATTENTION!!number of level max!!
-        else if (TimeSpawner.currentLevel == 18)
+        else if (TimeSpawner.currentLevel == 6)
         {
             endScreenFinal.SetActive(true);
         }

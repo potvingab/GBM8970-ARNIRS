@@ -274,7 +274,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		if (path.Length > 0)
 		{
 			var possibleFixedFile = File.ReadAllText(path);
-			if (CheckValidFileFixed(possibleFixedFile))
+		if (CheckValidFileFixed(possibleFixedFile))
 			{
 				fixedFile = possibleFixedFile;
 				checkFixed.SetActive(true);
@@ -282,7 +282,7 @@ public class VariablesHolderStroop : MonoBehaviour
 			}
 			else
 			{
-				checkFixed.SetActive(false);
+                checkFixed.SetActive(false);
 				errorText.GetComponent<Text>().text = "Error: The fixed colors sequence file is not valid. Read the instruction manual for more information.";
 				errorText.SetActive(true);
 			}
@@ -298,7 +298,20 @@ public class VariablesHolderStroop : MonoBehaviour
 	public bool CheckValidFileFixed(string fixedFile)
 	{
 		string[] lines = fixedFile.Split('\n');
-		if (
+
+        Debug.Log((Regex.Replace(lines[0], @"\s", "") == "Niveau1"));
+        Debug.Log((Regex.Replace(lines[2], @"\s", "") == "Niveau2"));
+        Debug.Log((Regex.Replace(lines[4], @"\s", "") == "Niveau3"));
+        Debug.Log((Regex.Replace(lines[6], @"\s", "") == "Niveau4"));
+        Debug.Log((lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()));
+        Debug.Log((lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()));
+
+        Debug.Log((lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3));
+        Debug.Log((lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()));
+        Debug.Log((lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 11));
+        Debug.Log(((lines[7].Count(c => (c == ','))) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count()));
+       
+        if (
 			(lines.Count() == 8) && 
 			(Regex.Replace(lines[0], @"\s", "") == "Niveau1") && 
 			(Regex.Replace(lines[2], @"\s", "") == "Niveau2") && 
@@ -308,7 +321,7 @@ public class VariablesHolderStroop : MonoBehaviour
 			(lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()) &&
 			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 
 			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()) &&
-			(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11) && 
+			(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 11) && 
 			((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count())
 			//(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
 			)

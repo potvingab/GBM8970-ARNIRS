@@ -131,15 +131,15 @@ public class Questions : MonoBehaviour
             {
                 // If custom "fixed colors file"
                 string all_Info;
-                //if (VariablesHolderStroop.fixedFile.Contains("Niveau")) // changer pour mieux verif
-                //{
-                    //all_Info = VariablesHolderStroop.fixedFile;
-                //}
-                //else
-                //{
+                if (VariablesHolderStroop.fixedFile.Contains("Niveau")) // changer pour mieux verif
+                {
+                    all_Info = VariablesHolderStroop.fixedFile;
+                }
+                else
+                {
                     TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
                     all_Info = txt.text;
-                //}
+                }
                 //Debug.Log(all_Info);
                 string[] info_Line = all_Info.Split('\n');
                 //the starting line according to the level and read this line
@@ -192,19 +192,16 @@ public class Questions : MonoBehaviour
                 canvasParticipantInstructions.gameObject.SetActive(true);
                 canvasChercheurInstructions.gameObject.SetActive(true);
 
-
+                //Afficher les boutons play et/ou tutorial
                 if (flagTuto == true && flagRestart == false)
                 {
                     playTutoButton.gameObject.SetActive(false);
                     playButton.gameObject.SetActive(true);
-                    Debug.Log("A");
                 }
                 if (flagTuto == false && flagRestart == false)
                 {
                     playTutoButton.gameObject.SetActive(true);
                     playButton.gameObject.SetActive(true);
-                    Debug.Log("B");
-
                 }
 
                 if (flagRestart == true)
@@ -213,19 +210,17 @@ public class Questions : MonoBehaviour
                     {
                         playTutoButton.gameObject.SetActive(false);
                         playButton.gameObject.SetActive(true);
-                        Debug.Log("C");
                     }
                     else
                     {
                         playTutoButton.gameObject.SetActive(true);
                         playButton.gameObject.SetActive(false);
-                        Debug.Log("D");
                     }
                     flagRestart = false;
                 }
 
                 instructionButton.gameObject.SetActive(true);
-                //playTutoButton.gameObject.SetActive(true);
+
                 // Display the instruction to the participant's view and the level number
                 switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
                 {

@@ -8,13 +8,13 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Levels : MonoBehaviour {
+public class Difficulty : MonoBehaviour {
 
     public static bool bool_Square;
     // Objectfs in participant's view
     public GameObject questionHolder;
-    public Image BackgroundImage; // New variable level 1 
-    public Image Rectangle; // New variable level 4
+    public Image BackgroundImage; // New variable difficulty 1 
+    public Image Rectangle; // New variable difficulty 4
 
     // Pages of the scene
     public GameObject correctAnswersShown;
@@ -23,8 +23,8 @@ public class Levels : MonoBehaviour {
     public GameObject canvasChercheurJeu;
     public GameObject canvasParticipantJeu;
 
-    // An instance is needed to use the method "Levels" in other scripts
-    public static Levels Instance;
+    // An instance is needed to use the method "Difficulty" in other scripts
+    public static Difficulty Instance;
     void Awake()
     {
         Instance = this;
@@ -60,7 +60,7 @@ public class Levels : MonoBehaviour {
         }
         return index;
     }
-    // Level 0: Negative Control 
+    // Difficulty 0: Negative Control 
     public void BaseLine()
     {
         Debug.Log("BaseLine");
@@ -95,7 +95,7 @@ public class Levels : MonoBehaviour {
         Questions.timeStartQuestion = DateTime.Now;
     }
 
-    // Level 1: Background Color
+    // Difficulty 1: Background Color
     public void backgroundColor()
     {
         // TODO: Instructions = "Select the color of the rectangle.\n Are you ready?"
@@ -143,7 +143,7 @@ public class Levels : MonoBehaviour {
         return;
     }
 
-    // Level 2: Black Text
+    // Difficulty 2: Black Text
     public void blackText()
     {
         // TODO: Instructions = "Select the written color.\n Are you ready?"
@@ -193,7 +193,7 @@ public class Levels : MonoBehaviour {
     }
 
 
-    // Level 3: Ink Color (not the written color)
+    // Difficulty 3: Ink Color (not the written color)
     public void inkColor()
     {
         // TODO: Instructions = "Select the color of the ink that the letters are printed in and not the written color.\n Are you ready?"
@@ -248,7 +248,7 @@ public class Levels : MonoBehaviour {
     }
 
 
-    // Level 4: Ink Color by default, Written Color if rectangle
+    // Difficulty 4: Ink Color by default, Written Color if rectangle
     public void randomRectangle()
     {
         

@@ -18,7 +18,7 @@ public class Questions : MonoBehaviour
     public GameObject redButton;
     public GameObject greenButton;
     public GameObject blueButton;
-    public GameObject instructionLevel;
+    public GameObject instructionDifficulty;
     public AudioSource beep;
     
     // Objectfs in searcher's view
@@ -37,6 +37,7 @@ public class Questions : MonoBehaviour
     public Button buttonQuit;
     public Button buttonNew;
     public GameObject whiteBackgrounds;
+    public GameObject LevelDifficulty;
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.stroopTrialTime;
@@ -59,8 +60,8 @@ public class Questions : MonoBehaviour
     public static List<double> responseTimes = new List<double>();
     public static DateTime timeStartQuestion;
     public static DateTime timeEndQuestion;
-    public Image BackgroundImage; // New variable level 1 
-    public Image Rectangle; // New variable level 4
+    public Image BackgroundImage; // New variable difficulty 1 
+    public Image Rectangle; // New variable difficulty 4
 
     //fixed sequence variables
     public static int n_question_fixed = 0;
@@ -95,8 +96,9 @@ public class Questions : MonoBehaviour
 
     public void playLevel()
          // Called by the "Instruction" button or "Continue" button
-    {   // Play the right level according to the sequence
+    {   // Play the right difficulty according to the sequence
         flagTuto = false;
+        // timeValue = VariablesHolderStroop.stroopTrialTime; //Restart timer(added to be able to replay the level before the timer stopped)
         //Baseline
         if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
         {
@@ -122,7 +124,7 @@ public class Questions : MonoBehaviour
             timer.gameObject.SetActive(true);
             whiteBackgrounds.gameObject.SetActive(true);
             buttonContinue.gameObject.SetActive(false);
-            buttonRestart.gameObject.SetActive(false);
+            buttonRestart.gameObject.SetActive(true);
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
 
@@ -149,33 +151,34 @@ public class Questions : MonoBehaviour
                 n_question_fixed = 0;
             }
 
-            // Prepare the right level
-            Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            // Prepare the right difficulty
+            Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
             Response.TriggerArduino("2");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 0:
-                    
-                    Levels.Instance.BaseLine();
+
+                    Difficulty.Instance.BaseLine();
                     break;
 
                 case 1:
-                    Levels.Instance.backgroundColor();
+                    Difficulty.Instance.backgroundColor();
                     break;
 
                 case 2:
-                    Levels.Instance.blackText();
+                    Difficulty.Instance.blackText();
                     break;
 
                 case 3:
-                    Levels.Instance.inkColor();
+                    Difficulty.Instance.inkColor();
                     break;
 
                 case 4:
-                    Levels.Instance.randomRectangle();
+                    Difficulty.Instance.randomRectangle();
                     break;
             }
             // Start the timer ("Update" function is executed)
+           
             flagBeginTimer = true;
         }
     }
@@ -184,6 +187,7 @@ public class Questions : MonoBehaviour
     // Called by the "Instruction" button or "Continue" button
     // Play the right intruction according to the sequence
     {
+        
         if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1)){
             if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")
             {
@@ -226,27 +230,35 @@ public class Questions : MonoBehaviour
                 {
                     case 0:
                         playTutoButton.gameObject.SetActive(false);
-                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
+                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "CONTROL";
+                        LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text =  " CONTROL ";
                         break;
                     case 1:
-                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 1";
+                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 1";
+                        LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 1 ";
+
                         break; 
 
                     case 2:
-                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 2 ";
+                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 2 ";
+                        LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 2 ";
                         break;
 
                     case 3:
-                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the word. that the letters are printed in and not the written color.\n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 3" ;
+                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the word. that the letters are printed in and not the written color.\n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 3";
+                        LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 3 ";
+
                         break;
 
                     case 4:
-                        instructionLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
-                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "LEVEL 4 ";
+                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
+                        textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 4 ";
+                        LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 4 ";
+
                         break;
                 }
                 
@@ -256,20 +268,20 @@ public class Questions : MonoBehaviour
             else
             {
                 // Do things for single task (for now, only write "single task")
-                Response.CreateCheckpoint("Level: Single Task (Walk)");
+                Response.CreateCheckpoint("Single Task (Walk)");
                 buttonContinue.gameObject.SetActive(false);
                 buttonRestart.gameObject.SetActive(false);
                 selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "";
                 totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-                correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK";
+                correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK (Walk)";
                 BackgroundImage.gameObject.SetActive(false);
                 Rectangle.gameObject.SetActive(false);
                 questionHolder.gameObject.SetActive(true);
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK";
+                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK (Walk)";
                 textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "SINGLE TASK (Walk)";
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.black;
+                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
+                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
                 greenButton.gameObject.SetActive(false);
                 redButton.gameObject.SetActive(false);
                 blueButton.gameObject.SetActive(false);
@@ -293,8 +305,8 @@ public class Questions : MonoBehaviour
             Rectangle.gameObject.SetActive(false);
             questionHolder.gameObject.SetActive(true);
             questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
-            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
-            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.black;
+            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
+            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
             greenButton.gameObject.SetActive(false);
             redButton.gameObject.SetActive(false);
             blueButton.gameObject.SetActive(false);
@@ -349,33 +361,33 @@ public class Questions : MonoBehaviour
             string all_Info = txt.text;
             string[] info_Line = all_Info.Split('\n');
 
-            //the starting line according to the level and read this line
+            //the starting line according to the difficulty and read this line
             
             question = info_Line[line].Split(';');
 
 
-            // Prepare the right level
-            Response.CreateCheckpoint("Level: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            // Prepare the right difficulty
+            Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
             Response.TriggerArduino("2");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 0:
-                    Levels.Instance.BaseLine();
+                    Difficulty.Instance.BaseLine();
                     break;
                 case 1:
-                    Levels.Instance.backgroundColor();
+                    Difficulty.Instance.backgroundColor();
                     break;
 
                 case 2:
-                    Levels.Instance.blackText();
+                    Difficulty.Instance.blackText();
                     break;
 
                 case 3:
-                    Levels.Instance.inkColor();
+                    Difficulty.Instance.inkColor();
                     break;
 
                 case 4:
-                    Levels.Instance.randomRectangle();
+                    Difficulty.Instance.randomRectangle();
                     break;
             }
         }
@@ -427,8 +439,8 @@ public class Questions : MonoBehaviour
                 Rectangle.gameObject.SetActive(false);
                 questionHolder.gameObject.SetActive(true);
                 questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "WAIT FOR NEXT LEVEL";
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.black;
+                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
+                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
                 greenButton.gameObject.SetActive(false);
                 redButton.gameObject.SetActive(false);
                 blueButton.gameObject.SetActive(false);
@@ -471,13 +483,14 @@ public class Questions : MonoBehaviour
             currentIndexSeq--;
 
         }
+        //currentIndexSeq--;
         flagRestart = true;
         numCorrectAnswers = 0;
         numTotalAnswers = 0;
         selectedAnswers = new List<string>(); // Answers selected by the participant
         correctAnswers = new List<string>(); // Correct answers 
         responseTimes = new List<double>();
-
+        
         playInstruction();
     }
 

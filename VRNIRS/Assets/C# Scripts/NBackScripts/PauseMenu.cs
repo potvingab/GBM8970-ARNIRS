@@ -84,7 +84,9 @@ public class PauseMenu : MonoBehaviour
         blockCondition = new int[TimeSpawner.sizeOfArray];
         for (int nLevelResults = 0; nLevelResults < TimeSpawner.sizeOfArray; nLevelResults++)
         {
+            // pas besoin je pense
             allLevelResults[nLevelResults] = "";
+
             blockCondition[nLevelResults] = 2;
 
         }

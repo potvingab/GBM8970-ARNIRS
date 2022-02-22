@@ -42,9 +42,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject endScreenFinal;
 
 
-    public static string[] clicks = new string[NumberOfObjects.numberOfObjects];
+    public static string[] clicks = new string[VariablesHolder.numberOfObjects];
 
-    public static string[] reactionTime = new string[NumberOfObjects.numberOfObjects];
+    public static string[] reactionTime = new string[VariablesHolder.numberOfObjects];
 
 
     public static string[] allLevelResults ;
@@ -73,7 +73,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Awake()
     {
-        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
@@ -113,7 +113,7 @@ public class PauseMenu : MonoBehaviour
 
         if (!SameObject)
         {
-            if (clickPosition >= 0 && clickPosition < NumberOfObjects.numberOfObjects)
+            if (clickPosition >= 0 && clickPosition < VariablesHolder.numberOfObjects)
             {
                 if (Input.GetKeyDown(KeyCode.S))
                 {
@@ -147,7 +147,7 @@ public class PauseMenu : MonoBehaviour
             ChangeText();
         }
 
-        if (TimeSpawner.order == NumberOfObjects.numberOfObjects + 1 && SaveCondition)
+        if (TimeSpawner.order == VariablesHolder.numberOfObjects + 1 && SaveCondition)
         {
             GetPercentageForLevel();
             SaveLevelInfo();
@@ -158,19 +158,21 @@ public class PauseMenu : MonoBehaviour
 
     public void SaveLevelInfo()
     {
-        if (!File.Exists(FileName.nameOfFile))
-        {
-            string titleString = "id,timestamp,n-back,mode,type\n";
-            //UnityEngine.Debug.Log(FileName.nameOfFileOriginal);
-            //ATTENTION null??
-            titleString += FileName.nameOfFileOriginal.Substring(0, FileName.nameOfFileOriginal.Length - 1) + "," + FileName.timeStamp + "," + VariablesHolder.nBackNumber + "," + FileName.mode + ",VISUAL\n";
-            titleString += "Block,Condition,Total Accuracy,Mean Response Time,Weighted Response Time";
-            for (int i = 1; i <= NumberOfObjects.numberOfObjects; i++)
-            {
-                titleString += ",Item " + i + ",Expected Answer " + i + ",Subject Answer " + i + ",Accuracy " + i + ",Response Time " + i;
-            }
-            File.WriteAllText(FileName.nameOfFile, titleString + "\n");
-        }
+        // !!! A arranger : le bon fichier c'est VariablesHolder.fileName maintenant
+
+        // if (!File.Exists(FileName.nameOfFile))
+        // {
+        //     string titleString = "id,timestamp,n-back,mode,type\n";
+        //     //UnityEngine.Debug.Log(FileName.nameOfFileOriginal);
+        //     //ATTENTION null??
+        //     titleString += FileName.nameOfFileOriginal.Substring(0, FileName.nameOfFileOriginal.Length - 1) + "," + FileName.timeStamp + "," + VariablesHolder.nBackNumber + "," + FileName.mode + ",VISUAL\n";
+        //     titleString += "Block,Condition,Total Accuracy,Mean Response Time,Weighted Response Time";
+        //     for (int i = 1; i <= VariablesHolder.numberOfObjects; i++)
+        //     {
+        //         titleString += ",Item " + i + ",Expected Answer " + i + ",Subject Answer " + i + ",Accuracy " + i + ",Response Time " + i;
+        //     }
+        //     File.WriteAllText(FileName.nameOfFile, titleString + "\n");
+        // }
         
         
         //ATTENTION!!!!!!
@@ -187,7 +189,7 @@ public class PauseMenu : MonoBehaviour
         if (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
         {
             levelString += ",1,100,0,0";
-            for (int i = 0; i < NumberOfObjects.numberOfObjects; i++)
+            for (int i = 0; i < VariablesHolder.numberOfObjects; i++)
             {
                 levelString += ",0,0,0,1,0";
             }
@@ -198,7 +200,7 @@ public class PauseMenu : MonoBehaviour
 
             string postAccuracy = "";
             //Nombre de reponse supposee
-            int accuracy = NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber;
+            int accuracy = VariablesHolder.numberOfObjects - VariablesHolder.nBackNumber;
             int n = accuracy;
             int meanRT = 0;
             int weightedRT = 0;
@@ -223,7 +225,7 @@ public class PauseMenu : MonoBehaviour
                 postAccuracy += "," + reactionTime[i];
             }
 
-            for (int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
+            for (int i = VariablesHolder.nBackNumber; i < VariablesHolder.numberOfObjects; i++)
             {
                 postAccuracy += "," + (TimeSpawner.allArrayInt[TimeSpawner.currentLevel][i] + 1);
 
@@ -288,7 +290,7 @@ public class PauseMenu : MonoBehaviour
         }
 
         UnityEngine.Debug.Log(levelString);
-        File.AppendAllText(FileName.nameOfFile, levelString + "\n");
+        //File.AppendAllText(FileName.nameOfFile, levelString + "\n");
 
     }
 
@@ -296,14 +298,14 @@ public class PauseMenu : MonoBehaviour
 
     public void GetPercentageForLevel()
     {
-        int percentage = NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber;
+        int percentage = VariablesHolder.numberOfObjects - VariablesHolder.nBackNumber;
         string textLevel = levelTextSelecters[TimeSpawner.currentLevel].text;
 
         int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
 
         if (allLevelResults[TimeSpawner.currentLevel] != "")
         {
-            for (int i = VariablesHolder.nBackNumber; i < NumberOfObjects.numberOfObjects; i++)
+            for (int i = VariablesHolder.nBackNumber; i < VariablesHolder.numberOfObjects; i++)
             {
                 if (currentLeveObjectsPerc[i] == 9)
                 {
@@ -318,7 +320,7 @@ public class PauseMenu : MonoBehaviour
                     percentage -= 1;
                 }
             }
-            percentage = (int)(((float)percentage / (float)(NumberOfObjects.numberOfObjects - VariablesHolder.nBackNumber)) * 100);
+            percentage = (int)(((float)percentage / (float)(VariablesHolder.numberOfObjects - VariablesHolder.nBackNumber)) * 100);
             levelTextSelecters[TimeSpawner.currentLevel].text = TimeSpawner.levelNames[TimeSpawner.currentLevel]
                 + ": " + percentage + "%";
 
@@ -331,7 +333,7 @@ public class PauseMenu : MonoBehaviour
 
         int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
 
-        for (int i = 0; i < NumberOfObjects.numberOfObjects; i++)
+        for (int i = 0; i < VariablesHolder.numberOfObjects; i++)
         {
             if (currentLeveObjectsPerc[i] == 9)
             {
@@ -379,11 +381,11 @@ public class PauseMenu : MonoBehaviour
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
-        clicks = new string[NumberOfObjects.numberOfObjects];
-        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        clicks = new string[VariablesHolder.numberOfObjects];
+        reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
        
-        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
@@ -399,11 +401,11 @@ public class PauseMenu : MonoBehaviour
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
-        clicks = new string[NumberOfObjects.numberOfObjects];
-        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        clicks = new string[VariablesHolder.numberOfObjects];
+        reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
 
-        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
@@ -419,11 +421,11 @@ public class PauseMenu : MonoBehaviour
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         clickPosition = -2;
-        clicks = new string[NumberOfObjects.numberOfObjects];
-        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        clicks = new string[VariablesHolder.numberOfObjects];
+        reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
 
-        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
@@ -485,11 +487,11 @@ public class PauseMenu : MonoBehaviour
         TimeSpawner.order = -1;
         Destroyer.objectDestroyed = 0;
         clickPosition = -2;
-        clicks = new string[NumberOfObjects.numberOfObjects];
-        reactionTime = new string[NumberOfObjects.numberOfObjects];
+        clicks = new string[VariablesHolder.numberOfObjects];
+        reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
 
-        for (int nObject = 0; nObject < NumberOfObjects.numberOfObjects; nObject++)
+        for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
@@ -497,7 +499,7 @@ public class PauseMenu : MonoBehaviour
         allLevelResults = new string[TimeSpawner.sizeOfArray];
 
 
-        for (int nLevelResults = 0; nLevelResults < NumberOfObjects.numberOfObjects; nLevelResults++)
+        for (int nLevelResults = 0; nLevelResults < VariablesHolder.numberOfObjects; nLevelResults++)
         {
             allLevelResults[nLevelResults] = "";
             

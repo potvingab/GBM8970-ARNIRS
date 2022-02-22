@@ -138,7 +138,7 @@ public class VariablesHolderStroop : MonoBehaviour
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
 		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
-		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()) );
+		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()));
 		// Update "game mode"
 		if (ButtonRandom.GetComponent<Toggle>().isOn == true)
 		{
@@ -336,6 +336,6 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public void CheckValidFileParameters()
 	{
-
+		// a faire
 	}
 }

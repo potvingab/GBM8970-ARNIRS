@@ -25,7 +25,7 @@ public class Destroyer : MonoBehaviour {
     {
         Destroy(this.gameObject);
         objectDestroyed++;
-        if(objectDestroyed == NumberOfObjects.numberOfObjects + 2)
+        if(objectDestroyed == VariablesHolder.numberOfObjects + 2)
         {
             //for (int i = 0; i < objectdestroyed + 2; i++)
             //{

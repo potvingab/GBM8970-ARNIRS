@@ -23,7 +23,7 @@ public class VariablesHolder : MonoBehaviour
     public static List<string> sequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
 	public static List<int> sequenceNBack = new List<int>(); // N of each N-back
     public static int numberTrials;
-    public static int nBackNumber = 2; // a supprimer bientot
+    //public static int nBackNumber = 2; // a supprimer bientot
 
     public GameObject inputFileName;
     public GameObject inputArduinoPort;

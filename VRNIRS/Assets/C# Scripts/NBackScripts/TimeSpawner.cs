@@ -72,6 +72,7 @@ public class TimeSpawner : MonoBehaviour
     
 
     public static int[][] allArrayInt;
+    
     //ATTENTION
     public static GameObject[][] allArray;
 
@@ -247,29 +248,26 @@ public class TimeSpawner : MonoBehaviour
 
         //{ 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 1 };
 
-        //TEMP! 
-        VariablesHolder.sequence.Add("dual task");
-        VariablesHolder.sequence.Add("dual task");
-        VariablesHolder.sequence.Add("dual task");
 
         int flagSingleWalk = 0;
-        for (int nLevel = 0; nLevel < 2; ++nLevel)
+        for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
             if (VariablesHolder.sequence[nLevel] == "Single Task (Walk)")
             {
                 flagSingleWalk++;
             }
         }
-        sizeOfArray = (2 * 2) - flagSingleWalk;
+        sizeOfArray = (VariablesHolder.numberTrials * 2) - flagSingleWalk;
         allArrayInt = new int[sizeOfArray][];
         levelNames = new string[sizeOfArray];
 
         flagSingleWalk = 0;
-        for (int nLevel = 0; nLevel < 2; ++nLevel)
+        for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
             if (VariablesHolder.sequence[nLevel] != "Single Task (Walk)")
             {
                 UnityEngine.Debug.Log(nLevel);
+                //Attention: question karen! combien dans le tuto
                 int[] tutoTemp = TutorialGenerator(nLevel- flagSingleWalk, 5);
 
                 allArrayInt[2 * nLevel- flagSingleWalk] = (tutoTemp);

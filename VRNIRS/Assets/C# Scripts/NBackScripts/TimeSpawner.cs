@@ -49,7 +49,7 @@ public class TimeSpawner : MonoBehaviour
     public static int[] level8Int;
 
     */
-    public static int[] level;
+    //public static int[] level;
     //public static GameObject[] level;
 
 
@@ -80,9 +80,10 @@ public class TimeSpawner : MonoBehaviour
     public static List<string> NBackSequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
     public static List<int> NBackSequenceN = new List<int>(); //N of each N-back
 
-    public static string[] levelNames = new string[2*3]; 
+    public static string[] levelNames; 
     public int line;
     public static string[] SequenceFromFile;
+    public static int sizeOfArray;
 
 
     public static int[] spawneeWanted;
@@ -116,7 +117,7 @@ public class TimeSpawner : MonoBehaviour
         return spawneeWanted;
     }
 
-    public int[] LevelGenerater(string name, int nLevel)
+    public int[] LevelGenerator(string name, int nLevel)
     {
         int[] sequence = new int[NumberOfObjects.numberOfObjects];
 
@@ -245,45 +246,71 @@ public class TimeSpawner : MonoBehaviour
 
         //ATTENTION
         //allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
-            //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
+        //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
         //ATTENTION number of level
+
+        //{ 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 1 };
 
         //TEMP! 
         NBackSequence.Add("dual task");
         NBackSequence.Add("dual task");
         NBackSequence.Add("dual task");
 
-        allArrayInt = new int[2*3][];
-        for (int nLevel = 0; nLevel < 3; ++nLevel)
+        int flagSingleWalk = 0;
+        for (int nLevel = 0; nLevel < 2; ++nLevel)
         {
-            
-            UnityEngine.Debug.Log(nLevel);
-            int[] tutoTemp = TutorialGenerator(nLevel, 5);
-
-            allArrayInt[2*nLevel] = (tutoTemp);
-            UnityEngine.Debug.Log(NBackSequence[currentLevel]);
-            levelNames[2 * nLevel] = "Tutorial " + (nLevel + 1);
-
-
-
-            int[] LevelTemp = LevelGenerater(NBackSequence[nLevel], nLevel);
-            //Number of questions
-            allArrayInt[2 * nLevel +1] = LevelTemp;
-            UnityEngine.Debug.Log(allArrayInt[0][0]);
-            levelNames[2 * nLevel+1] = "Level " + (nLevel + 1);
-
-
+            if (NBackSequence[nLevel] == "Single Taks Walk")
+            {
+                flagSingleWalk++;
+            }
         }
-        UnityEngine.Debug.Log(levelNames[1]);
+        sizeOfArray = (2 * 2) - flagSingleWalk;
+        allArrayInt = new int[sizeOfArray][];
+        levelNames = new string[sizeOfArray];
+
+        flagSingleWalk = 0;
+        for (int nLevel = 0; nLevel < 2; ++nLevel)
+        {
+            if (NBackSequence[nLevel] != "Single Taks Walk")
+            {
+                UnityEngine.Debug.Log(nLevel);
+                int[] tutoTemp = TutorialGenerator(nLevel- flagSingleWalk, 5);
+
+                allArrayInt[2 * nLevel- flagSingleWalk] = (tutoTemp);
+                UnityEngine.Debug.Log(NBackSequence[currentLevel]);
+
+                levelNames[2 * nLevel - flagSingleWalk] = "Tutorial " + (nLevel + 1);
+
+
+
+                int[] LevelTemp = LevelGenerator(NBackSequence[nLevel], nLevel);
+                //Number of questions
+                allArrayInt[2 * nLevel + 1- flagSingleWalk] = LevelTemp;
+                UnityEngine.Debug.Log(allArrayInt[0][0]);
+                string title;
+                if (NBackSequence[nLevel].Contains("Dual"))
+                {
+                    title = "Dual Task";
+                }
+                else
+                {
+                    title = "Single Task (N-Back)";
+                }
+                levelNames[2 * nLevel + 1- flagSingleWalk] = title + " - Level " + (nLevel + 1);
+            }
+            else
+            {
+                int[] LevelTemp = LevelGenerator(NBackSequence[nLevel], nLevel);
+                UnityEngine.Debug.Log(NBackSequence[currentLevel]);
+                levelNames[2 * nLevel] = "Single Taks Walk - Level " + (nLevel + 1);
+                flagSingleWalk++;
+            }
+        }
     }
-            
-        
-        
+
 
     void Start()
     {
-
-
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
     }
 
@@ -309,8 +336,6 @@ public class TimeSpawner : MonoBehaviour
 
     public void SpawnObject()
     {
-
-
         if (VariablesHolder.GameSpeed == 1)
         {
             if (order < NumberOfObjects.numberOfObjects + 1)
@@ -329,11 +354,9 @@ public class TimeSpawner : MonoBehaviour
                 }
                 else
                 {
-                    int[] level = allArrayInt[currentLevel];
-
-
-                    //spawneeWanted = allArrayInt[currentLevel];
-                    if (NBackSequence[currentLevel] == "Single Task (Walk)")
+                    
+                    spawneeWanted = allArrayInt[currentLevel];
+                    if (levelNames[currentLevel].Contains( "Walk"))
                     {
                         spawneeObject = EmptyObject;
                         int side = UnityEngine.Random.Range(0, 2);
@@ -354,25 +377,25 @@ public class TimeSpawner : MonoBehaviour
                     }
                     else
                     {
-                        UnityEngine.Debug.Log(level[order]);
+                        UnityEngine.Debug.Log(spawneeWanted[order]);
                         bool tree = false;
                         bool house = false;
                         if (VariablesHolder.realistCheck)
                         {
-                            if (spawneesReal[level[order]].name == "House")
+                            if (spawneesReal[spawneeWanted[order]].name == "House")
                             {
                                 house = true;
                             }
-                            if (spawneesReal[level[order]].name == "Tree")
+                            if (spawneesReal[spawneeWanted[order]].name == "Tree")
                             {
                                 tree = true;
                             }
 
-                            spawneeObject = spawneesReal[level[order]];
+                            spawneeObject = spawneesReal[spawneeWanted[order]];
                         }
                         else
                         {
-                            spawneeObject = spawneesNormal[level[order]];
+                            spawneeObject = spawneesNormal[spawneeWanted[order]];
 
 
 

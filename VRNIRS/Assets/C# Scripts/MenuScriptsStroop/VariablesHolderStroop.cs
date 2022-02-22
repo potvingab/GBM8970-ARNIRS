@@ -20,7 +20,7 @@ public class VariablesHolderStroop : MonoBehaviour
 	public static string arduinoPort = "COM3";
 	public static string fileName;
 	public static bool useMeta;
-	public static string fixedFile;
+	public static string fixedFile = "Empty";
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;

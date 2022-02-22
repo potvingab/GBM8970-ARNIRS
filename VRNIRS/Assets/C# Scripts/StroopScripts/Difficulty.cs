@@ -71,7 +71,6 @@ public class Difficulty : MonoBehaviour {
        
         if (Questions.question[Questions.n_question_fixed].Split(',')[0] != "R" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "B" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "G")
         {
-
             Debug.Log("end of trial");
             Questions.timeValue = 0;
             return;

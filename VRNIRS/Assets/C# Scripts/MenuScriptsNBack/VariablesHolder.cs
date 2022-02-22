@@ -75,9 +75,9 @@ public class VariablesHolder : MonoBehaviour
         }
         Debug.Log("Game mode: " + gameMode);
         //TimeSpawner.CreateCheckpoint("EndOfMenu");
-        useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
-        realistCheck = ToggleMeta.GetComponent<Toggle>().isOn;
-        Debug.Log("Real: " + realistCheck.ToString());
+        //useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
+        //realistCheck = ToggleMeta.GetComponent<Toggle>().isOn;
+        //Debug.Log("Real: " + realistCheck.ToString());
 
     }
 

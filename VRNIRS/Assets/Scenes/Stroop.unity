@@ -335,7 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Display intruction '
+  m_Text: 'Display instructions '
 --- !u!222 &65217434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5831,6 +5831,7 @@ MonoBehaviour:
   instructionDifficulty: {fileID: 1163382779}
   beep: {fileID: 1407573532}
   timer: {fileID: 238148181}
+  WhitBgTL: {fileID: 0}
   totalResults: {fileID: 8341852}
   buttonContinue: {fileID: 1990197355}
   buttonRestart: {fileID: 1277742176}

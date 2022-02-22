@@ -32,18 +32,40 @@ public class Destroyer : MonoBehaviour {
             //    gameobjectlist.text = gameobjectlist.text + (TimeSpawner.spawneewanted[i].name + "\n");
             //}
             levelListScreen.SetActive(false);
-            if(TimeSpawner.currentLevel < 7)
-            {
-                endScreen.SetActive(true);
-            }
-            else if(TimeSpawner.currentLevel == 18)
-            {
-                endScreenFinal.SetActive(true);
-            }
-            else
+            //if(TimeSpawner.currentLevel < 7)
+            //{
+            //    endScreen.SetActive(true);
+            //}
+            //else if(TimeSpawner.currentLevel == 18)
+            //{
+            //   endScreenFinal.SetActive(true);
+            //}
+            //else
+            //{
+            //    endScreenLevel.SetActive(true);
+            //}
+
+            UnityEngine.Debug.Log(TimeSpawner.currentLevel);
+            UnityEngine.Debug.Log("!!");
+            if (TimeSpawner.currentLevel == TimeSpawner.sizeOfArray)
             {
                 endScreenLevel.SetActive(true);
             }
+            else
+            {
+                if (TimeSpawner.levelNames[TimeSpawner.currentLevel + 1].Contains("Tutorial"))
+                {
+                    endScreen.SetActive(true);
+                }
+                else
+                {
+                    endScreenLevel.SetActive(true);
+                }
+            }
+
+
+
+
         }
     }
 }

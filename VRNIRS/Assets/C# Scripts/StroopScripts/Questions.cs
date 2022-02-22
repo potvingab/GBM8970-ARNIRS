@@ -23,6 +23,7 @@ public class Questions : MonoBehaviour
     
     // Objectfs in searcher's view
     public GameObject timer;
+    //public GameObject WhitBgTL;
     public GameObject totalResults;
     public Button buttonContinue;
     public Button buttonRestart;
@@ -38,6 +39,7 @@ public class Questions : MonoBehaviour
     public Button buttonNew;
     public GameObject whiteBackgrounds;
     public GameObject LevelDifficulty;
+
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.stroopTrialTime;
@@ -343,6 +345,7 @@ public class Questions : MonoBehaviour
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
             timer.gameObject.SetActive(false);
+            //WhitBgTL.gameObject.SetActive(false);
             TextAsset txt;
 
             if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)

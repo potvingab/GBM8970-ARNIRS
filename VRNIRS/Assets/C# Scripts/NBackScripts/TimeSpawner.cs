@@ -69,14 +69,14 @@ public class TimeSpawner : MonoBehaviour
     public static GameObject[] level6;
     public static GameObject[] level7;
     public static GameObject[] level8;
-    
+
 
     public static int[][] allArrayInt;
-    
+
     //ATTENTION
     public static GameObject[][] allArray;
 
-    public static string[] levelNames; 
+    public static string[] levelNames;
     public int line;
     public static string[] SequenceFromFile;
     public static int sizeOfArray;
@@ -140,12 +140,12 @@ public class TimeSpawner : MonoBehaviour
         return sequence;
     }
 
-    public int[] TutorialGenerator(int nLevel,int tutorialNumberofObject)
+    public int[] TutorialGenerator(int nLevel, int tutorialNumberofObject)
     {
         int[] sequence = new int[tutorialNumberofObject];
         //Name of file!!
         sequence = ReadFile(nLevel, "FixedSequenceNBack", 15);
-         
+
         return sequence;
     }
 
@@ -164,10 +164,10 @@ public class TimeSpawner : MonoBehaviour
         UnityEngine.Debug.Log(InfoLine[1]);
 
         //the starting line according to the level and read this line
-        line = 2 * (level+1) - 1;
+        line = 2 * (level + 1) - 1;
         SequenceFromFile = InfoLine[line].Split(';');
 
-        
+
         UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
         for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {
@@ -268,9 +268,9 @@ public class TimeSpawner : MonoBehaviour
             {
                 UnityEngine.Debug.Log(nLevel);
                 //Attention: question karen! combien dans le tuto
-                int[] tutoTemp = TutorialGenerator(nLevel- flagSingleWalk, 5);
+                int[] tutoTemp = TutorialGenerator(nLevel - flagSingleWalk, 5);
 
-                allArrayInt[2 * nLevel- flagSingleWalk] = (tutoTemp);
+                allArrayInt[2 * nLevel - flagSingleWalk] = (tutoTemp);
                 UnityEngine.Debug.Log(VariablesHolder.sequence[currentLevel]);
 
                 levelNames[2 * nLevel - flagSingleWalk] = "Tutorial " + (nLevel + 1);
@@ -279,7 +279,7 @@ public class TimeSpawner : MonoBehaviour
 
                 int[] LevelTemp = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel);
                 //Number of questions
-                allArrayInt[2 * nLevel + 1- flagSingleWalk] = LevelTemp;
+                allArrayInt[2 * nLevel + 1 - flagSingleWalk] = LevelTemp;
                 UnityEngine.Debug.Log(allArrayInt[0][0]);
                 string title;
                 if (VariablesHolder.sequence[nLevel].Contains("Dual"))
@@ -290,7 +290,7 @@ public class TimeSpawner : MonoBehaviour
                 {
                     title = "Single Task (N-Back)";
                 }
-                levelNames[2 * nLevel + 1- flagSingleWalk] = title + " - Level " + (nLevel + 1);
+                levelNames[2 * nLevel + 1 - flagSingleWalk] = title + " - Level " + (nLevel + 1);
             }
             else
             {
@@ -313,18 +313,33 @@ public class TimeSpawner : MonoBehaviour
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //if (!serialPort.IsOpen)
-        //  serialPort.Open();
-        //serialPort.WriteLine(line);
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
         //CreateCheckpoint("Test Délai");
     }
 
     public static void CreateCheckpoint(string nom)
     {
-        using (StreamWriter sw = File.AppendText(VariablesHolder.fileName))
+        String name = VariablesHolder.fileName;
+        String baseName = name.Replace(".txt", "");
+        using (StreamWriter sw = File.AppendText(baseName + "_Master" + ".txt"))
         {
             sw.Write("Checkpoint; " + nom + "; ");
             sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
+        }
+    }
+
+    public static void ArduinoCheckpoint(string nom)
+    {
+        String name = VariablesHolder.fileName;
+        String baseName = name.Replace(".txt", "");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+            string delay = serialPort.ReadLine();
+        using (StreamWriter sw = File.AppendText(baseName + "_Test_synchro_Arduino" + ".txt"))
+        {
+            sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
         }
     }
 
@@ -481,6 +496,7 @@ public class TimeSpawner : MonoBehaviour
                 order++;
                 CreateCheckpoint("Spawn");
                 TriggerArduino("0");
+                ArduinoCheckpoint("Spawn");
                 PauseMenu.clickPosition += 1;
                 PauseMenu.SameObject = false;
             }

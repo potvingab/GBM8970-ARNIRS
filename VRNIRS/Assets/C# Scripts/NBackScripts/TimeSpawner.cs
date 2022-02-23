@@ -393,28 +393,36 @@ public class TimeSpawner : MonoBehaviour {
                         int side = UnityEngine.Random.Range(0, 2);
                         if (side == 0)
                         {
-                            if (house) //&& VariablesHolder.realistCheck)
+                            //if (house) //&& VariablesHolder.realistCheck)
+                            //{
+                            //    Vector3 temp = new Vector3(2.0f, 0, 0);
+                            //    startTime = DateTime.Now.Millisecond; 
+                            //    Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
+                            //    reactionTime.Reset();
+                            //    reactionTime.Start();
+                            //    house = false;
+                            //}
+                            //else if (tree) //&& VariablesHolder.realistCheck)
+                            //{
+                            //    Vector3 temp = new Vector3(0.5f, 0, 0);
+                            //    startTime = DateTime.Now.Millisecond;
+                            //    Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
+                            //    reactionTime.Reset();
+                            //    reactionTime.Start();
+                            //    tree = false;
+                            //}
+                            //else
                             {
-                                Vector3 temp = new Vector3(2.0f, 0, 0);
-                                startTime = DateTime.Now.Millisecond; 
-                                Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
-                                reactionTime.Reset();
-                                reactionTime.Start();
-                                house = false;
-                            }
-                            else if (tree) //&& VariablesHolder.realistCheck)
-                            {
-                                Vector3 temp = new Vector3(0.5f, 0, 0);
                                 startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
-                                reactionTime.Reset();
-                                reactionTime.Start();
-                                tree = false;
-                            }
-                            else
-                            {
-                                startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
+                                GameObject clone = Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
+                                UnityEngine.Debug.Log("Audio:" + VariablesHolder.useAudio);
+                                UnityEngine.Debug.Log("Visuel:" + VariablesHolder.useVisual);
+                                if (VariablesHolder.useAudio)
+                                {
+                                    AudioSource sound = clone.GetComponent<AudioSource>();
+                                    UnityEngine.Debug.Log(sound);
+                                    sound.Play();
+                                }
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
@@ -422,25 +430,25 @@ public class TimeSpawner : MonoBehaviour {
                         }
                         else
                         {
-                            if (house) //&& VariablesHolder.realistCheck)
-                            {
-                                Vector3 temp = new Vector3(2.0f, 0, 0);
-                                startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos2.position + temp, spawnPos2.rotation);
-                                reactionTime.Reset();
-                                reactionTime.Start();
-                                house = false;
-                            }
-                            else if (tree) //&& VariablesHolder.realistCheck)
-                            {
-                                Vector3 temp = new Vector3(0.5f, 0, 0);
-                                startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos2.position + temp, spawnPos2.rotation);
-                                reactionTime.Reset();
-                                reactionTime.Start();
-                                tree = false;
-                            }
-                            else
+                            //if (house) //&& VariablesHolder.realistCheck)
+                            //{
+                            //    Vector3 temp = new Vector3(2.0f, 0, 0);
+                            //    startTime = DateTime.Now.Millisecond;
+                            //    Instantiate(spawneeObject, spawnPos2.position + temp, spawnPos2.rotation);
+                            //    reactionTime.Reset();
+                            //    reactionTime.Start();
+                            //    house = false;
+                            //}
+                            //else if (tree) //&& VariablesHolder.realistCheck)
+                            //{
+                            //    Vector3 temp = new Vector3(0.5f, 0, 0);
+                            //    startTime = DateTime.Now.Millisecond;
+                            //    Instantiate(spawneeObject, spawnPos2.position + temp, spawnPos2.rotation);
+                            //    reactionTime.Reset();
+                            //    reactionTime.Start();
+                            //    tree = false;
+                            //}
+                            //else
                             {
                                 startTime = DateTime.Now.Millisecond;
                                 GameObject clone = Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);

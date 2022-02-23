@@ -375,8 +375,8 @@ public class TimeSpawner : MonoBehaviour
                         bool tree = false;
                         bool house = false;
                         // je ne comprends pas le truc avec tree et house
-                        // if (VariablesHolder.realistCheck)
-                        // {
+                        //if (VariablesHolder.realistCheck)
+                        //{
                             if (spawneesReal[spawneeWanted[order]].name == "House")
                             {
                                 house = true;
@@ -386,7 +386,7 @@ public class TimeSpawner : MonoBehaviour
                                 tree = true;
                             }
 
-                            spawneeObject = spawneesReal[spawneeWanted[order]];
+                            spawneeObject = spawneesNormal[spawneeWanted[order]];
                         // }
                         // else
                         // {

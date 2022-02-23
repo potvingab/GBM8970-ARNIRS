@@ -9,13 +9,12 @@ using SFB;
 using TMPro;
 using System.Text.RegularExpressions;
 
-public class VariablesHolder : MonoBehaviour
-{
+public class VariablesHolder : MonoBehaviour {
     public static float speed;
     public static float GameSpeed; // pause or not
     public static string arduinoPort = "COM3";
-    public static string fileName;
-    public static string gameMode;
+	public static string fileName;
+    public static string gameMode; 
     public static bool useMeta;
     public static bool useVisual;
     public static bool useAudio;
@@ -26,10 +25,10 @@ public class VariablesHolder : MonoBehaviour
     //public static int nBackNumber = 2; // a supprimer bientot
 
     public GameObject inputFileName;
-    public GameObject inputArduinoPort;
-    public GameObject errorMessageFileName;
+	public GameObject inputArduinoPort;
+	public GameObject errorMessageFileName;
     public GameObject FileNameNBackPage;
-    public GameObject OptionsNBackPage;
+	public GameObject OptionsNBackPage;
     public GameObject ButtonRandom;
     public GameObject ButtonFixed;
     public GameObject ToggleMeta;
@@ -183,13 +182,12 @@ public class VariablesHolder : MonoBehaviour
 		Debug.Log("Sequence N-Back: " + String.Join(", ", sequenceNBack.Select(x => x.ToString()).ToArray()) );
     }
 
-    public void ChangeFileNameAndPort()
-    {
-        // Update "file name"
-        fileName = inputFileName.GetComponent<TMPro.TextMeshProUGUI>().text;
-        Debug.Log("File name: " + fileName);
-        // Update "Arduino port"
-        arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
+    public void ChangeFileNameAndPort() {
+		// Update "file name"
+		fileName = inputFileName.GetComponent<TMPro.TextMeshProUGUI>().text;
+		Debug.Log("File name: " + fileName);
+		// Update "Arduino port"
+		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
         arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
         Debug.Log("Arduino port: " + arduinoPort);
         TimeSpawner.TriggerArduino("C");

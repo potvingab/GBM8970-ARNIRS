@@ -20,7 +20,7 @@ public class VariablesHolderStroop : MonoBehaviour
 	public static string arduinoPort = "COM3";
 	public static string fileName;
 	public static bool useMeta;
-	public static string fixedFile;
+	public static string fixedFile = "Empty";
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;
@@ -138,7 +138,7 @@ public class VariablesHolderStroop : MonoBehaviour
 			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
 		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
-		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()) );
+		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()));
 		// Update "game mode"
 		if (ButtonRandom.GetComponent<Toggle>().isOn == true)
 		{
@@ -336,6 +336,6 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public void CheckValidFileParameters()
 	{
-
+		// a faire
 	}
 }

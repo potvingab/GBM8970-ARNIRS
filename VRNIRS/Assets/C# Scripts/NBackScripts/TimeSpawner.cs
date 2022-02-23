@@ -48,7 +48,7 @@ public class TimeSpawner : MonoBehaviour {
     public static int[] level8Int;
 
     */
-    public static int[] level;
+    //public static int[] level;
     //public static GameObject[] level;
 
 
@@ -71,17 +71,14 @@ public class TimeSpawner : MonoBehaviour {
     
 
     public static int[][] allArrayInt;
+    
     //ATTENTION
     public static GameObject[][] allArray;
 
-
-    //To move to menu!
-    public static List<string> NBackSequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
-    public static List<int> NBackSequenceN = new List<int>(); //N of each N-back
-
-    public static string[] levelNames = new string[2*3]; 
+    public static string[] levelNames; 
     public int line;
     public static string[] SequenceFromFile;
+    public static int sizeOfArray;
 
 
     public static int[] spawneeWanted;
@@ -89,19 +86,20 @@ public class TimeSpawner : MonoBehaviour {
 
     public int[] ArrayMaker()
     {
-        spawneeWanted = new int[NumberOfObjects.numberOfObjects];
-        for (int i = 0; i < NumberOfObjects.numberOfObjects; ++i)
+        spawneeWanted = new int[VariablesHolder.numberOfObjects];
+        for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {
             int y = 0;
 
-            if (VariablesHolder.realistCheck)
-            {
-               y = UnityEngine.Random.Range(0, spawneesReal.Length);
-            }
-            else
-            {
-                y = UnityEngine.Random.Range(0, spawneesNormal.Length);
-            }
+            y = UnityEngine.Random.Range(0, spawneesReal.Length);
+            // if (VariablesHolder.realistCheck)
+            // {
+            //     y = UnityEngine.Random.Range(0, spawneesReal.Length);
+            // }
+            // else
+            // {
+            //     y = UnityEngine.Random.Range(0, spawneesNormal.Length);
+            // }
 
             if (BoolArrayHolder.assetsChecks[y])
             {
@@ -115,14 +113,14 @@ public class TimeSpawner : MonoBehaviour {
         return spawneeWanted;
     }
 
-    public int[] LevelGenerater(string name, int nLevel)
+    public int[] LevelGenerator(string name, int nLevel)
     {
-        int[] sequence = new int[NumberOfObjects.numberOfObjects];
+        int[] sequence = new int[VariablesHolder.numberOfObjects];
 
         switch (name)
         {
             case "Single Task (Walk)":
-                for (int i = 0; i < NumberOfObjects.numberOfObjects; ++i)
+                for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
                 {
                     sequence[i] = 9;
                 }
@@ -135,7 +133,7 @@ public class TimeSpawner : MonoBehaviour {
                     sequence = ArrayMaker();
                 }
                 else
-                    sequence = ReadFile(nLevel, "FixedSequenceNBack", NumberOfObjects.numberOfObjects);
+                    sequence = ReadFile(nLevel, "FixedSequenceNBack", VariablesHolder.numberOfObjects);
                 break;
         }
         return sequence;
@@ -169,8 +167,8 @@ public class TimeSpawner : MonoBehaviour {
         SequenceFromFile = InfoLine[line].Split(';');
 
         
-        UnityEngine.Debug.Log(NumberOfObjects.numberOfObjects);
-        for (int i = 0; i < NumberOfObjects.numberOfObjects; ++i)
+        UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
+        for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {
             sequence[i] = Convert.ToInt32(SequenceFromFile[i]);
         }
@@ -243,44 +241,68 @@ public class TimeSpawner : MonoBehaviour {
 
         //ATTENTION
         //allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
-            //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
+        //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
         //ATTENTION number of level
 
-        //TEMP! 
-        NBackSequence.Add("dual task");
-        NBackSequence.Add("dual task");
-        NBackSequence.Add("dual task");
+        //{ 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 1 };
 
-        allArrayInt = new int[2*3][];
-        for (int nLevel = 0; nLevel < 3; ++nLevel)
+
+        int flagSingleWalk = 0;
+        for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
-            
-            UnityEngine.Debug.Log(nLevel);
-            int[] tutoTemp = TutorialGenerator(nLevel, 5);
-
-            allArrayInt[2*nLevel] = (tutoTemp);
-            UnityEngine.Debug.Log(NBackSequence[currentLevel]);
-            levelNames[2 * nLevel] = "Tutorial " + (nLevel + 1);
-
-
-            int[] LevelTemp = LevelGenerater(NBackSequence[nLevel], nLevel);
-            //Number of questions
-            allArrayInt[2 * nLevel +1] = LevelTemp;
-            UnityEngine.Debug.Log(allArrayInt[0][0]);
-            levelNames[2 * nLevel+1] = "Level " + (nLevel + 1);
-
-
+            if (VariablesHolder.sequence[nLevel] == "Single Task (Walk)")
+            {
+                flagSingleWalk++;
+            }
         }
-        UnityEngine.Debug.Log(levelNames[1]);
+        sizeOfArray = (VariablesHolder.numberTrials * 2) - flagSingleWalk;
+        allArrayInt = new int[sizeOfArray][];
+        levelNames = new string[sizeOfArray];
+
+        flagSingleWalk = 0;
+        for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
+        {
+            if (VariablesHolder.sequence[nLevel] != "Single Task (Walk)")
+            {
+                UnityEngine.Debug.Log(nLevel);
+                //Attention: question karen! combien dans le tuto
+                int[] tutoTemp = TutorialGenerator(nLevel- flagSingleWalk, 5);
+
+                allArrayInt[2 * nLevel- flagSingleWalk] = (tutoTemp);
+                UnityEngine.Debug.Log(VariablesHolder.sequence[currentLevel]);
+
+                levelNames[2 * nLevel - flagSingleWalk] = "Tutorial " + (nLevel + 1);
+
+
+
+                int[] LevelTemp = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel);
+                //Number of questions
+                allArrayInt[2 * nLevel + 1- flagSingleWalk] = LevelTemp;
+                UnityEngine.Debug.Log(allArrayInt[0][0]);
+                string title;
+                if (VariablesHolder.sequence[nLevel].Contains("Dual"))
+                {
+                    title = "Dual Task";
+                }
+                else
+                {
+                    title = "Single Task (N-Back)";
+                }
+                levelNames[2 * nLevel + 1- flagSingleWalk] = title + " - Level " + (nLevel + 1);
+            }
+            else
+            {
+                int[] LevelTemp = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel);
+                UnityEngine.Debug.Log(VariablesHolder.sequence[currentLevel]);
+                levelNames[2 * nLevel] = "Single Task (Walk) - Level " + (nLevel + 1);
+                flagSingleWalk++;
+            }
+        }
     }
-            
-        
-        
+
 
     void Start ()
     {
-
-        
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
 	}
 
@@ -306,11 +328,9 @@ public class TimeSpawner : MonoBehaviour {
 
     public void SpawnObject()
     {
-
-
         if (VariablesHolder.GameSpeed == 1)
         {
-            if (order < NumberOfObjects.numberOfObjects + 1)
+            if (order < VariablesHolder.numberOfObjects + 1)
             {
                 GameObject spawneeObject;
                 if(order == -1)
@@ -318,18 +338,16 @@ public class TimeSpawner : MonoBehaviour {
                     spawneeObject = StartObject;
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
                 }
-                else if (order == NumberOfObjects.numberOfObjects)
+                else if (order == VariablesHolder.numberOfObjects)
                 {
                     spawneeObject = EndObject;
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
                 }
                 else
                 {
-                    int[] level = allArrayInt[currentLevel];
-
-
-                    //spawneeWanted = allArrayInt[currentLevel];
-                    if (NBackSequence[currentLevel] == "Single Task (Walk)")
+                    
+                    spawneeWanted = allArrayInt[currentLevel];
+                    if (levelNames[currentLevel].Contains( "Walk"))
                     {
                         spawneeObject = EmptyObject;
                         int side = UnityEngine.Random.Range(0, 2);
@@ -350,34 +368,32 @@ public class TimeSpawner : MonoBehaviour {
                     }
                     else
                     {
-                        UnityEngine.Debug.Log(level[order]);
+                        UnityEngine.Debug.Log(spawneeWanted[order]);
                         bool tree = false;
                         bool house = false;
-                        if (VariablesHolder.realistCheck)
-                        {
-                            if (spawneesReal[level[order]].name == "House")
+                        // je ne comprends pas le truc avec tree et house
+                        //if (VariablesHolder.realistCheck)
+                        //{
+                            if (spawneesReal[spawneeWanted[order]].name == "House")
                             {
                                 house = true;
                             }
-                            if (spawneesReal[level[order]].name == "Tree")
+                            if (spawneesReal[spawneeWanted[order]].name == "Tree")
                             {
                                 tree = true;
                             }
 
-                            spawneeObject = spawneesReal[level[order]];
-                        }
-                        else
-                        {
-                            spawneeObject = spawneesNormal[level[order]];
-
-
-
-                        }
+                            spawneeObject = spawneesNormal[spawneeWanted[order]];
+                        // }
+                        // else
+                        // {
+                        //     spawneeObject = spawneesNormal[spawneeWanted[order]];
+                        // }
 
                         int side = UnityEngine.Random.Range(0, 2);
                         if (side == 0)
                         {
-                            if (house && VariablesHolder.realistCheck)
+                            if (house) //&& VariablesHolder.realistCheck)
                             {
                                 Vector3 temp = new Vector3(2.0f, 0, 0);
                                 startTime = DateTime.Now.Millisecond; 
@@ -386,7 +402,7 @@ public class TimeSpawner : MonoBehaviour {
                                 reactionTime.Start();
                                 house = false;
                             }
-                            else if (tree && VariablesHolder.realistCheck)
+                            else if (tree) //&& VariablesHolder.realistCheck)
                             {
                                 Vector3 temp = new Vector3(0.5f, 0, 0);
                                 startTime = DateTime.Now.Millisecond;
@@ -406,7 +422,7 @@ public class TimeSpawner : MonoBehaviour {
                         }
                         else
                         {
-                            if (house && VariablesHolder.realistCheck)
+                            if (house) //&& VariablesHolder.realistCheck)
                             {
                                 Vector3 temp = new Vector3(2.0f, 0, 0);
                                 startTime = DateTime.Now.Millisecond;
@@ -415,7 +431,7 @@ public class TimeSpawner : MonoBehaviour {
                                 reactionTime.Start();
                                 house = false;
                             }
-                            else if (tree && VariablesHolder.realistCheck)
+                            else if (tree) //&& VariablesHolder.realistCheck)
                             {
                                 Vector3 temp = new Vector3(0.5f, 0, 0);
                                 startTime = DateTime.Now.Millisecond;
@@ -427,7 +443,15 @@ public class TimeSpawner : MonoBehaviour {
                             else
                             {
                                 startTime = DateTime.Now.Millisecond;
-                                Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
+                                GameObject clone = Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
+                                UnityEngine.Debug.Log("Audio:" + VariablesHolder.useAudio);
+                                UnityEngine.Debug.Log("Visuel:" + VariablesHolder.useVisual);
+                                if (VariablesHolder.useAudio)
+                                {
+                                    AudioSource sound = clone.GetComponent<AudioSource>();
+                                    UnityEngine.Debug.Log(sound);
+                                    sound.Play();
+                                }
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }

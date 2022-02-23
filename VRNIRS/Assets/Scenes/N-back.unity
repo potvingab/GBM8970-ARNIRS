@@ -326,8 +326,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -392,7 +392,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1753,6 +1753,7 @@ MonoBehaviour:
   stopSpawning: 0
   spawnTime: 2
   spawnDelay: 5
+  line: 0
 --- !u!1 &274308235
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,8 +3572,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -3637,7 +3638,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -4034,8 +4035,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -4100,7 +4101,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -5612,8 +5613,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -5678,7 +5679,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -6288,16 +6289,17 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: READY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4f9fbb18160df455883a1555536ba4fc, type: 2}
+  m_sharedMaterial: {fileID: 21233633959248142, guid: 4f9fbb18160df455883a1555536ba4fc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+    rgba: 4289622582
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -6313,8 +6315,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 42
-  m_fontSizeBase: 42
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6331,7 +6333,7 @@ MonoBehaviour:
   m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -6788,8 +6790,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -6854,7 +6856,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -7083,9 +7085,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.6039216, g: 0.19607843, b: 0.41960785, a: 0.2509804}
-    m_PressedColor: {r: 0.6039216, g: 0.19607845, b: 0.41960788, a: 0.43529412}
-    m_DisabledColor: {r: 0.6039216, g: 0.19607845, b: 0.41960788, a: 0.6156863}
+    m_HighlightedColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.627451}
+    m_PressedColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.5529412}
+    m_DisabledColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.6156863}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -10044,8 +10046,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -10110,7 +10112,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -11113,8 +11115,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -11179,11 +11181,11 @@ MonoBehaviour:
     lineCount: 0
     pageCount: 0
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -12361,8 +12363,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -12427,7 +12429,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -14277,8 +14279,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -14343,7 +14345,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -15323,9 +15325,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.6039216, g: 0.19607843, b: 0.41960785, a: 0.2509804}
-    m_PressedColor: {r: 0.6039216, g: 0.19607845, b: 0.41960788, a: 0.43529412}
-    m_DisabledColor: {r: 0.6039216, g: 0.19607845, b: 0.41960788, a: 0.6156863}
+    m_HighlightedColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.2509804}
+    m_PressedColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.43529412}
+    m_DisabledColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.6156863}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -16248,8 +16250,8 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+  m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
     topRight: {r: 0.55860347, g: 0.26931292, b: 0.6415094, a: 1}
@@ -16314,11 +16316,11 @@ MonoBehaviour:
     lineCount: 0
     pageCount: 0
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

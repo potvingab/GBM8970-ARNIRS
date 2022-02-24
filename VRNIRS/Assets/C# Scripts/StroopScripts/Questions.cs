@@ -23,7 +23,7 @@ public class Questions : MonoBehaviour
     
     // Objectfs in searcher's view
     public GameObject timer;
-    //public GameObject WhitBgTL;
+    public GameObject WhitBgTL;
     public GameObject totalResults;
     public Button buttonContinue;
     public Button buttonRestart;
@@ -100,6 +100,7 @@ public class Questions : MonoBehaviour
          // Called by the "Instruction" button or "Continue" button
     {   // Play the right difficulty according to the sequence
         flagTuto = false;
+        WhitBgTL.gameObject.SetActive(true);
         // timeValue = VariablesHolderStroop.stroopTrialTime; //Restart timer(added to be able to replay the level before the timer stopped)
         //Baseline
         if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
@@ -126,7 +127,7 @@ public class Questions : MonoBehaviour
             timer.gameObject.SetActive(true);
             whiteBackgrounds.gameObject.SetActive(true);
             buttonContinue.gameObject.SetActive(false);
-            buttonRestart.gameObject.SetActive(true);
+            buttonRestart.gameObject.SetActive(false);
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
 
@@ -337,6 +338,7 @@ public class Questions : MonoBehaviour
             blueButton.gameObject.SetActive(true);
             questionHolder.gameObject.SetActive(true);
 
+
             correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Correct Answers: ";
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
@@ -345,7 +347,8 @@ public class Questions : MonoBehaviour
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
             timer.gameObject.SetActive(false);
-            //WhitBgTL.gameObject.SetActive(false);
+            buttonRestart.gameObject.SetActive(false);
+            WhitBgTL.gameObject.SetActive(false);
             TextAsset txt;
 
             if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
@@ -486,7 +489,7 @@ public class Questions : MonoBehaviour
             currentIndexSeq--;
 
         }
-        //currentIndexSeq--;
+        
         flagRestart = true;
         numCorrectAnswers = 0;
         numTotalAnswers = 0;

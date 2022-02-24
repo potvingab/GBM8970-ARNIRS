@@ -159,9 +159,9 @@ public class Difficulty : MonoBehaviour {
             if (Questions.question[Questions.n_question_fixed].Split(',')[0] != "R" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "B" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                Questions.end_of_trial = true;
+                //Questions.end_of_trial = true;
                 return;
-                //timeValue = 0;
+                Questions.timeValue = 0;
 
             }
             Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
@@ -211,8 +211,8 @@ public class Difficulty : MonoBehaviour {
             if (Questions.question[Questions.n_question_fixed].Split(',')[0] != "R" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "B" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
-                Questions.end_of_trial = true;
-                //timeValue = 0;
+                //Questions.end_of_trial = true;
+                Questions.timeValue = 0;
                 return;
 
             }

@@ -131,6 +131,7 @@ public class PauseMenu : MonoBehaviour
 
                     TimeSpawner.CreateCheckpoint("Same");
                     TimeSpawner.TriggerArduino("1");
+                    TimeSpawner.ArduinoCheckpoint("Answer");
                 }
                 if (Input.GetKeyDown(KeyCode.D))
                 {
@@ -145,6 +146,7 @@ public class PauseMenu : MonoBehaviour
 
                     TimeSpawner.CreateCheckpoint("Diff");
                     TimeSpawner.TriggerArduino("1");
+                    TimeSpawner.ArduinoCheckpoint("Answer");
                 }
             }
             ChangeText();

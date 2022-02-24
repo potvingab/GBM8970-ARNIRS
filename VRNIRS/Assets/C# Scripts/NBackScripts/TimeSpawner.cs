@@ -311,9 +311,9 @@ public class TimeSpawner : MonoBehaviour {
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        serialPort.WriteLine(line);
+        // if (!serialPort.IsOpen)
+        //     serialPort.Open();
+        // serialPort.WriteLine(line);
         //CreateCheckpoint("Test Délai");
     }
 

@@ -167,6 +167,10 @@ public class VariablesHolder : MonoBehaviour {
         Debug.Log("Number objects: " + numberOfObjects);
         // Update "speed"
         float.TryParse(inputSpeed.GetComponent<TMP_InputField>().text, out speed);
+        if (speed == 0)
+		{
+			speed = 1;
+		}
         Debug.Log("Speed: " + speed);
         // Update "sequence"
 		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };

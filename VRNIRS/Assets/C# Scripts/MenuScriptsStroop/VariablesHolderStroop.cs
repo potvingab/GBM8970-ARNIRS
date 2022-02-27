@@ -160,7 +160,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
-        TimeSpawner.TriggerArduino("C");
+        Response.TriggerArduino("C");
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
         //if ((fileName.Contains("/")))
@@ -178,8 +178,8 @@ public class VariablesHolderStroop : MonoBehaviour
         // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
         try
         {
-            //if (!Response.serialPort.IsOpen)
-            //    Response.serialPort.Open();
+            if (!Response.serialPort.IsOpen)
+                Response.serialPort.Open();
             if ((fileName.Contains("/")))
             {
                 errorMessageFileName.SetActive(false);

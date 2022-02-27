@@ -12,10 +12,13 @@ public class MainMenu : MonoBehaviour
     public void PlayNBack()
     {
         String name = VariablesHolder.fileName;
-        String baseName = name.Replace(".txt", "");
-        using (StreamWriter sw = File.AppendText(baseName + "_Master" + ".txt"))
+        int index = name.IndexOf(".txt");
+        String masterFileName = name.Insert(index, "_Master");
+        String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
+        String arFileName = name.Insert(index, "_Test_synchro_AR");
+        using (StreamWriter sw = File.AppendText(masterFileName))
         {
-            sw.Write("Parameter; " + "Filename; " + baseName + "_Master" + ".txt" + "\n");
+            sw.Write("Parameter; " + "Filename; " + masterFileName + "\n");
             sw.Write("Parameter; " + "Arduino Port; " + VariablesHolder.arduinoPort + "\n");
             //sw.Write("Parameter; " + "Trial Time; " + VariablesHolderStroop.stroopTrialTime.ToString() + "\n");
             //sw.Write("Parameter; " + "Number Trials; " + VariablesHolderStroop.stroopNumberTrials.ToString() + "\n");
@@ -23,9 +26,14 @@ public class MainMenu : MonoBehaviour
             //sw.Write("Parameter; " + "Sequence Levels; " + String.Join(", ", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
             //sw.Write("Parameter; " + "Game Mode; " + VariablesHolderStroop.stroopGameMode + "\n");
         }
-        using (StreamWriter sw = File.AppendText(baseName + "_Test_synchro_Arduino" + ".txt"))
+        using (StreamWriter sw = File.AppendText(arduinoFileName))
         {
-            sw.Write("Parameter; " + "Filename; " + baseName + "_Test_synchro_Arduino" + ".txt" + "\n");
+            sw.Write("Parameter; " + "Filename; " + arduinoFileName + "\n");
+            sw.Write("Parameter; " + "Arduino Port; " + VariablesHolder.arduinoPort + "\n");
+        }
+        using (StreamWriter sw = File.AppendText(arFileName))
+        {
+            sw.Write("Parameter; " + "Filename; " + arFileName + "\n");
             sw.Write("Parameter; " + "Arduino Port; " + VariablesHolder.arduinoPort + "\n");
         }
         TimeSpawner.CreateCheckpoint("End of Menu");
@@ -34,7 +42,12 @@ public class MainMenu : MonoBehaviour
 
     public void PlayStroop()
     {
-        using (StreamWriter sw = File.AppendText(VariablesHolderStroop.fileName))
+        String name = VariablesHolderStroop.fileName;
+        int index = name.IndexOf(".txt");
+        String masterFileName = name.Insert(index, "_Master");
+        String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
+        String arFileName = name.Insert(index, "_Test_synchro_AR");
+        using (StreamWriter sw = File.AppendText(masterFileName))
         {
             sw.Write("Parameter; " + "Filename: " + VariablesHolderStroop.fileName + "\n");
             sw.Write("Parameter; " + "Arduino Port: " + VariablesHolderStroop.arduinoPort + "\n");
@@ -43,6 +56,16 @@ public class MainMenu : MonoBehaviour
             sw.Write("Parameter; " + "Sequence: " + String.Join(",", VariablesHolderStroop.stroopSequence.ToArray()) + "\n");
             sw.Write("Parameter; " + "Sequence Levels: " + String.Join(", ", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
             sw.Write("Parameter; " + "Game Mode: " + VariablesHolderStroop.stroopGameMode + "\n");
+        }
+        using (StreamWriter sw = File.AppendText(arduinoFileName))
+        {
+            sw.Write("Parameter; " + "Filename; " + arduinoFileName + "\n");
+            sw.Write("Parameter; " + "Arduino Port; " + VariablesHolderStroop.arduinoPort + "\n");
+        }
+        using (StreamWriter sw = File.AppendText(arFileName))
+        {
+            sw.Write("Parameter; " + "Filename; " + arFileName + "\n");
+            sw.Write("Parameter; " + "Arduino Port; " + VariablesHolderStroop.arduinoPort + "\n");
         }
         Response.CreateCheckpoint("End of Menu");
         SceneManager.LoadScene("Stroop");

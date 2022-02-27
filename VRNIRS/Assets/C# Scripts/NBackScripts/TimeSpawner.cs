@@ -311,33 +311,48 @@ public class TimeSpawner : MonoBehaviour {
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        // if (!serialPort.IsOpen)
-        //     serialPort.Open();
-        // serialPort.WriteLine(line);
-        //CreateCheckpoint("Test Délai");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
+        ARCheckpoint("Trigger sent");
     }
 
     public static void CreateCheckpoint(string nom)
     {
         String name = VariablesHolder.fileName;
-        String baseName = name.Replace(".txt", "");
-        using (StreamWriter sw = File.AppendText(baseName + "_Master" + ".txt"))
+        int index = name.IndexOf(".txt");
+        String masterFileName = name.Insert(index, "_Master");
+        using (StreamWriter sw = File.AppendText(masterFileName))
         {
             sw.Write("Checkpoint; " + nom + "; ");
             sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
         }
+        ARCheckpoint("Event received");
     }
 
     public static void ArduinoCheckpoint(string nom)
     {
         String name = VariablesHolder.fileName;
-        String baseName = name.Replace(".txt", "");
+        int index = name.IndexOf(".txt");
+        String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
         if (!serialPort.IsOpen)
             serialPort.Open();
-            string delay = serialPort.ReadLine();
-        using (StreamWriter sw = File.AppendText(baseName + "_Test_synchro_Arduino" + ".txt"))
+        string delay = serialPort.ReadLine();
+        using (StreamWriter sw = File.AppendText(arduinoFileName))
         {
             sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
+        }
+    }
+
+    static void ARCheckpoint(string nom) 
+    {
+        String name = VariablesHolder.fileName;
+        int index = name.IndexOf(".txt");
+        String arFileName = name.Insert(index, "_Test_synchro_AR");
+        using (StreamWriter sw = File.AppendText(arFileName))
+        {
+            sw.Write("Checkpoint; " + nom + "; ");
+            sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
         }
     }
 

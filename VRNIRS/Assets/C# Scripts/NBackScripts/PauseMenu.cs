@@ -307,22 +307,22 @@ public class PauseMenu : MonoBehaviour
         int percentage = VariablesHolder.numberOfObjects - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel];
         string textLevel = levelTextSelecters[TimeSpawner.currentLevel].text;
 
-        int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
+        int[] currentLevelObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
 
         if (allLevelResults[TimeSpawner.currentLevel] != "")
         {
             for (int i = VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]; i < VariablesHolder.numberOfObjects; i++)
             {
                 //Attention
-                if (currentLeveObjectsPerc[i] == 9)
+                if (currentLevelObjectsPerc[i] == 9)
                 {
 
                 }
-                else if (currentLeveObjectsPerc[i] == currentLeveObjectsPerc[i - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]] && clicks[i] != "Same")
+                else if (currentLevelObjectsPerc[i] == currentLevelObjectsPerc[i - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]] && clicks[i] != "Same")
                 {
                     percentage -= 1;
                 }
-                else if (currentLeveObjectsPerc[i] != currentLeveObjectsPerc[i - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]] && clicks[i] != "Diff")
+                else if (currentLevelObjectsPerc[i] != currentLevelObjectsPerc[i - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]] && clicks[i] != "Diff")
                 {
                     percentage -= 1;
                 }
@@ -338,11 +338,13 @@ public class PauseMenu : MonoBehaviour
     {
         gameObjectList.text = "";
 
-        int[] currentLeveObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
+        int[] currentLevelObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
+        //UnityEngine.Debug.Log("currentLevelObjects " + currentLevelObjectsPerc);
 
         for (int i = 0; i < VariablesHolder.numberOfObjects; i++)
         {
-            if (currentLeveObjectsPerc[i] == 9)
+            if (currentLevelObjectsPerc[i] == 9)
+            //if(TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
             {
                 gameObjectList.text = "Just Moving trough the scene.";
                 break;
@@ -359,6 +361,7 @@ public class PauseMenu : MonoBehaviour
                 //}
                 //
                 gameObjectList.text = gameObjectList.text + (orderObject[currentLevelObjects[i]].name + ": " + clicks[i] + "; ");
+                
             }
 
         }
@@ -387,7 +390,8 @@ public class PauseMenu : MonoBehaviour
     {
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
@@ -407,7 +411,8 @@ public class PauseMenu : MonoBehaviour
         TimeSpawner.currentLevel += 1;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
@@ -427,7 +432,8 @@ public class PauseMenu : MonoBehaviour
         TimeSpawner.currentLevel +=2;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION
@@ -493,7 +499,8 @@ public class PauseMenu : MonoBehaviour
         TimeSpawner.currentLevel = 0;
         TimeSpawner.order = -1;
         Destroyer.objectDestroyed = 0;
-        clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+        clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
         //ATTENTION

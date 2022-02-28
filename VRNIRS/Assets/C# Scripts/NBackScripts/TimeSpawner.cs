@@ -261,6 +261,7 @@ public class TimeSpawner : MonoBehaviour {
 
         for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
+            // nLevel+1 correspond au niveau a lire
             allArrayInt[nLevel + nMaxTutorial] = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel+1);
             string title;
             if (VariablesHolder.sequence[nLevel].Contains("Dual"))

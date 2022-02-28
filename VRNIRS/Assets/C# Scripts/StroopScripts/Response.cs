@@ -50,10 +50,10 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        serialPort.WriteLine(line);
-        ARCheckpoint("Trigger sent");
+        //if (!serialPort.IsOpen)
+        //    serialPort.Open();
+        //serialPort.WriteLine(line);
+        //ARCheckpoint("Trigger sent");
     }
     
     public static void CreateCheckpoint(string nom)
@@ -70,16 +70,16 @@ public class Response : Interaction
     }
     public static void ArduinoCheckpoint(string nom)
     {
-        String name = VariablesHolderStroop.fileName;
-        int index = name.IndexOf(".txt");
-        String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        string delay = serialPort.ReadLine();
-        using (StreamWriter sw = File.AppendText(arduinoFileName))
-        {
-            sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
-        }
+        //String name = VariablesHolderStroop.fileName;
+        //int index = name.IndexOf(".txt");
+        //String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
+        //if (!serialPort.IsOpen)
+        //    serialPort.Open();
+        //string delay = serialPort.ReadLine();
+        //using (StreamWriter sw = File.AppendText(arduinoFileName))
+        //{
+        //    sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
+        //}
     }
 
     public static void ARCheckpoint(string nom)

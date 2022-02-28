@@ -251,7 +251,7 @@ public class Questions : MonoBehaviour
                         break;
 
                     case 3:
-                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the word. that the letters are printed in and not the written color.\n Are you ready?";
+                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the ink.\n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 3";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 3 ";
 
@@ -310,6 +310,8 @@ public class Questions : MonoBehaviour
             questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
             questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
             questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
+            textLevel.gameObject.SetActive(false);
+            LevelDifficulty.gameObject.SetActive(false);
             greenButton.gameObject.SetActive(false);
             redButton.gameObject.SetActive(false);
             blueButton.gameObject.SetActive(false);

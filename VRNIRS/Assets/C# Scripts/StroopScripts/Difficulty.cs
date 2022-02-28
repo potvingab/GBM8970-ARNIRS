@@ -176,7 +176,7 @@ public class Difficulty : MonoBehaviour {
         }
 
         // Change the color of questionHolder to the black
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor]; //POURQUOI?? 
         // Change the text of questionHolder to the question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];

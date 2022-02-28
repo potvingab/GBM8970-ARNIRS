@@ -28,7 +28,7 @@ public class TimeSpawner : MonoBehaviour {
     public static int startTime;
     public static Stopwatch reactionTime = new Stopwatch();
 
-    /*
+    
     public static int[] Tutorial1Int;
     public static int[] Tutorial2Int;
     public static int[] Tutorial3Int;
@@ -36,7 +36,7 @@ public class TimeSpawner : MonoBehaviour {
     public static int[] Tutorial5Int;
     public static int[] Tutorial6Int;
     public static int[] Tutorial7Int;
-
+    /*
     public static int[] blanc1Int;
     public static int[] level1Int;
     public static int[] level2Int;
@@ -79,6 +79,7 @@ public class TimeSpawner : MonoBehaviour {
     public int line;
     public static string[] SequenceFromFile;
     public static int sizeOfArray;
+    public static int nMaxTutorial = 7; // mettre dans le menu??
 
 
     public static int[] spawneeWanted;
@@ -125,56 +126,61 @@ public class TimeSpawner : MonoBehaviour {
                     sequence[i] = 9;
                 }
                 break;
-
-
             default:
                 if (VariablesHolder.gameMode == "Random")
                 {
                     sequence = ArrayMaker();
                 }
                 else
-                    sequence = ReadFile(nLevel, "FixedSequenceNBack", VariablesHolder.numberOfObjects);
+                    sequence = ReadFile(nLevel, "FixedSequenceNBack");
                 break;
         }
         return sequence;
     }
 
-    public int[] TutorialGenerator(int nLevel, int tutorialNumberofObject)
+    public void TutorialsGenerator(int nMaxTutorial)
     {
-        int[] sequence = new int[tutorialNumberofObject];
-        //Name of file!!
-        sequence = ReadFile(nLevel, "FixedSequenceNBack", 15);
-
-        return sequence;
+        //UnityEngine.Debug.Log("????");
+        for (int ntuto = 1; ntuto <= nMaxTutorial; ntuto++)
+        {
+            UnityEngine.Debug.Log("Gen tutorial");
+            allArrayInt[ntuto - 1] = ReadFile(ntuto, "TutorialNBack");
+            levelNames[ntuto - 1] = "Tutorial " + (ntuto);
+        }
+        return;
     }
 
 
-    public int[] ReadFile(int level, string nameOfFile, int numberOfObjects)
+    public int[] ReadFile(int level, string nameOfFile)
     {
-        int[] sequence;
-        sequence = new int[numberOfObjects];
-        string allInfo;
+        //Divid the file into a string []
+        UnityEngine.Debug.Log("Read file");
         TextAsset txt = (TextAsset)Resources.Load(nameOfFile, typeof(TextAsset));
-
-        allInfo = txt.text;
-        UnityEngine.Debug.Log(allInfo);
-
+        string allInfo = txt.text;
         string[] InfoLine = allInfo.Split('\n');
-        UnityEngine.Debug.Log(InfoLine[1]);
+  
+        //Read the first line
+        SequenceFromFile = InfoLine[0].Split(';');
+        int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
+        VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
 
-        //the starting line according to the level and read this line
-        line = 2 * (level + 1) - 1;
-        SequenceFromFile = InfoLine[line].Split(';');
+        //UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
+        //Read the line corresponding the level
+        SequenceFromFile = InfoLine[level].Split(';');
+        
 
-
-        UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
+        int[] sequence = new int[VariablesHolder.numberOfObjects];
         for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {
-            sequence[i] = Convert.ToInt32(SequenceFromFile[i]);
+            UnityEngine.Debug.Log("level");
+            UnityEngine.Debug.Log(level);
+            UnityEngine.Debug.Log(SequenceFromFile[i + 1]);
+            //UnityEngine.Debug.Log(i);
+            sequence[i] = Convert.ToInt32(SequenceFromFile[i+1]);
         }
-
+        UnityEngine.Debug.Log("!!!!");
+        UnityEngine.Debug.Log(sequence);
         return sequence;
-
     }
 
 
@@ -182,10 +188,10 @@ public class TimeSpawner : MonoBehaviour {
     private void Awake()
     {
         //if (VariablesHolder.useMeta == false){
-         //   GameObject metaCamera = GameObject.Find("MetaCameraRig");
-          //  GameObject metaHands = GameObject.Find("MetaHands");
-            //Destroy(metaCamera);
-            //Destroy(metaHands);
+        //   GameObject metaCamera = GameObject.Find("MetaCameraRig");
+        //  GameObject metaHands = GameObject.Find("MetaHands");
+        //Destroy(metaCamera);
+        //Destroy(metaHands);
         //}
 
 
@@ -243,62 +249,36 @@ public class TimeSpawner : MonoBehaviour {
         //allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
         //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
         //ATTENTION number of level
-
-        //{ 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 1 };
-
-
-        int flagSingleWalk = 0;
-        for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
-        {
-            if (VariablesHolder.sequence[nLevel] == "Single Task (Walk)")
-            {
-                flagSingleWalk++;
-            }
-        }
-        sizeOfArray = (VariablesHolder.numberTrials * 2) - flagSingleWalk;
+        
+        
+ 
+        sizeOfArray = (VariablesHolder.numberTrials) + nMaxTutorial;
         allArrayInt = new int[sizeOfArray][];
         levelNames = new string[sizeOfArray];
 
-        flagSingleWalk = 0;
+        TutorialsGenerator(nMaxTutorial);
+        UnityEngine.Debug.Log("!!!");
+
         for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
-            if (VariablesHolder.sequence[nLevel] != "Single Task (Walk)")
+            allArrayInt[nLevel + nMaxTutorial] = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel+1);
+            string title;
+            if (VariablesHolder.sequence[nLevel].Contains("Dual"))
             {
-                UnityEngine.Debug.Log(nLevel);
-                //Attention: question karen! combien dans le tuto
-                int[] tutoTemp = TutorialGenerator(nLevel - flagSingleWalk, 5);
-
-                allArrayInt[2 * nLevel - flagSingleWalk] = (tutoTemp);
-                UnityEngine.Debug.Log(VariablesHolder.sequence[currentLevel]);
-
-                levelNames[2 * nLevel - flagSingleWalk] = "Tutorial " + (nLevel + 1);
-
-
-
-                int[] LevelTemp = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel);
-                //Number of questions
-                allArrayInt[2 * nLevel + 1 - flagSingleWalk] = LevelTemp;
-                UnityEngine.Debug.Log(allArrayInt[0][0]);
-                string title;
-                if (VariablesHolder.sequence[nLevel].Contains("Dual"))
-                {
-                    title = "Dual Task";
-                }
-                else
-                {
-                    title = "Single Task (N-Back)";
-                }
-                levelNames[2 * nLevel + 1 - flagSingleWalk] = title + " - Level " + (nLevel + 1);
+                title = "Dual Task";
+            }
+            else if (VariablesHolder.sequence[nLevel].Contains("Walk"))
+            {
+                title = "Single Task (Walk)";
             }
             else
             {
-                int[] LevelTemp = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel);
-                UnityEngine.Debug.Log(VariablesHolder.sequence[currentLevel]);
-                levelNames[2 * nLevel - flagSingleWalk] = "Single Task (Walk) - Level " + (nLevel + 1);
-                //levelNames[2 * nLevel +1] = "Single Task (Walk) - Remplissage " + (nLevel + 1);
-                allArrayInt[2 * nLevel] = LevelTemp;
-                flagSingleWalk++;
+                title = "Single Task (N-Back)";
             }
+            //Ajouter saut de ligne??
+            levelNames[nLevel + nMaxTutorial] = title + "  - Level " + (nLevel + 1)+ " - N-Back Value = " + VariablesHolder.sequenceNBack[nLevel];
+         
+           
             //UnityEngine.Debug.Log("Taille1 :" + sizeOfArray);
             //UnityEngine.Debug.Log("Taille2 :" + VariablesHolder.numberTrials);
             //UnityEngine.Debug.Log("Flag :" + flagSingleWalk);
@@ -328,15 +308,15 @@ public class TimeSpawner : MonoBehaviour {
 
     public static void CreateCheckpoint(string nom)
     {
-        String name = VariablesHolder.fileName;
-        int index = name.IndexOf(".txt");
-        String masterFileName = name.Insert(index, "_Master");
-        using (StreamWriter sw = File.AppendText(masterFileName))
-        {
-            sw.Write("Checkpoint; " + nom + "; ");
-            sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
-        }
-        ARCheckpoint("Event received");
+        //String name = VariablesHolder.fileName;
+        //int index = name.IndexOf(".txt");
+        //String masterFileName = name.Insert(index, "_Master");
+        //using (StreamWriter sw = File.AppendText(masterFileName))
+        //{
+        //    sw.Write("Checkpoint; " + nom + "; ");
+        //    sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
+        //}
+        //ARCheckpoint("Event received");
     }
 
     public static void ArduinoCheckpoint(string nom)
@@ -386,7 +366,7 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     
                     spawneeWanted = allArrayInt[currentLevel];
-                    if (levelNames[currentLevel].Contains( "Walk"))
+                    if (levelNames[currentLevel].Contains("Walk"))
                     {
                         spawneeObject = EmptyObject;
                         int side = UnityEngine.Random.Range(0, 2);
@@ -502,11 +482,8 @@ public class TimeSpawner : MonoBehaviour {
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
-                            
                         }
                     }
-                    
-                    
                 }
                 if (stopSpawning)
                 {
@@ -520,8 +497,5 @@ public class TimeSpawner : MonoBehaviour {
                 PauseMenu.SameObject = false;
             }
         }
-       
-       
     }
-
 }

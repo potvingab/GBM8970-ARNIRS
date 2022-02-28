@@ -429,10 +429,10 @@ public class PauseMenu : MonoBehaviour
     public void SkipTutorials()
     {
         //ATTENTION
-        TimeSpawner.currentLevel +=2;
+        TimeSpawner.currentLevel = TimeSpawner.nMaxTutorial;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
+       
         clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];

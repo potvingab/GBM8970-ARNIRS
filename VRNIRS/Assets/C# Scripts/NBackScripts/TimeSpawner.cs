@@ -294,9 +294,18 @@ public class TimeSpawner : MonoBehaviour {
             {
                 int[] LevelTemp = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel);
                 UnityEngine.Debug.Log(VariablesHolder.sequence[currentLevel]);
-                levelNames[2 * nLevel] = "Single Task (Walk) - Level " + (nLevel + 1);
+                levelNames[2 * nLevel - flagSingleWalk] = "Single Task (Walk) - Level " + (nLevel + 1);
+                //levelNames[2 * nLevel +1] = "Single Task (Walk) - Remplissage " + (nLevel + 1);
+                allArrayInt[2 * nLevel] = LevelTemp;
                 flagSingleWalk++;
             }
+            //UnityEngine.Debug.Log("Taille1 :" + sizeOfArray);
+            //UnityEngine.Debug.Log("Taille2 :" + VariablesHolder.numberTrials);
+            //UnityEngine.Debug.Log("Flag :" + flagSingleWalk);
+            //UnityEngine.Debug.Log("Nom0 :" + levelNames[0]);
+            //UnityEngine.Debug.Log("Nom1 :" + levelNames[1]);
+            //UnityEngine.Debug.Log("Nom2 :" + levelNames[2]);
+            //UnityEngine.Debug.Log("Nom3 :" + levelNames[3]);
         }
     }
 
@@ -311,10 +320,10 @@ public class TimeSpawner : MonoBehaviour {
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        serialPort.WriteLine(line);
-        ARCheckpoint("Trigger sent");
+        //if (!serialPort.IsOpen)
+        //    serialPort.Open();
+        //serialPort.WriteLine(line);
+        //ARCheckpoint("Trigger sent");
     }
 
     public static void CreateCheckpoint(string nom)
@@ -332,16 +341,16 @@ public class TimeSpawner : MonoBehaviour {
 
     public static void ArduinoCheckpoint(string nom)
     {
-        String name = VariablesHolder.fileName;
-        int index = name.IndexOf(".txt");
-        String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
-        if (!serialPort.IsOpen)
-            serialPort.Open();
-        string delay = serialPort.ReadLine();
-        using (StreamWriter sw = File.AppendText(arduinoFileName))
-        {
-            sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
-        }
+        //String name = VariablesHolder.fileName;
+        //int index = name.IndexOf(".txt");
+        //String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
+        //if (!serialPort.IsOpen)
+        //    serialPort.Open();
+        //string delay = serialPort.ReadLine();
+        //using (StreamWriter sw = File.AppendText(arduinoFileName))
+        //{
+        //    sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
+        //}
     }
 
     static void ARCheckpoint(string nom) 

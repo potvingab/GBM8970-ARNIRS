@@ -39,7 +39,38 @@ public class Questions : MonoBehaviour
     public Button buttonNew;
     public GameObject whiteBackgrounds;
     public GameObject LevelDifficulty;
-
+    public GameObject endGamePage;
+    public GameObject endGameNumbers;
+    public GameObject endGameLevels;
+    public GameObject endGameDifficulties;
+    public GameObject endGameResults;
+    public GameObject endGameTimes;
+    public GameObject endGameScroll1;
+    public GameObject endGameScroll2;
+    public GameObject endGameScroll3;
+    public GameObject endGameScroll4;
+    public GameObject endGameScroll5;
+    public GameObject endGameScroll6;
+    public GameObject endGameScroll7;
+    public GameObject endGameScroll8;
+    public GameObject endGameScroll9;
+    public GameObject endGameScroll10;
+    public GameObject endGameScroll11;
+    public GameObject endGameScroll12;
+    public GameObject endGameScroll13;
+    public GameObject endGameScroll14;
+    public GameObject endGameScroll15;
+    public GameObject endGameScroll16;
+    public GameObject endGameScroll17;
+    public GameObject endGameScroll18;
+    public GameObject endGameScroll19;
+    public GameObject endGameScroll20;
+    public GameObject endGameScroll21;
+    public GameObject endGameScroll22;
+    public GameObject endGameScroll23;
+    public GameObject endGameScroll24;
+    public GameObject endGameScroll25;
+    public GameObject endGameScroll26;
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.stroopTrialTime;
@@ -52,7 +83,6 @@ public class Questions : MonoBehaviour
     public static int indexColor;
     public static bool bool_Square;
 
-
     public static string[] question;
     public static List<string> selectedAnswers = new List<string>(); // Answers selected by the participant
     public static List<string> correctAnswers = new List<string>(); // Correct answers (created by CreateNewRandomQuestion)
@@ -64,6 +94,10 @@ public class Questions : MonoBehaviour
     public static DateTime timeEndQuestion;
     public Image BackgroundImage; // New variable difficulty 1 
     public Image Rectangle; // New variable difficulty 4
+    public static List<string> allResults = new List<string>();
+    public static List<string> allAvTimes = new List<string>();
+    public static List<string> allCorrectAns = new List<string>();
+    public static List<string> allSelectedAns = new List<string>();
 
     //fixed sequence variables
     public static int n_question_fixed = 0;
@@ -71,7 +105,6 @@ public class Questions : MonoBehaviour
     public static bool flagTuto = false;
     public static bool end_of_trial = false;
     public static bool flagRestart = false;
-
 
     // Pages of the scene
     public GameObject canvasChercheurInstructions;
@@ -87,6 +120,7 @@ public class Questions : MonoBehaviour
         canvasParticipantInstructions.SetActive(true);
 		canvasChercheurJeu.SetActive(false);
         canvasParticipantJeu.SetActive(false);
+        endGamePage.gameObject.SetActive(false);
         if (VariablesHolderStroop.useMeta == false){
             GameObject metaCamera = GameObject.Find("MetaCameraRig");
             GameObject metaHands = GameObject.Find("MetaHands");
@@ -295,21 +329,18 @@ public class Questions : MonoBehaviour
         
         else
         {
-            // Do things for final screen after all levels (for now, only write "END")
+            // Do things for final screen after all levels
             Response.CreateCheckpoint("Final screen");
             Response.TriggerArduino("3");
             buttonContinue.gameObject.SetActive(false);
             buttonRestart.gameObject.SetActive(false);
-            selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-            averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-            totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-            correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
+            selectedAnswersShown.gameObject.SetActive(false);
+            averageResponseTime.gameObject.SetActive(false);
+            totalResults.gameObject.SetActive(false);
+            correctAnswersShown.gameObject.SetActive(false);
             BackgroundImage.gameObject.SetActive(false);
             Rectangle.gameObject.SetActive(false);
-            questionHolder.gameObject.SetActive(true);
-            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
-            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
-            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
+            questionHolder.gameObject.SetActive(false);
             textLevel.gameObject.SetActive(false);
             LevelDifficulty.gameObject.SetActive(false);
             greenButton.gameObject.SetActive(false);
@@ -319,6 +350,21 @@ public class Questions : MonoBehaviour
             buttonNew.gameObject.SetActive(true);
             timer.gameObject.SetActive(false);
             whiteBackgrounds.gameObject.SetActive(false);
+            endGamePage.gameObject.SetActive(true);
+            endGameNumbers.GetComponent<Text>().text = "";
+            var scrollCorrect = new[] { endGameScroll1, endGameScroll2, endGameScroll3, endGameScroll4, endGameScroll5, endGameScroll6, endGameScroll7, endGameScroll8, endGameScroll9, endGameScroll10, endGameScroll11, endGameScroll12, endGameScroll13 };
+		    var scrollSelected = new[] { endGameScroll14, endGameScroll15, endGameScroll16, endGameScroll17, endGameScroll18, endGameScroll19, endGameScroll20, endGameScroll21, endGameScroll22, endGameScroll23, endGameScroll24, endGameScroll25, endGameScroll26 };
+            for (int i = 0; i < VariablesHolderStroop.stroopSequence.Count; i++) {
+				endGameNumbers.GetComponent<Text>().text += i + "\n";
+                scrollCorrect[i].gameObject.SetActive(true);
+                scrollCorrect[i].GetComponentInChildren<Text>().text = allCorrectAns[i];
+                scrollSelected[i].gameObject.SetActive(true);
+                scrollSelected[i].GetComponentInChildren<Text>().text = allSelectedAns[i];
+			}
+            endGameLevels.GetComponent<Text>().text = String.Join("\n", VariablesHolderStroop.stroopSequence.ToArray());
+            endGameDifficulties.GetComponent<Text>().text = String.Join("\n", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray());
+            endGameResults.GetComponent<Text>().text = String.Join("\n", allResults.ToArray());
+            endGameTimes.GetComponent<Text>().text = String.Join("\n", allAvTimes.ToArray());
         }
     }
 
@@ -339,8 +385,6 @@ public class Questions : MonoBehaviour
             redButton.gameObject.SetActive(true);
             blueButton.gameObject.SetActive(true);
             questionHolder.gameObject.SetActive(true);
-
-
             correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Correct Answers: ";
             selectedAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text = "Selected Answers: ";
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time";
@@ -428,6 +472,7 @@ public class Questions : MonoBehaviour
                 }
                 // Show the result (researcher's view)
                 totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format("Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
+                allResults.Add(numCorrectAnswers + "/" + numTotalAnswers);
                 Response.CreateCheckpoint("Result: " + numCorrectAnswers + "/" + numTotalAnswers);
                 if (responseTimes.Count==0)
                 {
@@ -436,9 +481,13 @@ public class Questions : MonoBehaviour
                 }
                 //Debug.Log(String.Join(",", responseTimes.Select(x => x.ToString()).ToArray()));
                 averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
+                allAvTimes.Add(Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec");
                 Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
                 // Show the button "Continue" (researcher's view)
-                buttonContinue.gameObject.SetActive(true);                buttonRestart.gameObject.SetActive(true);
+                buttonContinue.gameObject.SetActive(true);
+                buttonRestart.gameObject.SetActive(true);
+                allSelectedAns.Add(String.Join(", ", selectedAnswers.ToArray()));
+                allCorrectAns.Add(String.Join(", ", correctAnswers.Take(selectedAnswers.Count).ToArray()));
                 // Play a sound
                 beep.Play(); 
 

@@ -153,10 +153,18 @@ public class TimeSpawner : MonoBehaviour {
 
     public int[] ReadFile(int level, string nameOfFile)
     {
-        //Divid the file into a string []
+        //Divide the file into a string []
+        string allInfo;
         UnityEngine.Debug.Log("Read file");
-        TextAsset txt = (TextAsset)Resources.Load(nameOfFile, typeof(TextAsset));
-        string allInfo = txt.text;
+        if (VariablesHolder.fixedFile.Contains("Level"))
+        {
+            allInfo = VariablesHolder.fixedFile;
+        }
+        else
+        {
+            TextAsset txt = (TextAsset)Resources.Load(nameOfFile, typeof(TextAsset));
+            allInfo = txt.text;
+        }
         string[] InfoLine = allInfo.Split('\n');
   
         //Read the first line
@@ -168,7 +176,6 @@ public class TimeSpawner : MonoBehaviour {
         //Read the line corresponding the level
         SequenceFromFile = InfoLine[level].Split(';');
         
-
         int[] sequence = new int[VariablesHolder.numberOfObjects];
         for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {

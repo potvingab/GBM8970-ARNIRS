@@ -229,7 +229,7 @@ public class VariablesHolderStroop : MonoBehaviour
 			// Read all the parameters
             string allParameters = File.ReadAllText(path[0]);
 			string[] parameters = allParameters.Split('\n');
-			// Load the time (one trial)"
+			// Load the "time (one trial)"
 			inputTime.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
 			// Load the "number of trials" and show the right number of dropdowns
 			int.TryParse(parameters[2].Split(':')[1], out stroopNumberTrials);
@@ -274,7 +274,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		if (path.Length > 0)
 		{
 			var possibleFixedFile = File.ReadAllText(path);
-		if (CheckValidFileFixed(possibleFixedFile))
+			if (CheckValidFileFixed(possibleFixedFile))
 			{
 				fixedFile = possibleFixedFile;
 				checkFixed.SetActive(true);
@@ -320,9 +320,9 @@ public class VariablesHolderStroop : MonoBehaviour
 			(lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()) &&
 			(lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()) &&
 			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 
-			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()) &&
-			(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 11) && 
-			((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count())
+			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count())
+			//(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 11) && 
+			//((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count())
 			//(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
 			)
 		{

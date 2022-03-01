@@ -170,7 +170,7 @@ public class Questions : MonoBehaviour
             {
                 // If custom "fixed colors file"
                 string all_Info;
-                if (VariablesHolderStroop.fixedFile.Contains("Niveau")) // changer pour mieux verif
+                if (VariablesHolderStroop.fixedFile.Contains("Niveau"))
                 {
                     all_Info = VariablesHolderStroop.fixedFile;
                 }

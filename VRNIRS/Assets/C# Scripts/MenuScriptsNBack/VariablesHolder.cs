@@ -22,7 +22,7 @@ public class VariablesHolder : MonoBehaviour {
     public static List<string> sequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
 	public static List<int> sequenceNBack = new List<int>(); // N of each N-back
     public static int numberTrials;
-    //public static int nBackNumber = 2; // a supprimer bientot
+    public static string fixedFile = "Empty";
 
     public GameObject inputFileName;
 	public GameObject inputArduinoPort;
@@ -65,6 +65,7 @@ public class VariablesHolder : MonoBehaviour {
 	public Dropdown DropdownNBack10;
 	public Dropdown DropdownNBack11;
 	public Dropdown DropdownNBack12;
+    public GameObject selectObjects;
 
     void Start()
     {
@@ -120,10 +121,12 @@ public class VariablesHolder : MonoBehaviour {
 		if (tog.isOn)
 		{
 			loadFixed.SetActive(true);
+            selectObjects.SetActive(false);
 		}
 		else
 		{
 			loadFixed.SetActive(false);
+            selectObjects.SetActive(true);
 		}
 	}
 
@@ -134,11 +137,10 @@ public class VariablesHolder : MonoBehaviour {
 
     public void ChangeParameters()
     {
-        
         useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
         useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
-        Debug.Log(useVisual);
-        Debug.Log(useAudio);
+        Debug.Log("Use Visual: " + useVisual);
+        Debug.Log("Use Audio: " + useAudio);
         // Update "game mode"
         if (ButtonRandom.GetComponent<Toggle>().isOn == true)
         {
@@ -184,6 +186,7 @@ public class VariablesHolder : MonoBehaviour {
 		}
         Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
 		Debug.Log("Sequence N-Back: " + String.Join(", ", sequenceNBack.Select(x => x.ToString()).ToArray()) );
+        Debug.Log("Chosen Objects: " + String.Join(", ", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()));
     }
 
     public void ChangeFileNameAndPort() {
@@ -210,17 +213,111 @@ public class VariablesHolder : MonoBehaviour {
 
     public void SaveParameters()
 	{
-        // a faire
+        // Update the values of the parameters
+		ChangeParameters();
+		// Create a string that contains the name and value of all the parameters
+		string[] parameters = {"AR N-Back Study Parameters", "Number of objects:" + numberOfObjects.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", sequence.ToArray()), "Sequence N:" + String.Join(",", sequenceNBack.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Speed:" + speed.ToString(), "Use Visual:" + useVisual.ToString(), "Use Audio:" + useAudio.ToString(), "Chosen Objects:" + String.Join(",", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray())};
+		// Open the file explorer (to choose the path and name of the file)
+		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
+		// Write the file
+		if (!string.IsNullOrEmpty(path)) {
+            File.WriteAllText(path, string.Join("\n", parameters));
+			checkSaved.SetActive(true);
+        }
+		else
+		{
+			checkSaved.SetActive(false);
+		}
     }
 
     public void LoadParameters()
 	{
-        // a faire
+        // Open the file explorer (to select the file)
+		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+		// Read the file
+		if (path.Length > 0)
+		{
+			errorText.SetActive(false);
+			// Read all the parameters
+            string allParameters = File.ReadAllText(path[0]);
+			string[] parameters = allParameters.Split('\n');
+			// Load the "number of objects (one trial)"
+			inputNumObjects.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
+			// Load the "number of trials" and show the right number of dropdowns
+			int.TryParse(parameters[2].Split(':')[1], out numberTrials);
+			inputNumberTrials.GetComponent<TMP_InputField>().text = numberTrials.ToString();
+			SequenceNBack.Instance.StoreNumber();
+			// Load the "sequence" and "sequence N"
+			string[] seq = parameters[3].Split(':')[1].Split(',');
+			string[] seqNBack = parameters[4].Split(':')[1].Split(',');
+			var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
+			var DropdownsNBack = new[] { DropdownNBack1, DropdownNBack2, DropdownNBack3, DropdownNBack4, DropdownNBack5, DropdownNBack6, DropdownNBack7, DropdownNBack8, DropdownNBack9, DropdownNBack10, DropdownNBack11, DropdownNBack12 };
+			for (int i = 0; i < seq.Length; i++) {
+				Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
+				DropdownsNBack[i].value = DropdownsNBack[i].options.FindIndex(option => option.text == seqNBack[i]);
+			}
+			// Load the "game mode"
+			if (parameters[5].Split(':')[1] == "Random"){
+				ButtonRandom.GetComponent<Toggle>().isOn = true;
+			}
+			else
+			{
+				ButtonRandom.GetComponent<Toggle>().isOn = false;
+			}
+			// Load the "speed"
+			inputSpeed.GetComponent<TMP_InputField>().text = parameters[6].Split(':')[1];
+            // Load "use visual"
+            if (parameters[7].Split(':')[1] == "True"){
+				ToggleVisual.GetComponent<Toggle>().isOn = true;
+			}
+			else
+			{
+				ToggleVisual.GetComponent<Toggle>().isOn = false;
+			}
+            // Load "use audio"
+            if (parameters[8].Split(':')[1] == "True"){
+				ToggleAudio.GetComponent<Toggle>().isOn = true;
+			}
+			else
+			{
+				ToggleAudio.GetComponent<Toggle>().isOn = false;
+			}
+            // Load "chosen objects"
+            BoolArrayHolder.assetsChecks = parameters[9].Split(':')[1].Split(',').Select(s => s == "True").ToArray();
+        }
+		else
+		{
+			errorText.GetComponent<Text>().text = "Error: The parameters file is not valid.";
+			errorText.SetActive(true);
+		}
     }
 
     public void SelectFixedFile()
 	{
-        // a faire
+        var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
+		Debug.Log("Fixed file: " + path);
+		if (path.Length > 0)
+		{
+			var possibleFixedFile = File.ReadAllText(path);
+		    if (CheckValidFileFixed(possibleFixedFile))
+			{
+				fixedFile = possibleFixedFile;
+				checkFixed.SetActive(true);
+				errorText.SetActive(false);
+			}
+			else
+			{
+                checkFixed.SetActive(false);
+				errorText.GetComponent<Text>().text = "Error: The fixed colors sequence file is not valid. Read the instruction manual for more information.";
+				errorText.SetActive(true);
+			}
+		}
+		else
+		{
+			checkFixed.SetActive(false);
+			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
+			errorText.SetActive(true);
+		}
     }
 
     public bool CheckValidFileFixed(string fixedFile)

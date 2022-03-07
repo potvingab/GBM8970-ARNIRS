@@ -308,7 +308,7 @@ public class VariablesHolder : MonoBehaviour {
 			else
 			{
                 checkFixed.SetActive(false);
-				errorText.GetComponent<Text>().text = "Error: The fixed colors sequence file is not valid. Read the instruction manual for more information.";
+				errorText.GetComponent<Text>().text = "Error: The fixed sequence file is not valid. Read the instruction manual for more information.";
 				errorText.SetActive(true);
 			}
 		}
@@ -320,10 +320,39 @@ public class VariablesHolder : MonoBehaviour {
 		}
     }
 
-    public bool CheckValidFileFixed(string fixedFile)
+
+	
+
+
+
+
+public bool CheckValidFileFixed(string fixedFile)
 	{
-        // a faire
-        return true;
+        bool succes = true;
+        try
+        {
+            string[] lines = fixedFile.Split('\n');
+            string[] firstRowcols = fixedFile.Split('\n')[0].Split(';');
+                       
+            int numberOfElements = Convert.ToInt32(firstRowcols[1]);
+            Debug.Log(numberOfElements);
+            int numberOfLines = lines.Length;
+            for (int line = 1; line < numberOfLines; line++)
+            {
+                string[] col = lines[line].Split(';');
+                
+                if (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false ||
+                    col[0].Contains("Level") == false || col[0].Contains(line.ToString()) == false)
+                {
+                    succes = false;
+                }
+            }
+        }
+        catch
+        {
+            succes = false;
+        }
+        return succes;
     }
 
     public void CheckValidFileParameters()

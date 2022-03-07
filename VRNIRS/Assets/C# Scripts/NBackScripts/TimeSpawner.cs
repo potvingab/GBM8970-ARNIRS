@@ -132,11 +132,22 @@ public class TimeSpawner : MonoBehaviour {
                     sequence = ArrayMaker();
                 }
                 else
-                    sequence = ReadFile(nLevel, "FixedSequenceNBack");
+                {
+                    if (VariablesHolder.fixedFile.Contains("Empty"))
+                    {
+                        sequence = ReadFile(nLevel, "FixedSequenceNBack");
+                    }
+                    else
+                    {
+                        sequence = ReadFile(nLevel, VariablesHolder.fixedFile);
+                    }
+                }
+                   
                 break;
         }
         return sequence;
     }
+
 
     public void TutorialsGenerator(int nMaxTutorial)
     {

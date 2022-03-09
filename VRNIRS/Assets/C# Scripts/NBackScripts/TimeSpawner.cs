@@ -458,6 +458,7 @@ public class TimeSpawner : MonoBehaviour {
                                 if (VariablesHolder.useAudio)
                                 {
                                     AudioSource sound = clone.GetComponent<AudioSource>();
+                                    //sound.volume = VariablesHolder.audioVolume;
                                     UnityEngine.Debug.Log(sound);
                                     sound.Play();
                                 }
@@ -495,6 +496,7 @@ public class TimeSpawner : MonoBehaviour {
                                 if (VariablesHolder.useAudio)
                                 {
                                     AudioSource sound = clone.GetComponent<AudioSource>();
+                                    //sound.volume = VariablesHolder.audioVolume;
                                     UnityEngine.Debug.Log(sound);
                                     sound.Play();
                                 }

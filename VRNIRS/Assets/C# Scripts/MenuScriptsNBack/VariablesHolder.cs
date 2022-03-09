@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using SFB;
 using TMPro;
 using System.Text.RegularExpressions;
@@ -18,6 +19,7 @@ public class VariablesHolder : MonoBehaviour {
     public static bool useMeta;
     public static bool useVisual;
     public static bool useAudio;
+    public static float audioVolume;
     public static int numberOfObjects;
     public static List<string> sequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
 	public static List<int> sequenceNBack = new List<int>(); // N of each N-back
@@ -34,6 +36,7 @@ public class VariablesHolder : MonoBehaviour {
     public GameObject ToggleMeta;
     public GameObject ToggleVisual;
     public GameObject ToggleAudio;
+    public GameObject AudioVolume;
     public GameObject inputNumObjects;
 	public GameObject numObjects;
     public GameObject ButtonLoadFixed;
@@ -142,8 +145,11 @@ public class VariablesHolder : MonoBehaviour {
     {
         useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
         useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
+        audioVolume = AudioVolume.GetComponent<Slider>().value;
+        AudioListener.volume = audioVolume;
         Debug.Log("Use Visual: " + useVisual);
         Debug.Log("Use Audio: " + useAudio);
+        Debug.Log("Audio Volume: " + audioVolume);
         // Update "game mode"
         if (ButtonRandom.GetComponent<Toggle>().isOn == true)
         {

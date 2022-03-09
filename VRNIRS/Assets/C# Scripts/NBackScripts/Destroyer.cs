@@ -15,7 +15,7 @@ public class Destroyer : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(this.transform.position.z <= -10)
+		if(this.transform.position.z <= 9.37 - 10*VariablesHolder.speed) // Original = -10, attention 9.37!
         {
             Destruction();
         }
@@ -23,6 +23,7 @@ public class Destroyer : MonoBehaviour {
 
     void Destruction()
     {
+        Debug.Log("Destroy : " + this.gameObject);
         Destroy(this.gameObject);
         objectDestroyed++;
         if(objectDestroyed == VariablesHolder.numberOfObjects + 2)

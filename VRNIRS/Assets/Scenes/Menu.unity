@@ -9127,7 +9127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &199015368
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53765,6 +53765,7 @@ MonoBehaviour:
   ToggleVisual: {fileID: 1172011788}
   ToggleAudio: {fileID: 864196441}
   inputNumObjects: {fileID: 676884112}
+  numObjects: {fileID: 199015367}
   ButtonLoadFixed: {fileID: 22266873}
   checkSaved: {fileID: 881738344}
   checkFixed: {fileID: 1158104605}

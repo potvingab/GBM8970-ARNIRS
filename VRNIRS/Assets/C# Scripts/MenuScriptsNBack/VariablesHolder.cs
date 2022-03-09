@@ -35,6 +35,7 @@ public class VariablesHolder : MonoBehaviour {
     public GameObject ToggleVisual;
     public GameObject ToggleAudio;
     public GameObject inputNumObjects;
+	public GameObject numObjects;
     public GameObject ButtonLoadFixed;
 	public GameObject checkSaved;
 	public GameObject checkFixed;
@@ -122,11 +123,13 @@ public class VariablesHolder : MonoBehaviour {
 		{
 			loadFixed.SetActive(true);
             selectObjects.SetActive(false);
+			numObjects.SetActive(false);
 		}
 		else
 		{
 			loadFixed.SetActive(false);
             selectObjects.SetActive(true);
+			numObjects.SetActive(true);
 		}
 	}
 

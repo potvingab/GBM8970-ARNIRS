@@ -190,7 +190,7 @@ public class Questions : MonoBehaviour
 
             // Prepare the right difficulty
             Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
-            Response.TriggerArduino("2");
+            Response.TriggerArduino("0");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 0:
@@ -331,7 +331,7 @@ public class Questions : MonoBehaviour
         {
             // Do things for final screen after all levels
             Response.CreateCheckpoint("Final screen");
-            Response.TriggerArduino("3");
+            Response.TriggerArduino("0");
             buttonContinue.gameObject.SetActive(false);
             buttonRestart.gameObject.SetActive(false);
             selectedAnswersShown.gameObject.SetActive(false);
@@ -420,7 +420,7 @@ public class Questions : MonoBehaviour
 
             // Prepare the right difficulty
             Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
-            Response.TriggerArduino("2");
+            Response.TriggerArduino("0");
             switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
             {
                 case 0:

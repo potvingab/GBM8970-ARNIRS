@@ -138,7 +138,7 @@ public class Difficulty : MonoBehaviour {
         Questions.timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + Questions.possibleQuestions[Questions.indexColor]);
-        Response.TriggerArduino("1");
+        Response.TriggerArduino("0");
         return;
     }
 
@@ -187,7 +187,7 @@ public class Difficulty : MonoBehaviour {
         Questions.timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + Questions.possibleQuestions[Questions.indexQuestion]);
-        Response.TriggerArduino("1");
+        Response.TriggerArduino("0");
         return;
     }
 
@@ -242,7 +242,7 @@ public class Difficulty : MonoBehaviour {
         Questions.timeStartQuestion = DateTime.Now;
 
         Response.CreateCheckpoint("Question shown. True response: " + Questions.possibleQuestions[Questions.indexColor]);
-        Response.TriggerArduino("1");
+        Response.TriggerArduino("0");
         return;
     }
 
@@ -321,7 +321,7 @@ public class Difficulty : MonoBehaviour {
 
         }
         Questions.timeStartQuestion = DateTime.Now;
-        Response.TriggerArduino("1");
+        Response.TriggerArduino("0");
         return;
     }
 }

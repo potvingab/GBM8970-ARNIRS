@@ -130,7 +130,7 @@ public class PauseMenu : MonoBehaviour
                     clicks[clickPosition] = currentLevelString;
 
                     TimeSpawner.CreateCheckpoint("Same");
-                    TimeSpawner.TriggerArduino("1");
+                    TimeSpawner.TriggerArduino("0");
                     TimeSpawner.ArduinoCheckpoint("Answer");
                 }
                 if (Input.GetKeyDown(KeyCode.D))
@@ -145,7 +145,7 @@ public class PauseMenu : MonoBehaviour
                     clicks[clickPosition] = currentLevelString;
 
                     TimeSpawner.CreateCheckpoint("Diff");
-                    TimeSpawner.TriggerArduino("1");
+                    TimeSpawner.TriggerArduino("0");
                     TimeSpawner.ArduinoCheckpoint("Answer");
                 }
             }

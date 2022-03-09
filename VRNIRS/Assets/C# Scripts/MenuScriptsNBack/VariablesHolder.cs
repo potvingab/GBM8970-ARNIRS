@@ -237,57 +237,65 @@ public class VariablesHolder : MonoBehaviour {
 		// Read the file
 		if (path.Length > 0)
 		{
-			errorText.SetActive(false);
-			// Read all the parameters
-            string allParameters = File.ReadAllText(path[0]);
-			string[] parameters = allParameters.Split('\n');
-			// Load the "number of objects (one trial)"
-			inputNumObjects.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
-			// Load the "number of trials" and show the right number of dropdowns
-			int.TryParse(parameters[2].Split(':')[1], out numberTrials);
-			inputNumberTrials.GetComponent<TMP_InputField>().text = numberTrials.ToString();
-			SequenceNBack.Instance.StoreNumber();
-			// Load the "sequence" and "sequence N"
-			string[] seq = parameters[3].Split(':')[1].Split(',');
-			string[] seqNBack = parameters[4].Split(':')[1].Split(',');
-			var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
-			var DropdownsNBack = new[] { DropdownNBack1, DropdownNBack2, DropdownNBack3, DropdownNBack4, DropdownNBack5, DropdownNBack6, DropdownNBack7, DropdownNBack8, DropdownNBack9, DropdownNBack10, DropdownNBack11, DropdownNBack12 };
-			for (int i = 0; i < seq.Length; i++) {
-				Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
-				DropdownsNBack[i].value = DropdownsNBack[i].options.FindIndex(option => option.text == seqNBack[i]);
-			}
-			// Load the "game mode"
-			if (parameters[5].Split(':')[1] == "Random"){
-				ButtonRandom.GetComponent<Toggle>().isOn = true;
+			var possibleParameters = File.ReadAllText(path[0]);
+			if (CheckValidFileParameters(possibleParameters))
+			{
+				errorText.SetActive(false);
+				// Read all the parameters
+				string[] parameters = possibleParameters.Split('\n');
+				// Load the "number of objects (one trial)"
+				inputNumObjects.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
+				// Load the "number of trials" and show the right number of dropdowns
+				int.TryParse(parameters[2].Split(':')[1], out numberTrials);
+				inputNumberTrials.GetComponent<TMP_InputField>().text = numberTrials.ToString();
+				SequenceNBack.Instance.StoreNumber();
+				// Load the "sequence" and "sequence N"
+				string[] seq = parameters[3].Split(':')[1].Split(',');
+				string[] seqNBack = parameters[4].Split(':')[1].Split(',');
+				var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
+				var DropdownsNBack = new[] { DropdownNBack1, DropdownNBack2, DropdownNBack3, DropdownNBack4, DropdownNBack5, DropdownNBack6, DropdownNBack7, DropdownNBack8, DropdownNBack9, DropdownNBack10, DropdownNBack11, DropdownNBack12 };
+				for (int i = 0; i < seq.Length; i++) {
+					Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
+					DropdownsNBack[i].value = DropdownsNBack[i].options.FindIndex(option => option.text == seqNBack[i]);
+				}
+				// Load the "game mode"
+				if (parameters[5].Split(':')[1] == "Random"){
+					ButtonRandom.GetComponent<Toggle>().isOn = true;
+				}
+				else
+				{
+					ButtonRandom.GetComponent<Toggle>().isOn = false;
+				}
+				// Load the "speed"
+				inputSpeed.GetComponent<TMP_InputField>().text = parameters[6].Split(':')[1];
+				// Load "use visual"
+				if (parameters[7].Split(':')[1] == "True"){
+					ToggleVisual.GetComponent<Toggle>().isOn = true;
+				}
+				else
+				{
+					ToggleVisual.GetComponent<Toggle>().isOn = false;
+				}
+				// Load "use audio"
+				if (parameters[8].Split(':')[1] == "True"){
+					ToggleAudio.GetComponent<Toggle>().isOn = true;
+				}
+				else
+				{
+					ToggleAudio.GetComponent<Toggle>().isOn = false;
+				}
+				// Load "chosen objects"
+				BoolArrayHolder.assetsChecks = parameters[9].Split(':')[1].Split(',').Select(s => s == "True").ToArray();
 			}
 			else
 			{
-				ButtonRandom.GetComponent<Toggle>().isOn = false;
+				errorText.GetComponent<Text>().text = "Error: The parameters file is not valid. Read the instruction manual for more information.";
+				errorText.SetActive(true);
 			}
-			// Load the "speed"
-			inputSpeed.GetComponent<TMP_InputField>().text = parameters[6].Split(':')[1];
-            // Load "use visual"
-            if (parameters[7].Split(':')[1] == "True"){
-				ToggleVisual.GetComponent<Toggle>().isOn = true;
-			}
-			else
-			{
-				ToggleVisual.GetComponent<Toggle>().isOn = false;
-			}
-            // Load "use audio"
-            if (parameters[8].Split(':')[1] == "True"){
-				ToggleAudio.GetComponent<Toggle>().isOn = true;
-			}
-			else
-			{
-				ToggleAudio.GetComponent<Toggle>().isOn = false;
-			}
-            // Load "chosen objects"
-            BoolArrayHolder.assetsChecks = parameters[9].Split(':')[1].Split(',').Select(s => s == "True").ToArray();
         }
 		else
 		{
-			errorText.GetComponent<Text>().text = "Error: The parameters file is not valid.";
+			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
 		}
     }
@@ -320,15 +328,9 @@ public class VariablesHolder : MonoBehaviour {
 		}
     }
 
-
-	
-
-
-
-
 public bool CheckValidFileFixed(string fixedFile)
 	{
-        bool succes = true;
+        bool success = true;
         try
         {
             string[] lines = fixedFile.Split('\n');
@@ -344,19 +346,54 @@ public bool CheckValidFileFixed(string fixedFile)
                 if (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false ||
                     col[0].Contains("Level") == false || col[0].Contains(line.ToString()) == false)
                 {
-                    succes = false;
+                    success = false;
                 }
             }
         }
         catch
         {
-            succes = false;
+            success = false;
         }
-        return succes;
+        return success;
     }
 
-    public void CheckValidFileParameters()
+    public bool CheckValidFileParameters(string paramFile)
 	{
-        // a faire
+        bool success = false;
+		string[] lines = paramFile.Split('\n');
+		try
+		{
+			if (
+			(lines.Count() == 10) && 
+			(Regex.Replace(lines[0], @"\s", "") == "ARN-BackStudyParameters") && 
+			(lines[1].Split(':')[0] == "Number of objects") &&
+			(Convert.ToInt32(lines[1].Split(':')[1]) > 0) &&
+			(lines[2].Split(':')[0] == "Number Trials") &&
+			(Convert.ToInt32(lines[2].Split(':')[1]) > 0) &&
+			(Convert.ToInt32(lines[2].Split(':')[1]) < 13) &&
+			(lines[3].Split(':')[0] == "Sequence") &&
+			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[4].Split(':')[0] == "Sequence N") &&
+			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[5].Split(':')[0] == "Game Mode") &&
+			((lines[5].Split(':')[1] == "Random") || (lines[5].Split(':')[1] == "Fixed")) &&
+			(lines[6].Split(':')[0] == "Speed") &&
+			(float.Parse(lines[6].Split(':')[1]) > 0) &&
+			(lines[7].Split(':')[0] == "Use Visual") &&
+			((lines[7].Split(':')[1] == "True") || (lines[7].Split(':')[1] == "False")) &&
+			(lines[8].Split(':')[0] == "Use Audio") &&
+			((lines[8].Split(':')[1] == "True") || (lines[8].Split(':')[1] == "False")) &&
+			(lines[9].Split(':')[0] == "Chosen Objects") &&
+			(lines[9].Split(':')[1].Split(',').Count() == 9)
+			)
+			{
+				success = true;
+			}
+		}
+		catch
+		{
+			success = false;
+		}
+		return success;
 	}
 }

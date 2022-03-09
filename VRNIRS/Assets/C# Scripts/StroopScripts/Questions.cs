@@ -170,14 +170,14 @@ public class Questions : MonoBehaviour
             {
                 // If custom "fixed colors file"
                 string all_Info;
-                if (VariablesHolderStroop.fixedFile.Contains("Niveau"))
-                {
-                    all_Info = VariablesHolderStroop.fixedFile;
-                }
-                else
+                if (VariablesHolderStroop.fixedFile.Contains("Empty"))
                 {
                     TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
                     all_Info = txt.text;
+                }
+                else
+                {
+                    all_Info = VariablesHolderStroop.fixedFile;
                 }
                 //Debug.Log(all_Info);
                 string[] info_Line = all_Info.Split('\n');

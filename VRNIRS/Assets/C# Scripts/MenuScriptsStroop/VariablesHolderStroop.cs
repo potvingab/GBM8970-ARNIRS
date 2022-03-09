@@ -225,44 +225,52 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Read the file
 		if (path.Length > 0)
 		{
-			errorText.SetActive(false);
-			// Read all the parameters
-            string allParameters = File.ReadAllText(path[0]);
-			string[] parameters = allParameters.Split('\n');
-			// Load the "time (one trial)"
-			inputTime.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
-			// Load the "number of trials" and show the right number of dropdowns
-			int.TryParse(parameters[2].Split(':')[1], out stroopNumberTrials);
-			inputNumberTrials.GetComponent<TMP_InputField>().text = stroopNumberTrials.ToString();
-			Sequence.Instance.StoreNumber();
-			// Load the "sequence" and "sequence levels"
-			string[] seq = parameters[3].Split(':')[1].Split(',');
-			string[] seqLevels = parameters[4].Split(':')[1].Split(',');
-			var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
-			var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
-			for (int i = 0; i < seq.Length; i++) {
-				Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
-				DropdownsLevel[i].value = DropdownsLevel[i].options.FindIndex(option => option.text == seqLevels[i]);
-			}
-			// Load the "game mode"
-			if (parameters[5].Split(':')[1] == "Random"){
-				ButtonRandom.GetComponent<Toggle>().isOn = true;
+			var possibleParameters = File.ReadAllText(path[0]);
+			if (CheckValidFileParameters(possibleParameters))
+			{
+				errorText.SetActive(false);
+				// Read all the parameters
+				string[] parameters = possibleParameters.Split('\n');
+				// Load the "time (one trial)"
+				inputTime.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
+				// Load the "number of trials" and show the right number of dropdowns
+				int.TryParse(parameters[2].Split(':')[1], out stroopNumberTrials);
+				inputNumberTrials.GetComponent<TMP_InputField>().text = stroopNumberTrials.ToString();
+				Sequence.Instance.StoreNumber();
+				// Load the "sequence" and "sequence levels"
+				string[] seq = parameters[3].Split(':')[1].Split(',');
+				string[] seqLevels = parameters[4].Split(':')[1].Split(',');
+				var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
+				var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
+				for (int i = 0; i < seq.Length; i++) {
+					Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
+					DropdownsLevel[i].value = DropdownsLevel[i].options.FindIndex(option => option.text == seqLevels[i]);
+				}
+				// Load the "game mode"
+				if (parameters[5].Split(':')[1] == "Random"){
+					ButtonRandom.GetComponent<Toggle>().isOn = true;
+				}
+				else
+				{
+					ButtonRandom.GetComponent<Toggle>().isOn = false;
+				}
+				if (parameters[6].Split(':')[1] == "True"){
+					ToggleMeta.GetComponent<Toggle>().isOn = true;
+				}
+				else
+				{
+					ToggleMeta.GetComponent<Toggle>().isOn = false;
+				}
 			}
 			else
 			{
-				ButtonRandom.GetComponent<Toggle>().isOn = false;
-			}
-			if (parameters[6].Split(':')[1] == "True"){
-				ToggleMeta.GetComponent<Toggle>().isOn = true;
-			}
-			else
-			{
-				ToggleMeta.GetComponent<Toggle>().isOn = false;
+				errorText.GetComponent<Text>().text = "Error: The parameters file is not valid. Read the instruction manual for more information.";
+				errorText.SetActive(true);
 			}
         }
 		else
 		{
-			errorText.GetComponent<Text>().text = "Error: The parameters file is not valid.";
+			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
 		}
 	}
@@ -297,20 +305,8 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public bool CheckValidFileFixed(string fixedFile)
 	{
+		bool success = false;
 		string[] lines = fixedFile.Split('\n');
-
-        Debug.Log((Regex.Replace(lines[0], @"\s", "") == "Niveau1"));
-        Debug.Log((Regex.Replace(lines[2], @"\s", "") == "Niveau2"));
-        Debug.Log((Regex.Replace(lines[4], @"\s", "") == "Niveau3"));
-        Debug.Log((Regex.Replace(lines[6], @"\s", "") == "Niveau4"));
-        Debug.Log((lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()));
-        Debug.Log((lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()));
-
-        Debug.Log((lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3));
-        Debug.Log((lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()));
-        Debug.Log((lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 11));
-        Debug.Log(((lines[7].Count(c => (c == ','))) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count()));
-       
         if (
 			(lines.Count() == 8) && 
 			(Regex.Replace(lines[0], @"\s", "") == "Niveau1") && 
@@ -320,22 +316,46 @@ public class VariablesHolderStroop : MonoBehaviour
 			(lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()) &&
 			(lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()) &&
 			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 
-			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count())
-			//(lines[7].Count(c => (c == ';')) * 6 + 11 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 11) && 
-			//((lines[7].Count(c => (c == ','))-2) * 6 / 2 + 11 == Regex.Replace(lines[7], @"\s", "").Count())
-			//(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
+			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()) &&
+			(lines[7].Count(c => (c == ';')) * 6 + 3 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 3) && 
+			((lines[7].Count(c => (c == ','))) * 6 / 2 + 3 == Regex.Replace(lines[7], @"\s", "").Count()) &&
+			(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
 			)
 		{
-			return true;
+			success = true;
 		}
-		else
-		{
-			return false;
-		}
+		return success;
 	}
 
-	public void CheckValidFileParameters()
+	public bool CheckValidFileParameters(string paramFile)
 	{
-		// a faire
+		bool success = false;
+		string[] lines = paramFile.Split('\n');
+		try
+		{
+			if (
+			(lines.Count() == 7) && 
+			(Regex.Replace(lines[0], @"\s", "") == "ARStroopStudyParameters") && 
+			(lines[1].Split(':')[0] == "Trial Time") &&
+			(Convert.ToInt32(lines[1].Split(':')[1]) > 0) &&
+			(lines[2].Split(':')[0] == "Number Trials") &&
+			(Convert.ToInt32(lines[2].Split(':')[1]) > 0) &&
+			(Convert.ToInt32(lines[2].Split(':')[1]) < 13) &&
+			(lines[3].Split(':')[0] == "Sequence") &&
+			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[4].Split(':')[0] == "Sequence Levels") &&
+			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[5].Split(':')[0] == "Game Mode") &&
+			((lines[5].Split(':')[1] == "Random") || (lines[5].Split(':')[1] == "Fixed"))
+			)
+			{
+				success = true;
+			}
+		}
+		catch
+		{
+			success = false;
+		}
+		return success;
 	}
 }

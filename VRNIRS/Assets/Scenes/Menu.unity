@@ -6194,10 +6194,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: 2
       m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -28224,10 +28220,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: 2
       m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -28695,10 +28687,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -32162,10 +32150,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -36686,10 +36670,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -41431,10 +41411,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -46786,10 +46762,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -52999,10 +52971,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -66268,10 +66236,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: 2
       m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -70416,10 +70380,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -75601,10 +75561,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -81489,10 +81445,6 @@ MonoBehaviour:
     - m_Text: 1
       m_Image: {fileID: 0}
     - m_Text: 2
-      m_Image: {fileID: 0}
-    - m_Text: 3
-      m_Image: {fileID: 0}
-    - m_Text: 4
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

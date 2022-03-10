@@ -99,11 +99,11 @@ public class VariablesHolderStroop : MonoBehaviour
 	{
 		if (tog.isOn)
 		{
-			loadFixed.SetActive(true);
+			loadFixed.GetComponent<Button>().interactable = true;
 		}
 		else
 		{
-			loadFixed.SetActive(false);
+			loadFixed.GetComponent<Button>().interactable = false;
 		}
 	}
 	
@@ -342,9 +342,9 @@ public class VariablesHolderStroop : MonoBehaviour
 			(Convert.ToInt32(lines[2].Split(':')[1]) > 0) &&
 			(Convert.ToInt32(lines[2].Split(':')[1]) < 13) &&
 			(lines[3].Split(':')[0] == "Sequence") &&
-			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])+1) &&
 			(lines[4].Split(':')[0] == "Sequence Levels") &&
-			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])+1) &&
 			(lines[5].Split(':')[0] == "Game Mode") &&
 			((lines[5].Split(':')[1] == "Random") || (lines[5].Split(':')[1] == "Fixed"))
 			)

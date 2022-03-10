@@ -37,8 +37,8 @@ public class VariablesHolder : MonoBehaviour {
     public GameObject ToggleVisual;
     public GameObject ToggleAudio;
     public GameObject AudioVolume;
+	public GameObject AudioVolumeField;
     public GameObject inputNumObjects;
-	public GameObject numObjects;
     public GameObject ButtonLoadFixed;
 	public GameObject checkSaved;
 	public GameObject checkFixed;
@@ -69,7 +69,8 @@ public class VariablesHolder : MonoBehaviour {
 	public Dropdown DropdownNBack10;
 	public Dropdown DropdownNBack11;
 	public Dropdown DropdownNBack12;
-    public GameObject selectObjects;
+	public GameObject disableVolume;
+	public GameObject disableObjects;
 
     void Start()
     {
@@ -86,6 +87,15 @@ public class VariablesHolder : MonoBehaviour {
         	});
         inputSpeed.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
             FieldValueChangedSpeed(inputSpeed.GetComponent<TMP_InputField>());
+        	});
+		ToggleAudio.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
+            ButtonAudioValueChanged(ToggleAudio.GetComponent<Toggle>());
+        	});
+		AudioVolume.GetComponent<Slider>().onValueChanged.AddListener(delegate {
+            SliderValueChanged(AudioVolume.GetComponent<Slider>());
+        	});
+		AudioVolumeField.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
+            SliderFieldValueChanged(AudioVolumeField.GetComponent<TMP_InputField>());
         	});
     }
 
@@ -124,16 +134,43 @@ public class VariablesHolder : MonoBehaviour {
 	{
 		if (tog.isOn)
 		{
-			loadFixed.SetActive(true);
-            selectObjects.SetActive(false);
-			numObjects.SetActive(false);
+			loadFixed.GetComponent<Button>().interactable = true;
+			disableObjects.SetActive(true);
+			//If fixed and no file -> 15 objects
+			inputNumObjects.GetComponent<TMP_InputField>().text = "15";
 		}
 		else
 		{
-			loadFixed.SetActive(false);
-            selectObjects.SetActive(true);
-			numObjects.SetActive(true);
+			loadFixed.GetComponent<Button>().interactable = false;
+			disableObjects.SetActive(false);
 		}
+	}
+
+	void ButtonAudioValueChanged(Toggle tog)
+	{
+		if (tog.isOn)
+		{
+			disableVolume.SetActive(false);
+		}
+		else
+		{
+			disableVolume.SetActive(true);
+		}
+	}
+
+	// Volume slider
+	void SliderValueChanged(Slider slid)
+	{
+		Debug.Log(slid.value.ToString());
+		AudioVolumeField.GetComponent<TMP_InputField>().text = slid.value.ToString();
+	}
+	void SliderFieldValueChanged(TMP_InputField inp)
+	{
+		Debug.Log(inp.text);
+		var val =  Math.Min(1, float.Parse(inp.text));
+		val =  Math.Max(0, float.Parse(inp.text));
+		inp.text = val.ToString();
+		AudioVolume.GetComponent<Slider>().value = val;
 	}
 
     void Awake()
@@ -225,7 +262,7 @@ public class VariablesHolder : MonoBehaviour {
         // Update the values of the parameters
 		ChangeParameters();
 		// Create a string that contains the name and value of all the parameters
-		string[] parameters = {"AR N-Back Study Parameters", "Number of objects:" + numberOfObjects.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", sequence.ToArray()), "Sequence N:" + String.Join(",", sequenceNBack.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Speed:" + speed.ToString(), "Use Visual:" + useVisual.ToString(), "Use Audio:" + useAudio.ToString(), "Chosen Objects:" + String.Join(",", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray())};
+		string[] parameters = {"AR N-Back Study Parameters", "Number of objects:" + numberOfObjects.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", sequence.ToArray()), "Sequence N:" + String.Join(",", sequenceNBack.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Speed:" + speed.ToString(), "Use Visual:" + useVisual.ToString(), "Use Audio:" + useAudio.ToString(), "Chosen Objects:" + String.Join(",", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()), "Volume:" + audioVolume.ToString()};
 		// Open the file explorer (to choose the path and name of the file)
 		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
 		// Write the file
@@ -295,6 +332,8 @@ public class VariablesHolder : MonoBehaviour {
 				}
 				// Load "chosen objects"
 				BoolArrayHolder.assetsChecks = parameters[9].Split(':')[1].Split(',').Select(s => s == "True").ToArray();
+				// Load "volume"
+				AudioVolume.GetComponent<Slider>().value = float.Parse(parameters[10].Split(':')[1]);
 			}
 			else
 			{
@@ -347,6 +386,7 @@ public bool CheckValidFileFixed(string fixedFile)
                        
             int numberOfElements = Convert.ToInt32(firstRowcols[1]);
             Debug.Log(numberOfElements);
+			inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
             int numberOfLines = lines.Length;
             for (int line = 1; line < numberOfLines; line++)
             {
@@ -373,7 +413,7 @@ public bool CheckValidFileFixed(string fixedFile)
 		try
 		{
 			if (
-			(lines.Count() == 10) && 
+			(lines.Count() == 11) && 
 			(Regex.Replace(lines[0], @"\s", "") == "ARN-BackStudyParameters") && 
 			(lines[1].Split(':')[0] == "Number of objects") &&
 			(Convert.ToInt32(lines[1].Split(':')[1]) > 0) &&
@@ -393,7 +433,9 @@ public bool CheckValidFileFixed(string fixedFile)
 			(lines[8].Split(':')[0] == "Use Audio") &&
 			((lines[8].Split(':')[1] == "True") || (lines[8].Split(':')[1] == "False")) &&
 			(lines[9].Split(':')[0] == "Chosen Objects") &&
-			(lines[9].Split(':')[1].Split(',').Count() == 9)
+			(lines[9].Split(':')[1].Split(',').Count() == 9) &&
+			(lines[10].Split(':')[0] == "Volume") &&
+			((float.Parse(lines[10].Split(':')[1]) >= 0) && (float.Parse(lines[10].Split(':')[1]) <= 1))
 			)
 			{
 				success = true;

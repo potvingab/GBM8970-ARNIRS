@@ -9,13 +9,14 @@ public class Destroyer : MonoBehaviour {
     public GameObject endScreenLevel;
     public GameObject endScreenFinal;
     public GameObject levelListScreen;
+    public GameObject VolumeMenu;
     //public TextMeshProUGUI gameObjectList;
 
     public static int objectDestroyed = 0;
 
 	// Update is called once per frame
 	void Update () {
-		if(this.transform.position.z <= 9.37 - 10*VariablesHolder.speed) // Original = -10, attention 9.37!
+		if(this.transform.position.z <= -10) // Original = -10, attention 9.37!
         {
             Destruction();
         }
@@ -63,7 +64,7 @@ public class Destroyer : MonoBehaviour {
                     endScreenLevel.SetActive(true);
                 }
             }
-
+            VolumeMenu.SetActive(true);
 
 
 

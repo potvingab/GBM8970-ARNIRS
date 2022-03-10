@@ -20,11 +20,11 @@ public class MainMenu : MonoBehaviour
         {
             sw.Write("Parameter; " + "Filename; " + masterFileName + "\n");
             sw.Write("Parameter; " + "Arduino Port; " + VariablesHolder.arduinoPort + "\n");
-            //sw.Write("Parameter; " + "Trial Time; " + VariablesHolderStroop.stroopTrialTime.ToString() + "\n");
-            //sw.Write("Parameter; " + "Number Trials; " + VariablesHolderStroop.stroopNumberTrials.ToString() + "\n");
-            //sw.Write("Parameter; " + "Sequence; " + String.Join(",", VariablesHolderStroop.stroopSequence.ToArray()) + "\n");
-            //sw.Write("Parameter; " + "Sequence Levels; " + String.Join(", ", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
-            //sw.Write("Parameter; " + "Game Mode; " + VariablesHolderStroop.stroopGameMode + "\n");
+            //sw.Write("Parameter; " + "Trial Time; " + VariablesHolderStroop.trialTime.ToString() + "\n");
+            //sw.Write("Parameter; " + "Number Trials; " + VariablesHolderStroop.numberTrials.ToString() + "\n");
+            //sw.Write("Parameter; " + "Sequence; " + String.Join(",", VariablesHolderStroop.sequence.ToArray()) + "\n");
+            //sw.Write("Parameter; " + "Sequence Levels; " + String.Join(", ", VariablesHolderStroop.sequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
+            //sw.Write("Parameter; " + "Game Mode; " + VariablesHolderStroop.gameMode + "\n");
         }
         using (StreamWriter sw = File.AppendText(arduinoFileName))
         {
@@ -51,11 +51,11 @@ public class MainMenu : MonoBehaviour
         {
             sw.Write("Parameter; " + "Filename: " + VariablesHolderStroop.fileName + "\n");
             sw.Write("Parameter; " + "Arduino Port: " + VariablesHolderStroop.arduinoPort + "\n");
-            sw.Write("Parameter; " + "Trial Time: " + VariablesHolderStroop.stroopTrialTime.ToString() + "\n");
-            sw.Write("Parameter; " + "Number Trials: " + VariablesHolderStroop.stroopNumberTrials.ToString() + "\n");
-            sw.Write("Parameter; " + "Sequence: " + String.Join(",", VariablesHolderStroop.stroopSequence.ToArray()) + "\n");
-            sw.Write("Parameter; " + "Sequence Levels: " + String.Join(", ", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
-            sw.Write("Parameter; " + "Game Mode: " + VariablesHolderStroop.stroopGameMode + "\n");
+            sw.Write("Parameter; " + "Trial Time: " + VariablesHolderStroop.trialTime.ToString() + "\n");
+            sw.Write("Parameter; " + "Number Trials: " + VariablesHolderStroop.numberTrials.ToString() + "\n");
+            sw.Write("Parameter; " + "Sequence: " + String.Join(",", VariablesHolderStroop.sequence.ToArray()) + "\n");
+            sw.Write("Parameter; " + "Sequence Levels: " + String.Join(", ", VariablesHolderStroop.sequenceLevels.Select(x => x.ToString()).ToArray()) + "\n");
+            sw.Write("Parameter; " + "Game Mode: " + VariablesHolderStroop.gameMode + "\n");
         }
         using (StreamWriter sw = File.AppendText(arduinoFileName))
         {

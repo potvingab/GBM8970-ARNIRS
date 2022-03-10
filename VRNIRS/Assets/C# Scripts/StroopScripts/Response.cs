@@ -109,7 +109,7 @@ public class Response : Interaction
         Response.TriggerArduino("0");
 
         // Create and show a new random question
-        switch (VariablesHolderStroop.stroopSequenceLevels[Questions.currentIndexSeq])
+        switch (VariablesHolderStroop.sequenceLevels[Questions.currentIndexSeq])
         {
             case 0:
                 Difficulty.Instance.BaseLine();

@@ -43,7 +43,8 @@ namespace Meta
         [SerializeField]
         private float _warningDistance = 0.05f;
         [SerializeField]
-        [ColorUsage(true, true, 0, 8, 0.125f, 3)]
+        //[ColorUsage(true, true, 0, 8, 0.125f, 3)]
+        [ColorUsage(true, true)]
         private Color _warningColor = new Color();
         [SerializeField]
         private string _materialColorName = "_EmissionColor";

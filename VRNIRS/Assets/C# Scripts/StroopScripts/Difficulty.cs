@@ -82,7 +82,6 @@ public class Difficulty : MonoBehaviour {
 
         // Change the text of questionHolder to the  question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        Debug.Log("^^");
         Debug.Log(Questions.indexQuestion);
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexQuestion]);
@@ -106,7 +105,7 @@ public class Difficulty : MonoBehaviour {
         questionHolder.gameObject.SetActive(false);
 
         //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || Questions.flagTuto == true)
+        if (VariablesHolderStroop.gameMode == "Fixed" || Questions.flagTuto == true)
         {
             Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
 
@@ -154,15 +153,14 @@ public class Difficulty : MonoBehaviour {
         questionHolder.gameObject.SetActive(true);
 
         //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || Questions.flagTuto == true)
+        if (VariablesHolderStroop.gameMode == "Fixed" || Questions.flagTuto == true)
         {
             if (Questions.question[Questions.n_question_fixed].Split(',')[0] != "R" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "B" && Questions.question[Questions.n_question_fixed].Split(',')[0] != "G")
             {
                 Debug.Log("end of trial");
                 //Questions.end_of_trial = true;
-                return;
                 Questions.timeValue = 0;
-
+                return;
             }
             Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
             Questions.indexQuestion = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
@@ -204,7 +202,7 @@ public class Difficulty : MonoBehaviour {
         questionHolder.gameObject.SetActive(true);
 
         //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || Questions.flagTuto == true)
+        if (VariablesHolderStroop.gameMode == "Fixed" || Questions.flagTuto == true)
         {
             Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
 
@@ -258,7 +256,7 @@ public class Difficulty : MonoBehaviour {
         BackgroundImage.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
         //Fixed sequence or tutorial
-        if (VariablesHolderStroop.stroopGameMode == "Fixed" || Questions.flagTuto == true)
+        if (VariablesHolderStroop.gameMode == "Fixed" || Questions.flagTuto == true)
         {
             Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
 

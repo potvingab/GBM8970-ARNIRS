@@ -39,9 +39,11 @@ namespace Meta.Utility
         private float _interpAmountVelocity;
         private Material _material;
 
-        [ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+        //[ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+        [ColorUsage(false, true)]
         public Color Active = new Color(1f, 2f, 3f);
-        [ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+        //[ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+        [ColorUsage(false, true)]
         public Color Idle = new Color(0.75f, 0.75f, 0.75f);
 
 

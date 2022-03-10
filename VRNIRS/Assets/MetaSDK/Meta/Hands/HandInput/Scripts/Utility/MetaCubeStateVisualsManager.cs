@@ -131,15 +131,18 @@ namespace Meta.HandInput.Utility
             [Readonly]
             public int MaterialIndex;
             [Readonly]
-            [ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+            //[ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+            [ColorUsage(false, true)]
             public Color Idle;
 
             [Readonly]
-            [ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+            //[ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+            [ColorUsage(false, true)]
             public Color Highlight;
 
             [Readonly]
-            [ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+            //[ColorUsage(false, true, 0f, 5f, 0f, 5f)]
+            [ColorUsage(false, true)]
             public Color Active;
 
             private Renderer _renderer;

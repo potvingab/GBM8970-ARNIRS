@@ -12,11 +12,11 @@ using System.Text.RegularExpressions;
 public class VariablesHolderStroop : MonoBehaviour 
 {
 	// Values to store (with default values)
-	public static string stroopGameMode; // "Random" or "Fixed"
-	public static int stroopTrialTime; // Trial time in seconds
-	public static int stroopNumberTrials;
-	public static List<string> stroopSequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
-	public static List<int> stroopSequenceLevels = new List<int>();
+	public static string gameMode; // "Random" or "Fixed"
+	public static int trialTime; // Trial time in seconds
+	public static int numberTrials;
+	public static List<string> sequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
+	public static List<int> sequenceLevels = new List<int>();
 	public static string arduinoPort = "COM3";
 	public static string fileName;
 	public static bool useMeta;
@@ -110,45 +110,45 @@ public class VariablesHolderStroop : MonoBehaviour
 	public void ChangeParameters() 
 	{
 		// Update "time (one trial)"
-		int.TryParse(inputTime.GetComponent<TMP_InputField>().text, out stroopTrialTime);
-		if (stroopTrialTime == 0)
+		int.TryParse(inputTime.GetComponent<TMP_InputField>().text, out trialTime);
+		if (trialTime == 0)
 		{
-			stroopTrialTime = 90;
+			trialTime = 90;
 		}
-		Debug.Log("Trial time: " + stroopTrialTime);
+		Debug.Log("Trial time: " + trialTime);
 		// Update "number of trials"
-		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out stroopNumberTrials);
-		if (stroopNumberTrials == 0)
+		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out numberTrials);
+		if (numberTrials == 0)
 		{
-			stroopNumberTrials = 1;
+			numberTrials = 1;
 		}
-		Debug.Log("Number of trials: " + stroopNumberTrials);
+		Debug.Log("Number of trials: " + numberTrials);
 		// Update "sequence"
 		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
 		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
-		stroopSequence = new List<string>();
-		stroopSequenceLevels = new List<int>();
+		sequence = new List<string>();
+		sequenceLevels = new List<int>();
 
         // Obligation de faire le baseline en premier
-        stroopSequence.Add("Control");
-        stroopSequenceLevels.Add(0);
-        for (int i = 0; i < stroopNumberTrials; i++)
+        sequence.Add("Control");
+        sequenceLevels.Add(0);
+        for (int i = 0; i < numberTrials; i++)
 		{
-			stroopSequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
-			stroopSequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
+			sequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
+			sequenceLevels.Add(int.Parse(DropdownsLevel[i].options[DropdownsLevel[i].value].text));
 		}
-		Debug.Log("Sequence: " + String.Join(", ", stroopSequence.ToArray()));
-		Debug.Log("Sequence levels: " + String.Join(", ", stroopSequenceLevels.Select(x => x.ToString()).ToArray()));
+		Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
+		Debug.Log("Sequence levels: " + String.Join(", ", sequenceLevels.Select(x => x.ToString()).ToArray()));
 		// Update "game mode"
 		if (ButtonRandom.GetComponent<Toggle>().isOn == true)
 		{
-			stroopGameMode = "Random";
+			gameMode = "Random";
 		}
 		else
 		{
-			stroopGameMode = "Fixed";
+			gameMode = "Fixed";
 		}
-		Debug.Log("Game mode: " + stroopGameMode);
+		Debug.Log("Game mode: " + gameMode);
 		useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
 	}
 
@@ -204,7 +204,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Update the values of the parameters
 		ChangeParameters();
 		// Create a string that contains the name and value of all the parameters
-		string[] parameters = {"AR Stroop Study Parameters", "Trial Time:" + stroopTrialTime.ToString(), "Number Trials:" + stroopNumberTrials.ToString(), "Sequence:" + String.Join(",", stroopSequence.ToArray()), "Sequence Levels:" + String.Join(",", stroopSequenceLevels.Select(x => x.ToString()).ToArray()), "Game Mode:" + stroopGameMode, "Use Meta:" + useMeta.ToString()};
+		string[] parameters = {"AR Stroop Study Parameters", "Trial Time:" + trialTime.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", sequence.ToArray()), "Sequence Levels:" + String.Join(",", sequenceLevels.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Use Meta:" + useMeta.ToString()};
 		// Open the file explorer (to choose the path and name of the file)
 		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
 		// Write the file
@@ -234,8 +234,8 @@ public class VariablesHolderStroop : MonoBehaviour
 				// Load the "time (one trial)"
 				inputTime.GetComponent<TMP_InputField>().text = parameters[1].Split(':')[1];
 				// Load the "number of trials" and show the right number of dropdowns
-				int.TryParse(parameters[2].Split(':')[1], out stroopNumberTrials);
-				inputNumberTrials.GetComponent<TMP_InputField>().text = stroopNumberTrials.ToString();
+				int.TryParse(parameters[2].Split(':')[1], out numberTrials);
+				inputNumberTrials.GetComponent<TMP_InputField>().text = numberTrials.ToString();
 				Sequence.Instance.StoreNumber();
 				// Load the "sequence" and "sequence levels"
 				string[] seq = parameters[3].Split(':')[1].Split(',');

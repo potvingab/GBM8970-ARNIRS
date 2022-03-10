@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class Questions : MonoBehaviour
 {
+    private static System.Random rng = new System.Random();
     // An instance is needed to use the method "Question" in other scripts
     public static Questions Instance;
 
@@ -73,7 +74,7 @@ public class Questions : MonoBehaviour
     public GameObject endGameScroll26;
 
     // Parameters from the menu scene
-    public static float timeValue = VariablesHolderStroop.stroopTrialTime;
+    public static float timeValue = VariablesHolderStroop.trialTime;
     public static int currentIndexSeq = 0;
 
     // New variables used
@@ -83,7 +84,7 @@ public class Questions : MonoBehaviour
     public static int indexColor;
     public static bool bool_Square;
 
-    public static string[] question;
+    public static List<string> question = new List<string>();
     public static List<string> selectedAnswers = new List<string>(); // Answers selected by the participant
     public static List<string> correctAnswers = new List<string>(); // Correct answers (created by CreateNewRandomQuestion)
     public static int numCorrectAnswers = 0;
@@ -135,15 +136,15 @@ public class Questions : MonoBehaviour
     {   // Play the right difficulty according to the sequence
         flagTuto = false;
         WhitBgTL.gameObject.SetActive(true);
-        // timeValue = VariablesHolderStroop.stroopTrialTime; //Restart timer(added to be able to replay the level before the timer stopped)
+        // timeValue = VariablesHolderStroop.trialTime; //Restart timer(added to be able to replay the level before the timer stopped)
         //Baseline
-        if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
+        if (VariablesHolderStroop.sequenceLevels[currentIndexSeq] == 0)
         {
             playTuto(); // the baseline works the same way as the tutorial
             return;
         }
 
-        if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1))
+        if (currentIndexSeq < (VariablesHolderStroop.numberTrials + 1))
         {
             // Set active the right objects
             canvasChercheurInstructions.SetActive(false);
@@ -166,7 +167,7 @@ public class Questions : MonoBehaviour
             buttonNew.gameObject.SetActive(false);
 
             //Read the file if fixed sequence
-            if (VariablesHolderStroop.stroopGameMode == "Fixed")
+            if (VariablesHolderStroop.gameMode == "Fixed")
             {
                 // If custom "fixed colors file"
                 string all_Info;
@@ -182,16 +183,58 @@ public class Questions : MonoBehaviour
                 //Debug.Log(all_Info);
                 string[] info_Line = all_Info.Split('\n');
                 //the starting line according to the level and read this line
-                line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+                line = 2 * VariablesHolderStroop.sequenceLevels[currentIndexSeq] - 1;
 
-                question = info_Line[line].Split(';');
+                question = info_Line[line].Split(';').ToList();
+
+                // If the fixed sequence was already seen, shuffle it
+                if (currentIndexSeq > 1)
+                {
+                    question.Remove("END");
+                    // Random shuffle of the sequence
+                    question = question.OrderBy(x => rng.Next()).ToList();
+                    // Check if neighbour elements are the same (they should not)
+                    for (int i = 0; i < question.Count()-1; i++)
+                    {
+                        // If the element is the same than the next one
+                        if (question[i] == question[i+1])
+                        {
+                            // Special case: If it is the last pair of element of the sequence  
+                            if (i == question.Count()-2)
+                            {
+                                for (int j = i+1; j > 0; j--)
+                                {
+                                    if (question[i+1] != question[j])
+                                    {
+                                        question[i+1] = question[j];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Find an element that is not the same and put it in the position
+                                for (int j = i+1; j < question.Count(); j++)
+                                {
+                                    if (question[i+1] != question[j])
+                                    {
+                                        question[i+1] = question[j];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    question.Add("END");
+                }
+                Debug.Log(String.Join(", ", question.ToArray()));
                 n_question_fixed = 0;
             }
 
             // Prepare the right difficulty
-            Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.sequence[currentIndexSeq] + " " + VariablesHolderStroop.sequenceLevels[currentIndexSeq].ToString());
             Response.TriggerArduino("0");
-            switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
+            switch (VariablesHolderStroop.sequenceLevels[currentIndexSeq])
             {
                 case 0:
 
@@ -225,8 +268,8 @@ public class Questions : MonoBehaviour
     // Play the right intruction according to the sequence
     {
         
-        if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1)){
-            if (VariablesHolderStroop.stroopSequence[currentIndexSeq] != "Single Task (Walk)")
+        if (currentIndexSeq < (VariablesHolderStroop.numberTrials + 1)){
+            if (VariablesHolderStroop.sequence[currentIndexSeq] != "Single Task (Walk)")
             {
                 canvasChercheurJeu.gameObject.SetActive(false);
                 questionHolder.gameObject.SetActive(false);
@@ -263,7 +306,7 @@ public class Questions : MonoBehaviour
                 instructionButton.gameObject.SetActive(true);
 
                 // Display the instruction to the participant's view and the level number
-                switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
+                switch (VariablesHolderStroop.sequenceLevels[currentIndexSeq])
                 {
                     case 0:
                         playTutoButton.gameObject.SetActive(false);
@@ -271,11 +314,11 @@ public class Questions : MonoBehaviour
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "CONTROL";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text =  " CONTROL ";
                         break;
+
                     case 1:
                         instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 1";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 1 ";
-
                         break; 
 
                     case 2:
@@ -288,17 +331,14 @@ public class Questions : MonoBehaviour
                         instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the ink.\n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 3";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 3 ";
-
                         break;
 
                     case 4:
                         instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 4 ";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 4 ";
-
                         break;
                 }
-                
                 instructionButton.gameObject.SetActive(false);
                 textCalibraton.gameObject.SetActive(false);
             }
@@ -354,15 +394,15 @@ public class Questions : MonoBehaviour
             endGameNumbers.GetComponent<Text>().text = "";
             var scrollCorrect = new[] { endGameScroll1, endGameScroll2, endGameScroll3, endGameScroll4, endGameScroll5, endGameScroll6, endGameScroll7, endGameScroll8, endGameScroll9, endGameScroll10, endGameScroll11, endGameScroll12, endGameScroll13 };
 		    var scrollSelected = new[] { endGameScroll14, endGameScroll15, endGameScroll16, endGameScroll17, endGameScroll18, endGameScroll19, endGameScroll20, endGameScroll21, endGameScroll22, endGameScroll23, endGameScroll24, endGameScroll25, endGameScroll26 };
-            for (int i = 0; i < VariablesHolderStroop.stroopSequence.Count; i++) {
+            for (int i = 0; i < VariablesHolderStroop.sequence.Count; i++) {
 				endGameNumbers.GetComponent<Text>().text += i + "\n";
                 scrollCorrect[i].gameObject.SetActive(true);
                 scrollCorrect[i].GetComponentInChildren<Text>().text = allCorrectAns[i];
                 scrollSelected[i].gameObject.SetActive(true);
                 scrollSelected[i].GetComponentInChildren<Text>().text = allSelectedAns[i];
 			}
-            endGameLevels.GetComponent<Text>().text = String.Join("\n", VariablesHolderStroop.stroopSequence.ToArray());
-            endGameDifficulties.GetComponent<Text>().text = String.Join("\n", VariablesHolderStroop.stroopSequenceLevels.Select(x => x.ToString()).ToArray());
+            endGameLevels.GetComponent<Text>().text = String.Join("\n", VariablesHolderStroop.sequence.ToArray());
+            endGameDifficulties.GetComponent<Text>().text = String.Join("\n", VariablesHolderStroop.sequenceLevels.Select(x => x.ToString()).ToArray());
             endGameResults.GetComponent<Text>().text = String.Join("\n", allResults.ToArray());
             endGameTimes.GetComponent<Text>().text = String.Join("\n", allAvTimes.ToArray());
         }
@@ -374,7 +414,7 @@ public class Questions : MonoBehaviour
         flagTuto = true;
         n_question_fixed = 0;
 
-        if (currentIndexSeq < (VariablesHolderStroop.stroopNumberTrials + 1))
+        if (currentIndexSeq < (VariablesHolderStroop.numberTrials + 1))
         {
             // Set active the right objects
             canvasChercheurInstructions.SetActive(false);
@@ -397,7 +437,7 @@ public class Questions : MonoBehaviour
             WhitBgTL.gameObject.SetActive(false);
             TextAsset txt;
 
-            if (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] == 0)
+            if (VariablesHolderStroop.sequenceLevels[currentIndexSeq] == 0)
             {
                 txt = (TextAsset)Resources.Load("Baseline", typeof(TextAsset));
                 line = 1;
@@ -407,21 +447,20 @@ public class Questions : MonoBehaviour
             else
             {
                 txt = (TextAsset)Resources.Load("tutorial", typeof(TextAsset)); // change name
-                line = 2 * VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq] - 1;
+                line = 2 * VariablesHolderStroop.sequenceLevels[currentIndexSeq] - 1;
             }
   
             string all_Info = txt.text;
             string[] info_Line = all_Info.Split('\n');
 
             //the starting line according to the difficulty and read this line
-            
-            question = info_Line[line].Split(';');
+            question = info_Line[line].Split(';').ToList();
 
 
             // Prepare the right difficulty
-            Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.stroopSequence[currentIndexSeq] + " " + VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq].ToString());
+            Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.sequence[currentIndexSeq] + " " + VariablesHolderStroop.sequenceLevels[currentIndexSeq].ToString());
             Response.TriggerArduino("0");
-            switch (VariablesHolderStroop.stroopSequenceLevels[currentIndexSeq])
+            switch (VariablesHolderStroop.sequenceLevels[currentIndexSeq])
             {
                 case 0:
                     Difficulty.Instance.BaseLine();
@@ -516,7 +555,7 @@ public class Questions : MonoBehaviour
 
                 flagBeginTimer = false;
                 end_of_trial = false;
-                timeValue = VariablesHolderStroop.stroopTrialTime;
+                timeValue = VariablesHolderStroop.trialTime;
                
         }
        

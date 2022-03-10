@@ -407,19 +407,19 @@ public class TimeSpawner : MonoBehaviour {
                     else
                     {
                         UnityEngine.Debug.Log(spawneeWanted[order]);
-                        bool tree = false;
-                        bool house = false;
+                        //bool tree = false;
+                        //bool house = false;
                         // je ne comprends pas le truc avec tree et house
                         //if (VariablesHolder.realistCheck)
                         //{
-                            if (spawneesReal[spawneeWanted[order]].name == "House")
-                            {
-                                house = true;
-                            }
-                            if (spawneesReal[spawneeWanted[order]].name == "Tree")
-                            {
-                                tree = true;
-                            }
+                            // if (spawneesReal[spawneeWanted[order]].name == "House")
+                            // {
+                            //     house = true;
+                            // }
+                            // if (spawneesReal[spawneeWanted[order]].name == "Tree")
+                            // {
+                            //     tree = true;
+                            // }
 
                             spawneeObject = spawneesNormal[spawneeWanted[order]];
                         // }

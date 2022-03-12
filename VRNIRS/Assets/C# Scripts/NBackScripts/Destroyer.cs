@@ -19,6 +19,7 @@ public class Destroyer : MonoBehaviour {
 		if(this.transform.position.z <= -10) // Original = -10, attention 9.37!
         {
             Destruction();
+            TimeSpawner.CreateCheckpoint("Destroy");
         }
 	}
 

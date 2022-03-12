@@ -9,7 +9,7 @@ using System.Diagnostics;
 public class TimeSpawner : MonoBehaviour {
 
     public static string fileName = VariablesHolder.fileName;
-    
+
     public static SerialPort serialPort = new SerialPort(VariablesHolder.arduinoPort, 9600, Parity.None, 8, StopBits.One);
     public Transform spawnPos1;
     public Transform spawnPos2;
@@ -28,7 +28,7 @@ public class TimeSpawner : MonoBehaviour {
     public static int startTime;
     public static Stopwatch reactionTime = new Stopwatch();
 
-    
+
     public static int[] Tutorial1Int;
     public static int[] Tutorial2Int;
     public static int[] Tutorial3Int;
@@ -83,7 +83,6 @@ public class TimeSpawner : MonoBehaviour {
 
 
     public static int[] spawneeWanted;
-
 
     public int[] ArrayMaker()
     {
@@ -311,6 +310,9 @@ public class TimeSpawner : MonoBehaviour {
 
     void Start ()
     {
+        spawnPos1.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
+        spawnPos2.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
+        spawnPos3.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
 	}
 

@@ -54,7 +54,7 @@ public class ChangeVolume : MonoBehaviour
     public void ChangeParameters()
     {
         audioVolume = AudioVolume.GetComponent<Slider>().value;
-        AudioListener.volume = audioVolume;
+        AudioListener.volume = audioVolume/100;
         Debug.Log("Audio Volume: " + audioVolume);
     }
 }

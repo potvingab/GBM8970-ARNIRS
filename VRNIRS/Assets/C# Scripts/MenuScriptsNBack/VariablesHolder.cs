@@ -183,7 +183,7 @@ public class VariablesHolder : MonoBehaviour {
         useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
         useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
         audioVolume = AudioVolume.GetComponent<Slider>().value;
-        AudioListener.volume = audioVolume;
+        AudioListener.volume = audioVolume/100;
         Debug.Log("Use Visual: " + useVisual);
         Debug.Log("Use Audio: " + useAudio);
         Debug.Log("Audio Volume: " + audioVolume);

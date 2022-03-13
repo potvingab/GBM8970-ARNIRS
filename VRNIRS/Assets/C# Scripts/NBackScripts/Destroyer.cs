@@ -50,7 +50,7 @@ public class Destroyer : MonoBehaviour {
 
             UnityEngine.Debug.Log(TimeSpawner.currentLevel);
             UnityEngine.Debug.Log("!!");
-            if (TimeSpawner.currentLevel == TimeSpawner.sizeOfArray)
+            if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray)
             {
                 endScreenLevel.SetActive(true);
             }

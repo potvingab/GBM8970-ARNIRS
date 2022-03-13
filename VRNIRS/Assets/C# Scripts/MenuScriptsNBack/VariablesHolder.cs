@@ -25,6 +25,8 @@ public class VariablesHolder : MonoBehaviour {
 	public static List<int> sequenceNBack = new List<int>(); // N of each N-back
     public static int numberTrials;
     public static string fixedFile = "Empty";
+    public static int nMaxTutorial = 7;
+    public static int sizeOfArray = numberTrials + nMaxTutorial;
 
     public GameObject inputFileName;
 	public GameObject inputArduinoPort;
@@ -88,15 +90,15 @@ public class VariablesHolder : MonoBehaviour {
         inputSpeed.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
             FieldValueChangedSpeed(inputSpeed.GetComponent<TMP_InputField>());
         	});
-		ToggleAudio.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-            ButtonAudioValueChanged(ToggleAudio.GetComponent<Toggle>());
-        	});
-		AudioVolume.GetComponent<Slider>().onValueChanged.AddListener(delegate {
-            SliderValueChanged(AudioVolume.GetComponent<Slider>());
-        	});
-		AudioVolumeField.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
-            SliderFieldValueChanged(AudioVolumeField.GetComponent<TMP_InputField>());
-        	});
+		//ToggleAudio.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
+        //    ButtonAudioValueChanged(ToggleAudio.GetComponent<Toggle>());
+        //	});
+		//AudioVolume.GetComponent<Slider>().onValueChanged.AddListener(delegate {
+          //  SliderValueChanged(AudioVolume.GetComponent<Slider>());
+        	//});
+		//AudioVolumeField.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
+          //  SliderFieldValueChanged(AudioVolumeField.GetComponent<TMP_InputField>());
+        	//});
     }
 
     void FieldValueChangedNum(TMP_InputField inp)
@@ -135,7 +137,8 @@ public class VariablesHolder : MonoBehaviour {
 		if (tog.isOn)
 		{
 			loadFixed.GetComponent<Button>().interactable = true;
-			disableObjects.SetActive(true);
+			disableObjects.
+                (true);
 			//If fixed and no file -> 15 objects
 			inputNumObjects.GetComponent<TMP_InputField>().text = "15";
 		}
@@ -182,7 +185,7 @@ public class VariablesHolder : MonoBehaviour {
     {
         useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
         useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
-        audioVolume = AudioVolume.GetComponent<Slider>().value;
+        //audioVolume = AudioVolume.GetComponent<Slider>().value;
         AudioListener.volume = audioVolume/100;
         Debug.Log("Use Visual: " + useVisual);
         Debug.Log("Use Audio: " + useAudio);
@@ -225,14 +228,21 @@ public class VariablesHolder : MonoBehaviour {
 		var DropdownsNBack = new[] { DropdownNBack1, DropdownNBack2, DropdownNBack3, DropdownNBack4, DropdownNBack5, DropdownNBack6, DropdownNBack7, DropdownNBack8, DropdownNBack9, DropdownNBack10, DropdownNBack11, DropdownNBack12 };
 		sequence = new List<string>();
 		sequenceNBack = new List<int>();
-        for (int i = 0; i < numberTrials; i++)
+
+        for (int i = 0; i < nMaxTutorial; i++)
+        {
+            sequenceNBack.Add(int.Parse(DropdownsNBack[0].options[DropdownsNBack[0].value].text));
+        }
+        for (int i = nMaxTutorial; i < numberTrials+ nMaxTutorial; i++)
 		{
 			sequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
 			sequenceNBack.Add(int.Parse(DropdownsNBack[i].options[DropdownsNBack[i].value].text));
 		}
-        Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
-		Debug.Log("Sequence N-Back: " + String.Join(", ", sequenceNBack.Select(x => x.ToString()).ToArray()) );
-        Debug.Log("Chosen Objects: " + String.Join(", ", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()));
+        //Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
+		Debug.Log("Sequence N-Back: "  );
+        Debug.Log(sequenceNBack[0]);
+        Debug.Log(sequenceNBack[7]);
+        //Debug.Log("Chosen Objects: " + String.Join(", ", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()));
     }
 
     public void ChangeFileNameAndPort() {

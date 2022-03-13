@@ -54,7 +54,7 @@ public class PauseMenu : MonoBehaviour
     //public static string[] allLevelResults = new string[19] {"", "", "", "", "", "", "", "",
      //   "", "", "", "", "", "", "", "", "", "", ""};
 
-    public static int[] blockCondition ;
+    //public static int[] blockCondition ;
 
    // public static string[] allLevelResultsSaved = new string[19] {"", "", "", "", "", "", "", "",
      //   "", "", "", "", "", "", "", "", "", "", ""};
@@ -79,18 +79,18 @@ public class PauseMenu : MonoBehaviour
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
         }
-        UnityEngine.Debug.Log(TimeSpawner.sizeOfArray);
-        allLevelResults = new string[TimeSpawner.sizeOfArray];
-        blockCondition = new int[TimeSpawner.sizeOfArray];
-        for (int nLevelResults = 0; nLevelResults < TimeSpawner.sizeOfArray; nLevelResults++)
+        allLevelResults = new string[VariablesHolder.sizeOfArray];
+        for (int nLevelResults = 0; nLevelResults < VariablesHolder.sizeOfArray; nLevelResults++)
         {
             // pas besoin je pense
             allLevelResults[nLevelResults] = "";
-
-            blockCondition[nLevelResults] = 2;
+            UnityEngine.Debug.Log(nLevelResults);
+            //blockCondition[nLevelResults] = 2;
 
         }
-    GameIsPaused = true;
+        //UnityEngine.Debug.Log(TimeSpawner.sizeOfArray);
+
+        GameIsPaused = true;
     }
 
     // Update is called once per frame
@@ -202,7 +202,7 @@ public class PauseMenu : MonoBehaviour
         else
         {
             //BlockCondition??????
-            levelString += "," + blockCondition[TimeSpawner.currentLevel];
+            //levelString += "," + blockCondition[TimeSpawner.currentLevel];
 
             string postAccuracy = "";
             //Nombre de reponse supposee
@@ -295,7 +295,7 @@ public class PauseMenu : MonoBehaviour
             levelString += "," + (int)((accuracy * 100) / n) + "," + (int)(meanRT / correctAnswers) + "," + (int)(weightedRT / n) + postAccuracy;
         }
 
-        UnityEngine.Debug.Log(levelString);
+        //UnityEngine.Debug.Log(levelString);
         //File.AppendAllText(FileName.nameOfFile, levelString + "\n");
 
     }
@@ -429,7 +429,7 @@ public class PauseMenu : MonoBehaviour
     public void SkipTutorials()
     {
         //ATTENTION
-        TimeSpawner.currentLevel = TimeSpawner.nMaxTutorial;
+        TimeSpawner.currentLevel = VariablesHolder.nMaxTutorial;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
        
@@ -471,10 +471,11 @@ public class PauseMenu : MonoBehaviour
             endScreenLevel.SetActive(true);
         }
         */
-        UnityEngine.Debug.Log(TimeSpawner.currentLevel);
-        UnityEngine.Debug.Log(TimeSpawner.sizeOfArray - 1);
-        UnityEngine.Debug.Log("!!");
-        if (TimeSpawner.currentLevel == TimeSpawner.sizeOfArray-1)
+        //UnityEngine.Debug.Log(TimeSpawner.currentLevel);
+        //UnityEngine.Debug.Log(TimeSpawner.sizeOfArray - 1);
+
+
+        if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray-1)
         {
             endScreenLevel.SetActive(true);
         }
@@ -510,7 +511,7 @@ public class PauseMenu : MonoBehaviour
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
         }
-        allLevelResults = new string[TimeSpawner.sizeOfArray];
+        allLevelResults = new string[VariablesHolder.sizeOfArray];
 
 
         for (int nLevelResults = 0; nLevelResults < VariablesHolder.numberOfObjects; nLevelResults++)

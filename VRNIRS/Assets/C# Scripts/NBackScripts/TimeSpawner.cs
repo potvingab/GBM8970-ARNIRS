@@ -78,8 +78,8 @@ public class TimeSpawner : MonoBehaviour {
     public static string[] levelNames;
     public int line;
     public static string[] SequenceFromFile;
-    public static int sizeOfArray;
-    public static int nMaxTutorial = 7; // mettre dans le menu??
+    
+    
 
 
     public static int[] spawneeWanted;
@@ -148,12 +148,12 @@ public class TimeSpawner : MonoBehaviour {
     }
 
 
-    public void TutorialsGenerator(int nMaxTutorial)
+    public void TutorialsGenerator()
     {
-        //UnityEngine.Debug.Log("????");
-        for (int ntuto = 1; ntuto <= nMaxTutorial; ntuto++)
+        
+        for (int ntuto = 1; ntuto <= VariablesHolder.nMaxTutorial; ntuto++)
         {
-            UnityEngine.Debug.Log("Gen tutorial");
+            
             allArrayInt[ntuto - 1] = ReadFile(ntuto, "TutorialNBack");
             levelNames[ntuto - 1] = "Tutorial " + (ntuto);
         }
@@ -165,7 +165,7 @@ public class TimeSpawner : MonoBehaviour {
     {
         //Divide the file into a string []
         string allInfo;
-        UnityEngine.Debug.Log("Read file");
+        
         if (VariablesHolder.fixedFile.Contains("Level"))
         {
             allInfo = VariablesHolder.fixedFile;
@@ -189,14 +189,9 @@ public class TimeSpawner : MonoBehaviour {
         int[] sequence = new int[VariablesHolder.numberOfObjects];
         for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {
-            UnityEngine.Debug.Log("level");
-            UnityEngine.Debug.Log(level);
-            UnityEngine.Debug.Log(SequenceFromFile[i + 1]);
-            //UnityEngine.Debug.Log(i);
             sequence[i] = Convert.ToInt32(SequenceFromFile[i+1]);
         }
-        UnityEngine.Debug.Log("!!!!");
-        UnityEngine.Debug.Log(sequence);
+        
         return sequence;
     }
 
@@ -269,17 +264,17 @@ public class TimeSpawner : MonoBehaviour {
         
         
  
-        sizeOfArray = (VariablesHolder.numberTrials) + nMaxTutorial;
-        allArrayInt = new int[sizeOfArray][];
-        levelNames = new string[sizeOfArray];
+        
+        allArrayInt = new int[VariablesHolder.sizeOfArray][];
+        levelNames = new string[VariablesHolder.sizeOfArray];
 
-        TutorialsGenerator(nMaxTutorial);
-        UnityEngine.Debug.Log("!!!");
+        TutorialsGenerator();
+        
 
         for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
             // nLevel+1 correspond au niveau a lire
-            allArrayInt[nLevel + nMaxTutorial] = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel+1);
+            allArrayInt[nLevel + VariablesHolder.nMaxTutorial] = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel+1);
             string title;
             if (VariablesHolder.sequence[nLevel].Contains("Dual"))
             {
@@ -294,16 +289,8 @@ public class TimeSpawner : MonoBehaviour {
                 title = "Single Task (N-Back)";
             }
             //Ajouter saut de ligne??
-            levelNames[nLevel + nMaxTutorial] = title + "  - Level " + (nLevel + 1)+ " - N-Back Value = " + VariablesHolder.sequenceNBack[nLevel];
+            levelNames[nLevel + VariablesHolder.nMaxTutorial] = title + "  - Level " + (nLevel + 1)+ " - N-Back Value = " + VariablesHolder.sequenceNBack[nLevel];
          
-           
-            //UnityEngine.Debug.Log("Taille1 :" + sizeOfArray);
-            //UnityEngine.Debug.Log("Taille2 :" + VariablesHolder.numberTrials);
-            //UnityEngine.Debug.Log("Flag :" + flagSingleWalk);
-            //UnityEngine.Debug.Log("Nom0 :" + levelNames[0]);
-            //UnityEngine.Debug.Log("Nom1 :" + levelNames[1]);
-            //UnityEngine.Debug.Log("Nom2 :" + levelNames[2]);
-            //UnityEngine.Debug.Log("Nom3 :" + levelNames[3]);
         }
     }
 

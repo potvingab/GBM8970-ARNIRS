@@ -82,7 +82,7 @@ public class Difficulty : MonoBehaviour {
 
         // Change the text of questionHolder to the  question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        Debug.Log(Questions.indexQuestion);
+        
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexQuestion]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexQuestion] + " ");
@@ -130,7 +130,7 @@ public class Difficulty : MonoBehaviour {
         }
         // Change the color of the backgroundColor to the random color
         BackgroundImage.color = Questions.possibleColors[Questions.indexColor];
-        Debug.Log(Questions.possibleColors[Questions.indexColor]);
+        //Debug.Log(Questions.possibleColors[Questions.indexColor]);
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexColor]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexColor] + " ");
@@ -175,7 +175,7 @@ public class Difficulty : MonoBehaviour {
 
         // Change the color of questionHolder to the black
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor]; //POURQUOI?? 
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor]; 
         // Change the text of questionHolder to the question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
         //Debug.Log(possibleQuestions[indexQuestion]);
@@ -226,11 +226,18 @@ public class Difficulty : MonoBehaviour {
             // Sample random indices between 0 and 2
             Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
             Questions.indexColor = UnityEngine.Random.Range(0, 3);
+            //Making sure the written text and text color are not the same
+            while (Questions.indexQuestion == Questions.indexColor)
+            {
+                Debug.Log("same");
+                Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
+                Questions.indexColor = UnityEngine.Random.Range(0, 3);
+            }
         }
 
         // Change the text of questionHolder to the random question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
+        //Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexColor]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexColor] + " ");
@@ -270,7 +277,7 @@ public class Difficulty : MonoBehaviour {
 
             }
             Questions.indexColor = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
-            Questions.indexQuestion = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
+            Questions.indexQuestion = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[1]);
 
             switch (Questions.question[Questions.n_question_fixed].Split(',')[2])
             {
@@ -295,14 +302,23 @@ public class Difficulty : MonoBehaviour {
             // Sample random indices between 0 and 2
             Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
             Questions.indexColor = UnityEngine.Random.Range(0, 3);
+            //Making sure the written text and text color are not the same
+            while (Questions.indexQuestion == Questions.indexColor)
+            {
+                Debug.Log("same");
+                Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
+                Questions.indexColor = UnityEngine.Random.Range(0, 3);
+            }
+
         }
         Rectangle.gameObject.SetActive(bool_Square);
         // Change the text of questionHolder to the random question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
+        //Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
         // Change the color of questionHolder to the random color
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.possibleColors[Questions.indexColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor];
+                
         if (bool_Square == true)
         {
             // Add the color as the correct answer to the list correctAnswers

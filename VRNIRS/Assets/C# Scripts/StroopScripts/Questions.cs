@@ -35,7 +35,10 @@ public class Questions : MonoBehaviour
     public GameObject playTutoButton;
     public Button instructionButton;
     public GameObject textLevel;
-    public GameObject textCalibraton;
+    public GameObject textInstruction;
+    public GameObject timerRestEND;
+    public GameObject timerRestInstruction;
+    public GameObject WhitBgRT;
     public Button buttonQuit;
     public Button buttonNew;
     public GameObject whiteBackgrounds;
@@ -99,6 +102,8 @@ public class Questions : MonoBehaviour
     public static List<string> allAvTimes = new List<string>();
     public static List<string> allCorrectAns = new List<string>();
     public static List<string> allSelectedAns = new List<string>();
+    public static float timeRest = 0;
+    public static bool flagTimerRest = false;
 
     //fixed sequence variables
     public static int n_question_fixed = 0;
@@ -136,6 +141,9 @@ public class Questions : MonoBehaviour
     {   // Play the right difficulty according to the sequence
         flagTuto = false;
         WhitBgTL.gameObject.SetActive(true);
+        timerRestInstruction.gameObject.SetActive(false);
+        flagTimerRest = false;
+        timeRest = 0;
         // timeValue = VariablesHolderStroop.trialTime; //Restart timer(added to be able to replay the level before the timer stopped)
         //Baseline
         if (VariablesHolderStroop.sequenceLevels[currentIndexSeq] == 0)
@@ -165,7 +173,7 @@ public class Questions : MonoBehaviour
             buttonRestart.gameObject.SetActive(false);
             buttonQuit.gameObject.SetActive(false);
             buttonNew.gameObject.SetActive(false);
-
+           
             //Read the file if fixed sequence
             if (VariablesHolderStroop.gameMode == "Fixed")
             {
@@ -304,43 +312,50 @@ public class Questions : MonoBehaviour
                 }
 
                 instructionButton.gameObject.SetActive(true);
+                textInstruction.gameObject.SetActive(true);
+                // Reset resting timer 
+                timerRestEND.gameObject.SetActive(false);
+                timerRestInstruction.gameObject.SetActive(true);
+                WhitBgRT.gameObject.SetActive(false);
+                timeRest = 0;
+                flagTimerRest = true;
 
                 // Display the instruction to the participant's view and the level number
                 switch (VariablesHolderStroop.sequenceLevels[currentIndexSeq])
                 {
                     case 0:
                         playTutoButton.gameObject.SetActive(false);
-                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
+                        textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "CONTROL";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text =  " CONTROL ";
                         break;
 
                     case 1:
-                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
+                        textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the rectangle.\n  Are you ready ?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 1";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 1 ";
                         break; 
 
                     case 2:
-                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
+                        textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the written color. \n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 2 ";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 2 ";
                         break;
 
                     case 3:
-                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the ink.\n Are you ready?";
+                        textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Select the color of the ink.\n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 3";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 3 ";
                         break;
 
                     case 4:
-                        instructionDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
+                        textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "If the text is framed, select the written color. Otherwise, select the color of the word.\n \n Are you ready?";
                         textLevel.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + "\n Difficulty: 4 ";
                         LevelDifficulty.GetComponent<TMPro.TextMeshProUGUI>().text = "Level: " + currentIndexSeq.ToString() + " Difficulty: 4 ";
                         break;
                 }
                 instructionButton.gameObject.SetActive(false);
-                textCalibraton.gameObject.SetActive(false);
+                //textInstruction.gameObject.SetActive(false);
             }
             else
             {
@@ -406,6 +421,7 @@ public class Questions : MonoBehaviour
             endGameResults.GetComponent<Text>().text = String.Join("\n", allResults.ToArray());
             endGameTimes.GetComponent<Text>().text = String.Join("\n", allAvTimes.ToArray());
         }
+
     }
 
 
@@ -499,8 +515,11 @@ public class Questions : MonoBehaviour
         }
             // If there's not time left
         if (timeValue <=0 || end_of_trial == true )
-        {       
-
+        {
+                // Start resting timer and display timer
+                timerRestEND.gameObject.SetActive(true);
+                WhitBgRT.gameObject.SetActive(true);
+                flagTimerRest = true;
                 // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
                 for (int i=0; i<selectedAnswers.Count; i++)
                 {
@@ -534,9 +553,12 @@ public class Questions : MonoBehaviour
                 BackgroundImage.gameObject.SetActive(false);
                 Rectangle.gameObject.SetActive(false);
                 questionHolder.gameObject.SetActive(true);
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "WAIT FOR NEXT LEVEL";
+                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
                 questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
                 questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
+                
+                Invoke("DisableText", 1f);//invoke after 1 seconds
+
                 greenButton.gameObject.SetActive(false);
                 redButton.gameObject.SetActive(false);
                 blueButton.gameObject.SetActive(false);
@@ -558,7 +580,17 @@ public class Questions : MonoBehaviour
                 timeValue = VariablesHolderStroop.trialTime;
                
         }
-       
+
+        if (flagTimerRest == true)
+        {
+            //Debug.Log(timeValue);
+            // Each second, if there's still time on the timer, print the time and decrease it
+            timerRestEND.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
+            timerRestInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
+            timeRest += Time.deltaTime;
+
+        }
+
     }
 
     public void QuitGame()
@@ -569,7 +601,7 @@ public class Questions : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
-        //Peut-etre ajouter un checkpoint pour signifier un nouveau test??
+        
     }
 
     public void Restart()
@@ -590,6 +622,11 @@ public class Questions : MonoBehaviour
         playInstruction();
     }
 
- 
+   
+    //End appears for 1 second
+    void DisableText()
+    {
+        questionHolder.gameObject.SetActive(false);
+    }
 
 }

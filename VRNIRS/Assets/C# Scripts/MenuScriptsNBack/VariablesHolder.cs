@@ -26,7 +26,7 @@ public class VariablesHolder : MonoBehaviour {
     public static int numberTrials;
     public static string fixedFile = "Empty";
     public static int nMaxTutorial = 7;
-    public static int sizeOfArray = numberTrials + nMaxTutorial;
+    public static int sizeOfArray;
 
     public GameObject inputFileName;
 	public GameObject inputArduinoPort;
@@ -137,10 +137,9 @@ public class VariablesHolder : MonoBehaviour {
 		if (tog.isOn)
 		{
 			loadFixed.GetComponent<Button>().interactable = true;
-			disableObjects.
-                (true);
-			//If fixed and no file -> 15 objects
-			inputNumObjects.GetComponent<TMP_InputField>().text = "15";
+            disableObjects.SetActive(true);
+            //If fixed and no file -> 15 objects
+            inputNumObjects.GetComponent<TMP_InputField>().text = "15";
 		}
 		else
 		{
@@ -209,8 +208,9 @@ public class VariablesHolder : MonoBehaviour {
 			numberTrials = 1;
 		}
         Debug.Log("Number trials: " + numberTrials);
+        sizeOfArray = numberTrials + nMaxTutorial;
         // Update "number objects (one trial)"
-		int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
+        int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
 		if (numberOfObjects == 0)
 		{
 			numberOfObjects = 15;

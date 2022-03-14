@@ -116,7 +116,7 @@ public class TimeSpawner : MonoBehaviour {
     public int[] LevelGenerator(string name, int nLevel)
     {
         int[] sequence = new int[VariablesHolder.numberOfObjects];
-
+        
         switch (name)
         {
             case "Single Task (Walk)":
@@ -141,7 +141,6 @@ public class TimeSpawner : MonoBehaviour {
                         sequence = ReadFile(nLevel, VariablesHolder.fixedFile);
                     }
                 }
-                   
                 break;
         }
         return sequence;
@@ -150,12 +149,11 @@ public class TimeSpawner : MonoBehaviour {
 
     public void TutorialsGenerator()
     {
-        
         for (int ntuto = 1; ntuto <= VariablesHolder.nMaxTutorial; ntuto++)
         {
             
-            allArrayInt[ntuto - 1] = ReadFile(ntuto, "TutorialNBack");
-            levelNames[ntuto - 1] = "Tutorial " + (ntuto);
+            TimeSpawner.allArrayInt[ntuto - 1] = ReadFile(ntuto, "TutorialNBack");
+            TimeSpawner.levelNames[ntuto - 1] = "Tutorial " + (ntuto);
         }
         return;
     }
@@ -269,14 +267,16 @@ public class TimeSpawner : MonoBehaviour {
         levelNames = new string[VariablesHolder.sizeOfArray];
 
         TutorialsGenerator();
-        
 
         for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
             // nLevel+1 correspond au niveau a lire
-            allArrayInt[nLevel + VariablesHolder.nMaxTutorial] = LevelGenerator(VariablesHolder.sequence[nLevel], nLevel+1);
-            string title;
-            if (VariablesHolder.sequence[nLevel].Contains("Dual"))
+            int index = nLevel + VariablesHolder.nMaxTutorial;
+            
+            allArrayInt[index] = LevelGenerator(VariablesHolder.sequence[nLevel], (nLevel+1));
+
+            //string title = "";
+            /*if (VariablesHolder.sequence[nLevel].Contains("Dual"))
             {
                 title = "Dual Task";
             }
@@ -287,9 +287,9 @@ public class TimeSpawner : MonoBehaviour {
             else
             {
                 title = "Single Task (N-Back)";
-            }
+            }*/
             //Ajouter saut de ligne??
-            levelNames[nLevel + VariablesHolder.nMaxTutorial] = title + "  - Level " + (nLevel + 1)+ " - N-Back Value = " + VariablesHolder.sequenceNBack[nLevel];
+            levelNames[index] =  "Level" + (nLevel + 1);
          
         }
     }

@@ -43,9 +43,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject endScreenFinal;
 
 
-    public static string[] clicks = new string[VariablesHolder.numberOfObjects];
+    public static string[] clicks;
 
-    public static string[] reactionTime = new string[VariablesHolder.numberOfObjects];
+    public static string[] reactionTime;
 
 
     public static string[] allLevelResults ;
@@ -74,8 +74,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Awake()
     {
+        clicks = new string[VariablesHolder.numberOfObjects];
+        reactionTime = new string[VariablesHolder.numberOfObjects];
+        currentLevelObjects = new int[VariablesHolder.numberOfObjects];
         for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
+            UnityEngine.Debug.Log(clicks.Length);
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
         }
@@ -97,6 +101,7 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         currentLevelString = "--";
+        
         currentLevelObjects = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -338,13 +343,12 @@ public class PauseMenu : MonoBehaviour
     {
         gameObjectList.text = "";
 
-        int[] currentLevelObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
-        //UnityEngine.Debug.Log("currentLevelObjects " + currentLevelObjectsPerc);
-
+        //int[] currentLevelObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
+        
         for (int i = 0; i < VariablesHolder.numberOfObjects; i++)
         {
-            if (currentLevelObjectsPerc[i] == 9)
-            //if(TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
+            //if (currentLevelObjectsPerc[i] == 9)
+            if(TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
             {
                 gameObjectList.text = "Just Moving trough the scene.";
                 break;
@@ -360,6 +364,7 @@ public class PauseMenu : MonoBehaviour
                 //    gameObjectList.text = gameObjectList.text + (currentLevelObjects[i].name + clicks[i]);
                 //}
                 //
+                //what is orderObject?? ca fait une erreur.... 
                 gameObjectList.text = gameObjectList.text + (orderObject[currentLevelObjects[i]].name + ": " + clicks[i] + "; ");
                 
             }
@@ -457,25 +462,29 @@ public class PauseMenu : MonoBehaviour
     public void BackToEndScreen()
     {
         /*if (TimeSpawner.currentLevel < 1)
-        
+
         {
             endScreen.SetActive(true);
         }
-        //ATTENTION!!number of level max!!
-        else if (TimeSpawner.currentLevel == 6)
+        *///ATTENTION!!number of level max!!
+        if (TimeSpawner.currentLevel < VariablesHolder.nMaxTutorial)
         {
-            endScreenFinal.SetActive(true);
+            endScreen.SetActive(true);
         }
-        else
+        else if (TimeSpawner.currentLevel > VariablesHolder.nMaxTutorial)
         {
             endScreenLevel.SetActive(true);
         }
-        */
+        else
+        {
+            endScreenFinal.SetActive(true);
+        }
+        
         //UnityEngine.Debug.Log(TimeSpawner.currentLevel);
         //UnityEngine.Debug.Log(TimeSpawner.sizeOfArray - 1);
 
 
-        if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray-1)
+        /*if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray-1)
         {
             endScreenLevel.SetActive(true);
         }
@@ -489,7 +498,7 @@ public class PauseMenu : MonoBehaviour
             {
                 endScreenLevel.SetActive(true);
             }
-        }
+        }*/
     }
 
     public void QuitGame()

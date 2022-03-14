@@ -90,15 +90,15 @@ public class VariablesHolder : MonoBehaviour {
         inputSpeed.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
             FieldValueChangedSpeed(inputSpeed.GetComponent<TMP_InputField>());
         	});
-		//ToggleAudio.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-        //    ButtonAudioValueChanged(ToggleAudio.GetComponent<Toggle>());
-        //	});
-		//AudioVolume.GetComponent<Slider>().onValueChanged.AddListener(delegate {
-          //  SliderValueChanged(AudioVolume.GetComponent<Slider>());
-        	//});
-		//AudioVolumeField.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
-          //  SliderFieldValueChanged(AudioVolumeField.GetComponent<TMP_InputField>());
-        	//});
+		ToggleAudio.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
+            ButtonAudioValueChanged(ToggleAudio.GetComponent<Toggle>());
+        	});
+		AudioVolume.GetComponent<Slider>().onValueChanged.AddListener(delegate {
+            SliderValueChanged(AudioVolume.GetComponent<Slider>());
+            });
+		AudioVolumeField.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
+            SliderFieldValueChanged(AudioVolumeField.GetComponent<TMP_InputField>());
+            });
     }
 
     void FieldValueChangedNum(TMP_InputField inp)
@@ -139,8 +139,13 @@ public class VariablesHolder : MonoBehaviour {
 			loadFixed.GetComponent<Button>().interactable = true;
             disableObjects.SetActive(true);
             //If fixed and no file -> 15 objects
-            inputNumObjects.GetComponent<TMP_InputField>().text = "15";
-		}
+            TextAsset txt = (TextAsset)Resources.Load("FixedSequenceNBack", typeof(TextAsset));
+            numberOfObjects = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[1]);
+            inputNumObjects.GetComponent<TMP_InputField>().text = (txt.text).Split('\n')[0].Split(';')[1];
+            nMaxTutorial = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[3]);
+
+
+        }
 		else
 		{
 			loadFixed.GetComponent<Button>().interactable = false;
@@ -215,6 +220,11 @@ public class VariablesHolder : MonoBehaviour {
 		{
 			numberOfObjects = 15;
 		}
+        //if (gameMode=="Fixed")
+        //{
+         //   TextAsset txt = (TextAsset)Resources.Load("FixedSequenceNBack", typeof(TextAsset));
+          //  numberOfObjects = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[1]);
+        //}
         Debug.Log("Number objects: " + numberOfObjects);
         // Update "speed"
         float.TryParse(inputSpeed.GetComponent<TMP_InputField>().text, out speed);
@@ -240,8 +250,7 @@ public class VariablesHolder : MonoBehaviour {
 		}
         //Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
 		Debug.Log("Sequence N-Back: "  );
-        Debug.Log(sequenceNBack[0]);
-        Debug.Log(sequenceNBack[7]);
+
         //Debug.Log("Chosen Objects: " + String.Join(", ", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()));
     }
 
@@ -370,20 +379,29 @@ public class VariablesHolder : MonoBehaviour {
 				fixedFile = possibleFixedFile;
 				checkFixed.SetActive(true);
 				errorText.SetActive(false);
-			}
+                // TextAsset txt = (TextAsset)Resources.Load(fixedFile, typeof(TextAsset));
+                numberOfObjects = Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[1]);
+            }
 			else
 			{
                 checkFixed.SetActive(false);
 				errorText.GetComponent<Text>().text = "Error: The fixed sequence file is not valid. Read the instruction manual for more information.";
 				errorText.SetActive(true);
 			}
-		}
-		else
+
+
+
+        }
+        else
 		{
 			checkFixed.SetActive(false);
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
 		}
+
+
+
+
     }
 
 public bool CheckValidFileFixed(string fixedFile)
@@ -395,17 +413,26 @@ public bool CheckValidFileFixed(string fixedFile)
             string[] firstRowcols = fixedFile.Split('\n')[0].Split(';');
                        
             int numberOfElements = Convert.ToInt32(firstRowcols[1]);
-            Debug.Log(numberOfElements);
-			inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
-            int numberOfLines = lines.Length;
-            for (int line = 1; line < numberOfLines; line++)
+            int numberOfTutorial = Convert.ToInt32(firstRowcols[3]);
+            //Debug.Log(numberOfElements);
+			//inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
+            //int numberOfLines = lines.Length;
+            for (int line = 1; line < lines.Length; line++)
             {
                 string[] col = lines[line].Split(';');
-                
-                if (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false ||
-                    col[0].Contains("Level") == false || col[0].Contains(line.ToString()) == false)
+
+
+
+                if (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false)
                 {
-                    success = false;
+                    if (line < numberOfTutorial && (col[0].Contains(line.ToString()) == false || col[0].Contains("Tutorial") == false))
+                    {
+                        success = false;
+                    }
+                    else if (col[0].Contains((line + numberOfTutorial).ToString()) == false || col[0].Contains("Level") == false)
+                    {
+                        success = false;
+                    }
                 }
             }
         }

@@ -79,7 +79,7 @@ public class PauseMenu : MonoBehaviour
         currentLevelObjects = new int[VariablesHolder.numberOfObjects];
         for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
-            UnityEngine.Debug.Log(clicks.Length);
+            //UnityEngine.Debug.Log(clicks.Length);
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
         }
@@ -88,7 +88,7 @@ public class PauseMenu : MonoBehaviour
         {
             // pas besoin je pense
             allLevelResults[nLevelResults] = "";
-            UnityEngine.Debug.Log(nLevelResults);
+            //UnityEngine.Debug.Log(nLevelResults);
             //blockCondition[nLevelResults] = 2;
 
         }
@@ -364,7 +364,7 @@ public class PauseMenu : MonoBehaviour
                 //    gameObjectList.text = gameObjectList.text + (currentLevelObjects[i].name + clicks[i]);
                 //}
                 //
-                //what is orderObject?? ca fait une erreur.... 
+
                 gameObjectList.text = gameObjectList.text + (orderObject[currentLevelObjects[i]].name + ": " + clicks[i] + "; ");
                 
             }

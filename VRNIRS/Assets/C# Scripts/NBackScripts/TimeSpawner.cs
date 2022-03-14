@@ -113,8 +113,9 @@ public class TimeSpawner : MonoBehaviour {
         return spawneeWanted;
     }
 
-    public int[] LevelGenerator(string name, int nLevel)
+    public int[] LevelGenerator(string name, int level)
     {
+        //number of ob tuto!!!
         int[] sequence = new int[VariablesHolder.numberOfObjects];
         
         switch (name)
@@ -134,11 +135,11 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     if (VariablesHolder.fixedFile.Contains("Empty"))
                     {
-                        sequence = ReadFile(nLevel, "FixedSequenceNBack");
+                        sequence = ReadFile(level, "FixedSequenceNBack");
                     }
                     else
                     {
-                        sequence = ReadFile(nLevel, VariablesHolder.fixedFile);
+                        sequence = ReadFile(level, VariablesHolder.fixedFile);
                     }
                 }
                 break;
@@ -152,14 +153,14 @@ public class TimeSpawner : MonoBehaviour {
         for (int ntuto = 1; ntuto <= VariablesHolder.nMaxTutorial; ntuto++)
         {
             
-            TimeSpawner.allArrayInt[ntuto - 1] = ReadFile(ntuto, "TutorialNBack");
+            TimeSpawner.allArrayInt[ntuto - 1] = ReadFile(ntuto, "FixedSequenceNBack");
             TimeSpawner.levelNames[ntuto - 1] = "Tutorial " + (ntuto);
         }
         return;
     }
 
 
-    public int[] ReadFile(int level, string nameOfFile)
+    public int[] ReadFile(int line, string nameOfFile)
     {
         //Divide the file into a string []
         string allInfo;
@@ -177,12 +178,12 @@ public class TimeSpawner : MonoBehaviour {
   
         //Read the first line
         SequenceFromFile = InfoLine[0].Split(';');
-        int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
-        VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
+        //int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
+        //VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
 
         //UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
         //Read the line corresponding the level
-        SequenceFromFile = InfoLine[level].Split(';');
+        SequenceFromFile = InfoLine[line].Split(';');
         
         int[] sequence = new int[VariablesHolder.numberOfObjects];
         for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
@@ -273,7 +274,7 @@ public class TimeSpawner : MonoBehaviour {
             // nLevel+1 correspond au niveau a lire
             int index = nLevel + VariablesHolder.nMaxTutorial;
             
-            allArrayInt[index] = LevelGenerator(VariablesHolder.sequence[nLevel], (nLevel+1));
+            allArrayInt[index] = LevelGenerator(VariablesHolder.sequence[nLevel], index+1);
 
             //string title = "";
             /*if (VariablesHolder.sequence[nLevel].Contains("Dual"))

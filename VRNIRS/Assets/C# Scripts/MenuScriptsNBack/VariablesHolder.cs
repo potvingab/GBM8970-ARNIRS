@@ -25,7 +25,7 @@ public class VariablesHolder : MonoBehaviour {
 	public static List<int> sequenceNBack = new List<int>(); // N of each N-back
     public static int numberTrials;
     public static string fixedFile = "Empty";
-    public static int nMaxTutorial = 7;
+    public static int nMaxTutorial;
     public static int sizeOfArray;
 
     public GameObject inputFileName;
@@ -138,7 +138,7 @@ public class VariablesHolder : MonoBehaviour {
 		{
 			loadFixed.GetComponent<Button>().interactable = true;
             disableObjects.SetActive(true);
-            //If fixed and no file -> 15 objects
+            //If fixed and no file -> read file par default
             TextAsset txt = (TextAsset)Resources.Load("FixedSequenceNBack", typeof(TextAsset));
             numberOfObjects = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[1]);
             inputNumObjects.GetComponent<TMP_InputField>().text = (txt.text).Split('\n')[0].Split(';')[1];
@@ -198,6 +198,7 @@ public class VariablesHolder : MonoBehaviour {
         if (ButtonRandom.GetComponent<Toggle>().isOn == true)
         {
             gameMode = "Random";
+            nMaxTutorial = 7; //Default value
         }
         else
         {
@@ -208,7 +209,8 @@ public class VariablesHolder : MonoBehaviour {
         useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
         // Update "number of trials"
 		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out numberTrials);
-		if (numberTrials == 0)
+
+        if (numberTrials == 0)
 		{
 			numberTrials = 1;
 		}
@@ -216,15 +218,13 @@ public class VariablesHolder : MonoBehaviour {
         sizeOfArray = numberTrials + nMaxTutorial;
         // Update "number objects (one trial)"
         int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
-		if (numberOfObjects == 0)
+
+
+        if (numberOfObjects == 0 && gameMode == "Random")
 		{
 			numberOfObjects = 15;
 		}
-        //if (gameMode=="Fixed")
-        //{
-         //   TextAsset txt = (TextAsset)Resources.Load("FixedSequenceNBack", typeof(TextAsset));
-          //  numberOfObjects = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[1]);
-        //}
+
         Debug.Log("Number objects: " + numberOfObjects);
         // Update "speed"
         float.TryParse(inputSpeed.GetComponent<TMP_InputField>().text, out speed);

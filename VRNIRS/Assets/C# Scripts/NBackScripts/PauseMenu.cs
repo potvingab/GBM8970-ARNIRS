@@ -42,6 +42,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject endScreenLevel;
     public GameObject endScreenFinal;
 
+    
+
 
     public static string[] clicks;
 
@@ -101,7 +103,11 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         currentLevelString = "--";
-        
+        UnityEngine.Debug.Log("CurrentLevelObject" + currentLevelObjects.Length);
+        UnityEngine.Debug.Log(TimeSpawner.allArrayInt.Length);
+        UnityEngine.Debug.Log(TimeSpawner.currentLevel);
+
+
         currentLevelObjects = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -531,4 +537,8 @@ public class PauseMenu : MonoBehaviour
         
         SaveCondition = true;
     }
+   
+
+
+
 }

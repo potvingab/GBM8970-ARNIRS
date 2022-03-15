@@ -143,8 +143,7 @@ public class VariablesHolder : MonoBehaviour {
             numberOfObjects = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[1]);
             inputNumObjects.GetComponent<TMP_InputField>().text = (txt.text).Split('\n')[0].Split(';')[1];
             nMaxTutorial = Convert.ToInt16((txt.text).Split('\n')[0].Split(';')[3]);
-
-
+            Debug.Log("ntuto:" + nMaxTutorial);
         }
 		else
 		{
@@ -220,7 +219,7 @@ public class VariablesHolder : MonoBehaviour {
         int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
 
 
-        if (numberOfObjects == 0 && gameMode == "Random")
+        if (numberOfObjects == 0)
 		{
 			numberOfObjects = 15;
 		}

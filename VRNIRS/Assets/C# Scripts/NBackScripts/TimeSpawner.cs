@@ -113,7 +113,7 @@ public class TimeSpawner : MonoBehaviour {
         return spawneeWanted;
     }
 
-    public int[] LevelGenerator(string name, int level)
+    public int[] LevelGenerator(string name, int line)
     {
         //number of ob tuto!!!
         int[] sequence = new int[VariablesHolder.numberOfObjects];
@@ -135,11 +135,11 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     if (VariablesHolder.fixedFile.Contains("Empty"))
                     {
-                        sequence = ReadFile(level, "FixedSequenceNBack");
+                        sequence = ReadFile(line, "FixedSequenceNBack");
                     }
                     else
                     {
-                        sequence = ReadFile(level, VariablesHolder.fixedFile);
+                        sequence = ReadFile(line, VariablesHolder.fixedFile);
                     }
                 }
                 break;
@@ -153,8 +153,8 @@ public class TimeSpawner : MonoBehaviour {
         for (int ntuto = 1; ntuto <= VariablesHolder.nMaxTutorial; ntuto++)
         {
             
-            TimeSpawner.allArrayInt[ntuto - 1] = ReadFile(ntuto, "FixedSequenceNBack");
-            TimeSpawner.levelNames[ntuto - 1] = "Tutorial " + (ntuto);
+            allArrayInt[ntuto - 1] = ReadFile(ntuto, "FixedSequenceNBack");
+            levelNames[ntuto - 1] = "Tutorial " + (ntuto);
         }
         return;
     }
@@ -273,7 +273,8 @@ public class TimeSpawner : MonoBehaviour {
         {
             // nLevel+1 correspond au niveau a lire
             int index = nLevel + VariablesHolder.nMaxTutorial;
-            
+            UnityEngine.Debug.Log("index:" + index);
+
             allArrayInt[index] = LevelGenerator(VariablesHolder.sequence[nLevel], index+1);
 
             //string title = "";

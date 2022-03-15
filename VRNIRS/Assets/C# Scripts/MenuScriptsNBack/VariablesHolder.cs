@@ -413,17 +413,20 @@ public bool CheckValidFileFixed(string fixedFile)
                        
             int numberOfElements = Convert.ToInt32(firstRowcols[1]);
             int numberOfTutorial = Convert.ToInt32(firstRowcols[3]);
+            int numberOfLevel = lines.Length - numberOfTutorial;
+
+
             //Debug.Log(numberOfElements);
-			//inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
+            //inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
             //int numberOfLines = lines.Length;
             for (int line = 1; line < lines.Length; line++)
             {
                 string[] col = lines[line].Split(';');
 
-
-
-                if (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false)
+                
+                if (col[1].Contains("walk")==false && (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false))
                 {
+                    
                     if (line < numberOfTutorial && (col[0].Contains(line.ToString()) == false || col[0].Contains("Tutorial") == false))
                     {
                         success = false;
@@ -433,11 +436,14 @@ public bool CheckValidFileFixed(string fixedFile)
                         success = false;
                     }
                 }
+                Debug.Log(success);
             }
         }
         catch
         {
+
             success = false;
+            Debug.Log("merde");
         }
         return success;
     }

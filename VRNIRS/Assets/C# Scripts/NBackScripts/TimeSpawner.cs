@@ -162,36 +162,58 @@ public class TimeSpawner : MonoBehaviour {
 
     public int[] ReadFile(int line, string nameOfFile)
     {
-        //Divide the file into a string []
-        string allInfo;
-        
-        if (VariablesHolder.fixedFile.Contains("Level"))
+        try
         {
-            allInfo = VariablesHolder.fixedFile;
-        }
-        else
-        {
-            TextAsset txt = (TextAsset)Resources.Load(nameOfFile, typeof(TextAsset));
-            allInfo = txt.text;
-        }
-        string[] InfoLine = allInfo.Split('\n');
-  
-        //Read the first line
-        SequenceFromFile = InfoLine[0].Split(';');
-        //int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
-        //VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
+            string allInfo;
 
-        //UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
-        //Read the line corresponding the level
-        SequenceFromFile = InfoLine[line].Split(';');
-        
-        int[] sequence = new int[VariablesHolder.numberOfObjects];
-        for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
-        {
-            sequence[i] = Convert.ToInt32(SequenceFromFile[i+1]);
+            if (VariablesHolder.fixedFile.Contains("Empty")==false)
+            {
+                allInfo = VariablesHolder.fixedFile;
+            }
+            else
+            {
+                TextAsset txt = (TextAsset)Resources.Load(nameOfFile, typeof(TextAsset));
+                allInfo = txt.text;
+            }
+            string[] InfoLine = allInfo.Split('\n');
+
+            //Read the first line
+            SequenceFromFile = InfoLine[0].Split(';');
+            //int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
+            //VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
+
+            //UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
+            //Read the line corresponding the level
+            SequenceFromFile = InfoLine[line].Split(';');
+
+            int[] sequence = new int[VariablesHolder.numberOfObjects];
+            int objectIndex;
+            for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
+            {
+                //Single Walk
+                if (SequenceFromFile[1].Contains("walk"))
+                {
+                    objectIndex = 9;
+                }
+                else
+                {
+                    objectIndex = Convert.ToInt32(SequenceFromFile[i + 1]);
+                }
+                    
+                sequence[i] = objectIndex;
+            }
+
+            return sequence;
         }
+        catch
+        {
+            
+            int[] sequence = new int[0];
+            return sequence;
+
+        }
+        //Divide the file into a string []
         
-        return sequence;
     }
 
 

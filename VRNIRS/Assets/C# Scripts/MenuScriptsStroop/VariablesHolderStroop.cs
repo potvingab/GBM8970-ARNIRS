@@ -136,7 +136,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
-        Response.TriggerArduino("C");
+        //Response.TriggerArduino("C");
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
         if ((fileName.Contains("/")))
@@ -196,15 +196,15 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public void LoadParameters()
 	{
-		// Open the file explorer (to select the file)
-		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
-		// Read the file
-		if (path.Length > 0)
+		try
 		{
+			// Open the file explorer (to select the file)
+			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+			// Read the file
 			var possibleParameters = File.ReadAllText(path[0]);
 			if (CheckValidFileParameters(possibleParameters))
 			{
-				errorText.SetActive(false);
+				
 				// Read all the parameters
 				string[] parameters = possibleParameters.Split('\n');
 				// Load the "time (one trial)"
@@ -244,7 +244,7 @@ public class VariablesHolderStroop : MonoBehaviour
 				errorText.SetActive(true);
 			}
         }
-		else
+		catch
 		{
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
@@ -253,10 +253,10 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public void SelectFixedFile()
 	{
-		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
-		Debug.Log("Fixed file: " + path);
-		if (path.Length > 0)
+		try
 		{
+			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
+			Debug.Log("Fixed file: " + path);
 			var possibleFixedFile = File.ReadAllText(path);
 			if (CheckValidFileFixed(possibleFixedFile))
 			{
@@ -271,7 +271,7 @@ public class VariablesHolderStroop : MonoBehaviour
 				errorText.SetActive(true);
 			}
 		}
-		else
+		catch
 		{
 			checkFixed.SetActive(false);
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";

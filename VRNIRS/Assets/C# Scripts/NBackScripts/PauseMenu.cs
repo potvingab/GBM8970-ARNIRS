@@ -533,10 +533,8 @@ public class PauseMenu : MonoBehaviour
 
         for (int nLevelResults = 0; nLevelResults < VariablesHolder.numberOfObjects; nLevelResults++)
         {
-            allLevelResults[nLevelResults] = "";
-            
-        }
-          
+            allLevelResults[nLevelResults] = "";   
+        }  
         SaveCondition = true;
     }
 }

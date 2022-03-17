@@ -170,7 +170,8 @@ MonoBehaviour:
   m_text: 'Results:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f9fbb18160df455883a1555536ba4fc, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 21233633959248142, guid: 4f9fbb18160df455883a1555536ba4fc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -243,13 +244,13 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
   m_inputSource: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -5343,6 +5344,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 596501199}
+  errorText: {fileID: 933159479}
   color: RED
 --- !u!1 &615823828
 GameObject:
@@ -7753,8 +7755,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' #           Level             Diff.   Correct Answers   Selected Answers   Results   Av.
-    time'
+  m_Text: ' #             Level                Diff.     Correct Answers     Selected
+    Answers     Results    Av. time'
 --- !u!222 &887160963
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8061,7 +8063,8 @@ MonoBehaviour:
   m_text: GREEN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f9fbb18160df455883a1555536ba4fc, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 21233633959248142, guid: 4f9fbb18160df455883a1555536ba4fc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8140,7 +8143,7 @@ MonoBehaviour:
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 1
   m_inputSource: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -8296,6 +8299,81 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 931937530}
+  m_CullTransparentMesh: 0
+--- !u!1 &933159479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933159480}
+  - component: {fileID: 933159482}
+  - component: {fileID: 933159481}
+  m_Layer: 0
+  m_Name: ErrorText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &933159480
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 933159479}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1757497726}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.84508, y: -267}
+  m_SizeDelta: {x: 1022.3, y: 54.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &933159481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 933159479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: eef4e4219db6b4919841ce965a0cd7e1, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Error
+--- !u!222 &933159482
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 933159479}
   m_CullTransparentMesh: 0
 --- !u!1 &933762878
 GameObject:
@@ -8743,6 +8821,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 0}
+  errorText: {fileID: 933159479}
   color: GREEN
 --- !u!114 &965445322
 MonoBehaviour:
@@ -10515,7 +10594,8 @@ MonoBehaviour:
   m_text: BLUE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f9fbb18160df455883a1555536ba4fc, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 21233633959248142, guid: 4f9fbb18160df455883a1555536ba4fc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10594,7 +10674,7 @@ MonoBehaviour:
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 1
   m_inputSource: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -10741,6 +10821,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 1107453219}
+  errorText: {fileID: 933159479}
   color: BLUE
 --- !u!1 &1111673806
 GameObject:
@@ -13962,7 +14043,8 @@ MonoBehaviour:
   m_text: 'Average Time:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f9fbb18160df455883a1555536ba4fc, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 21233633959248142, guid: 4f9fbb18160df455883a1555536ba4fc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14035,13 +14117,13 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
   m_inputSource: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -15441,6 +15523,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 1107453219}
+  errorText: {fileID: 0}
   color: BLUE
 --- !u!1 &1611769785
 GameObject:
@@ -15549,6 +15632,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 0}
+  errorText: {fileID: 933159479}
   color: BLUE
 --- !u!114 &1615111368
 MonoBehaviour:
@@ -16102,6 +16186,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 1636098133}
+  errorText: {fileID: 933159479}
   color: GREEN
 --- !u!1 &1637193437
 GameObject:
@@ -16242,6 +16327,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 0}
+  errorText: {fileID: 933159479}
   color: RED
 --- !u!114 &1644878007
 MonoBehaviour:
@@ -16963,7 +17049,8 @@ MonoBehaviour:
   m_text: RED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f9fbb18160df455883a1555536ba4fc, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 21233633959248142, guid: 4f9fbb18160df455883a1555536ba4fc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17042,7 +17129,7 @@ MonoBehaviour:
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 1
   m_inputSource: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -17215,6 +17302,7 @@ RectTransform:
   - {fileID: 1966754664}
   - {fileID: 1623114226}
   - {fileID: 995889946}
+  - {fileID: 933159480}
   m_Father: {fileID: 1193219677}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17913,32 +18001,34 @@ MonoBehaviour:
   endGameDifficulties: {fileID: 765647928}
   endGameResults: {fileID: 1791605548}
   endGameTimes: {fileID: 1514649888}
-  endGameScroll1: {fileID: 1535328729}
-  endGameScroll2: {fileID: 1480049290}
-  endGameScroll3: {fileID: 163258887}
-  endGameScroll4: {fileID: 370714159}
-  endGameScroll5: {fileID: 484628364}
-  endGameScroll6: {fileID: 1224624256}
-  endGameScroll7: {fileID: 1721825362}
-  endGameScroll8: {fileID: 1752504748}
-  endGameScroll9: {fileID: 2092917497}
-  endGameScroll10: {fileID: 2012982109}
-  endGameScroll11: {fileID: 333106422}
-  endGameScroll12: {fileID: 1436341746}
-  endGameScroll13: {fileID: 1497130750}
-  endGameScroll14: {fileID: 819716325}
-  endGameScroll15: {fileID: 1100802161}
-  endGameScroll16: {fileID: 1437607294}
-  endGameScroll17: {fileID: 12349113}
-  endGameScroll18: {fileID: 1509282256}
-  endGameScroll19: {fileID: 946131706}
-  endGameScroll20: {fileID: 257504064}
-  endGameScroll21: {fileID: 1710924740}
-  endGameScroll22: {fileID: 383198463}
-  endGameScroll23: {fileID: 1734184365}
-  endGameScroll24: {fileID: 826603240}
-  endGameScroll25: {fileID: 445236820}
-  endGameScroll26: {fileID: 1813852363}
+  scrollCorrect:
+  - {fileID: 1535328729}
+  - {fileID: 1480049290}
+  - {fileID: 163258887}
+  - {fileID: 370714159}
+  - {fileID: 484628364}
+  - {fileID: 1224624256}
+  - {fileID: 1721825362}
+  - {fileID: 1752504748}
+  - {fileID: 2092917497}
+  - {fileID: 2012982109}
+  - {fileID: 333106422}
+  - {fileID: 1436341746}
+  - {fileID: 1497130750}
+  scrollSelected:
+  - {fileID: 819716325}
+  - {fileID: 1100802161}
+  - {fileID: 1437607294}
+  - {fileID: 12349113}
+  - {fileID: 1509282256}
+  - {fileID: 946131706}
+  - {fileID: 257504064}
+  - {fileID: 1710924740}
+  - {fileID: 383198463}
+  - {fileID: 1734184365}
+  - {fileID: 826603240}
+  - {fileID: 445236820}
+  - {fileID: 1813852363}
   BackgroundImage: {fileID: 1275676897}
   Rectangle: {fileID: 1188686088}
   canvasChercheurInstructions: {fileID: 2126471742}
@@ -19711,6 +19801,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   selectedAnswersShown: {fileID: 701770042}
   cube: {fileID: 1636098133}
+  errorText: {fileID: 0}
   color: GREEN
 --- !u!1 &2061050953
 GameObject:

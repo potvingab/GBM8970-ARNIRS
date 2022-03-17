@@ -275,11 +275,11 @@ public class VariablesHolder : MonoBehaviour {
 
     public void LoadParameters()
 	{
-        // Open the file explorer (to select the file)
-		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
-		// Read the file
-		if (path.Length > 0)
+		try
 		{
+			// Open the file explorer (to select the file)
+			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+			// Read the file
 			var possibleParameters = File.ReadAllText(path[0]);
 			if (CheckValidFileParameters(possibleParameters))
 			{
@@ -336,7 +336,7 @@ public class VariablesHolder : MonoBehaviour {
 				errorText.SetActive(true);
 			}
         }
-		else
+		catch
 		{
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
@@ -345,10 +345,10 @@ public class VariablesHolder : MonoBehaviour {
 
     public void SelectFixedFile()
 	{
-        var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
-		Debug.Log("Fixed file: " + path);
-		if (path.Length > 0)
+		try
 		{
+			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
+			Debug.Log("Fixed file: " + path);
 			var possibleFixedFile = File.ReadAllText(path);
 		    if (CheckValidFileFixed(possibleFixedFile))
 			{
@@ -365,7 +365,7 @@ public class VariablesHolder : MonoBehaviour {
 				errorText.SetActive(true);
 			}
         }
-        else
+        catch
 		{
 			checkFixed.SetActive(false);
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
@@ -393,7 +393,7 @@ public bool CheckValidFileFixed(string fixedFile)
                 string[] col = lines[line].Split(';');
 
                 
-                if (col[1].Contains("walk")==false && (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false))
+                if (col[1].Contains("walk") == false && (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false))
                 {
                     
                     if (line < numberOfTutorial && (col[0].Contains(line.ToString()) == false || col[0].Contains("Tutorial") == false))

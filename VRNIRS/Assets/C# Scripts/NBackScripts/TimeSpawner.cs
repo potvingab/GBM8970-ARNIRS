@@ -220,12 +220,6 @@ public class TimeSpawner : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-        //if (VariablesHolder.useMeta == false){
-        //   GameObject metaCamera = GameObject.Find("MetaCameraRig");
-        //  GameObject metaHands = GameObject.Find("MetaHands");
-        //Destroy(metaCamera);
-        //Destroy(metaHands);
-        //}
 
 
         //File pour tutorial

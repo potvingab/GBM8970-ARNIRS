@@ -49,32 +49,9 @@ public class Questions : MonoBehaviour
     public GameObject endGameDifficulties;
     public GameObject endGameResults;
     public GameObject endGameTimes;
-    public GameObject endGameScroll1;
-    public GameObject endGameScroll2;
-    public GameObject endGameScroll3;
-    public GameObject endGameScroll4;
-    public GameObject endGameScroll5;
-    public GameObject endGameScroll6;
-    public GameObject endGameScroll7;
-    public GameObject endGameScroll8;
-    public GameObject endGameScroll9;
-    public GameObject endGameScroll10;
-    public GameObject endGameScroll11;
-    public GameObject endGameScroll12;
-    public GameObject endGameScroll13;
-    public GameObject endGameScroll14;
-    public GameObject endGameScroll15;
-    public GameObject endGameScroll16;
-    public GameObject endGameScroll17;
-    public GameObject endGameScroll18;
-    public GameObject endGameScroll19;
-    public GameObject endGameScroll20;
-    public GameObject endGameScroll21;
-    public GameObject endGameScroll22;
-    public GameObject endGameScroll23;
-    public GameObject endGameScroll24;
-    public GameObject endGameScroll25;
-    public GameObject endGameScroll26;
+    public GameObject[] scrollCorrect;
+    public GameObject[] scrollSelected;
+
 
     // Parameters from the menu scene
     public static float timeValue = VariablesHolderStroop.trialTime;
@@ -245,7 +222,6 @@ public class Questions : MonoBehaviour
             switch (VariablesHolderStroop.sequenceLevels[currentIndexSeq])
             {
                 case 0:
-
                     Difficulty.Instance.BaseLine();
                     break;
 
@@ -407,8 +383,6 @@ public class Questions : MonoBehaviour
             whiteBackgrounds.gameObject.SetActive(false);
             endGamePage.gameObject.SetActive(true);
             endGameNumbers.GetComponent<Text>().text = "";
-            var scrollCorrect = new[] { endGameScroll1, endGameScroll2, endGameScroll3, endGameScroll4, endGameScroll5, endGameScroll6, endGameScroll7, endGameScroll8, endGameScroll9, endGameScroll10, endGameScroll11, endGameScroll12, endGameScroll13 };
-		    var scrollSelected = new[] { endGameScroll14, endGameScroll15, endGameScroll16, endGameScroll17, endGameScroll18, endGameScroll19, endGameScroll20, endGameScroll21, endGameScroll22, endGameScroll23, endGameScroll24, endGameScroll25, endGameScroll26 };
             for (int i = 0; i < VariablesHolderStroop.sequence.Count; i++) {
 				endGameNumbers.GetComponent<Text>().text += i + "\n";
                 scrollCorrect[i].gameObject.SetActive(true);
@@ -514,7 +488,7 @@ public class Questions : MonoBehaviour
             }
         }
             // If there's not time left
-        if (timeValue <=0 || end_of_trial == true )
+        if (timeValue <= 0 || end_of_trial == true )
         {
                 // Start resting timer and display timer
                 timerRestEND.gameObject.SetActive(true);

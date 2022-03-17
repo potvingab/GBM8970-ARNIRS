@@ -32,12 +32,6 @@ public class ChangeVolume : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void SliderValueChanged(Slider slid)
     {
         Debug.Log(slid.value.ToString());

@@ -47,30 +47,8 @@ public class VariablesHolder : MonoBehaviour {
 	public GameObject errorText;
     public GameObject inputNumberTrials;
     public GameObject inputSpeed;
-	public Dropdown Dropdown1;
-	public Dropdown Dropdown2;
-	public Dropdown Dropdown3;
-	public Dropdown Dropdown4;
-	public Dropdown Dropdown5;
-	public Dropdown Dropdown6;
-	public Dropdown Dropdown7;
-	public Dropdown Dropdown8;
-	public Dropdown Dropdown9;
-	public Dropdown Dropdown10;
-	public Dropdown Dropdown11;
-	public Dropdown Dropdown12;
-	public Dropdown DropdownNBack1;
-	public Dropdown DropdownNBack2;
-	public Dropdown DropdownNBack3;
-	public Dropdown DropdownNBack4;
-	public Dropdown DropdownNBack5;
-	public Dropdown DropdownNBack6;
-	public Dropdown DropdownNBack7;
-	public Dropdown DropdownNBack8;
-	public Dropdown DropdownNBack9;
-	public Dropdown DropdownNBack10;
-	public Dropdown DropdownNBack11;
-	public Dropdown DropdownNBack12;
+	public Dropdown[] Dropdowns;
+	public Dropdown[] DropdownsNBack;
 	public GameObject disableVolume;
 	public GameObject disableObjects;
 
@@ -103,8 +81,9 @@ public class VariablesHolder : MonoBehaviour {
 
     void FieldValueChangedNum(TMP_InputField inp)
     {
-		var numOb = 1;
+		var numOb = 2;
 		int.TryParse(inp.text, out numOb);
+		numOb = Math.Max(2, numOb);
 		inp.text = Math.Min(15, numOb).ToString();
     }
 
@@ -125,8 +104,10 @@ public class VariablesHolder : MonoBehaviour {
         {
             inp.text += ".00";
         }
-        else{
-            if (inp.text.Split('.')[1].Length < 2){
+        else
+		{
+            if (inp.text.Split('.')[1].Length < 2)
+			{
                 inp.text += "0";
             }
         }
@@ -168,12 +149,12 @@ public class VariablesHolder : MonoBehaviour {
 	void SliderValueChanged(Slider slid)
 	{
 		Debug.Log(slid.value.ToString());
-		AudioVolumeField.GetComponent<TMP_InputField>().text = slid.value.ToString();
+		AudioVolumeField.GetComponent<TMP_InputField>().text = slid.value.ToString("f1");
 	}
 	void SliderFieldValueChanged(TMP_InputField inp)
 	{
 		Debug.Log(inp.text);
-		var val =  Math.Min(1, float.Parse(inp.text));
+		var val =  Math.Min(100, float.Parse(inp.text));
 		val =  Math.Max(0, float.Parse(inp.text));
 		inp.text = val.ToString();
 		AudioVolume.GetComponent<Slider>().value = val;
@@ -188,7 +169,7 @@ public class VariablesHolder : MonoBehaviour {
     {
         useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
         useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
-        //audioVolume = AudioVolume.GetComponent<Slider>().value;
+        audioVolume = AudioVolume.GetComponent<Slider>().value;
         AudioListener.volume = audioVolume/100;
         Debug.Log("Use Visual: " + useVisual);
         Debug.Log("Use Audio: " + useAudio);
@@ -233,8 +214,6 @@ public class VariablesHolder : MonoBehaviour {
 		}
         Debug.Log("Speed: " + speed);
         // Update "sequence"
-		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
-		var DropdownsNBack = new[] { DropdownNBack1, DropdownNBack2, DropdownNBack3, DropdownNBack4, DropdownNBack5, DropdownNBack6, DropdownNBack7, DropdownNBack8, DropdownNBack9, DropdownNBack10, DropdownNBack11, DropdownNBack12 };
 		sequence = new List<string>();
 		sequenceNBack = new List<int>();
 
@@ -316,8 +295,6 @@ public class VariablesHolder : MonoBehaviour {
 				// Load the "sequence" and "sequence N"
 				string[] seq = parameters[3].Split(':')[1].Split(',');
 				string[] seqNBack = parameters[4].Split(':')[1].Split(',');
-				var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
-				var DropdownsNBack = new[] { DropdownNBack1, DropdownNBack2, DropdownNBack3, DropdownNBack4, DropdownNBack5, DropdownNBack6, DropdownNBack7, DropdownNBack8, DropdownNBack9, DropdownNBack10, DropdownNBack11, DropdownNBack12 };
 				for (int i = 0; i < seq.Length; i++) {
 					Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
 					DropdownsNBack[i].value = DropdownsNBack[i].options.FindIndex(option => option.text == seqNBack[i]);
@@ -387,9 +364,6 @@ public class VariablesHolder : MonoBehaviour {
 				errorText.GetComponent<Text>().text = "Error: The fixed sequence file is not valid. Read the instruction manual for more information.";
 				errorText.SetActive(true);
 			}
-
-
-
         }
         else
 		{
@@ -397,10 +371,6 @@ public class VariablesHolder : MonoBehaviour {
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
 		}
-
-
-
-
     }
 
 public bool CheckValidFileFixed(string fixedFile)
@@ -414,7 +384,6 @@ public bool CheckValidFileFixed(string fixedFile)
             int numberOfElements = Convert.ToInt32(firstRowcols[1]);
             int numberOfTutorial = Convert.ToInt32(firstRowcols[3]);
             int numberOfLevel = lines.Length - numberOfTutorial;
-
 
             //Debug.Log(numberOfElements);
             //inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
@@ -441,9 +410,7 @@ public bool CheckValidFileFixed(string fixedFile)
         }
         catch
         {
-
             success = false;
-            Debug.Log("merde");
         }
         return success;
     }

@@ -20,6 +20,7 @@ public class ChangeVolume : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        AudioVolumeField.GetComponent<TMP_InputField>().text = VariablesHolder.audioVolume.ToString("f1");
         AudioVolume.GetComponent<Slider>().value = VariablesHolder.audioVolume;
         AudioVolume.GetComponent<Slider>().onValueChanged.AddListener(delegate
         {
@@ -40,7 +41,7 @@ public class ChangeVolume : MonoBehaviour
     void SliderValueChanged(Slider slid)
     {
         Debug.Log(slid.value.ToString());
-        AudioVolumeField.GetComponent<TMP_InputField>().text = slid.value.ToString();
+        AudioVolumeField.GetComponent<TMP_InputField>().text = slid.value.ToString("f1");
     }
     void SliderFieldValueChanged(TMP_InputField inp)
     {

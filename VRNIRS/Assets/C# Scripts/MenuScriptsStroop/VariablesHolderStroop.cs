@@ -24,30 +24,8 @@ public class VariablesHolderStroop : MonoBehaviour
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
 	public GameObject inputNumberTrials;
-	public Dropdown Dropdown1;
-	public Dropdown Dropdown2;
-	public Dropdown Dropdown3;
-	public Dropdown Dropdown4;
-	public Dropdown Dropdown5;
-	public Dropdown Dropdown6;
-	public Dropdown Dropdown7;
-	public Dropdown Dropdown8;
-	public Dropdown Dropdown9;
-	public Dropdown Dropdown10;
-	public Dropdown Dropdown11;
-	public Dropdown Dropdown12;
-	public Dropdown DropdownLevel1;
-	public Dropdown DropdownLevel2;
-	public Dropdown DropdownLevel3;
-	public Dropdown DropdownLevel4;
-	public Dropdown DropdownLevel5;
-	public Dropdown DropdownLevel6;
-	public Dropdown DropdownLevel7;
-	public Dropdown DropdownLevel8;
-	public Dropdown DropdownLevel9;
-	public Dropdown DropdownLevel10;
-	public Dropdown DropdownLevel11;
-	public Dropdown DropdownLevel12;
+	public Dropdown[] Dropdowns;
+	public Dropdown[] DropdownsLevel;
 	public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
 	public GameObject ToggleMeta;
@@ -124,8 +102,6 @@ public class VariablesHolderStroop : MonoBehaviour
 		}
 		Debug.Log("Number of trials: " + numberTrials);
 		// Update "sequence"
-		var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
-		var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
 		sequence = new List<string>();
 		sequenceLevels = new List<int>();
 
@@ -160,7 +136,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
-        Response.TriggerArduino("C");
+        //Response.TriggerArduino("C");
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
         if ((fileName.Contains("/")))
@@ -220,15 +196,15 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public void LoadParameters()
 	{
-		// Open the file explorer (to select the file)
-		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
-		// Read the file
-		if (path.Length > 0)
+		try
 		{
+			// Open the file explorer (to select the file)
+			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+			// Read the file
 			var possibleParameters = File.ReadAllText(path[0]);
 			if (CheckValidFileParameters(possibleParameters))
 			{
-				errorText.SetActive(false);
+				
 				// Read all the parameters
 				string[] parameters = possibleParameters.Split('\n');
 				// Load the "time (one trial)"
@@ -240,21 +216,21 @@ public class VariablesHolderStroop : MonoBehaviour
 				// Load the "sequence" and "sequence levels"
 				string[] seq = parameters[3].Split(':')[1].Split(',');
 				string[] seqLevels = parameters[4].Split(':')[1].Split(',');
-				var Dropdowns = new[] { Dropdown1, Dropdown2, Dropdown3, Dropdown4, Dropdown5, Dropdown6, Dropdown7, Dropdown8, Dropdown9, Dropdown10, Dropdown11, Dropdown12 };
-				var DropdownsLevel = new[] { DropdownLevel1, DropdownLevel2, DropdownLevel3, DropdownLevel4, DropdownLevel5, DropdownLevel6, DropdownLevel7, DropdownLevel8, DropdownLevel9, DropdownLevel10, DropdownLevel11, DropdownLevel12 };
 				for (int i = 0; i < seq.Length; i++) {
 					Dropdowns[i].value = Dropdowns[i].options.FindIndex(option => option.text == seq[i]);
 					DropdownsLevel[i].value = DropdownsLevel[i].options.FindIndex(option => option.text == seqLevels[i]);
 				}
 				// Load the "game mode"
-				if (parameters[5].Split(':')[1] == "Random"){
+				if (parameters[5].Split(':')[1] == "Random")
+				{
 					ButtonRandom.GetComponent<Toggle>().isOn = true;
 				}
 				else
 				{
 					ButtonRandom.GetComponent<Toggle>().isOn = false;
 				}
-				if (parameters[6].Split(':')[1] == "True"){
+				if (parameters[6].Split(':')[1] == "True")
+				{
 					ToggleMeta.GetComponent<Toggle>().isOn = true;
 				}
 				else
@@ -268,7 +244,7 @@ public class VariablesHolderStroop : MonoBehaviour
 				errorText.SetActive(true);
 			}
         }
-		else
+		catch
 		{
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
@@ -277,10 +253,10 @@ public class VariablesHolderStroop : MonoBehaviour
 
 	public void SelectFixedFile()
 	{
-		var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
-		Debug.Log("Fixed file: " + path);
-		if (path.Length > 0)
+		try
 		{
+			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false)[0];
+			Debug.Log("Fixed file: " + path);
 			var possibleFixedFile = File.ReadAllText(path);
 			if (CheckValidFileFixed(possibleFixedFile))
 			{
@@ -295,7 +271,7 @@ public class VariablesHolderStroop : MonoBehaviour
 				errorText.SetActive(true);
 			}
 		}
-		else
+		catch
 		{
 			checkFixed.SetActive(false);
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";

@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI gameObjectList;
     public TextMeshProUGUI gameObjectListTitle;
 
+    public GameObject[] levelSelecters;
     public TextMeshProUGUI[] levelTextSelecters;
 
     public TextMeshProUGUI listOfResultsWanted;
@@ -339,6 +340,7 @@ public class PauseMenu : MonoBehaviour
                 }
             }
             percentage = (int)(((float)percentage / (float)(VariablesHolder.numberOfObjects - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel])) * 100);
+            levelSelecters[TimeSpawner.currentLevel].gameObject.SetActive(true);
             levelTextSelecters[TimeSpawner.currentLevel].text = TimeSpawner.levelNames[TimeSpawner.currentLevel]
                 + ": " + percentage + "%";
 
@@ -531,14 +533,8 @@ public class PauseMenu : MonoBehaviour
 
         for (int nLevelResults = 0; nLevelResults < VariablesHolder.numberOfObjects; nLevelResults++)
         {
-            allLevelResults[nLevelResults] = "";
-            
-        }
-        
+            allLevelResults[nLevelResults] = "";   
+        }  
         SaveCondition = true;
     }
-   
-
-
-
 }

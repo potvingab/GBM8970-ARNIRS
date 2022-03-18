@@ -12,16 +12,23 @@ using System.IO.Ports;
 
 public class Response : Interaction
 {
+    public static Response Instance;
 	// Parameter from the menu scene
 	public static string fileName = VariablesHolderStroop.fileName; 
     public static SerialPort serialPort = new SerialPort(VariablesHolderStroop.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
     // New variables
     public GameObject selectedAnswersShown; // List of selected answers shown in the searcher's view
     public GameObject cube; // Button selected by the participant (RED, BLUE or GREEN)
+    public GameObject errorText;
     public string color; // Color of the button (RED, BLUE or GREEN)
     // New variables for HandTracking
     private HandFeature _handFeature; // Follow the hand during a grab
     private GameObject _selectedGameObject;
+
+    void Start()
+    {
+        Instance = this;
+    }
 
     protected override void Engage() // When it's in the zone, hand close
     {
@@ -50,10 +57,21 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //if (!serialPort.IsOpen)
-        //    serialPort.Open();
-        //serialPort.WriteLine(line);
-        //ARCheckpoint("Trigger sent");
+        // try
+        // {
+        //     if (!serialPort.IsOpen)
+        //     {
+        //         serialPort.Open();
+        //     }
+        //     serialPort.WriteLine(line);
+        //     ARCheckpoint("Trigger sent");
+        //     Instance.errorText.SetActive(false);
+        // }
+        // catch
+        // {
+        //     Instance.errorText.GetComponent<Text>().text = "Error: The Arduino seems to be disconnected.";
+        //     Instance.errorText.SetActive(true);
+        // } 
     }
     
     public static void CreateCheckpoint(string nom)
@@ -114,6 +132,7 @@ public class Response : Interaction
             case 0:
                 Difficulty.Instance.BaseLine();
                 break;
+                
             case 1:
                 Difficulty.Instance.backgroundColor();
                 break;

@@ -110,12 +110,14 @@ public class TimeSpawner : MonoBehaviour {
                 i--;
             }
         }
+        UnityEngine.Debug.Log(spawneeWanted);
         return spawneeWanted;
     }
 
     public int[] LevelGenerator(string name)
     {
-        //number of ob tuto!!!
+
+        UnityEngine.Debug.Log(name);
         int[] sequence = new int[VariablesHolder.numberOfObjects];
         
         switch (name)
@@ -124,12 +126,13 @@ public class TimeSpawner : MonoBehaviour {
                 for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
                 {
                     sequence[i] = 9;
-                    lineToRead --;
+                    lineToRead = lineToRead - 1;
 
 
                 }
                 break;
             default:
+                UnityEngine.Debug.Log(VariablesHolder.gameMode);
                 if (VariablesHolder.gameMode == "Random")
                 {
                     sequence = ArrayMaker();
@@ -153,11 +156,21 @@ public class TimeSpawner : MonoBehaviour {
 
     public void TutorialsGenerator()
     {
-        for (int ntuto = 1; ntuto <= VariablesHolder.nMaxTutorial; ntuto++)
+        for (int ntuto = 0; ntuto < VariablesHolder.nMaxTutorial; ntuto++)
         {
-            
-            allArrayInt[ntuto - 1] = ReadFile(ntuto, "FixedSequenceNBack");
-            levelNames[ntuto - 1] = "Tutorial " + (ntuto);
+            string nameOfFile;
+            if (VariablesHolder.fixedFile.Contains("Empty"))
+            {
+                nameOfFile ="FixedSequenceNBack";
+            }
+            else
+            {
+                nameOfFile = VariablesHolder.fixedFile;
+            }
+
+            allArrayInt[ntuto] = ReadFile(ntuto+1, nameOfFile);
+            levelNames[ntuto] = "Tutorial " + (ntuto+1);
+            UnityEngine.Debug.Log("n tuto: " + ntuto);
         }
         return;
     }
@@ -181,7 +194,7 @@ public class TimeSpawner : MonoBehaviour {
             string[] InfoLine = allInfo.Split('\n');
 
             //Read the first line
-            SequenceFromFile = InfoLine[0].Split(';');
+            //SequenceFromFile = InfoLine[0].Split(';');
             //int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
             //VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
 
@@ -288,16 +301,21 @@ public class TimeSpawner : MonoBehaviour {
 
         TutorialsGenerator();
 
-        for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
+        for (int nLevel = VariablesHolder.nMaxTutorial; nLevel < VariablesHolder.sizeOfArray; ++nLevel)
         {
-            // nLevel+1 correspond au niveau a lire
-            lineToRead = nLevel + VariablesHolder.nMaxTutorial;
-            UnityEngine.Debug.Log("index:" + lineToRead);
+            
+            // lineToRead est une variable globale
+            lineToRead = nLevel;
+            //UnityEngine.Debug.Log("index:" + lineToRead);
 
-            allArrayInt[lineToRead-1] = LevelGenerator(VariablesHolder.sequence[nLevel]);
+            allArrayInt[nLevel] = LevelGenerator(VariablesHolder.sequence[nLevel]);
+            levelNames[nLevel] =  "Level " + (nLevel - VariablesHolder.nMaxTutorial + 1);
 
-            levelNames[lineToRead-1] =  "Level" + (nLevel + 1);
+            //UnityEngine.Debug.Log(levelNames[nLevel]);
+            //UnityEngine.Debug.Log(allArrayInt[nLevel]);
         }
+        //UnityEngine.Debug.Log("ici");
+    
     }
 
 

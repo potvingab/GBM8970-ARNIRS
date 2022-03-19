@@ -104,9 +104,9 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         currentLevelString = "--";
-        UnityEngine.Debug.Log("CurrentLevelObject" + currentLevelObjects.Length);
-        UnityEngine.Debug.Log(TimeSpawner.allArrayInt.Length);
-        UnityEngine.Debug.Log(TimeSpawner.currentLevel);
+        //UnityEngine.Debug.Log("CurrentLevelObject" + currentLevelObjects.Length);
+        //UnityEngine.Debug.Log(TimeSpawner.allArrayInt.Length);
+        //UnityEngine.Debug.Log(TimeSpawner.currentLevel);
 
 
         currentLevelObjects = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
@@ -442,7 +442,7 @@ public class PauseMenu : MonoBehaviour
     public void SkipTutorials()
     {
         //ATTENTION
-        TimeSpawner.currentLevel = VariablesHolder.nMaxTutorial;
+        TimeSpawner.currentLevel = VariablesHolder.numberOfTutorial;
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
        
@@ -475,11 +475,11 @@ public class PauseMenu : MonoBehaviour
             endScreen.SetActive(true);
         }
         *///ATTENTION!!number of level max!!
-        if (TimeSpawner.currentLevel < VariablesHolder.nMaxTutorial)
+        if (TimeSpawner.currentLevel < VariablesHolder.numberOfTutorial)
         {
             endScreen.SetActive(true);
         }
-        else if (TimeSpawner.currentLevel > VariablesHolder.nMaxTutorial)
+        else if (TimeSpawner.currentLevel > VariablesHolder.numberOfTutorial)
         {
             endScreenLevel.SetActive(true);
         }

@@ -76,7 +76,7 @@ public class TimeSpawner : MonoBehaviour {
     public static GameObject[][] allArray;
 
     public static string[] levelNames;
-    public int line;
+    public int lineToRead;
     public static string[] SequenceFromFile;
     
     
@@ -113,7 +113,7 @@ public class TimeSpawner : MonoBehaviour {
         return spawneeWanted;
     }
 
-    public int[] LevelGenerator(string name, int line)
+    public int[] LevelGenerator(string name)
     {
         //number of ob tuto!!!
         int[] sequence = new int[VariablesHolder.numberOfObjects];
@@ -124,6 +124,9 @@ public class TimeSpawner : MonoBehaviour {
                 for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
                 {
                     sequence[i] = 9;
+                    lineToRead --;
+
+
                 }
                 break;
             default:
@@ -135,11 +138,11 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     if (VariablesHolder.fixedFile.Contains("Empty"))
                     {
-                        sequence = ReadFile(line, "FixedSequenceNBack");
+                        sequence = ReadFile(lineToRead, "FixedSequenceNBack");
                     }
                     else
                     {
-                        sequence = ReadFile(line, VariablesHolder.fixedFile);
+                        sequence = ReadFile(lineToRead, VariablesHolder.fixedFile);
                     }
                 }
                 break;
@@ -207,7 +210,7 @@ public class TimeSpawner : MonoBehaviour {
         }
         catch
         {
-            
+            //FAIL!!
             int[] sequence = new int[0];
             return sequence;
 
@@ -288,27 +291,12 @@ public class TimeSpawner : MonoBehaviour {
         for (int nLevel = 0; nLevel < VariablesHolder.numberTrials; ++nLevel)
         {
             // nLevel+1 correspond au niveau a lire
-            int index = nLevel + VariablesHolder.nMaxTutorial;
-            UnityEngine.Debug.Log("index:" + index);
+            lineToRead = nLevel + VariablesHolder.nMaxTutorial;
+            UnityEngine.Debug.Log("index:" + lineToRead);
 
-            allArrayInt[index] = LevelGenerator(VariablesHolder.sequence[nLevel], index+1);
+            allArrayInt[lineToRead-1] = LevelGenerator(VariablesHolder.sequence[nLevel]);
 
-            //string title = "";
-            /*if (VariablesHolder.sequence[nLevel].Contains("Dual"))
-            {
-                title = "Dual Task";
-            }
-            else if (VariablesHolder.sequence[nLevel].Contains("Walk"))
-            {
-                title = "Single Task (Walk)";
-            }
-            else
-            {
-                title = "Single Task (N-Back)";
-            }*/
-            //Ajouter saut de ligne??
-            levelNames[index] =  "Level" + (nLevel + 1);
-         
+            levelNames[lineToRead-1] =  "Level" + (nLevel + 1);
         }
     }
 

@@ -1,0 +1,9 @@
+Number of item;3;Number of tutorial;4
+Tutorial1;3;8;8;END
+Tutorial2;1;7;4;END
+Tutorial3;4;2;5;END
+Tutorial4;7;1;1;END
+Level1;0;2;1;END
+Level2;2;0;4;END
+Level3;7;6;3;END
+Level4;2;0;4;END

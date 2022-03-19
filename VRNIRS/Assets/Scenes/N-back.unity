@@ -883,7 +883,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 149.99997}
-  m_SizeDelta: {x: 500, y: 130}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &68250155
 MonoBehaviour:
@@ -2194,7 +2194,7 @@ MonoBehaviour:
   stopSpawning: 0
   spawnTime: 2
   spawnDelay: 5
-  line: 0
+  lineToRead: 0
 --- !u!1 &274308235
 GameObject:
   m_ObjectHideFlags: 0

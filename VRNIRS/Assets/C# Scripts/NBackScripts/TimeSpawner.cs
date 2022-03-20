@@ -127,8 +127,6 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     sequence[i] = 9;
                     lineToRead = lineToRead - 1;
-
-
                 }
                 break;
             default:
@@ -158,6 +156,7 @@ public class TimeSpawner : MonoBehaviour {
     {
         for (int ntuto = 0; ntuto < VariablesHolder.numberOfTutorial; ntuto++)
         {
+            UnityEngine.Debug.Log("n tuto tot: " + VariablesHolder.numberOfTutorial);
             string nameOfFile;
             if (VariablesHolder.fixedFile.Contains("Empty"))
             {
@@ -167,7 +166,7 @@ public class TimeSpawner : MonoBehaviour {
             {
                 nameOfFile = VariablesHolder.fixedFile;
             }
-
+            UnityEngine.Debug.Log("sizeofarray: " + allArrayInt.Length);
             allArrayInt[ntuto] = ReadFile(ntuto+1, nameOfFile);
             levelNames[ntuto] = "Tutorial " + (ntuto+1);
             UnityEngine.Debug.Log("n tuto: " + ntuto);
@@ -300,13 +299,13 @@ public class TimeSpawner : MonoBehaviour {
         levelNames = new string[VariablesHolder.sizeOfArray];
 
         TutorialsGenerator();
-
+        lineToRead = VariablesHolder.numberOfTutorial;
         for (int nLevel = VariablesHolder.numberOfTutorial; nLevel < VariablesHolder.sizeOfArray; ++nLevel)
         {
-            
+
             // lineToRead est une variable globale
-            lineToRead = nLevel;
-            //UnityEngine.Debug.Log("index:" + lineToRead);
+            lineToRead++;
+            UnityEngine.Debug.Log("index:" + lineToRead);
 
             allArrayInt[nLevel] = LevelGenerator(VariablesHolder.sequence[nLevel]);
             levelNames[nLevel] =  "Level " + (nLevel - VariablesHolder.numberOfTutorial + 1);
@@ -398,7 +397,7 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     
                     spawneeWanted = allArrayInt[currentLevel];
-                    if (levelNames[currentLevel].Contains("Walk"))
+                    if (VariablesHolder.sequence[currentLevel].Contains("Single Task (Walk)"))
                     {
                         spawneeObject = EmptyObject;
                         int side = UnityEngine.Random.Range(0, 2);
@@ -419,22 +418,22 @@ public class TimeSpawner : MonoBehaviour {
                     }
                     else
                     {
-                        UnityEngine.Debug.Log(spawneeWanted[order]);
+                        
                         //bool tree = false;
                         //bool house = false;
                         // je ne comprends pas le truc avec tree et house
                         //if (VariablesHolder.realistCheck)
                         //{
-                            // if (spawneesReal[spawneeWanted[order]].name == "House")
-                            // {
-                            //     house = true;
-                            // }
-                            // if (spawneesReal[spawneeWanted[order]].name == "Tree")
-                            // {
-                            //     tree = true;
-                            // }
-
-                            spawneeObject = spawneesNormal[spawneeWanted[order]];
+                        // if (spawneesReal[spawneeWanted[order]].name == "House")
+                        // {
+                        //     house = true;
+                        // }
+                        // if (spawneesReal[spawneeWanted[order]].name == "Tree")
+                        // {
+                        //     tree = true;
+                        // }
+                        
+                        spawneeObject = spawneesNormal[spawneeWanted[order]];
                         // }
                         // else
                         // {

@@ -194,6 +194,7 @@ public class VariablesHolder : MonoBehaviour {
     {
         try
         {
+            string allFile = "EmptyForNow";
             useVisual = ToggleVisual.GetComponent<Toggle>().isOn;
             useAudio = ToggleAudio.GetComponent<Toggle>().isOn;
             audioVolume = AudioVolume.GetComponent<Slider>().value;
@@ -214,15 +215,7 @@ public class VariablesHolder : MonoBehaviour {
 
 
             //Debug.Log("Chosen Objects: " + String.Join(", ", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()));
-            int numberOfSingleWalk = 0;
-            for (int i = 0; i < numberTrials; i++)
-            {
-                if (sequence.Contains("Single"))
-                {
-                    numberOfSingleWalk++;
-                    Debug.Log(numberOfSingleWalk);
-                }
-            }
+
 
             // Update "game mode"
             if (ButtonRandom.GetComponent<Toggle>().isOn == true)
@@ -232,7 +225,7 @@ public class VariablesHolder : MonoBehaviour {
             }
             else
             {
-                string allFile;
+                
                 gameMode = "Fixed";
 
 
@@ -248,15 +241,14 @@ public class VariablesHolder : MonoBehaviour {
                 }
                 numberOfTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
 
-                Debug.Log("NTUTORIALFILE: " + numberOfTutorial);
-                if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial-1)
-                {
-                        throw new Exception();
-                }
+                
             }
             Debug.Log("Game mode: " + gameMode);
 
+
             Debug.Log("Number trials: " + numberTrials);
+            Debug.Log("Number trials: " + numberOfTutorial);
+            Debug.Log("Number trials: " + sizeOfArray);
             sizeOfArray = numberTrials + numberOfTutorial;
             // Update "number objects (one trial)"
             int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
@@ -279,22 +271,55 @@ public class VariablesHolder : MonoBehaviour {
             sequence = new List<string>();
             sequenceNBack = new List<int>();
 
+            int j = 0;
+            while (int.Parse(DropdownsNBack[j].options[DropdownsNBack[j].value].text) == 0 && j < numberTrials)
+            {
+                j++;
+            }
+
             for (int i = 0; i < numberOfTutorial; i++)
             {
-                sequenceNBack.Add(int.Parse(DropdownsNBack[0].options[DropdownsNBack[0].value].text));
+                sequenceNBack.Add(int.Parse(DropdownsNBack[j].options[DropdownsNBack[j].value].text));
                 sequence.Add("tutorial");
                 Debug.Log(sequence[i]);
                 Debug.Log(sequenceNBack[i]);
             }
-            for (int i = numberOfTutorial; i < sizeOfArray; i++)
+            for (int i = 0; i < numberTrials; i++)
             {
                 sequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
                 sequenceNBack.Add(int.Parse(DropdownsNBack[i].options[DropdownsNBack[i].value].text));
-                Debug.Log(sequence[i]);
-                Debug.Log(sequenceNBack[i]);
+                Debug.Log("sEQUENCE nBACK:" + int.Parse(DropdownsNBack[i].options[DropdownsNBack[i].value].text));
+                Debug.Log(sequenceNBack[i+numberOfTutorial]);
             }
             //Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
             Debug.Log("Sequence N-Back: ");
+
+
+
+            int numberOfSingleWalk = 0;
+            Debug.Log("NumberOftrial: " + numberTrials);
+            for (int i = 0; i < sizeOfArray; i++)
+            {
+                Debug.Log("lA  " + sequence[i]);
+                if (sequence[i].Contains("Single Task (Walk)"))
+                {
+                    numberOfSingleWalk++;
+                    Debug.Log("ici " + numberOfSingleWalk);
+                }
+            }
+            if (gameMode == "Fixed")
+            {
+                Debug.Log("NTUTORIALFILE: " + (numberTrials - numberOfSingleWalk));
+                Debug.Log("Number trials: " + (allFile.Split('\n').Length - numberOfTutorial - 1));
+                //Debug.Log("Number trials: " + allFile.Split('\n').Length);
+                //Debug.Log("Number trials: " + numberOfTutorial);
+                if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
+                {
+                    Debug.Log("merde");
+
+                    throw new Exception();
+                }
+            }
 
         }
         catch

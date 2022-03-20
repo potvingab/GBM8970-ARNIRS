@@ -8,11 +8,14 @@ public class PlayInstruction : MonoBehaviour {
 
     public void DisplayIntruction()
     {
-      
-        if(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 1)
-            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you just saw \n or press the button in your LEFT hand if it is NOT. \n \n Are you ready?";
-        if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 2)
+        Debug.Log(VariablesHolder.sequence[TimeSpawner.currentLevel + 1]);
+        if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel+1] == 2)
             textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you saw 2 objects before \n or press the button in your left hand if it is NOT. \n \n Are you ready?";
+        else if (VariablesHolder.sequence[TimeSpawner.currentLevel+1].Contains("Single Task (Walk)"))
+            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Just keep walking \n \n Are you ready?";
+        //else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel + 1] == 1)
+        else
+            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you just saw \n or press the button in your LEFT hand if it is NOT. \n \n Are you ready?";
 
         textInstruction.SetActive(true);
 

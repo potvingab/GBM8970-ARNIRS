@@ -25,7 +25,7 @@ public class VariablesHolder : MonoBehaviour {
 	public static List<int> sequenceNBack = new List<int>(); // N of each N-back
     public static int numberTrials;
     public static string fixedFile = "Empty";
-    public static int nMaxTutorial;
+    public static int numberOfTutorial;
     public static int sizeOfArray;
    // public static string[] lines = fixedFile.Split('\n');
 
@@ -136,7 +136,7 @@ public class VariablesHolder : MonoBehaviour {
                 }
                 numberOfObjects = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[1]);
                 inputNumObjects.GetComponent<TMP_InputField>().text = (allFile).Split('\n')[0].Split(';')[1];
-                //nMaxTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
+                //numberOfTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
                 numberTrialFile = allFile.Split('\n').Length - Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3])-1;
                 
                 Debug.Log("ntuto:" + Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]));
@@ -228,7 +228,7 @@ public class VariablesHolder : MonoBehaviour {
             if (ButtonRandom.GetComponent<Toggle>().isOn == true)
             {
                 gameMode = "Random";
-                nMaxTutorial = 7; //Default value
+                numberOfTutorial = 7; //Default value
             }
             else
             {
@@ -246,10 +246,10 @@ public class VariablesHolder : MonoBehaviour {
                 {
                     allFile = fixedFile;
                 }
-                nMaxTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
+                numberOfTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
 
-                Debug.Log("NTUTORIALFILE: " + nMaxTutorial);
-                if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - nMaxTutorial-1)
+                Debug.Log("NTUTORIALFILE: " + numberOfTutorial);
+                if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial-1)
                 {
                         throw new Exception();
                 }
@@ -257,7 +257,7 @@ public class VariablesHolder : MonoBehaviour {
             Debug.Log("Game mode: " + gameMode);
 
             Debug.Log("Number trials: " + numberTrials);
-            sizeOfArray = numberTrials + nMaxTutorial;
+            sizeOfArray = numberTrials + numberOfTutorial;
             // Update "number objects (one trial)"
             int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
 
@@ -279,14 +279,14 @@ public class VariablesHolder : MonoBehaviour {
             sequence = new List<string>();
             sequenceNBack = new List<int>();
 
-            for (int i = 0; i < nMaxTutorial; i++)
+            for (int i = 0; i < numberOfTutorial; i++)
             {
                 sequenceNBack.Add(int.Parse(DropdownsNBack[0].options[DropdownsNBack[0].value].text));
                 sequence.Add("tutorial");
                 Debug.Log(sequence[i]);
                 Debug.Log(sequenceNBack[i]);
             }
-            for (int i = nMaxTutorial; i < sizeOfArray; i++)
+            for (int i = numberOfTutorial; i < sizeOfArray; i++)
             {
                 sequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
                 sequenceNBack.Add(int.Parse(DropdownsNBack[i].options[DropdownsNBack[i].value].text));
@@ -458,8 +458,8 @@ public bool CheckValidFileFixed(string fixedFile)
             string[] firstRowcols = fixedFile.Split('\n')[0].Split(';');
                        
             int numberOfElements = Convert.ToInt32(firstRowcols[1]);
-            int numberofTutorial = Convert.ToInt32(firstRowcols[3]);
-            int numberOfLevel = lines.Length - numberofTutorial;
+            int numberofTutorialFile = Convert.ToInt32(firstRowcols[3]);
+            int numberOfLevel = lines.Length - numberofTutorialFile;
 
             //Debug.Log(numberOfElements);
             //inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
@@ -472,11 +472,11 @@ public bool CheckValidFileFixed(string fixedFile)
                 if (col[1].Contains("walk") == false && (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false))
                 {
                     
-                    if (line < numberofTutorial && (col[0].Contains(line.ToString()) == false || col[0].Contains("Tutorial") == false || col.All(c => "Tutorial1234567890;END\n".Contains(c))))
+                    if (line < numberofTutorialFile && (col[0].Contains(line.ToString()) == false || col[0].Contains("Tutorial") == false || col.All(c => "Tutorial1234567890;END\n".Contains(c))))
                     {
                         success = false;
                     }
-                    else if (col[0].Contains((line + numberofTutorial).ToString()) == false || col[0].Contains("Level") == false || col.All(c => "Level1234567890;END\n".Contains(c)))
+                    else if (col[0].Contains((line + numberofTutorialFile).ToString()) == false || col[0].Contains("Level") == false || col.All(c => "Level1234567890;END\n".Contains(c)))
                     {
                         success = false;
                     }

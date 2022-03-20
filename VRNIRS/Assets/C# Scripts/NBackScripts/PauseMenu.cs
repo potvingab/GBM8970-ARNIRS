@@ -42,6 +42,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject endScreen;
     public GameObject endScreenLevel;
     public GameObject endScreenFinal;
+    public GameObject textInstruction;
 
     
 
@@ -419,9 +420,14 @@ public class PauseMenu : MonoBehaviour
         SaveCondition = true;
     }
 
-    public void NextLevel()
+    public void NextLevelIncrement()
     {
         TimeSpawner.currentLevel += 1;
+    }
+
+    public void NextLevel()
+    {
+        
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
         //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
@@ -439,10 +445,18 @@ public class PauseMenu : MonoBehaviour
         SaveCondition = true;
     }
 
+
+    public void SkipTutorialIncrement()
+    {
+        TimeSpawner.currentLevel = VariablesHolder.numberOfTutorial;
+        UnityEngine.Debug.Log(TimeSpawner.currentLevel);
+    }
+
+
     public void SkipTutorials()
     {
         //ATTENTION
-        TimeSpawner.currentLevel = VariablesHolder.numberOfTutorial;
+        
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
        
@@ -537,4 +551,22 @@ public class PauseMenu : MonoBehaviour
         }  
         SaveCondition = true;
     }
+
+
+    public void DisplayIntruction()
+    {
+        UnityEngine.Debug.Log(VariablesHolder.sequence[TimeSpawner.currentLevel]);
+        if (VariablesHolder.sequence[TimeSpawner.currentLevel].Contains("Single Task (Walk)"))
+            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Just keep walking \n \n Are you ready?";
+        else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 2)
+            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you saw 2 objects before \n or press the button in your left hand if it is NOT. \n \n Are you ready?";
+
+        else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel + 1] == 1)
+            //else
+            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you just saw \n or press the button in your LEFT hand if it is NOT. \n \n Are you ready?";
+
+        textInstruction.SetActive(true);
+
+    }
+
 }

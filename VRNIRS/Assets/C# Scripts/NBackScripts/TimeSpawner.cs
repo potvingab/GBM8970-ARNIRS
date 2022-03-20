@@ -156,7 +156,7 @@ public class TimeSpawner : MonoBehaviour {
 
     public void TutorialsGenerator()
     {
-        for (int ntuto = 0; ntuto < VariablesHolder.nMaxTutorial; ntuto++)
+        for (int ntuto = 0; ntuto < VariablesHolder.numberOfTutorial; ntuto++)
         {
             string nameOfFile;
             if (VariablesHolder.fixedFile.Contains("Empty"))
@@ -301,7 +301,7 @@ public class TimeSpawner : MonoBehaviour {
 
         TutorialsGenerator();
 
-        for (int nLevel = VariablesHolder.nMaxTutorial; nLevel < VariablesHolder.sizeOfArray; ++nLevel)
+        for (int nLevel = VariablesHolder.numberOfTutorial; nLevel < VariablesHolder.sizeOfArray; ++nLevel)
         {
             
             // lineToRead est une variable globale
@@ -309,7 +309,7 @@ public class TimeSpawner : MonoBehaviour {
             //UnityEngine.Debug.Log("index:" + lineToRead);
 
             allArrayInt[nLevel] = LevelGenerator(VariablesHolder.sequence[nLevel]);
-            levelNames[nLevel] =  "Level " + (nLevel - VariablesHolder.nMaxTutorial + 1);
+            levelNames[nLevel] =  "Level " + (nLevel - VariablesHolder.numberOfTutorial + 1);
 
             //UnityEngine.Debug.Log(levelNames[nLevel]);
             //UnityEngine.Debug.Log(allArrayInt[nLevel]);

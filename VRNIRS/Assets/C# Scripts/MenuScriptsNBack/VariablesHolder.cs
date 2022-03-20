@@ -271,16 +271,17 @@ public class VariablesHolder : MonoBehaviour {
             sequence = new List<string>();
             sequenceNBack = new List<int>();
 
+
+           
+
             int j = 0;
-            while (int.Parse(DropdownsNBack[j].options[DropdownsNBack[j].value].text) == 0 && j < numberTrials)
-            {
-                j++;
-            }
+
+            while (Dropdowns[j].options[Dropdowns[j].value].text.Contains("Single Task (Walk)") && j < numberTrials) { j++; }
 
             for (int i = 0; i < numberOfTutorial; i++)
             {
                 sequenceNBack.Add(int.Parse(DropdownsNBack[j].options[DropdownsNBack[j].value].text));
-                sequence.Add("tutorial");
+                sequence.Add("Tutorial");
                 Debug.Log(sequence[i]);
                 Debug.Log(sequenceNBack[i]);
             }

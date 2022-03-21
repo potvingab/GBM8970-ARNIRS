@@ -51,6 +51,12 @@ public class Questions : MonoBehaviour
     public GameObject endGameTimes;
     public GameObject[] scrollCorrect;
     public GameObject[] scrollSelected;
+    public GameObject errorTextInstruc;
+	public GameObject errorTextGame;
+	public GameObject errorButtonInstruc;
+	public GameObject errorButtonGame;
+	public GameObject errorBgInstruc;
+	public GameObject errorBgGame;
 
 
     // Parameters from the menu scene
@@ -156,21 +162,34 @@ public class Questions : MonoBehaviour
             {
                 // If custom "fixed colors file"
                 string all_Info;
-                if (VariablesHolderStroop.fixedFile.Contains("Empty"))
+                try
                 {
-                    TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
-                    all_Info = txt.text;
+                    if (VariablesHolderStroop.fixedFile.Contains("Empty"))
+                    {
+                        TextAsset txt = (TextAsset)Resources.Load("fixed_sequence", typeof(TextAsset));
+                        all_Info = txt.text;
+                    }
+                    else
+                    {
+                        all_Info = VariablesHolderStroop.fixedFile;
+                    }
+                    //Debug.Log(all_Info);
+                    string[] info_Line = all_Info.Split('\n');
+                    //the starting line according to the level and read this line
+                    line = 2 * VariablesHolderStroop.sequenceLevels[currentIndexSeq] - 1;
+                    question = info_Line[line].Split(';').ToList();
                 }
-                else
+                catch
                 {
-                    all_Info = VariablesHolderStroop.fixedFile;
+                    errorTextInstruc.gameObject.SetActive(true);
+                    errorTextGame.gameObject.SetActive(true);
+                    errorButtonInstruc.gameObject.SetActive(true);
+                    errorButtonGame.gameObject.SetActive(true);
+                    errorBgInstruc.gameObject.SetActive(true);
+                    errorBgGame.gameObject.SetActive(true);
+                    errorTextGame.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
+                    errorTextInstruc.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
                 }
-                //Debug.Log(all_Info);
-                string[] info_Line = all_Info.Split('\n');
-                //the starting line according to the level and read this line
-                line = 2 * VariablesHolderStroop.sequenceLevels[currentIndexSeq] - 1;
-
-                question = info_Line[line].Split(';').ToList();
 
                 // If the fixed sequence was already seen, shuffle it
                 if (currentIndexSeq > 1)

@@ -12,23 +12,16 @@ using System.IO.Ports;
 
 public class Response : Interaction
 {
-    public static Response Instance;
 	// Parameter from the menu scene
 	public static string fileName = VariablesHolderStroop.fileName; 
     public static SerialPort serialPort = new SerialPort(VariablesHolderStroop.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
     // New variables
     public GameObject selectedAnswersShown; // List of selected answers shown in the searcher's view
     public GameObject cube; // Button selected by the participant (RED, BLUE or GREEN)
-    public GameObject errorText;
     public string color; // Color of the button (RED, BLUE or GREEN)
     // New variables for HandTracking
     private HandFeature _handFeature; // Follow the hand during a grab
     private GameObject _selectedGameObject;
-
-    void Start()
-    {
-        Instance = this;
-    }
 
     protected override void Engage() // When it's in the zone, hand close
     {
@@ -69,8 +62,14 @@ public class Response : Interaction
         // }
         // catch
         // {
-        //     Instance.errorText.GetComponent<Text>().text = "Error: The Arduino seems to be disconnected.";
-        //     Instance.errorText.SetActive(true);
+        //     Questions.Instance.errorTextInstruc.gameObject.SetActive(true);
+        //     Questions.Instance.errorTextGame.gameObject.SetActive(true);
+        //     Questions.Instance.errorButtonInstruc.gameObject.SetActive(true);
+        //     Questions.Instance.errorButtonGame.gameObject.SetActive(true);
+        //     Questions.Instance.errorBgInstruc.gameObject.SetActive(true);
+        //     Questions.Instance.errorBgGame.gameObject.SetActive(true);
+        //     Questions.Instance.errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+        //     Questions.Instance.errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
         // } 
     }
     

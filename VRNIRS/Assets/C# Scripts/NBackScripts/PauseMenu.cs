@@ -493,7 +493,7 @@ public class PauseMenu : MonoBehaviour
         {
             endScreen.SetActive(true);
         }
-        else if (TimeSpawner.currentLevel > VariablesHolder.numberOfTutorial)
+        else if (TimeSpawner.currentLevel >= VariablesHolder.numberOfTutorial)
         {
             endScreenLevel.SetActive(true);
         }

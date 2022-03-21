@@ -16,7 +16,7 @@ public class Destroyer : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(this.transform.position.z <= -10) // Original = -10, attention 9.37!
+		if(this.transform.position.z <= 9.37f-(15 * VariablesHolder.speed)) // Original = -10
         {
             Destruction();
             TimeSpawner.CreateCheckpoint("Destroy");

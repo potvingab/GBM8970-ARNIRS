@@ -320,9 +320,10 @@ public class TimeSpawner : MonoBehaviour {
 
     void Start ()
     {
-        spawnPos1.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
-        spawnPos2.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
-        spawnPos3.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
+        //spawnPos1.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
+        //spawnPos2.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
+        //spawnPos3.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
+        //Si on veut que la position de départ change selon la vitesse
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
 	}
 

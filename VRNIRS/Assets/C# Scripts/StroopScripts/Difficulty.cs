@@ -319,7 +319,7 @@ public class Difficulty : MonoBehaviour {
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.possibleColors[Questions.indexColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor];
                 
-        if (bool_Square == true)
+        if (bool_Square == false)
         {
             // Add the color as the correct answer to the list correctAnswers
             Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexColor]);

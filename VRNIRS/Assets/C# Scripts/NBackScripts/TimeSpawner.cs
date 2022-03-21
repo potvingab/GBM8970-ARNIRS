@@ -126,11 +126,12 @@ public class TimeSpawner : MonoBehaviour {
                 for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
                 {
                     sequence[i] = 9;
-                    lineToRead = lineToRead - 1;
+                   
                 }
                 break;
             default:
                 UnityEngine.Debug.Log(VariablesHolder.gameMode);
+                lineToRead++;
                 if (VariablesHolder.gameMode == "Random")
                 {
                     sequence = ArrayMaker();
@@ -304,7 +305,6 @@ public class TimeSpawner : MonoBehaviour {
         {
 
             // lineToRead est une variable globale
-            lineToRead++;
             UnityEngine.Debug.Log("index:" + lineToRead);
 
             allArrayInt[nLevel] = LevelGenerator(VariablesHolder.sequence[nLevel]);

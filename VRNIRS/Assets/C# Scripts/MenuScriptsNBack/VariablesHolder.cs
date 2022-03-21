@@ -532,9 +532,9 @@ public bool CheckValidFileFixed(string fixedFile)
 			(Convert.ToInt32(lines[2].Split(':')[1]) > 0) &&
 			(Convert.ToInt32(lines[2].Split(':')[1]) < 13) &&
 			(lines[3].Split(':')[0] == "Sequence") &&
-			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[3].Split(':')[1].Split(',').Count() == (Convert.ToInt32(lines[2].Split(':')[1]))+numberOfTutorial) &&
 			(lines[4].Split(':')[0] == "Sequence N") &&
-			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
+			(lines[4].Split(':')[1].Split(',').Count() ==( Convert.ToInt32(lines[2].Split(':')[1])) + numberOfTutorial)  &&
 			(lines[5].Split(':')[0] == "Game Mode") &&
 			((lines[5].Split(':')[1] == "Random") || (lines[5].Split(':')[1] == "Fixed")) &&
 			(lines[6].Split(':')[0] == "Speed") &&
@@ -546,7 +546,7 @@ public bool CheckValidFileFixed(string fixedFile)
 			(lines[9].Split(':')[0] == "Chosen Objects") &&
 			(lines[9].Split(':')[1].Split(',').Count() == 9) &&
 			(lines[10].Split(':')[0] == "Volume") &&
-			((float.Parse(lines[10].Split(':')[1]) >= 0) && (float.Parse(lines[10].Split(':')[1]) <= 1))
+			((float.Parse(lines[10].Split(':')[1]) >= 0) && (float.Parse(lines[10].Split(':')[1]) <= 100))
 			)
 			{
 				success = true;

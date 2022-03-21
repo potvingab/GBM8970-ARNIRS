@@ -50,22 +50,36 @@ public class Destroyer : MonoBehaviour {
 
             UnityEngine.Debug.Log(TimeSpawner.currentLevel);
             UnityEngine.Debug.Log("!!");
-            if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray - 1)
+            //if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray - 1)
+            //{
+            //    endScreenLevel.SetActive(true);
+            //}
+            //else
+            //{
+            //    Debug.Log(TimeSpawner.levelNames[TimeSpawner.currentLevel]);
+            //    Debug.Log(TimeSpawner.levelNames.Length);
+            //    if (TimeSpawner.levelNames[TimeSpawner.currentLevel + 1].Contains("Tutorial"))
+            //    {
+            //        endScreen.SetActive(true);
+            //    }
+            //    else
+            //    {
+            //        endScreenLevel.SetActive(true);
+            //    }
+            //}
+            if (TimeSpawner.currentLevel < VariablesHolder.numberOfTutorial)
+            {
+                endScreen.SetActive(true);
+            }
+            else if (TimeSpawner.currentLevel >= VariablesHolder.numberOfTutorial && TimeSpawner.currentLevel < (VariablesHolder.numberTrials + VariablesHolder.numberOfTutorial-1))
             {
                 endScreenLevel.SetActive(true);
+                UnityEngine.Debug.Log("Niveau :" + TimeSpawner.currentLevel);
+                UnityEngine.Debug.Log("Niveaux totaux :" + (VariablesHolder.numberTrials + VariablesHolder.numberOfTutorial));
             }
             else
             {
-                Debug.Log(TimeSpawner.levelNames[TimeSpawner.currentLevel]);
-                Debug.Log(TimeSpawner.levelNames.Length);
-                if (TimeSpawner.levelNames[TimeSpawner.currentLevel + 1].Contains("Tutorial"))
-                {
-                    endScreen.SetActive(true);
-                }
-                else
-                {
-                    endScreenLevel.SetActive(true);
-                }
+                endScreenFinal.SetActive(true);
             }
             VolumeMenu.SetActive(true);
 

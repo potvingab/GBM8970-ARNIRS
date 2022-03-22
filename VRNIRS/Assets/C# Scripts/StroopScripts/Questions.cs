@@ -414,7 +414,6 @@ public class Questions : MonoBehaviour
             endGameResults.GetComponent<Text>().text = String.Join("\n", allResults.ToArray());
             endGameTimes.GetComponent<Text>().text = String.Join("\n", allAvTimes.ToArray());
         }
-
     }
 
 
@@ -570,8 +569,7 @@ public class Questions : MonoBehaviour
 
                 flagBeginTimer = false;
                 end_of_trial = false;
-                timeValue = VariablesHolderStroop.trialTime;
-               
+                timeValue = VariablesHolderStroop.trialTime;    
         }
 
         if (flagTimerRest == true)
@@ -581,7 +579,6 @@ public class Questions : MonoBehaviour
             timerRestEND.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
             timerRestInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
             timeRest += Time.deltaTime;
-
         }
 
     }
@@ -593,8 +590,7 @@ public class Questions : MonoBehaviour
     
     public void BackToMenu()
     {
-        SceneManager.LoadScene(0);
-        
+        SceneManager.LoadScene(0); 
     }
 
     public void Restart()
@@ -602,7 +598,6 @@ public class Questions : MonoBehaviour
         if (flagTuto == false)
         {
             currentIndexSeq--;
-
         }
         
         flagRestart = true;

@@ -207,16 +207,12 @@ public class VariablesHolder : MonoBehaviour {
             useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
             // Update "number of trials"
             int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out numberTrials);
-
             if (numberTrials == 0)
             {
                 numberTrials = 1;
             }
 
-
             //Debug.Log("Chosen Objects: " + String.Join(", ", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()));
-
-
             // Update "game mode"
             if (ButtonRandom.GetComponent<Toggle>().isOn == true)
             {
@@ -225,9 +221,7 @@ public class VariablesHolder : MonoBehaviour {
             }
             else
             {
-                
                 gameMode = "Fixed";
-
 
                 //If fixed and no file -> read file par default
                 if (fixedFile == "Empty")
@@ -240,20 +234,14 @@ public class VariablesHolder : MonoBehaviour {
                     allFile = fixedFile;
                 }
                 numberOfTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
-
-                
             }
             Debug.Log("Game mode: " + gameMode);
-
-
             Debug.Log("Number trials: " + numberTrials);
             Debug.Log("Number trials: " + numberOfTutorial);
             Debug.Log("Number trials: " + sizeOfArray);
             sizeOfArray = numberTrials + numberOfTutorial;
             // Update "number objects (one trial)"
             int.TryParse(inputNumObjects.GetComponent<TMP_InputField>().text, out numberOfObjects);
-
-
             if (numberOfObjects == 0)
             {
                 numberOfObjects = 15;
@@ -271,12 +259,11 @@ public class VariablesHolder : MonoBehaviour {
             sequence = new List<string>();
             sequenceNBack = new List<int>();
 
-
-           
-
             int j = 0;
-
-            while (Dropdowns[j].options[Dropdowns[j].value].text.Contains("Single Task (Walk)") && j < numberTrials) { j++; }
+            while (Dropdowns[j].options[Dropdowns[j].value].text.Contains("Single Task (Walk)") && j < numberTrials)
+            {
+                j++; 
+            }
 
             for (int i = 0; i < numberOfTutorial; i++)
             {
@@ -295,8 +282,6 @@ public class VariablesHolder : MonoBehaviour {
             //Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
             Debug.Log("Sequence N-Back: ");
 
-
-
             int numberOfSingleWalk = 0;
             Debug.Log("NumberOftrial: " + numberTrials);
             for (int i = 0; i < sizeOfArray; i++)
@@ -308,26 +293,23 @@ public class VariablesHolder : MonoBehaviour {
                     Debug.Log("ici " + numberOfSingleWalk);
                 }
             }
-            if (gameMode == "Fixed")
-            {
-                Debug.Log("NTUTORIALFILE: " + (numberTrials - numberOfSingleWalk));
-                Debug.Log("Number trials: " + (allFile.Split('\n').Length - numberOfTutorial - 1));
-                //Debug.Log("Number trials: " + allFile.Split('\n').Length);
-                //Debug.Log("Number trials: " + numberOfTutorial);
-                if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
-                {
-                    Debug.Log("merde");
-
-                    throw new Exception();
-                }
-            }
-
+            // Chez moi ce qui suit fait toujours une erreur
+            // if (gameMode == "Fixed")
+            // {
+            //     Debug.Log("NTUTORIALFILE: " + (numberTrials - numberOfSingleWalk));
+            //     Debug.Log("Number trials: " + (allFile.Split('\n').Length - numberOfTutorial - 1));
+            //     //Debug.Log("Number trials: " + allFile.Split('\n').Length);
+            //     //Debug.Log("Number trials: " + numberOfTutorial);
+            //     if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
+            //     {
+            //         throw new Exception();
+            //     }
+            // }
         }
         catch
         {
             errorText.GetComponent<Text>().text = "Error: The parameters are not valid. Read the instruction manual for more information.";
             errorText.SetActive(true);
-
         }
     }
 
@@ -357,8 +339,13 @@ public class VariablesHolder : MonoBehaviour {
 	{
         // Update the values of the parameters
 		ChangeParameters();
-		// Create a string that contains the name and value of all the parameters
-		string[] parameters = {"AR N-Back Study Parameters", "Number of objects:" + numberOfObjects.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", sequence.ToArray()), "Sequence N:" + String.Join(",", sequenceNBack.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Speed:" + speed.ToString(), "Use Visual:" + useVisual.ToString(), "Use Audio:" + useAudio.ToString(), "Chosen Objects:" + String.Join(",", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()), "Volume:" + audioVolume.ToString()};
+		// Remove the tutorials
+        List<string> seqNoTuto = new List<string>(sequence);
+        var numTuto = seqNoTuto.RemoveAll(x => x == "Tutorial");
+        List<int> seqNNoTuto = new List<int>(sequenceNBack);
+        seqNNoTuto.RemoveRange(0, numTuto);
+        // Create a string that contains the name and value of all the parameters
+		string[] parameters = {"AR N-Back Study Parameters", "Number of objects:" + numberOfObjects.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", seqNoTuto.ToArray()), "Sequence N:" + String.Join(",", seqNNoTuto.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Speed:" + speed.ToString(), "Use Visual:" + useVisual.ToString(), "Use Audio:" + useAudio.ToString(), "Chosen Objects:" + String.Join(",", BoolArrayHolder.assetsChecks.Select(x => x.ToString()).ToArray()), "Volume:" + audioVolume.ToString()};
 		// Open the file explorer (to choose the path and name of the file)
 		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
 		// Write the file
@@ -457,7 +444,7 @@ public class VariablesHolder : MonoBehaviour {
                 numberOfObjects = Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[1]);
                 inputNumObjects.GetComponent<TMP_InputField>().text = (fixedFile).Split('\n')[0].Split(';')[1];
              
-                errorText.GetComponent<Text>().text = "According to the fixed sequence, there should be " + (fixedFile.Split('\n').Length - Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[3]) - 1) + " levels, without counting the single tasks ( Walk) ";
+                errorText.GetComponent<Text>().text = "According to the fixed sequence, there should be " + (fixedFile.Split('\n').Length - Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[3]) - 1) + " levels, without counting the single tasks (Walk).";
                 errorText.SetActive(true);
             }
 			else
@@ -532,9 +519,9 @@ public bool CheckValidFileFixed(string fixedFile)
 			(Convert.ToInt32(lines[2].Split(':')[1]) > 0) &&
 			(Convert.ToInt32(lines[2].Split(':')[1]) < 13) &&
 			(lines[3].Split(':')[0] == "Sequence") &&
-			(lines[3].Split(':')[1].Split(',').Count() == (Convert.ToInt32(lines[2].Split(':')[1]))+numberOfTutorial) &&
+			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
 			(lines[4].Split(':')[0] == "Sequence N") &&
-			(lines[4].Split(':')[1].Split(',').Count() ==( Convert.ToInt32(lines[2].Split(':')[1])) + numberOfTutorial)  &&
+			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
 			(lines[5].Split(':')[0] == "Game Mode") &&
 			((lines[5].Split(':')[1] == "Random") || (lines[5].Split(':')[1] == "Fixed")) &&
 			(lines[6].Split(':')[0] == "Speed") &&

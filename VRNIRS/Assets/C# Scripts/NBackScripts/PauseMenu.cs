@@ -525,48 +525,10 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        VariablesHolder.GameSpeed = 1;
-        GameIsPaused = false;
-        TimeSpawner.currentLevel = 0;
-        TimeSpawner.order = -1;
-        Destroyer.objectDestroyed = 0;
-        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
-        clickPosition = -2;
-        clicks = new string[VariablesHolder.numberOfObjects];
-        reactionTime = new string[VariablesHolder.numberOfObjects];
-        //ATTENTION
-
-        for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
-        {
-            clicks[nObject] = "--";
-            reactionTime[nObject] = "--";
-        }
-        allLevelResults = new string[VariablesHolder.sizeOfArray];
-
-
-        for (int nLevelResults = 0; nLevelResults < VariablesHolder.numberOfObjects; nLevelResults++)
-        {
-            allLevelResults[nLevelResults] = "";   
-        }  
-        SaveCondition = true;
+        Application.Quit();
     }
 
 
-    public void DisplayIntruction()
-    {
-        UnityEngine.Debug.Log(VariablesHolder.sequence[TimeSpawner.currentLevel]);
-        if (VariablesHolder.sequence[TimeSpawner.currentLevel].Contains("Single Task (Walk)"))
-            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Just keep walking \n \n Are you ready?";
-        else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 2)
-            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you saw 2 objects before \n or press the button in your left hand if it is NOT. \n \n Are you ready?";
 
-        else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel + 1] == 1)
-            //else
-            textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you just saw \n or press the button in your LEFT hand if it is NOT. \n \n Are you ready?";
-
-        textInstruction.SetActive(true);
-
-    }
 
 }

@@ -7,7 +7,7 @@ public class PlayInstruction : MonoBehaviour {
     public GameObject textInstruction;
     public GameObject levelInfo;
 
-    public void DisplayIntruction()
+    public void DisplayInstruction()
     {
         Debug.Log(VariablesHolder.sequence[TimeSpawner.currentLevel]);
         if (VariablesHolder.sequence[TimeSpawner.currentLevel].Contains("Single Task (Walk)"))

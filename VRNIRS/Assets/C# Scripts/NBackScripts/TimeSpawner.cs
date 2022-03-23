@@ -17,7 +17,9 @@ public class TimeSpawner : MonoBehaviour {
     public GameObject[] spawneesReal;
     public GameObject[] spawneesNormal;
     public GameObject StartObject;
+    public GameObject StartObject_txt;
     public GameObject EndObject;
+    public GameObject EndObject_txt;
     public GameObject EmptyObject;
     public GameObject plane;
 
@@ -382,6 +384,12 @@ public class TimeSpawner : MonoBehaviour {
         }
     }
 
+    void DisableText()
+    {
+        StartObject_txt.gameObject.SetActive(false);
+        EndObject_txt.gameObject.SetActive(false);
+    }
+
     public void SpawnObject()
     {
         if (VariablesHolder.GameSpeed == 1)
@@ -400,6 +408,8 @@ public class TimeSpawner : MonoBehaviour {
                         spawneeObject = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
+                    StartObject_txt.gameObject.SetActive(true);
+                    Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("Start");
                     TriggerArduino("0");
                     ArduinoCheckpoint("Start");
@@ -415,6 +425,8 @@ public class TimeSpawner : MonoBehaviour {
                         spawneeObject = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
+                    EndObject_txt.gameObject.SetActive(true);
+                    Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("End");
                     TriggerArduino("0");
                     ArduinoCheckpoint("End");

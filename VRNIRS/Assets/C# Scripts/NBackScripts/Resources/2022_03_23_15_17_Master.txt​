@@ -1,0 +1,14 @@
+Parameter; Filename; C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\Assets\C# Scripts\NBackScripts\Resources/2022_03_23_15_17_Master.txt​
+Parameter; Arduino Port; COM3
+Parameter; Mode; Random
+Parameter; Number Trials; 4
+Parameter; Sequence; Tutorial,Tutorial,Tutorial,Tutorial,Tutorial,Tutorial,Tutorial,Dual Task,Dual Task,Dual Task,Dual Task
+Parameter; Sequence NBack; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+Parameter; Number Objects; 3
+Parameter; Speed; 1
+Checkpoint; End of Menu; 15:17:38.580
+Checkpoint; Start; 15:17:47.314
+Checkpoint; Spawn Bike(Clone) (UnityEngine.GameObject); 15:17:52.298
+Checkpoint; Spawn House(Clone) (UnityEngine.GameObject); 15:17:57.301
+Checkpoint; Spawn House(Clone) (UnityEngine.GameObject); 15:18:02.315
+Checkpoint; End; 15:18:08.192

@@ -2767,6 +2767,7 @@ MonoBehaviour:
   StartObject: {fileID: 1655782268}
   EndObject: {fileID: 1259127604}
   EmptyObject: {fileID: 698089245}
+  plane: {fileID: 2055229406}
   stopSpawning: 0
   spawnTime: 2
   spawnDelay: 5

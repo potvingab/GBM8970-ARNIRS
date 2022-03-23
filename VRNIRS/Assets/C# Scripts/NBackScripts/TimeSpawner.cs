@@ -19,6 +19,7 @@ public class TimeSpawner : MonoBehaviour {
     public GameObject StartObject;
     public GameObject EndObject;
     public GameObject EmptyObject;
+    public GameObject plane;
 
     public bool stopSpawning = false;
     public float spawnTime;
@@ -325,6 +326,10 @@ public class TimeSpawner : MonoBehaviour {
         //spawnPos3.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
         //Si on veut que la position de départ change selon la vitesse
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
+        if(!VariablesHolder.useVisual)
+        {
+            plane.SetActive(false);
+        }
 	}
 
     public static void TriggerArduino(string line)
@@ -384,14 +389,28 @@ public class TimeSpawner : MonoBehaviour {
             if (order < VariablesHolder.numberOfObjects + 1)
             {
                 GameObject spawneeObject;
-                if(order == -1)
+                if (order == -1)
                 {
-                    spawneeObject = StartObject;
+                    if (VariablesHolder.useVisual)
+                    {
+                        spawneeObject = StartObject;
+                    }
+                    else
+                    {
+                        spawneeObject = EmptyObject;
+                    }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
                 }
                 else if (order == VariablesHolder.numberOfObjects)
                 {
-                    spawneeObject = EndObject;
+                    if (VariablesHolder.useVisual)
+                    {
+                        spawneeObject = EndObject;
+                    }
+                    else
+                    {
+                        spawneeObject = EmptyObject;
+                    }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
                 }
                 else
@@ -475,6 +494,10 @@ public class TimeSpawner : MonoBehaviour {
                                     UnityEngine.Debug.Log(sound);
                                     sound.Play();
                                 }
+                                if(!VariablesHolder.useVisual)
+                                {
+                                    clone.gameObject.transform.localScale = new Vector3(0,0,0);
+                                }
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
@@ -512,6 +535,10 @@ public class TimeSpawner : MonoBehaviour {
                                     //sound.volume = VariablesHolder.audioVolume;
                                     UnityEngine.Debug.Log(sound);
                                     sound.Play();
+                                }
+                                if(!VariablesHolder.useVisual)
+                                {
+                                    clone.gameObject.transform.localScale = new Vector3(0,0,0);
                                 }
                                 reactionTime.Reset();
                                 reactionTime.Start();

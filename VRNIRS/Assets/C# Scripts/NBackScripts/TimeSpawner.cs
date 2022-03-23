@@ -340,15 +340,15 @@ public class TimeSpawner : MonoBehaviour {
 
     public static void CreateCheckpoint(string nom)
     {
-        //String name = VariablesHolder.fileName;
-        //int index = name.IndexOf(".txt");
-        //String masterFileName = name.Insert(index, "_Master");
-        //using (StreamWriter sw = File.AppendText(masterFileName))
-        //{
-        //    sw.Write("Checkpoint; " + nom + "; ");
-        //    sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
-        //}
-        //ARCheckpoint("Event received");
+        String name = VariablesHolder.fileName;
+        int index = name.IndexOf(".txt");
+        String masterFileName = name.Insert(index, "_Master");
+        using (StreamWriter sw = File.AppendText(masterFileName))
+        {
+            sw.Write("Checkpoint; " + nom + "; ");
+            sw.Write(DateTime.Now.ToString("H:mm:ss.fff") + "\n");
+        }
+        ARCheckpoint("Event received");
     }
 
     public static void ArduinoCheckpoint(string nom)

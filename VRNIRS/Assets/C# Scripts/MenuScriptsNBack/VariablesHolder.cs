@@ -27,7 +27,7 @@ public class VariablesHolder : MonoBehaviour {
     public static string fixedFile = "Empty";
     public static int numberOfTutorial;
     public static int sizeOfArray;
-    public static bool errorNumberOfObjects = false;
+    public static bool errorInMenu = false;
    // public static string[] lines = fixedFile.Split('\n');
 
 
@@ -290,12 +290,13 @@ public class VariablesHolder : MonoBehaviour {
                     numberOfSingleWalk++;
                 }
             }
-            // Chez moi ce qui suit fait toujours une erreur
-             if (gameMode == "Fixed")
-             {
-                 if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
-                 {
-                    errorNumberOfObjects = true;
+            errorInMenu = false;
+
+            if (gameMode == "Fixed")
+            {
+                if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
+                {
+                    //errorInMenu = true;
                     throw new Exception();
                 }
             }
@@ -304,6 +305,7 @@ public class VariablesHolder : MonoBehaviour {
         {
             errorText.GetComponent<Text>().text = "Error: The parameters are not valid. Read the instruction manual for more information.";
             errorText.SetActive(true);
+            errorInMenu = true;
         }
     }
 
@@ -409,18 +411,21 @@ public class VariablesHolder : MonoBehaviour {
 				BoolArrayHolder.assetsChecks = parameters[9].Split(':')[1].Split(',').Select(s => s == "True").ToArray();
 				// Load "volume"
 				AudioVolume.GetComponent<Slider>().value = float.Parse(parameters[10].Split(':')[1]);
-			}
+                //errorInMenu = false;
+            }
 			else
 			{
 				errorText.GetComponent<Text>().text = "Error: The parameters file is not valid. Read the instruction manual for more information.";
 				errorText.SetActive(true);
-			}
+                //errorInMenu = true;
+            }
         }
 		catch
 		{
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
-		}
+            //errorInMenu = true;
+        }
     }
 
     public void SelectFixedFile()
@@ -440,20 +445,23 @@ public class VariablesHolder : MonoBehaviour {
 
                 errorText.GetComponent<Text>().text = "Warning: According to the fixed sequence, there should be a maximum " + +(fixedFile.Split('\n').Length - Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[3]) - 1) + " N-back levels. "; 
                 errorText.SetActive(true);
+                //errorInMenu = false;
             }
 			else
 			{
                 checkFixed.SetActive(false);
 				errorText.GetComponent<Text>().text = "Error: The fixed sequence file is not valid. Read the instruction manual for more information.";
 				errorText.SetActive(true);
-			}
+               //errorInMenu = true;
+            }
         }
         catch
 		{
 			checkFixed.SetActive(false);
 			errorText.GetComponent<Text>().text = "Error: Please select a .txt file.";
 			errorText.SetActive(true);
-		}
+            //errorInMenu = true;
+        }
     }
 
 public bool CheckValidFileFixed(string fixedFile)

@@ -37,9 +37,9 @@ public class MainMenu : MonoBehaviour
             sw.Write("Parameter; " + "Filename; " + arFileName + "\n");
             sw.Write("Parameter; " + "Arduino Port; " + VariablesHolder.arduinoPort + "\n");
         }
-        if (VariablesHolder.errorNumberOfObjects == true)
+        if (VariablesHolder.errorInMenu == true)
         {
-
+            return;
         }
         else {
             TimeSpawner.CreateCheckpoint("End of Menu");

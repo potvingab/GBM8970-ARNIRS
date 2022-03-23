@@ -140,7 +140,7 @@ public class VariablesHolder : MonoBehaviour {
                 numberTrialFile = allFile.Split('\n').Length - Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3])-1;
                 
                 Debug.Log("ntuto:" + Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]));
-                errorText.GetComponent<Text>().text = "According to the fixed sequence, there should be "+ numberTrialFile + " levels, without counting the single tasks (Walk) ";
+                errorText.GetComponent<Text>().text = "Warning: According to the fixed sequence, there should be a maximum " + numberTrialFile + " N-back levels. ";
                 errorText.SetActive(true);
 
             }
@@ -294,17 +294,17 @@ public class VariablesHolder : MonoBehaviour {
                 }
             }
             // Chez moi ce qui suit fait toujours une erreur
-            // if (gameMode == "Fixed")
-            // {
-            //     Debug.Log("NTUTORIALFILE: " + (numberTrials - numberOfSingleWalk));
-            //     Debug.Log("Number trials: " + (allFile.Split('\n').Length - numberOfTutorial - 1));
-            //     //Debug.Log("Number trials: " + allFile.Split('\n').Length);
-            //     //Debug.Log("Number trials: " + numberOfTutorial);
-            //     if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
-            //     {
-            //         throw new Exception();
-            //     }
-            // }
+             if (gameMode == "Fixed")
+             {
+                 Debug.Log("NTUTORIALFILE: " + (numberTrials - numberOfSingleWalk));
+                 Debug.Log("Number trials: " + (allFile.Split('\n').Length - numberOfTutorial - 1));
+                 //Debug.Log("Number trials: " + allFile.Split('\n').Length);
+                 //Debug.Log("Number trials: " + numberOfTutorial);
+                 if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
+                 {
+                     throw new Exception();
+                 }
+            }
         }
         catch
         {
@@ -443,8 +443,8 @@ public class VariablesHolder : MonoBehaviour {
 				errorText.SetActive(false);
                 numberOfObjects = Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[1]);
                 inputNumObjects.GetComponent<TMP_InputField>().text = (fixedFile).Split('\n')[0].Split(';')[1];
-             
-                errorText.GetComponent<Text>().text = "According to the fixed sequence, there should be " + (fixedFile.Split('\n').Length - Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[3]) - 1) + " levels, without counting the single tasks (Walk).";
+
+                errorText.GetComponent<Text>().text = "Warning: According to the fixed sequence, there should be a maximum " + +(fixedFile.Split('\n').Length - Convert.ToInt16((fixedFile).Split('\n')[0].Split(';')[3]) - 1) + " N-back levels. "; 
                 errorText.SetActive(true);
             }
 			else

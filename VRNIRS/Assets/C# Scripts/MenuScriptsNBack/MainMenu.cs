@@ -37,8 +37,15 @@ public class MainMenu : MonoBehaviour
             sw.Write("Parameter; " + "Filename; " + arFileName + "\n");
             sw.Write("Parameter; " + "Arduino Port; " + VariablesHolder.arduinoPort + "\n");
         }
-        TimeSpawner.CreateCheckpoint("End of Menu");
-        SceneManager.LoadScene("N-back");
+        if (VariablesHolder.errorNumberOfObjects == true)
+        {
+
+        }
+        else {
+            TimeSpawner.CreateCheckpoint("End of Menu");
+            SceneManager.LoadScene("N-back");
+        }
+
     }
 
     public void PlayStroop()

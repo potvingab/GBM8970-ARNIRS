@@ -27,7 +27,10 @@ public class VariablesHolder : MonoBehaviour {
     public static string fixedFile = "Empty";
     public static int numberOfTutorial;
     public static int sizeOfArray;
+    public static bool errorNumberOfObjects = false;
    // public static string[] lines = fixedFile.Split('\n');
+
+
 
     public GameObject inputFileName;
 	public GameObject inputArduinoPort;
@@ -149,7 +152,6 @@ public class VariablesHolder : MonoBehaviour {
                 errorText.GetComponent<Text>().text = "Error: The parameters are not valid. Read the instruction manual for more information.";
                 errorText.SetActive(true);
             }
- 
         }
 		else
 		{
@@ -269,15 +271,11 @@ public class VariablesHolder : MonoBehaviour {
             {
                 sequenceNBack.Add(int.Parse(DropdownsNBack[j].options[DropdownsNBack[j].value].text));
                 sequence.Add("Tutorial");
-                Debug.Log(sequence[i]);
-                Debug.Log(sequenceNBack[i]);
             }
             for (int i = 0; i < numberTrials; i++)
             {
                 sequence.Add(Dropdowns[i].options[Dropdowns[i].value].text);
                 sequenceNBack.Add(int.Parse(DropdownsNBack[i].options[DropdownsNBack[i].value].text));
-                Debug.Log("sEQUENCE nBACK:" + int.Parse(DropdownsNBack[i].options[DropdownsNBack[i].value].text));
-                Debug.Log(sequenceNBack[i+numberOfTutorial]);
             }
             //Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
             Debug.Log("Sequence N-Back: ");
@@ -286,24 +284,20 @@ public class VariablesHolder : MonoBehaviour {
             Debug.Log("NumberOftrial: " + numberTrials);
             for (int i = 0; i < sizeOfArray; i++)
             {
-                Debug.Log("lA  " + sequence[i]);
+                
                 if (sequence[i].Contains("Single Task (Walk)"))
                 {
                     numberOfSingleWalk++;
-                    Debug.Log("ici " + numberOfSingleWalk);
                 }
             }
             // Chez moi ce qui suit fait toujours une erreur
              if (gameMode == "Fixed")
              {
-                 Debug.Log("NTUTORIALFILE: " + (numberTrials - numberOfSingleWalk));
-                 Debug.Log("Number trials: " + (allFile.Split('\n').Length - numberOfTutorial - 1));
-                 //Debug.Log("Number trials: " + allFile.Split('\n').Length);
-                 //Debug.Log("Number trials: " + numberOfTutorial);
                  if (numberTrials - numberOfSingleWalk > allFile.Split('\n').Length - numberOfTutorial - 1)
                  {
-                     throw new Exception();
-                 }
+                    errorNumberOfObjects = true;
+                    throw new Exception();
+                }
             }
         }
         catch

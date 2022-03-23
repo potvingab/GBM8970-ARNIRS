@@ -136,7 +136,7 @@ public class Difficulty : MonoBehaviour {
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexColor] + " ");
         Questions.timeStartQuestion = DateTime.Now;
 
-        Response.CreateCheckpoint("Question shown. True response: " + Questions.possibleQuestions[Questions.indexColor]);
+        Response.CreateCheckpoint("Question shown; True response: " + Questions.possibleQuestions[Questions.indexColor]);
         Response.TriggerArduino("0");
         return;
     }

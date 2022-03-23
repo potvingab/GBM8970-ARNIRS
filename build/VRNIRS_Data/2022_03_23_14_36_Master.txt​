@@ -1,0 +1,24 @@
+Parameter; Filename; C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\build\VRNIRS_Data/2022_03_23_14_36_Master.txt​
+Parameter; Arduino Port; COM3
+Parameter; Mode; 
+Parameter; Number Trials; 0
+Parameter; Sequence; 
+Parameter; Sequence NBack; 
+Parameter; Number Objects; 3
+Parameter; Speed; 1
+Checkpoint; End of Menu; 14:37:48.202
+Checkpoint; Start; 14:37:56.853
+Checkpoint; Spawn Bike(Clone) (UnityEngine.GameObject); 14:38:01.786
+Checkpoint; Diff; 14:38:06.991
+Checkpoint; Spawn House(Clone) (UnityEngine.GameObject); 14:38:07.725
+Checkpoint; Diff; 14:38:08.340
+Checkpoint; Spawn House(Clone) (UnityEngine.GameObject); 14:38:12.693
+Checkpoint; Same; 14:38:13.209
+Checkpoint; End; 14:38:17.680
+Checkpoint; Start; 14:38:42.679
+Checkpoint; Spawn Flag(Clone) (UnityEngine.GameObject); 14:38:47.687
+Checkpoint; Spawn Stop sing(Clone) (UnityEngine.GameObject); 14:38:52.685
+Checkpoint; Diff; 14:38:54.220
+Checkpoint; Spawn Car(Clone) (UnityEngine.GameObject); 14:38:57.723
+Checkpoint; Diff; 14:38:58.502
+Checkpoint; End; 14:39:02.690

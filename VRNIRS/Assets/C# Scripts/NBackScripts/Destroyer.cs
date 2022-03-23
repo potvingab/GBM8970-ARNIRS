@@ -19,7 +19,6 @@ public class Destroyer : MonoBehaviour {
 		if(this.transform.position.z <= 9.37f-(15 * VariablesHolder.speed)) // Original = -10
         {
             Destruction();
-            TimeSpawner.CreateCheckpoint("Destroy");
         }
 	}
 

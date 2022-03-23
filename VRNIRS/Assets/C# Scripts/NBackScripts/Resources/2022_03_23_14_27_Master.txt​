@@ -1,0 +1,24 @@
+Parameter; Filename; C:\Users\achil\OneDrive\Documents\GitHub\GBM8970-VRNIRS\VRNIRS\Assets\C# Scripts\NBackScripts\Resources/2022_03_23_14_27_Master.txt​
+Parameter; Arduino Port; COM3
+Parameter; Mode; 
+Parameter; Number Trials; 0
+Parameter; Sequence; 
+Parameter; Sequence NBack; 
+Parameter; Number Objects; 0
+Parameter; Speed; 1
+Checkpoint; End of Menu; 14:28:14.946
+Checkpoint; Start; 14:28:19.352
+Checkpoint; Spawn Untagged; 14:28:24.441
+Checkpoint; Destroy; 14:28:26.773
+Checkpoint; Spawn Untagged; 14:28:29.465
+Checkpoint; Diff; 14:28:30.275
+Checkpoint; Destroy; 14:28:32.337
+Checkpoint; Spawn Untagged; 14:28:34.438
+Checkpoint; Same; 14:28:35.739
+Checkpoint; Destroy; 14:28:36.879
+Checkpoint; Spawn Untagged; 14:28:39.463
+Checkpoint; Diff; 14:28:40.722
+Checkpoint; Destroy; 14:28:41.727
+Checkpoint; End; 14:28:44.446
+Checkpoint; Destroy; 14:28:46.734
+Checkpoint; Destroy; 14:28:51.180

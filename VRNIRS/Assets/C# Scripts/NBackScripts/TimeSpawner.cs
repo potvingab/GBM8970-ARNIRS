@@ -400,6 +400,9 @@ public class TimeSpawner : MonoBehaviour {
                         spawneeObject = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
+                    CreateCheckpoint("Start");
+                    TriggerArduino("0");
+                    ArduinoCheckpoint("Start");
                 }
                 else if (order == VariablesHolder.numberOfObjects)
                 {
@@ -412,6 +415,9 @@ public class TimeSpawner : MonoBehaviour {
                         spawneeObject = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
+                    CreateCheckpoint("End");
+                    TriggerArduino("0");
+                    ArduinoCheckpoint("End");
                 }
                 else
                 {
@@ -498,6 +504,9 @@ public class TimeSpawner : MonoBehaviour {
                                 {
                                     clone.gameObject.transform.localScale = new Vector3(0,0,0);
                                 }
+                                CreateCheckpoint("Spawn " + clone.ToString());
+                                TriggerArduino("0");
+                                ArduinoCheckpoint("Spawn " + clone.ToString());
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
@@ -540,6 +549,9 @@ public class TimeSpawner : MonoBehaviour {
                                 {
                                     clone.gameObject.transform.localScale = new Vector3(0,0,0);
                                 }
+                                CreateCheckpoint("Spawn "+ clone.ToString());
+                                TriggerArduino("0");
+                                ArduinoCheckpoint("Spawn " + clone.ToString());
                                 reactionTime.Reset();
                                 reactionTime.Start();
                             }
@@ -551,9 +563,6 @@ public class TimeSpawner : MonoBehaviour {
                     CancelInvoke("SpawnObject");
                 }
                 order++;
-                CreateCheckpoint("Spawn");
-                TriggerArduino("0");
-                ArduinoCheckpoint("Spawn");
                 PauseMenu.clickPosition += 1;
                 PauseMenu.SameObject = false;
             }

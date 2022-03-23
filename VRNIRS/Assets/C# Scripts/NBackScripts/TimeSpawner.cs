@@ -22,6 +22,7 @@ public class TimeSpawner : MonoBehaviour {
     public GameObject EndObject_txt;
     public GameObject EmptyObject;
     public GameObject plane;
+    public GameObject clone_txt;
 
     public bool stopSpawning = false;
     public float spawnTime;
@@ -327,6 +328,8 @@ public class TimeSpawner : MonoBehaviour {
         //spawnPos2.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
         //spawnPos3.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
         //Si on veut que la position de départ change selon la vitesse
+        //StartObject_txt.transform.position = spawnPos3.position - 3 * Vector3.forward;
+        //EndObject_txt.transform.position = spawnPos3.position - 3 * Vector3.forward;
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
         if(!VariablesHolder.useVisual)
         {
@@ -386,8 +389,7 @@ public class TimeSpawner : MonoBehaviour {
 
     void DisableText()
     {
-        StartObject_txt.gameObject.SetActive(false);
-        EndObject_txt.gameObject.SetActive(false);
+        clone_txt.gameObject.SetActive(false);
     }
 
     public void SpawnObject()
@@ -408,7 +410,8 @@ public class TimeSpawner : MonoBehaviour {
                         spawneeObject = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
-                    StartObject_txt.gameObject.SetActive(true);
+                    clone_txt = Instantiate(StartObject_txt, spawnPos3.position, spawnPos3.rotation);
+                    //StartObject_txt.gameObject.SetActive(true);
                     Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("Start");
                     TriggerArduino("0");
@@ -425,7 +428,7 @@ public class TimeSpawner : MonoBehaviour {
                         spawneeObject = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
-                    EndObject_txt.gameObject.SetActive(true);
+                    clone_txt = Instantiate(EndObject_txt, spawnPos3.position, spawnPos3.rotation);
                     Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("End");
                     TriggerArduino("0");

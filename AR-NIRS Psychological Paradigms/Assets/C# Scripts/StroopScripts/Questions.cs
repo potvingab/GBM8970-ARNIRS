@@ -88,7 +88,7 @@ public class Questions : MonoBehaviour
     public static float timeRest = 0;
     public static bool flagTimerRest = false;
 
-    //fixed sequence variables
+    // Fixed sequence variables
     public static int n_question_fixed = 0;
     public static int line = 0;
     public static bool flagTuto = false;
@@ -101,7 +101,8 @@ public class Questions : MonoBehaviour
     public GameObject canvasParticipantInstructions;
     public GameObject canvasParticipantJeu;
 
-    // An instance is needed to use the method "CreateNewRandomQuestion" in other scripts
+    // Create an instance, needed to use the method "CreateNewRandomQuestion" in other scripts
+    // Also set active the right pages
     void Awake()
     {
         Instance = this;
@@ -110,18 +111,12 @@ public class Questions : MonoBehaviour
 		canvasChercheurJeu.SetActive(false);
         canvasParticipantJeu.SetActive(false);
         endGamePage.gameObject.SetActive(false);
-        if (VariablesHolderStroop.useMeta == false){
-            GameObject metaCamera = GameObject.Find("MetaCameraRig");
-            GameObject metaHands = GameObject.Find("MetaHands");
-            Destroy(metaCamera);
-            Destroy(metaHands);
-        }
     }
 
-
+    // Called by the "Instruction" button or "Continue" button
+    // Play the right difficulty according to the sequence
     public void playLevel()
-         // Called by the "Instruction" button or "Continue" button
-    {   // Play the right difficulty according to the sequence
+    {   
         flagTuto = false;
         WhitBgTL.gameObject.SetActive(true);
         timerRestInstruction.gameObject.SetActive(false);
@@ -131,7 +126,7 @@ public class Questions : MonoBehaviour
         //Baseline
         if (VariablesHolderStroop.sequenceLevels[currentIndexSeq] == 0)
         {
-            playTuto(); // the baseline works the same way as the tutorial
+            playTuto(); // The baseline works the same way as the tutorial
             return;
         }
 
@@ -173,9 +168,8 @@ public class Questions : MonoBehaviour
                     {
                         all_Info = VariablesHolderStroop.fixedFile;
                     }
-                    //Debug.Log(all_Info);
                     string[] info_Line = all_Info.Split('\n');
-                    //the starting line according to the level and read this line
+                    // Find the starting line according to the level and read this line
                     line = 2 * VariablesHolderStroop.sequenceLevels[currentIndexSeq] - 1;
                     question = info_Line[line].Split(';').ToList();
                 }
@@ -261,7 +255,6 @@ public class Questions : MonoBehaviour
                     break;
             }
             // Start the timer ("Update" function is executed)
-           
             flagBeginTimer = true;
         }
     }
@@ -350,7 +343,6 @@ public class Questions : MonoBehaviour
                         break;
                 }
                 instructionButton.gameObject.SetActive(false);
-                //textInstruction.gameObject.SetActive(false);
             }
             else
             {
@@ -416,7 +408,6 @@ public class Questions : MonoBehaviour
         }
     }
 
-
     public void playTuto()
     {
         flagTuto = true;
@@ -461,9 +452,8 @@ public class Questions : MonoBehaviour
             string all_Info = txt.text;
             string[] info_Line = all_Info.Split('\n');
 
-            //the starting line according to the difficulty and read this line
+            // Find the starting line according to the difficulty and read this line
             question = info_Line[line].Split(';').ToList();
-
 
             // Prepare the right difficulty
             Response.CreateCheckpoint("Difficulty: " + VariablesHolderStroop.sequence[currentIndexSeq] + " " + VariablesHolderStroop.sequenceLevels[currentIndexSeq].ToString());
@@ -492,12 +482,10 @@ public class Questions : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         if (flagBeginTimer == true)
         {
-            //Debug.Log(timeValue);
             // Each second, if there's still time on the timer, print the time and decrease it
             if (timeValue > 0)
             {
@@ -505,82 +493,79 @@ public class Questions : MonoBehaviour
                 timeValue -= Time.deltaTime;
             }
         }
-            // If there's not time left
+        // If there's not time left
         if (timeValue <= 0 || end_of_trial == true )
         {
-                // Start resting timer and display timer
-                timerRestEND.gameObject.SetActive(true);
-                WhitBgRT.gameObject.SetActive(true);
-                flagTimerRest = true;
-                // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
-                for (int i=0; i<selectedAnswers.Count; i++)
+            // Start resting timer and display timer
+            timerRestEND.gameObject.SetActive(true);
+            WhitBgRT.gameObject.SetActive(true);
+            flagTimerRest = true;
+            // Compare the correct and selected answers, and compute the result (numCorrectAnswers/numTotalAnswers)
+            for (int i=0; i<selectedAnswers.Count; i++)
+            {
+                if (correctAnswers[i] == selectedAnswers[i])
                 {
-                    if (correctAnswers[i] == selectedAnswers[i])
-                    {
-                        numCorrectAnswers += 1;
-                    }
+                    numCorrectAnswers += 1;
                 }
-                // Show the result (researcher's view)
-                totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format("Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
-                allResults.Add(numCorrectAnswers + "/" + numTotalAnswers);
-                Response.CreateCheckpoint("Result: " + numCorrectAnswers + "/" + numTotalAnswers);
-                if (responseTimes.Count==0)
-                {
-                    timeEndQuestion = DateTime.Now;
-                    responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalSeconds);
-                }
-                //Debug.Log(String.Join(",", responseTimes.Select(x => x.ToString()).ToArray()));
-                averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
-                allAvTimes.Add(Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec");
-                Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
-                // Show the button "Continue" (researcher's view)
-                buttonContinue.gameObject.SetActive(true);
-                buttonRestart.gameObject.SetActive(true);
-                allSelectedAns.Add(String.Join(", ", selectedAnswers.ToArray()));
-                allCorrectAns.Add(String.Join(", ", correctAnswers.Take(selectedAnswers.Count).ToArray()));
-                // Play a sound
-                beep.Play(); 
+            }
+            // Show the result (researcher's view)
+            totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format("Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
+            allResults.Add(numCorrectAnswers + "/" + numTotalAnswers);
+            Response.CreateCheckpoint("Result: " + numCorrectAnswers + "/" + numTotalAnswers);
+            if (responseTimes.Count==0)
+            {
+                timeEndQuestion = DateTime.Now;
+                responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalSeconds);
+            }
+            averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
+            allAvTimes.Add(Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec");
+            Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
+            // Show the button "Continue" (researcher's view)
+            buttonContinue.gameObject.SetActive(true);
+            buttonRestart.gameObject.SetActive(true);
+            allSelectedAns.Add(String.Join(", ", selectedAnswers.ToArray()));
+            allCorrectAns.Add(String.Join(", ", correctAnswers.Take(selectedAnswers.Count).ToArray()));
+            // Play a sound
+            beep.Play(); 
 
-                // Change the text of the questionHolder (player's view)
-                BackgroundImage.gameObject.SetActive(false);
-                Rectangle.gameObject.SetActive(false);
-                questionHolder.gameObject.SetActive(true);
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
-                questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
-                
-                Invoke("DisableText", 1f);//invoke after 1 seconds
+            // Change the text of the questionHolder (player's view)
+            BackgroundImage.gameObject.SetActive(false);
+            Rectangle.gameObject.SetActive(false);
+            questionHolder.gameObject.SetActive(true);
+            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = "END";
+            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
+            questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white;
+            
+            Invoke("DisableText", 1f); // Invoke after 1 second
 
-                greenButton.gameObject.SetActive(false);
-                redButton.gameObject.SetActive(false);
-                blueButton.gameObject.SetActive(false);
-                // Reset the answers
-                selectedAnswers = new List<string>(); // Answers selected by the participant
-                correctAnswers = new List<string>(); // Correct answers (created by CreateNewRandomQuestion)
-                responseTimes = new List<double>();
-                numCorrectAnswers = 0;
-                numTotalAnswers = 0;
-                // Play the next level in the sequence next time
-                if (flagTuto == false)
-                {
-                    currentIndexSeq += 1;
-                }
-                // Change the flag to compute the result only one time
+            greenButton.gameObject.SetActive(false);
+            redButton.gameObject.SetActive(false);
+            blueButton.gameObject.SetActive(false);
+            // Reset the answers
+            selectedAnswers = new List<string>(); // Answers selected by the participant
+            correctAnswers = new List<string>(); // Correct answers (created by CreateNewRandomQuestion)
+            responseTimes = new List<double>();
+            numCorrectAnswers = 0;
+            numTotalAnswers = 0;
+            // Play the next level in the sequence next time
+            if (flagTuto == false)
+            {
+                currentIndexSeq += 1;
+            }
+            // Change the flag to compute the result only one time
 
-                flagBeginTimer = false;
-                end_of_trial = false;
-                timeValue = VariablesHolderStroop.trialTime;    
+            flagBeginTimer = false;
+            end_of_trial = false;
+            timeValue = VariablesHolderStroop.trialTime;
         }
 
         if (flagTimerRest == true)
         {
-            //Debug.Log(timeValue);
             // Each second, if there's still time on the timer, print the time and decrease it
             timerRestEND.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
             timerRestInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
             timeRest += Time.deltaTime;
         }
-
     }
 
     public void QuitGame()
@@ -606,15 +591,12 @@ public class Questions : MonoBehaviour
         selectedAnswers = new List<string>(); // Answers selected by the participant
         correctAnswers = new List<string>(); // Correct answers 
         responseTimes = new List<double>();
-        
         playInstruction();
     }
-
    
     //End appears for 1 second
     void DisableText()
     {
         questionHolder.gameObject.SetActive(false);
     }
-
 }

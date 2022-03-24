@@ -19,7 +19,6 @@ public class VariablesHolderStroop : MonoBehaviour
 	public static List<int> sequenceLevels = new List<int>();
 	public static string arduinoPort = "COM3";
 	public static string fileName;
-	public static bool useMeta;
 	public static string fixedFile = "Empty";
 	// Where to find the values (Options scene)
 	public GameObject inputTime;
@@ -28,7 +27,6 @@ public class VariablesHolderStroop : MonoBehaviour
 	public Dropdown[] DropdownsLevel;
 	public GameObject ButtonRandom;
 	public GameObject ButtonFixed;
-	public GameObject ToggleMeta;
 	public GameObject ButtonLoadFixed;
 	public GameObject checkSaved;
 	public GameObject checkFixed;
@@ -55,24 +53,39 @@ public class VariablesHolderStroop : MonoBehaviour
 		Options3DPage.SetActive(false);
 	}
 
+	// Add listeners to modifiy the values of the input UI in real time
 	void Start()
 	{
+		inputTime.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
+            TimeValueChanged(inputTime.GetComponent<TMP_InputField>());
+        	});
 		inputNumberTrials.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
-            FieldValueChanged(inputNumberTrials.GetComponent<TMP_InputField>());
+            NumTrialsValueChanged(inputNumberTrials.GetComponent<TMP_InputField>());
         	});
 		ButtonFixed.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
             ButtonFixedValueChanged(ButtonFixed.GetComponent<Toggle>(), ButtonLoadFixed);
         	});
 	}
 
-	void FieldValueChanged(TMP_InputField inp)
+	// On deselect, if the value of "Time" is smaller than 1 (min), change it to 1
+	void TimeValueChanged(TMP_InputField inp)
     {
-		var numTrials = 1;
-		int.TryParse(inp.text, out numTrials);
+		int time = int.Parse(inp.text);
+		inp.text = Math.Max(1, time).ToString();
+    }
+
+	// On deselect, display the number of dropdowns according to the number of trials
+	// If the value of "Number of Trials" is smaller than 1 (min), change it to 1
+	// If the value is larger than 12 (max), change it to 12
+	void NumTrialsValueChanged(TMP_InputField inp)
+    {
+		int numTrials = int.Parse(inp.text);
+		numTrials = Math.Max(1, numTrials);
 		inp.text = Math.Min(12, numTrials).ToString();
 		Sequence.Instance.StoreNumber();
     }
 
+	// If the Fixed button is selected, the button "Load Fixed File" is disabled
 	void ButtonFixedValueChanged(Toggle tog, GameObject loadFixed)
 	{
 		if (tog.isOn)
@@ -94,6 +107,7 @@ public class VariablesHolderStroop : MonoBehaviour
 			trialTime = 90;
 		}
 		Debug.Log("Trial time: " + trialTime);
+
 		// Update "number of trials"
 		int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out numberTrials);
 		if (numberTrials == 0)
@@ -101,11 +115,9 @@ public class VariablesHolderStroop : MonoBehaviour
 			numberTrials = 1;
 		}
 		Debug.Log("Number of trials: " + numberTrials);
-		// Update "sequence"
-		sequence = new List<string>();
-		sequenceLevels = new List<int>();
 
-        // Obligation de faire le baseline en premier
+		// Update "sequence"
+        // Control is done first
         sequence.Add("Control");
         sequenceLevels.Add(0);
         for (int i = 0; i < numberTrials; i++)
@@ -115,6 +127,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		}
 		Debug.Log("Sequence: " + String.Join(", ", sequence.ToArray()));
 		Debug.Log("Sequence levels: " + String.Join(", ", sequenceLevels.Select(x => x.ToString()).ToArray()));
+
 		// Update "game mode"
 		if (ButtonRandom.GetComponent<Toggle>().isOn == true)
 		{
@@ -125,17 +138,18 @@ public class VariablesHolderStroop : MonoBehaviour
 			gameMode = "Fixed";
 		}
 		Debug.Log("Game mode: " + gameMode);
-		useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
 	}
 
 	public void ChangeFileNameAndPort() 
 	{
-		// Update "file name"
+		// Update "File name"
 		fileName = inputFileName.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("File name: " + fileName);
+
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
+
         //Response.TriggerArduino("C");
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
@@ -179,10 +193,19 @@ public class VariablesHolderStroop : MonoBehaviour
 	{
 		// Update the values of the parameters
 		ChangeParameters();
+
+		// Remove the Control from the sequence (will be added later)
+		List<string> seqNoControl = new List<string>(sequence);
+		seqNoControl.RemoveAt(0);
+		List<int> seqLNoControl = new List<int>(sequenceLevels);
+		seqLNoControl.RemoveAt(0);
+
 		// Create a string that contains the name and value of all the parameters
-		string[] parameters = {"AR Stroop Study Parameters", "Trial Time:" + trialTime.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", sequence.ToArray()), "Sequence Levels:" + String.Join(",", sequenceLevels.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode, "Use Meta:" + useMeta.ToString()};
+		string[] parameters = {"AR Stroop Study Parameters", "Trial Time:" + trialTime.ToString(), "Number Trials:" + numberTrials.ToString(), "Sequence:" + String.Join(",", seqNoControl.ToArray()), "Sequence Levels:" + String.Join(",", seqLNoControl.Select(x => x.ToString()).ToArray()), "Game Mode:" + gameMode};
+		
 		// Open the file explorer (to choose the path and name of the file)
 		var path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "parameters", "txt");
+		
 		// Write the file
 		if (!string.IsNullOrEmpty(path)) {
             File.WriteAllText(path, string.Join("\n", parameters));
@@ -200,6 +223,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		{
 			// Open the file explorer (to select the file)
 			var path = StandaloneFileBrowser.OpenFilePanel("Open File", "", "txt", false);
+			
 			// Read the file
 			var possibleParameters = File.ReadAllText(path[0]);
 			if (CheckValidFileParameters(possibleParameters))
@@ -228,14 +252,6 @@ public class VariablesHolderStroop : MonoBehaviour
 				else
 				{
 					ButtonRandom.GetComponent<Toggle>().isOn = false;
-				}
-				if (parameters[6].Split(':')[1] == "True")
-				{
-					ToggleMeta.GetComponent<Toggle>().isOn = true;
-				}
-				else
-				{
-					ToggleMeta.GetComponent<Toggle>().isOn = false;
 				}
 			}
 			else
@@ -310,7 +326,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		try
 		{
 			if (
-			(lines.Count() == 7) && 
+			(lines.Count() == 6) && 
 			(Regex.Replace(lines[0], @"\s", "") == "ARStroopStudyParameters") && 
 			(lines[1].Split(':')[0] == "Trial Time") &&
 			(Convert.ToInt32(lines[1].Split(':')[1]) > 0) &&
@@ -318,9 +334,9 @@ public class VariablesHolderStroop : MonoBehaviour
 			(Convert.ToInt32(lines[2].Split(':')[1]) > 0) &&
 			(Convert.ToInt32(lines[2].Split(':')[1]) < 13) &&
 			(lines[3].Split(':')[0] == "Sequence") &&
-			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])+1) &&
+			(lines[3].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
 			(lines[4].Split(':')[0] == "Sequence Levels") &&
-			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])+1) &&
+			(lines[4].Split(':')[1].Split(',').Count() == Convert.ToInt32(lines[2].Split(':')[1])) &&
 			(lines[5].Split(':')[0] == "Game Mode") &&
 			((lines[5].Split(':')[1] == "Random") || (lines[5].Split(':')[1] == "Fixed"))
 			)

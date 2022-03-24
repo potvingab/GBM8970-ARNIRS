@@ -11,12 +11,12 @@ using TMPro;
 using System.Text.RegularExpressions;
 
 public class VariablesHolder : MonoBehaviour {
+    // Values to store (with default values)
     public static float speed;
-    public static float GameSpeed; // pause or not
+    public static float GameSpeed; // Pause or not
     public static string arduinoPort = "COM3";
 	public static string fileName;
     public static string gameMode; 
-    public static bool useMeta;
     public static bool useVisual;
     public static bool useAudio;
     public static float audioVolume;
@@ -28,10 +28,7 @@ public class VariablesHolder : MonoBehaviour {
     public static int numberOfTutorial;
     public static int sizeOfArray;
     public static bool errorInMenu = false;
-   // public static string[] lines = fixedFile.Split('\n');
-
-
-
+    // Where to find the values (Options scene)
     public GameObject inputFileName;
 	public GameObject inputArduinoPort;
 	public GameObject errorMessageFileName;
@@ -39,7 +36,6 @@ public class VariablesHolder : MonoBehaviour {
 	public GameObject OptionsNBackPage;
     public GameObject ButtonRandom;
     public GameObject ButtonFixed;
-    public GameObject ToggleMeta;
     public GameObject ToggleVisual;
     public GameObject ToggleAudio;
     public GameObject AudioVolume;
@@ -56,21 +52,22 @@ public class VariablesHolder : MonoBehaviour {
 	public GameObject disableVolume;
 	public GameObject disableObjects;
 
+    // Add listeners to modifiy the values of the input UI in real time
     void Start()
     {
         speed = 1;
         GameSpeed = 0;
         inputNumObjects.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
-            FieldValueChangedNum(inputNumObjects.GetComponent<TMP_InputField>());
+            NumValueChanged(inputNumObjects.GetComponent<TMP_InputField>());
         	});
         ButtonFixed.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
             ButtonFixedValueChanged(ButtonFixed.GetComponent<Toggle>(), ButtonLoadFixed);
         	});
         inputNumberTrials.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
-            FieldValueChangedTrials(inputNumberTrials.GetComponent<TMP_InputField>());
+            TrialsValueChanged(inputNumberTrials.GetComponent<TMP_InputField>());
         	});
         inputSpeed.GetComponent<TMP_InputField>().onDeselect.AddListener(delegate {
-            FieldValueChangedSpeed(inputSpeed.GetComponent<TMP_InputField>());
+            SpeedValueChanged(inputSpeed.GetComponent<TMP_InputField>());
         	});
 		ToggleAudio.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
             ButtonAudioValueChanged(ToggleAudio.GetComponent<Toggle>());
@@ -83,26 +80,29 @@ public class VariablesHolder : MonoBehaviour {
             });
     }
 
-    void FieldValueChangedNum(TMP_InputField inp)
+    // On deselect, if the value of "Number of Objectfs" is smaller than 2 (min), change it to 2
+    void NumValueChanged(TMP_InputField inp)
     {
-		var numOb = 2;
-		int.TryParse(inp.text, out numOb);
-		numOb = Math.Max(2, numOb);
-		inp.text = Math.Min(15, numOb).ToString();
+		int numOb = int.Parse(inp.text);
+		inp.text = Math.Max(2, numOb).ToString();
     }
 
-    void FieldValueChangedTrials(TMP_InputField inp)
+    // On deselect, display the number of dropdowns according to the number of trials
+	// If the value of "Number of Trials" is smaller than 1 (min), change it to 1
+	// If the value is larger than 12 (max), change it to 12
+    void TrialsValueChanged(TMP_InputField inp)
     {
-		var numTrials = 1;
-		int.TryParse(inp.text, out numTrials);
+		int numTrials = int.Parse(inp.text);
+        numTrials = Math.Max(1, numTrials);
 		inp.text = Math.Min(12, numTrials).ToString();
 		SequenceNBack.Instance.StoreNumber();
     }
 
-    void FieldValueChangedSpeed(TMP_InputField inp)
+    // On deselect, if the value of "Speed" is smaller than 0.01 (min), change it to 0.01
+    // Also add decimals if there are not (.00)
+    void SpeedValueChanged(TMP_InputField inp)
     {
-		float sp;
-		float.TryParse(inp.text, out sp);
+		float sp = float.Parse(inp.text);
 		inp.text = Math.Max(0.01, sp).ToString();
         if (!inp.text.Contains("."))
         {
@@ -117,6 +117,7 @@ public class VariablesHolder : MonoBehaviour {
         }
     }
 
+    // If the Fixed button is selected, the button "Load Fixed File" is disabled
 	void ButtonFixedValueChanged(Toggle tog, GameObject loadFixed)
 	{
 		if (tog.isOn)
@@ -127,7 +128,7 @@ public class VariablesHolder : MonoBehaviour {
             int numberTrialFile;
             try
             {
-                //If fixed and no file -> read file par default
+                // If fixed and no file -> read file by default
                 if (fixedFile == "Empty")
                 {
                     TextAsset txt = (TextAsset)Resources.Load("FixedSequenceNBack", typeof(TextAsset));
@@ -139,16 +140,11 @@ public class VariablesHolder : MonoBehaviour {
                 }
                 numberOfObjects = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[1]);
                 inputNumObjects.GetComponent<TMP_InputField>().text = (allFile).Split('\n')[0].Split(';')[1];
-                //numberOfTutorial = Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]);
                 numberTrialFile = allFile.Split('\n').Length - Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3])-1;
-                
-                Debug.Log("ntuto:" + Convert.ToInt16((allFile).Split('\n')[0].Split(';')[3]));
                 errorText.GetComponent<Text>().text = "Warning: According to the fixed sequence, there should be a maximum " + numberTrialFile + " N-back levels. ";
                 errorText.SetActive(true);
-
             }
             catch {
-                //ne doit pas continuer
                 errorText.GetComponent<Text>().text = "Error: The parameters are not valid. Read the instruction manual for more information.";
                 errorText.SetActive(true);
             }
@@ -160,6 +156,7 @@ public class VariablesHolder : MonoBehaviour {
 		}
 	}
 
+    // If the "Use Audio" toggle is not selected, the volume slider is disabled
 	void ButtonAudioValueChanged(Toggle tog)
 	{
 		if (tog.isOn)
@@ -172,15 +169,13 @@ public class VariablesHolder : MonoBehaviour {
 		}
 	}
 
-	// Volume slider
+	// Synchronize the volume slider and input field
 	void SliderValueChanged(Slider slid)
 	{
-		Debug.Log(slid.value.ToString());
 		AudioVolumeField.GetComponent<TMP_InputField>().text = slid.value.ToString("f1");
 	}
 	void SliderFieldValueChanged(TMP_InputField inp)
 	{
-		Debug.Log(inp.text);
 		var val =  Math.Min(100, float.Parse(inp.text));
 		val =  Math.Max(0, float.Parse(inp.text));
 		inp.text = val.ToString();
@@ -206,7 +201,6 @@ public class VariablesHolder : MonoBehaviour {
             Debug.Log("Audio Volume: " + audioVolume);
          
             //TimeSpawner.CreateCheckpoint("EndOfMenu");
-            useMeta = ToggleMeta.GetComponent<Toggle>().isOn;
             // Update "number of trials"
             int.TryParse(inputNumberTrials.GetComponent<TMP_InputField>().text, out numberTrials);
             if (numberTrials == 0)
@@ -248,7 +242,6 @@ public class VariablesHolder : MonoBehaviour {
             {
                 numberOfObjects = 15;
             }
-
             Debug.Log("Number objects: " + numberOfObjects);
             // Update "speed"
             float.TryParse(inputSpeed.GetComponent<TMP_InputField>().text, out speed);
@@ -335,7 +328,7 @@ public class VariablesHolder : MonoBehaviour {
 	{
         // Update the values of the parameters
 		ChangeParameters();
-		// Remove the tutorials
+		// Remove the Tutorials from the sequence (will be added later)
         List<string> seqNoTuto = new List<string>(sequence);
         var numTuto = seqNoTuto.RemoveAll(x => x == "Tutorial");
         List<int> seqNNoTuto = new List<int>(sequenceNBack);
@@ -382,7 +375,8 @@ public class VariablesHolder : MonoBehaviour {
 					DropdownsNBack[i].value = DropdownsNBack[i].options.FindIndex(option => option.text == seqNBack[i]);
 				}
 				// Load the "game mode"
-				if (parameters[5].Split(':')[1] == "Random"){
+				if (parameters[5].Split(':')[1] == "Random")
+                {
 					ButtonRandom.GetComponent<Toggle>().isOn = true;
 				}
 				else
@@ -392,7 +386,8 @@ public class VariablesHolder : MonoBehaviour {
 				// Load the "speed"
 				inputSpeed.GetComponent<TMP_InputField>().text = parameters[6].Split(':')[1];
 				// Load "use visual"
-				if (parameters[7].Split(':')[1] == "True"){
+				if (parameters[7].Split(':')[1] == "True")
+                {
 					ToggleVisual.GetComponent<Toggle>().isOn = true;
 				}
 				else
@@ -400,7 +395,8 @@ public class VariablesHolder : MonoBehaviour {
 					ToggleVisual.GetComponent<Toggle>().isOn = false;
 				}
 				// Load "use audio"
-				if (parameters[8].Split(':')[1] == "True"){
+				if (parameters[8].Split(':')[1] == "True")
+                {
 					ToggleAudio.GetComponent<Toggle>().isOn = true;
 				}
 				else
@@ -474,7 +470,7 @@ public bool CheckValidFileFixed(string fixedFile)
                        
             int numberOfElements = Convert.ToInt32(firstRowcols[1]);
             int numberofTutorialFile = Convert.ToInt32(firstRowcols[3]);
-            int numberOfLevel = lines.Length - numberofTutorialFile;
+            //int numberOfLevel = lines.Length - numberofTutorialFile;
 
             //Debug.Log(numberOfElements);
             //inputNumObjects.GetComponent<TMP_InputField>().text = numberOfElements.ToString();
@@ -483,7 +479,6 @@ public bool CheckValidFileFixed(string fixedFile)
             {
                 string[] col = lines[line].Split(';');
 
-                
                 if (col[1].Contains("walk") == false && (lines[line].Count(c => (c == ';')) != numberOfElements + 1 || col[numberOfElements + 1].Contains("END") == false))
                 {
                     

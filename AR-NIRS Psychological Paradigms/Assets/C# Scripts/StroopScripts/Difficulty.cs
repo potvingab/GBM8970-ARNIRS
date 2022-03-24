@@ -32,13 +32,6 @@ public class Difficulty : MonoBehaviour {
         canvasParticipantInstructions.SetActive(true);
         canvasChercheurJeu.SetActive(false);
         canvasParticipantJeu.SetActive(false);
-        if (VariablesHolderStroop.useMeta == false)
-        {
-            GameObject metaCamera = GameObject.Find("MetaCameraRig");
-            GameObject metaHands = GameObject.Find("MetaHands");
-            Destroy(metaCamera);
-            Destroy(metaHands);
-        }
     }
 
     int file_convert(string color)

@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject endScreen;
     public GameObject endScreenLevel;
     public GameObject endScreenFinal;
-    public GameObject textInstruction;
+    //public GameObject textInstruction;
 
     
 

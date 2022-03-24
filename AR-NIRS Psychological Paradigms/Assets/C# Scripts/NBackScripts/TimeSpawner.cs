@@ -14,8 +14,7 @@ public class TimeSpawner : MonoBehaviour {
     public Transform spawnPos1;
     public Transform spawnPos2;
     public Transform spawnPos3;
-    public GameObject[] spawneesReal;
-    public GameObject[] spawneesNormal;
+    public GameObject[] spawnees;
     public GameObject StartObject;
     public GameObject StartObject_txt;
     public GameObject EndObject;
@@ -95,14 +94,14 @@ public class TimeSpawner : MonoBehaviour {
         {
             int y = 0;
 
-            y = UnityEngine.Random.Range(0, spawneesReal.Length);
+            y = UnityEngine.Random.Range(0, spawnees.Length);
             // if (VariablesHolder.realistCheck)
             // {
-            //     y = UnityEngine.Random.Range(0, spawneesReal.Length);
+            //     y = UnityEngine.Random.Range(0, spawnees.Length);
             // }
             // else
             // {
-            //     y = UnityEngine.Random.Range(0, spawneesNormal.Length);
+            //     y = UnityEngine.Random.Range(0, spawnees.Length);
             // }
 
             if (BoolArrayHolder.assetsChecks[y])
@@ -465,20 +464,20 @@ public class TimeSpawner : MonoBehaviour {
                         // je ne comprends pas le truc avec tree et house
                         //if (VariablesHolder.realistCheck)
                         //{
-                        // if (spawneesReal[spawneeWanted[order]].name == "House")
+                        // if (spawnees[spawneeWanted[order]].name == "House")
                         // {
                         //     house = true;
                         // }
-                        // if (spawneesReal[spawneeWanted[order]].name == "Tree")
+                        // if (spawnees[spawneeWanted[order]].name == "Tree")
                         // {
                         //     tree = true;
                         // }
                         
-                        spawneeObject = spawneesNormal[spawneeWanted[order]];
+                        spawneeObject = spawnees[spawneeWanted[order]];
                         // }
                         // else
                         // {
-                        //     spawneeObject = spawneesNormal[spawneeWanted[order]];
+                        //     spawneeObject = spawnees[spawneeWanted[order]];
                         // }
 
                         int side = UnityEngine.Random.Range(0, 2);

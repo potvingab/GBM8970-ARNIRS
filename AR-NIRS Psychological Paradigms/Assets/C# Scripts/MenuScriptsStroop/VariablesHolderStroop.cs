@@ -150,7 +150,7 @@ public class VariablesHolderStroop : MonoBehaviour
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
 
-        //Response.TriggerArduino("C");
+        Response.TriggerArduino("C");
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
         if ((fileName.Contains("/")))

@@ -81,6 +81,15 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        //À tester pour voir si lumière s'éteigne et que on peut recommencer jeu sans débrancher!!!
+        //if(VariablesHolder.arduinoPort != "")
+        //{
+        //    Response.serialPort.Close();
+        //}
+        //if(VariablesHolder.arduinoPort != "")
+        //{
+        //    TimeSpawner.serialPort.Close();
+        //}
         Debug.Log("Quit!");
         Application.Quit();
     }

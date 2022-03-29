@@ -174,6 +174,13 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    public void TriggerInstructions()
+    {
+        TimeSpawner.TriggerArduino("0");
+        TimeSpawner.CreateCheckpoint("Trigger Resting Time");
+        TimeSpawner.ArduinoCheckpoint("Trigger Resting Time");
+    }
+
     public void SaveLevelInfo()
     {
         // !!! A arranger : le bon fichier c'est VariablesHolder.fileName maintenant

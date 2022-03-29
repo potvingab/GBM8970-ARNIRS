@@ -81,8 +81,8 @@ public class TimeSpawner : MonoBehaviour {
     public static string[] levelNames;
     public int lineToRead;
     public static string[] SequenceFromFile;
-    
-    
+
+
 
 
     public static int[] spawneeWanted;
@@ -122,14 +122,14 @@ public class TimeSpawner : MonoBehaviour {
 
         UnityEngine.Debug.Log(name);
         int[] sequence = new int[VariablesHolder.numberOfObjects];
-        
+
         switch (name)
         {
             case "Single Task (Walk)":
                 for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
                 {
                     sequence[i] = 9;
-                   
+
                 }
                 break;
             default:
@@ -164,15 +164,15 @@ public class TimeSpawner : MonoBehaviour {
             string nameOfFile;
             if (VariablesHolder.fixedFile.Contains("Empty"))
             {
-                nameOfFile ="FixedSequenceNBack";
+                nameOfFile = "FixedSequenceNBack";
             }
             else
             {
                 nameOfFile = VariablesHolder.fixedFile;
             }
             UnityEngine.Debug.Log("sizeofarray: " + allArrayInt.Length);
-            allArrayInt[ntuto] = ReadFile(ntuto+1, nameOfFile);
-            levelNames[ntuto] = "Tutorial " + (ntuto+1);
+            allArrayInt[ntuto] = ReadFile(ntuto + 1, nameOfFile);
+            levelNames[ntuto] = "Tutorial " + (ntuto + 1);
             UnityEngine.Debug.Log("n tuto: " + ntuto);
         }
         return;
@@ -185,7 +185,7 @@ public class TimeSpawner : MonoBehaviour {
         {
             string allInfo;
 
-            if (VariablesHolder.fixedFile.Contains("Empty")==false)
+            if (VariablesHolder.fixedFile.Contains("Empty") == false)
             {
                 allInfo = VariablesHolder.fixedFile;
             }
@@ -218,7 +218,7 @@ public class TimeSpawner : MonoBehaviour {
                 {
                     objectIndex = Convert.ToInt32(SequenceFromFile[i + 1]);
                 }
-                    
+
                 sequence[i] = objectIndex;
             }
 
@@ -232,7 +232,7 @@ public class TimeSpawner : MonoBehaviour {
 
         }
         //Divide the file into a string []
-        
+
     }
 
 
@@ -295,10 +295,10 @@ public class TimeSpawner : MonoBehaviour {
         //allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
         //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
         //ATTENTION number of level
-        
-        
- 
-        
+
+
+
+
         allArrayInt = new int[VariablesHolder.sizeOfArray][];
         levelNames = new string[VariablesHolder.sizeOfArray];
 
@@ -311,17 +311,17 @@ public class TimeSpawner : MonoBehaviour {
             UnityEngine.Debug.Log("index:" + lineToRead);
 
             allArrayInt[nLevel] = LevelGenerator(VariablesHolder.sequence[nLevel]);
-            levelNames[nLevel] =  "Level " + (nLevel - VariablesHolder.numberOfTutorial + 1);
+            levelNames[nLevel] = "Level " + (nLevel - VariablesHolder.numberOfTutorial + 1);
 
             //UnityEngine.Debug.Log(levelNames[nLevel]);
             //UnityEngine.Debug.Log(allArrayInt[nLevel]);
         }
         //UnityEngine.Debug.Log("ici");
-    
+
     }
 
 
-    void Start ()
+    void Start()
     {
         //spawnPos1.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
         //spawnPos2.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
@@ -330,11 +330,11 @@ public class TimeSpawner : MonoBehaviour {
         //StartObject_txt.transform.position = spawnPos3.position - 3 * Vector3.forward;
         //EndObject_txt.transform.position = spawnPos3.position - 3 * Vector3.forward;
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
-        if(!VariablesHolder.useVisual)
+        if (!VariablesHolder.useVisual)
         {
             plane.SetActive(false);
         }
-	}
+    }
 
     public static void TriggerArduino(string line)
     {

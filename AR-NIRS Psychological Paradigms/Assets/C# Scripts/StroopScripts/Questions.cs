@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class Questions : MonoBehaviour
 {
-    private static System.Random rng = new System.Random();
     // An instance is needed to use the method "Question" in other scripts
     public static Questions Instance;
 
@@ -185,46 +184,6 @@ public class Questions : MonoBehaviour
                     errorTextInstruc.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
                 }
 
-                // If the fixed sequence was already seen, shuffle it
-                if (currentIndexSeq > 1)
-                {
-                    question.Remove("END");
-                    // Random shuffle of the sequence
-                    question = question.OrderBy(x => rng.Next()).ToList();
-                    // Check if neighbour elements are the same (they should not)
-                    for (int i = 0; i < question.Count()-1; i++)
-                    {
-                        // If the element is the same than the next one
-                        if (question[i] == question[i+1])
-                        {
-                            // Special case: If it is the last pair of element of the sequence  
-                            if (i == question.Count()-2)
-                            {
-                                for (int j = i+1; j > 0; j--)
-                                {
-                                    if (question[i+1] != question[j])
-                                    {
-                                        question[i+1] = question[j];
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // Find an element that is not the same and put it in the position
-                                for (int j = i+1; j < question.Count(); j++)
-                                {
-                                    if (question[i+1] != question[j])
-                                    {
-                                        question[i+1] = question[j];
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    question.Add("END");
-                }
                 Debug.Log(String.Join(", ", question.ToArray()));
                 n_question_fixed = 0;
             }

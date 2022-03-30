@@ -50,32 +50,38 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //try
-        //{
-            if (!serialPort.IsOpen)
+        if (SceneManager.GetSceneByName("Stroop").isLoaded)
+        {
+            // 0: Question
+            // 1: Response
+            // Enlever commentaire si on utilise l'Arduino
+            try
             {
-                serialPort.Open();
+                if (!serialPort.IsOpen)
+                {
+                    serialPort.Open();
+                }
+                serialPort.WriteLine(line);
+                ARCheckpoint("Trigger sent");
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.gameObject.SetActive(false);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.gameObject.SetActive(false);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonInstruc.gameObject.SetActive(false);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonGame.gameObject.SetActive(false);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgInstruc.gameObject.SetActive(false);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgGame.gameObject.SetActive(false);
             }
-            serialPort.WriteLine(line);
-            ARCheckpoint("Trigger sent");
-        //    Questions.Instance.errorTextInstruc.gameObject.SetActive(false);
-        //    Questions.Instance.errorTextGame.gameObject.SetActive(false);
-        //    Questions.Instance.errorButtonInstruc.gameObject.SetActive(false);
-        //    Questions.Instance.errorButtonGame.gameObject.SetActive(false);
-        //    Questions.Instance.errorBgInstruc.gameObject.SetActive(false);
-        //    Questions.Instance.errorBgGame.gameObject.SetActive(false);
-        //}
-        //catch
-        //{
-        //    Questions.Instance.errorTextInstruc.gameObject.SetActive(true);
-        //    Questions.Instance.errorTextGame.gameObject.SetActive(true);
-        //    Questions.Instance.errorButtonInstruc.gameObject.SetActive(true);
-        //    Questions.Instance.errorButtonGame.gameObject.SetActive(true);
-        //    Questions.Instance.errorBgInstruc.gameObject.SetActive(true);
-        //    Questions.Instance.errorBgGame.gameObject.SetActive(true);
-        //    Questions.Instance.errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
-        //    Questions.Instance.errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
-        //}
+            catch
+            {
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.gameObject.SetActive(true);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.gameObject.SetActive(true);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonInstruc.gameObject.SetActive(true);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonGame.gameObject.SetActive(true);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgInstruc.gameObject.SetActive(true);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgGame.gameObject.SetActive(true);
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+            } 
+        }
     }
 
     public static void CreateCheckpoint(string nom)

@@ -302,24 +302,50 @@ public class VariablesHolder : MonoBehaviour {
         }
     }
 
-    public void ChangeFileNameAndPort() {
-		// Update "file name"
+ 	public void ChangeFileNameAndPort() 
+	{
+		// Update "File name"
 		fileName = inputFileName.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("File name: " + fileName);
+
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
-        arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
-        Debug.Log("Arduino port: " + arduinoPort);
-        TimeSpawner.TriggerArduino("C");
+		Debug.Log("Arduino port: " + arduinoPort);
+
         // Check if valid inputs
-        if ((fileName.Contains("/")) && (arduinoPort.Contains("COM")))
+        // Mettre en commentaire ce qui suit si on utilise l'Arduino
+        //if ((fileName.Contains("/")))
+        //{
+        //   errorMessageFileName.SetActive(false);
+        //   FileNameStroopPage.SetActive(false);
+        //   OptionsStroopPage.SetActive(true);
+        //}
+        //else
+        //{
+        //   errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
+        //   errorMessageFileName.SetActive(true);
+        //}
+
+        // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
+        try
         {
-            errorMessageFileName.SetActive(false);
-            FileNameNBackPage.SetActive(false);
-            OptionsNBackPage.SetActive(true);
+            if (!Response.serialPort.IsOpen)
+                Response.serialPort.Open();
+            if ((fileName.Contains("/")))
+            {
+                errorMessageFileName.SetActive(false);
+                FileNameNBackPage.SetActive(false);
+                OptionsNBackPage.SetActive(true);
+            }
+            else
+            {
+                errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename. Read the manual for more information.";
+                errorMessageFileName.SetActive(true);
+            }
         }
-        else
+        catch (IOException ioex)
         {
+            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid port. Read the manual for more information. \n IO Port Exception: " + ioex.Message;
             errorMessageFileName.SetActive(true);
         }
     }

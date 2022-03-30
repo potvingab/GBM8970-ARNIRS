@@ -570,6 +570,8 @@ public class Questions : MonoBehaviour
 
     public void QuitGame()
     {
+        Response.TriggerArduino("U");
+        Response.serialPort.Close();
         Application.Quit();
     }
     

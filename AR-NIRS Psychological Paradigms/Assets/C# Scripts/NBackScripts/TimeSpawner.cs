@@ -341,10 +341,10 @@ public class TimeSpawner : MonoBehaviour {
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        //if (!serialPort.IsOpen)
-        //    serialPort.Open();
-        //serialPort.WriteLine(line);
-        //ARCheckpoint("Trigger sent");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        serialPort.WriteLine(line);
+        ARCheckpoint("Trigger sent");
     }
 
     public static void CreateCheckpoint(string nom)
@@ -362,16 +362,16 @@ public class TimeSpawner : MonoBehaviour {
 
     public static void ArduinoCheckpoint(string nom)
     {
-        //String name = VariablesHolder.fileName;
-        //int index = name.IndexOf(".txt");
-        //String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
-        //if (!serialPort.IsOpen)
-        //    serialPort.Open();
-        //string delay = serialPort.ReadLine();
-        //using (StreamWriter sw = File.AppendText(arduinoFileName))
-        //{
-        //    sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
-        //}
+        String name = VariablesHolder.fileName;
+        int index = name.IndexOf(".txt");
+        String arduinoFileName = name.Insert(index, "_Test_synchro_Arduino");
+        if (!serialPort.IsOpen)
+            serialPort.Open();
+        string delay = serialPort.ReadLine();
+        using (StreamWriter sw = File.AppendText(arduinoFileName))
+        {
+            sw.Write("Arduino Delay; " + nom + "; " + delay + " μs" + "\n");
+        }
     }
 
     static void ARCheckpoint(string nom) 

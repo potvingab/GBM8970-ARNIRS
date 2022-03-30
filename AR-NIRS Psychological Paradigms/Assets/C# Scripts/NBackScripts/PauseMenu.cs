@@ -532,6 +532,8 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        TimeSpawner.TriggerArduino("U");
+        TimeSpawner.serialPort.Close();
         Application.Quit();
     }
 

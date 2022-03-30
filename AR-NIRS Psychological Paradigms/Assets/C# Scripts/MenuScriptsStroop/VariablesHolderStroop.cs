@@ -150,43 +150,43 @@ public class VariablesHolderStroop : MonoBehaviour
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		Debug.Log("Arduino port: " + arduinoPort);
 
-        //Response.TriggerArduino("C");
+        Response.TriggerArduino("C");
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
-        if ((fileName.Contains("/")))
-        {
-           errorMessageFileName.SetActive(false);
-           FileNameStroopPage.SetActive(false);
-           OptionsStroopPage.SetActive(true);
-        }
-        else
-        {
-           errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
-           errorMessageFileName.SetActive(true);
-        }
+        //if ((fileName.Contains("/")))
+        //{
+        //   errorMessageFileName.SetActive(false);
+        //   FileNameStroopPage.SetActive(false);
+        //   OptionsStroopPage.SetActive(true);
+        //}
+        //else
+        //{
+        //   errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
+        //   errorMessageFileName.SetActive(true);
+        //}
 
         // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
-        // try
-        // {
-        //     if (!Response.serialPort.IsOpen)
-        //         Response.serialPort.Open();
-        //     if ((fileName.Contains("/")))
-        //     {
-        //         errorMessageFileName.SetActive(false);
-        //         FileNameStroopPage.SetActive(false);
-        //         OptionsStroopPage.SetActive(true);
-        //     }
-        //     else
-        //     {
-        //         errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
-        //         errorMessageFileName.SetActive(true);
-        //     }
-        // }
-        // catch (IOException ioex)
-        // {
-        //     errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename and port. \n IO Port Exception: " + ioex.Message;
-        //     errorMessageFileName.SetActive(true);
-        // }
+        try
+        {
+            if (!Response.serialPort.IsOpen)
+                Response.serialPort.Open();
+            if ((fileName.Contains("/")))
+            {
+                errorMessageFileName.SetActive(false);
+                FileNameStroopPage.SetActive(false);
+                OptionsStroopPage.SetActive(true);
+            }
+            else
+            {
+                errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
+                errorMessageFileName.SetActive(true);
+            }
+        }
+        catch (IOException ioex)
+        {
+            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename and port. \n IO Port Exception: " + ioex.Message;
+            errorMessageFileName.SetActive(true);
+        }
     }
 
 	public void SaveParameters()
@@ -301,17 +301,17 @@ public class VariablesHolderStroop : MonoBehaviour
 		string[] lines = fixedFile.Split('\n');
         if (
 			(lines.Count() == 8) && 
-			(Regex.Replace(lines[0], @"\s", "") == "Niveau1") && 
-			(Regex.Replace(lines[2], @"\s", "") == "Niveau2") && 
-			(Regex.Replace(lines[4], @"\s", "") == "Niveau3") && 
-			(Regex.Replace(lines[6], @"\s", "") == "Niveau4") &&
+			(Regex.Replace(lines[0], @"\s", "") == "Level 1") && 
+			(Regex.Replace(lines[2], @"\s", "") == "Level 2") && 
+			(Regex.Replace(lines[4], @"\s", "") == "Level 3") && 
+			(Regex.Replace(lines[6], @"\s", "") == "Level 4") &&
 			(lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()) &&
 			(lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()) &&
 			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 
 			(lines[5].Count(c => (c == ',')) * 4 + 3 == Regex.Replace(lines[5], @"\s", "").Count()) &&
 			(lines[7].Count(c => (c == ';')) * 6 + 3 == (lines[7].Count(c => (c == ','))) * 6 / 2 + 3) && 
 			((lines[7].Count(c => (c == ','))) * 6 / 2 + 3 == Regex.Replace(lines[7], @"\s", "").Count()) &&
-			(fixedFile.All(c => "Niveau01234RGB;,END\n ".Contains(c)))
+			(fixedFile.All(c => "Level01234RGB;,END\n ".Contains(c)))
 			)
 		{
 			success = true;

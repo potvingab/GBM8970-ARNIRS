@@ -1,8 +1,8 @@
-Niveau1
+Level 1
 R;B;R;G;R;B;G;B;R;G;B;G;R;G;R;G;B;R;B;G;R;G;B;R;G;R;G;B;G;R;B;R;G;B;R;G;B;R;B;G;R;B;R;G;B;G;B;R;B;G;END
-Niveau2
+Level 2
 G;R;B;G;B;R;B;G;B;G;R;G;B;G;B;G;R;B;R;G;R;G;B;G;R;B;G;R;B;R;B;G;R;B;G;R;B;G;B;R;G;R;B;R;B;G;R;B;R;G;END
-Niveau3 
+Level 3
 R,B;B,G;R,B;G,R;R,B;B,R;G,B;B,R;R,B;G,R;R,B;B,G;G,B;B,G;G,R;B,G;R,B;G,R;R,B;B,G;G,R;B,G;G,R;R,B;B,G;G,R;R,G;B,R;G,B;R,G;G,B;B,G;R,B;G,R;B,G;R,B;G,R;B,G;G,R;R,G;B,G;G,B;B,R;R,B;B,G;G,R;R,B;B,G;G,R;R,B;END
-Niveau4
+Level 4
 R,G,0;G,B,1;R,G,0;G,B,0;B,R,1;R,G,1;B,R,0;R,G,1;G,R,0;R,B,1;B,R,1;R,B,1;G,R,0;R,G,0;G,B,1;R,G,0;G,B,0;B,R,1;G,R,0;R,B,1;G,B,0;B,R,0;R,G,1;G,R,1;B,R,0;R,G,1;G,B,0;B,R,1;G,B,0;B,R,1;R,B,0;B,G,1;R,B,0;B,G,1;G,R,1;B,R,0;R,G,1;B,R,0;G,B,1;R,G,0;R,G,1;G,R,1;B,R,0;R,B,0;B,G,1;R,B,0;B,R,0;R,G,1;B,G,0;G,R,1;END

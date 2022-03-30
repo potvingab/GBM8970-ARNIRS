@@ -50,32 +50,32 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        try
-        {
+        //try
+        //{
             if (!serialPort.IsOpen)
             {
                 serialPort.Open();
             }
             serialPort.WriteLine(line);
             ARCheckpoint("Trigger sent");
-            Questions.Instance.errorTextInstruc.gameObject.SetActive(false);
-            Questions.Instance.errorTextGame.gameObject.SetActive(false);
-            Questions.Instance.errorButtonInstruc.gameObject.SetActive(false);
-            Questions.Instance.errorButtonGame.gameObject.SetActive(false);
-            Questions.Instance.errorBgInstruc.gameObject.SetActive(false);
-            Questions.Instance.errorBgGame.gameObject.SetActive(false);
-        }
-        catch
-        {
-            Questions.Instance.errorTextInstruc.gameObject.SetActive(true);
-            Questions.Instance.errorTextGame.gameObject.SetActive(true);
-            Questions.Instance.errorButtonInstruc.gameObject.SetActive(true);
-            Questions.Instance.errorButtonGame.gameObject.SetActive(true);
-            Questions.Instance.errorBgInstruc.gameObject.SetActive(true);
-            Questions.Instance.errorBgGame.gameObject.SetActive(true);
-            Questions.Instance.errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
-            Questions.Instance.errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
-        }
+        //    Questions.Instance.errorTextInstruc.gameObject.SetActive(false);
+        //    Questions.Instance.errorTextGame.gameObject.SetActive(false);
+        //    Questions.Instance.errorButtonInstruc.gameObject.SetActive(false);
+        //    Questions.Instance.errorButtonGame.gameObject.SetActive(false);
+        //    Questions.Instance.errorBgInstruc.gameObject.SetActive(false);
+        //    Questions.Instance.errorBgGame.gameObject.SetActive(false);
+        //}
+        //catch
+        //{
+        //    Questions.Instance.errorTextInstruc.gameObject.SetActive(true);
+        //    Questions.Instance.errorTextGame.gameObject.SetActive(true);
+        //    Questions.Instance.errorButtonInstruc.gameObject.SetActive(true);
+        //    Questions.Instance.errorButtonGame.gameObject.SetActive(true);
+        //    Questions.Instance.errorBgInstruc.gameObject.SetActive(true);
+        //    Questions.Instance.errorBgGame.gameObject.SetActive(true);
+        //    Questions.Instance.errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+        //    Questions.Instance.errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+        //}
     }
 
     public static void CreateCheckpoint(string nom)

@@ -482,6 +482,14 @@ public class Questions : MonoBehaviour
         }
     }
 
+    public void TriggerRestingTime()
+    {
+        Response.CreateCheckpoint("Resting Time");
+        Response.ArduinoCheckpoint("Resting Time");
+        Response.TriggerArduino("0");
+    }
+
+
     void Update()
     {
         if (flagBeginTimer == true)

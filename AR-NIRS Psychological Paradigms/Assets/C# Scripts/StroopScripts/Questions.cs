@@ -569,7 +569,7 @@ public class Questions : MonoBehaviour
 
         if (flagTimerRest == true)
         {
-            // Each second, if there's still time on the timer, print the time and decrease it
+            // Increase and show the resting time
             timerRestEND.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
             timerRestInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
             timeRest += Time.deltaTime;

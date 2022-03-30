@@ -72,14 +72,14 @@ public class Response : Interaction
             }
             catch
             {
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonInstruc.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonGame.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgInstruc.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgGame.gameObject.SetActive(true);
-                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
-                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
             } 
         }
     }

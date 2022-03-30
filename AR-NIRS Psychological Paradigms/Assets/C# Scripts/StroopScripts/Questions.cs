@@ -174,16 +174,15 @@ public class Questions : MonoBehaviour
                 }
                 catch
                 {
+                    errorTextGame.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
+                    errorTextInstruc.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
                     errorTextInstruc.gameObject.SetActive(true);
                     errorTextGame.gameObject.SetActive(true);
                     errorButtonInstruc.gameObject.SetActive(true);
                     errorButtonGame.gameObject.SetActive(true);
                     errorBgInstruc.gameObject.SetActive(true);
                     errorBgGame.gameObject.SetActive(true);
-                    errorTextGame.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
-                    errorTextInstruc.GetComponent<Text>().text = "Error: The fixed colors sequence file seems invalid. Read the instruction manual for more information.";
                 }
-
                 Debug.Log(String.Join(", ", question.ToArray()));
                 n_question_fixed = 0;
             }

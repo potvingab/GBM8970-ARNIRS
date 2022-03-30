@@ -24,7 +24,7 @@ public class ErrorHandler : MonoBehaviour
     void HandleLog(string logString, string stackTrace, LogType type)
 	{
         
-        if ((type == LogType.Error) || (type == LogType.Exception))
+        if ((type == LogType.Error) || (type == LogType.Exception) && (!logString.Contains("Index")))
 		{
             errorTextInstruc.gameObject.SetActive(true);
 			errorTextGame.gameObject.SetActive(true);

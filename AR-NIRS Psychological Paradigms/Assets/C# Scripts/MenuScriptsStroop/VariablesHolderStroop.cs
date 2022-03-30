@@ -17,7 +17,7 @@ public class VariablesHolderStroop : MonoBehaviour
 	public static int numberTrials;
 	public static List<string> sequence = new List<string>(); // from ["Dual Task", "Single Task (Stroop)", "Single Task (Walk)"]
 	public static List<int> sequenceLevels = new List<int>();
-	public static string arduinoPort = "COM3";
+	public static string arduinoPort;
 	public static string fileName;
 	public static string fixedFile = "Empty";
 	// Where to find the values (Options scene)
@@ -150,43 +150,44 @@ public class VariablesHolderStroop : MonoBehaviour
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
 		Debug.Log("Arduino port: " + arduinoPort);
+		
+
 
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
-        if ((fileName.Contains("/")))
-        {
-          errorMessageFileName.SetActive(false);
-          FileNameStroopPage.SetActive(false);
-          OptionsStroopPage.SetActive(true);
-        }
-        else
-        {
-          errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
-          errorMessageFileName.SetActive(true);
-        }
+        // if ((fileName.Contains("/")))
+        // {
+        //   errorMessageFileName.SetActive(false);
+        //   FileNameStroopPage.SetActive(false);
+        //   OptionsStroopPage.SetActive(true);
+        // }
+        // else
+        // {
+        //   errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
+        //   errorMessageFileName.SetActive(true);
+        // }
 
         // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
-        // try
-        // {
-        //     if (!Response.serialPort.IsOpen)
-        //         Response.serialPort.Open();
-        //     if ((fileName.Contains("/")))
-        //     {
-        //         errorMessageFileName.SetActive(false);
-        //         FileNameStroopPage.SetActive(false);
-        //         OptionsStroopPage.SetActive(true);
-        //     }
-        //     else
-        //     {
-        //         errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename. Read the manual for more information.";
-        //         errorMessageFileName.SetActive(true);
-        //     }
-        // }
-        // catch (IOException ioex)
-        // {
-        //     errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid port. Read the manual for more information. \n IO Port Exception: " + ioex.Message;
-        //     errorMessageFileName.SetActive(true);
-        // }
+        try
+        {
+            Response.TriggerArduino("C");
+            if ((fileName.Contains("/")))
+            {
+                errorMessageFileName.SetActive(false);
+                FileNameStroopPage.SetActive(false);
+                OptionsStroopPage.SetActive(true);
+            }
+            else
+            {
+                errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename. Read the manual for more information.";
+                errorMessageFileName.SetActive(true);
+            }
+        }
+        catch
+        {
+            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid port. Read the manual for more information.";
+            errorMessageFileName.SetActive(true);
+        }
     }
 
 	public void SaveParameters()

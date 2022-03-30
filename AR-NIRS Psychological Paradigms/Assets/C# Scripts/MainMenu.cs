@@ -42,8 +42,10 @@ public class MainMenu : MonoBehaviour
             return;
         }
         else {
+            TimeSpawner.TriggerArduino("0");
             TimeSpawner.CreateCheckpoint("End of Menu");
             SceneManager.LoadScene("N-back");
+
         }
 
     }
@@ -75,6 +77,7 @@ public class MainMenu : MonoBehaviour
             sw.Write("Parameter; " + "Filename; " + arFileName + "\n");
             sw.Write("Parameter; " + "Arduino Port; " + VariablesHolderStroop.arduinoPort + "\n");
         }
+        Response.TriggerArduino("0");
         Response.CreateCheckpoint("End of Menu");
         SceneManager.LoadScene("Stroop");
     }

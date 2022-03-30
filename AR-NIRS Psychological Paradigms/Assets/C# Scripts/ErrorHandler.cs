@@ -23,7 +23,7 @@ public class ErrorHandler : MonoBehaviour
 
     void HandleLog(string logString, string stackTrace, LogType type)
 	{
-        if ((type == LogType.Error) || (type == LogType.Exception) && (!logString.Contains("Index")))
+        if ((type == LogType.Error) || (type == LogType.Exception) && (!logString.Contains("index") && (!logString.Contains("nearest gameobject"))))
 		{
 			errorTextGame.GetComponent<Text>().text = "Error: " + logString;
             errorTextInstruc.GetComponent<Text>().text = "Error: " + logString;

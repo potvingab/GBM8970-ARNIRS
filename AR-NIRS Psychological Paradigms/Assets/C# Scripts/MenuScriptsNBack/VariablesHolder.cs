@@ -330,8 +330,7 @@ public class VariablesHolder : MonoBehaviour {
         // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
         try
         {
-            if (!Response.serialPort.IsOpen)
-                Response.serialPort.Open();
+            TimeSpawner.TriggerArduino("C");
             if ((fileName.Contains("/")))
             {
                 errorMessageFileName.SetActive(false);

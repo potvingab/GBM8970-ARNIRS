@@ -14,6 +14,7 @@ public class Response : Interaction
 {
 	// Parameter from the menu scene
 	public static string fileName = VariablesHolderStroop.fileName; 
+    
     public static SerialPort serialPort = new SerialPort(VariablesHolderStroop.arduinoPort, 9600, Parity.None, 8, StopBits.One); // Arduino's port
     // New variables
     public GameObject selectedAnswersShown; // List of selected answers shown in the searcher's view
@@ -50,19 +51,18 @@ public class Response : Interaction
         // 0: Question
         // 1: Response
         // Enlever commentaire si on utilise l'Arduino
-        if (SceneManager.GetSceneByName("Stroop").isLoaded)
+        Debug.Log(VariablesHolderStroop.arduinoPort);
+        try
         {
-            // 0: Question
-            // 1: Response
-            // Enlever commentaire si on utilise l'Arduino
-            try
+            if (!serialPort.IsOpen)
             {
-                if (!serialPort.IsOpen)
-                {
-                    serialPort.Open();
-                }
-                serialPort.WriteLine(line);
-                ARCheckpoint("Trigger sent");
+                serialPort.Open();
+            }
+            serialPort.WriteLine(line);
+            ARCheckpoint("Trigger sent");
+            
+            if (SceneManager.GetSceneByName("Stroop").isLoaded)
+            {
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.gameObject.SetActive(false);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.gameObject.SetActive(false);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonInstruc.gameObject.SetActive(false);
@@ -70,18 +70,21 @@ public class Response : Interaction
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgInstruc.gameObject.SetActive(false);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgGame.gameObject.SetActive(false);
             }
-            catch
+        }
+        catch
+        {
+            if (SceneManager.GetSceneByName("Stroop").isLoaded)
             {
-                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
-                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonInstruc.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorButtonGame.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgInstruc.gameObject.SetActive(true);
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorBgGame.gameObject.SetActive(true);
-            } 
-        }
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+                GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
+            }
+        } 
     }
 
     public static void CreateCheckpoint(string nom)

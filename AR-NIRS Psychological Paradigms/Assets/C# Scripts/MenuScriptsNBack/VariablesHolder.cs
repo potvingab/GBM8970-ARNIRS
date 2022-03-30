@@ -343,9 +343,9 @@ public class VariablesHolder : MonoBehaviour {
                 errorMessageFileName.SetActive(true);
             }
         }
-        catch (IOException ioex)
+        catch
         {
-            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid port. Read the manual for more information. \n IO Port Exception: " + ioex.Message;
+            errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid port. Read the manual for more information.";
             errorMessageFileName.SetActive(true);
         }
     }

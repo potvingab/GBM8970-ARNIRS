@@ -148,6 +148,7 @@ public class VariablesHolderStroop : MonoBehaviour
 
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
+		arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
 		Debug.Log("Arduino port: " + arduinoPort);
 
         // Check if valid inputs

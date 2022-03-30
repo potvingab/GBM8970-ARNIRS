@@ -84,6 +84,10 @@ public class Response : Interaction
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextGame.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
                 GameObject.Find("VariablesQuestions").GetComponent<Questions>().errorTextInstruc.GetComponent<Text>().text = "Error: The Arduino seems disconnected. Read the instruction manual for more information.";
             }
+            else
+            {
+                throw new Exception();
+            }
         } 
     }
 

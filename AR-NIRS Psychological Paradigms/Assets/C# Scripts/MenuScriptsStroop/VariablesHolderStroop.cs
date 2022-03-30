@@ -151,8 +151,6 @@ public class VariablesHolderStroop : MonoBehaviour
 		arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
 		Debug.Log("Arduino port: " + arduinoPort);
 		
-
-
         // Check if valid inputs
         // Mettre en commentaire ce qui suit si on utilise l'Arduino
         // if ((fileName.Contains("/")))

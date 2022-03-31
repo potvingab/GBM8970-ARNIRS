@@ -398,18 +398,21 @@ public class TimeSpawner : MonoBehaviour {
             if (order < VariablesHolder.numberOfObjects + 1)
             {
                 GameObject spawneeObject;
+                GameObject spawneeObject_txt;
                 if (order == -1)
                 {
                     if (VariablesHolder.useVisual)
                     {
                         spawneeObject = StartObject;
+                        spawneeObject_txt = StartObject_txt;
                     }
                     else
                     {
                         spawneeObject = EmptyObject;
+                        spawneeObject_txt = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
-                    clone_txt = Instantiate(StartObject_txt, spawnPos3.position, spawnPos3.rotation);
+                    clone_txt = Instantiate(spawneeObject_txt, spawnPos3.position, spawnPos3.rotation);
                     //StartObject_txt.gameObject.SetActive(true);
                     Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("Start");
@@ -421,13 +424,15 @@ public class TimeSpawner : MonoBehaviour {
                     if (VariablesHolder.useVisual)
                     {
                         spawneeObject = EndObject;
+                        spawneeObject_txt = EndObject_txt;
                     }
                     else
                     {
                         spawneeObject = EmptyObject;
+                        spawneeObject_txt = EmptyObject;
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
-                    clone_txt = Instantiate(EndObject_txt, spawnPos3.position, spawnPos3.rotation);
+                    clone_txt = Instantiate(spawneeObject_txt, spawnPos3.position, spawnPos3.rotation);
                     Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("End");
                     TriggerArduino("0");

@@ -9,6 +9,7 @@ using UnityEngine.Audio;
 using SFB;
 using TMPro;
 using System.Text.RegularExpressions;
+using System.IO.Ports;
 
 public class VariablesHolder : MonoBehaviour {
     // Values to store (with default values)
@@ -311,6 +312,11 @@ public class VariablesHolder : MonoBehaviour {
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
         arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
+        if (TimeSpawner.serialPort.IsOpen)
+        {
+			TimeSpawner.serialPort.Close();
+		}
+		TimeSpawner.serialPort = new SerialPort(arduinoPort, 9600, Parity.None, 8, StopBits.One);
 		Debug.Log("Arduino port: " + arduinoPort);
 
         // Check if valid inputs

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using SFB;
 using TMPro;
 using System.Text.RegularExpressions;
+using System.IO.Ports;
 
 public class VariablesHolderStroop : MonoBehaviour 
 {
@@ -149,6 +150,11 @@ public class VariablesHolderStroop : MonoBehaviour
 		// Update "Arduino port"
 		arduinoPort = inputArduinoPort.GetComponent<TMPro.TextMeshProUGUI>().text;
 		arduinoPort = Regex.Replace(arduinoPort, "[^A-Za-z0-9 -]", "");
+		if (Response.serialPort.IsOpen)
+        {
+			Response.serialPort.Close();
+		}
+		Response.serialPort = new SerialPort(arduinoPort, 9600, Parity.None, 8, StopBits.One);
 		Debug.Log("Arduino port: " + arduinoPort);
 		
         // Check if valid inputs

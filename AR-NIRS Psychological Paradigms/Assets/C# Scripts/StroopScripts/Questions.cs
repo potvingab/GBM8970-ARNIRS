@@ -476,7 +476,6 @@ public class Questions : MonoBehaviour
             }
             // Show the result (researcher's view)
             totalResults.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format("Results: {0:00}/{1:00}", numCorrectAnswers, numTotalAnswers);
-            allResults.Add(numCorrectAnswers + "/" + numTotalAnswers);
             Response.CreateCheckpoint("Result: " + numCorrectAnswers + "/" + numTotalAnswers);
             if (responseTimes.Count==0)
             {
@@ -484,7 +483,12 @@ public class Questions : MonoBehaviour
                 responseTimes.Add((timeEndQuestion - timeStartQuestion).TotalSeconds);
             }
             averageResponseTime.GetComponent<TMPro.TextMeshProUGUI>().text = "Average Time: " + Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec";
-            allAvTimes.Add(Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec");
+            if (flagTuto == false)
+            {
+                allAvTimes.Add(Math.Round(Queryable.Average(responseTimes.AsQueryable()),2).ToString() + " sec");
+                allResults.Add(numCorrectAnswers + "/" + numTotalAnswers);
+            }
+            
             Response.CreateCheckpoint("Average Response Time: " + Queryable.Average(responseTimes.AsQueryable()).ToString());
             // Show the button "Continue" (researcher's view)
             buttonContinue.gameObject.SetActive(true);
@@ -559,6 +563,8 @@ public class Questions : MonoBehaviour
         selectedAnswers = new List<string>(); // Answers selected by the participant
         correctAnswers = new List<string>(); // Correct answers 
         responseTimes = new List<double>();
+        allAvTimes.RemoveAt(allAvTimes.Count - 1);
+        allResults.RemoveAt(allResults.Count - 1);
         playInstruction();
     }
    

@@ -134,7 +134,7 @@ public class Difficulty : MonoBehaviour {
         return;
     }
 
-    // Difficulty 2: Black Text
+    // Difficulty 2: White Text
     public void blackText()
     {
         // TODO: Instructions = "Select the written color.\n Are you ready?"
@@ -166,9 +166,10 @@ public class Difficulty : MonoBehaviour {
             Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
         }
 
-        // Change the color of questionHolder to the black
+        // Change the color of questionHolder to the white
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
-        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor]; 
+        //questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor]; 
+        questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white; 
         // Change the text of questionHolder to the question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
         //Debug.Log(possibleQuestions[indexQuestion]);

@@ -39,21 +39,7 @@ public class TimeSpawner : MonoBehaviour {
     public static int[] Tutorial5Int;
     public static int[] Tutorial6Int;
     public static int[] Tutorial7Int;
-    /*
-    public static int[] blanc1Int;
-    public static int[] level1Int;
-    public static int[] level2Int;
-    public static int[] level3Int;
-    public static int[] level4Int;
-    public static int[] level5Int;
-    public static int[] level6Int;
-    public static int[] level7Int;
-    public static int[] level8Int;
-
-    */
-    //public static int[] level;
-    //public static GameObject[] level;
-
+   
 
     public static GameObject[] Tutorial1;
     public static GameObject[] Tutorial2;
@@ -75,7 +61,6 @@ public class TimeSpawner : MonoBehaviour {
 
     public static int[][] allArrayInt;
 
-    //ATTENTION
     public static GameObject[][] allArray;
 
     public static string[] levelNames;
@@ -93,17 +78,7 @@ public class TimeSpawner : MonoBehaviour {
         for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
         {
             int y = 0;
-
             y = UnityEngine.Random.Range(0, spawnees.Length);
-            // if (VariablesHolder.realistCheck)
-            // {
-            //     y = UnityEngine.Random.Range(0, spawnees.Length);
-            // }
-            // else
-            // {
-            //     y = UnityEngine.Random.Range(0, spawnees.Length);
-            // }
-
             if (BoolArrayHolder.assetsChecks[y])
             {
                 spawneeWanted[i] = y;
@@ -119,17 +94,13 @@ public class TimeSpawner : MonoBehaviour {
 
     public int[] LevelGenerator(string name)
     {
-
-        UnityEngine.Debug.Log(name);
         int[] sequence = new int[VariablesHolder.numberOfObjects];
-
         switch (name)
         {
             case "Single Task (Walk)":
                 for (int i = 0; i < VariablesHolder.numberOfObjects; ++i)
                 {
                     sequence[i] = 9;
-
                 }
                 break;
             default:
@@ -184,7 +155,6 @@ public class TimeSpawner : MonoBehaviour {
         try
         {
             string allInfo;
-
             if (VariablesHolder.fixedFile.Contains("Empty") == false)
             {
                 allInfo = VariablesHolder.fixedFile;
@@ -195,14 +165,6 @@ public class TimeSpawner : MonoBehaviour {
                 allInfo = txt.text;
             }
             string[] InfoLine = allInfo.Split('\n');
-
-            //Read the first line
-            //SequenceFromFile = InfoLine[0].Split(';');
-            //int numberOfObjectsFromFile = Convert.ToInt16(SequenceFromFile[1]);
-            //VariablesHolder.numberOfObjects = numberOfObjectsFromFile;
-
-            //UnityEngine.Debug.Log(VariablesHolder.numberOfObjects);
-            //Read the line corresponding the level
             SequenceFromFile = InfoLine[line].Split(';');
 
             int[] sequence = new int[VariablesHolder.numberOfObjects];
@@ -226,79 +188,16 @@ public class TimeSpawner : MonoBehaviour {
         }
         catch
         {
-            //FAIL!!
             int[] sequence = new int[0];
             return sequence;
 
         }
-        //Divide the file into a string []
-
     }
 
 
     // Use this for initialization
     private void Awake()
     {
-
-
-        //File pour tutorial
-        /*
-        Tutorial1Int = new int[15] { 3, 8, 8, 0, 0, 7, 0, 1, 1, 8, 5, 5, 4, 7, 5 };
-
-        Tutorial2Int = new int[15] {1, 7, 4, 7, 0, 8, 0, 3, 1, 3, 8, 3, 4, 6, 3};
-
-        Tutorial3Int = new int[15] {4, 2, 5, 6, 5, 3, 8, 5, 8, 7, 4, 0, 4, 6, 8};
-
-        Tutorial4Int = new int[15] {7, 1, 1, 3, 1, 0, 6, 0, 7, 6, 7, 8, 5, 8, 2};
-
-        Tutorial5Int = new int[15] {2, 7, 2, 8, 5, 8, 3, 2, 3, 4, 8, 4, 1, 4, 5};
-
-        Tutorial6Int = new int[15] {5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8};
-
-        Tutorial7Int = new int[15] {5, 1, 7, 4, 7, 3, 8, 2, 8, 5, 7, 1, 3, 1, 8};
-
-        level = new int[15] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-        
-
-
-        if (VariablesHolder.gameMode == "Random")
-        {
-            level = ArrayMaker();
-
-        }
-        else
-        {
-            level1Int = new int[15] {0, 2, 1, 2, 7, 5, 7, 3, 4, 7, 8, 2, 6, 2, 8};
-
-            level2Int = new int[15] {2, 0, 4, 0, 7, 8, 4, 3, 3, 7, 3, 0, 2, 0, 4};
-
-            level3Int = new int[15] {7, 6, 3, 6, 8, 6, 7, 3, 1, 3, 0, 6, 0, 8, 0};
-
-            level4Int = new int[15] {2, 0, 4, 0, 3, 7, 3, 5, 8, 5, 2, 5, 0, 8, 0};
-
-            level5Int = new int[15] {7, 4, 7, 0, 3, 0, 5, 1, 5, 3, 6, 2, 3, 1, 0};
-
-            level6Int = new int[15] {4, 8, 0, 2, 1, 2, 4, 4, 6, 7, 6, 3, 8, 4, 7};
-
-            level7Int = new int[15] {0, 5, 6, 5, 2, 7, 2, 8, 0, 6, 0, 2, 5, 2, 4};
-
-            level8Int = new int[15] {7, 3, 2, 6, 2, 6, 8, 5, 8, 4, 5, 7, 2, 7, 0};
-
-        }
-        */
-        //formation of the
-
-        //allArrayInt = new int[][] {Tutorial1Int, Tutorial2Int, Tutorial3Int, Tutorial4Int, Tutorial5Int, Tutorial6Int, Tutorial7Int,
-        //  blanc1Int, level1Int, level2Int, level3Int, level4Int, blanc1Int, blanc1Int, level5Int, level6Int, level7Int, level8Int, blanc1Int};
-
-        //ATTENTION
-        //allArray = new GameObject[][]{Tutorial1, Tutorial2, Tutorial3, Tutorial4, Tutorial5, Tutorial6, Tutorial7,
-        //blanc1, level1, level2, level3, level4, blanc1, blanc1, level5, level6, level7, level8, blanc1};
-        //ATTENTION number of level
-
-
-
-
         allArrayInt = new int[VariablesHolder.sizeOfArray][];
         levelNames = new string[VariablesHolder.sizeOfArray];
 
@@ -306,29 +205,14 @@ public class TimeSpawner : MonoBehaviour {
         lineToRead = VariablesHolder.numberOfTutorial;
         for (int nLevel = VariablesHolder.numberOfTutorial; nLevel < VariablesHolder.sizeOfArray; ++nLevel)
         {
-
-            // lineToRead est une variable globale
-            UnityEngine.Debug.Log("index:" + lineToRead);
-
             allArrayInt[nLevel] = LevelGenerator(VariablesHolder.sequence[nLevel]);
             levelNames[nLevel] = "Level " + (nLevel - VariablesHolder.numberOfTutorial + 1);
-
-            //UnityEngine.Debug.Log(levelNames[nLevel]);
-            //UnityEngine.Debug.Log(allArrayInt[nLevel]);
         }
-        //UnityEngine.Debug.Log("ici");
-
     }
 
 
     void Start()
     {
-        //spawnPos1.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
-        //spawnPos2.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
-        //spawnPos3.position += (15 * VariablesHolder.speed - 19.37f) * Vector3.forward;
-        //Si on veut que la position de départ change selon la vitesse
-        //StartObject_txt.transform.position = spawnPos3.position - 3 * Vector3.forward;
-        //EndObject_txt.transform.position = spawnPos3.position - 3 * Vector3.forward;
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
         if (!VariablesHolder.useVisual)
         {
@@ -413,7 +297,7 @@ public class TimeSpawner : MonoBehaviour {
                     }
                     Instantiate(spawneeObject, spawnPos3.position, spawnPos3.rotation);
                     clone_txt = Instantiate(spawneeObject_txt, spawnPos3.position, spawnPos3.rotation);
-                    //StartObject_txt.gameObject.SetActive(true);
+                   
                     Invoke("DisableText", 5f);//invoke after 5 seconds
                     CreateCheckpoint("Start");
                     TriggerArduino("0");
@@ -439,8 +323,7 @@ public class TimeSpawner : MonoBehaviour {
                     ArduinoCheckpoint("End");
                 }
                 else
-                {
-                    
+                { 
                     spawneeWanted = allArrayInt[currentLevel];
                     if (VariablesHolder.sequence[currentLevel].Contains("Single Task (Walk)"))
                     {
@@ -463,117 +346,54 @@ public class TimeSpawner : MonoBehaviour {
                     }
                     else
                     {
-                        
-                        //bool tree = false;
-                        //bool house = false;
-                        // je ne comprends pas le truc avec tree et house
-                        //if (VariablesHolder.realistCheck)
-                        //{
-                        // if (spawnees[spawneeWanted[order]].name == "House")
-                        // {
-                        //     house = true;
-                        // }
-                        // if (spawnees[spawneeWanted[order]].name == "Tree")
-                        // {
-                        //     tree = true;
-                        // }
-                        
                         spawneeObject = spawnees[spawneeWanted[order]];
-                        // }
-                        // else
-                        // {
-                        //     spawneeObject = spawnees[spawneeWanted[order]];
-                        // }
-
+                        
                         int side = UnityEngine.Random.Range(0, 2);
                         if (side == 0)
                         {
-                            //if (house) //&& VariablesHolder.realistCheck)
-                            //{
-                            //    Vector3 temp = new Vector3(2.0f, 0, 0);
-                            //    startTime = DateTime.Now.Millisecond; 
-                            //    Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
-                            //    reactionTime.Reset();
-                            //    reactionTime.Start();
-                            //    house = false;
-                            //}
-                            //else if (tree) //&& VariablesHolder.realistCheck)
-                            //{
-                            //    Vector3 temp = new Vector3(0.5f, 0, 0);
-                            //    startTime = DateTime.Now.Millisecond;
-                            //    Instantiate(spawneeObject, spawnPos1.position - temp, spawnPos1.rotation);
-                            //    reactionTime.Reset();
-                            //    reactionTime.Start();
-                            //    tree = false;
-                            //}
-                            //else
+                            startTime = DateTime.Now.Millisecond;
+                            GameObject clone = Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
+                            UnityEngine.Debug.Log("Audio:" + VariablesHolder.useAudio);
+                            UnityEngine.Debug.Log("Visuel:" + VariablesHolder.useVisual);
+                            if (VariablesHolder.useAudio)
                             {
-                                startTime = DateTime.Now.Millisecond;
-                                GameObject clone = Instantiate(spawneeObject, spawnPos1.position, spawnPos1.rotation);
-                                UnityEngine.Debug.Log("Audio:" + VariablesHolder.useAudio);
-                                UnityEngine.Debug.Log("Visuel:" + VariablesHolder.useVisual);
-                                if (VariablesHolder.useAudio)
-                                {
-                                    AudioSource sound = clone.GetComponent<AudioSource>();
-                                    //sound.volume = VariablesHolder.audioVolume;
-                                    UnityEngine.Debug.Log(sound);
-                                    sound.Play();
-                                }
-                                if(!VariablesHolder.useVisual)
-                                {
-                                    clone.gameObject.transform.localScale = new Vector3(0,0,0);
-                                }
-                                CreateCheckpoint("Spawn " + clone.ToString());
-                                TriggerArduino("0");
-                                ArduinoCheckpoint("Spawn " + clone.ToString());
-                                reactionTime.Reset();
-                                reactionTime.Start();
+                                AudioSource sound = clone.GetComponent<AudioSource>();
+                                //sound.volume = VariablesHolder.audioVolume;
+                                UnityEngine.Debug.Log(sound);
+                                sound.Play();
                             }
-                            
+                            if (!VariablesHolder.useVisual)
+                            {
+                                clone.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                            }
+                            CreateCheckpoint("Spawn " + clone.ToString());
+                            TriggerArduino("0");
+                            ArduinoCheckpoint("Spawn " + clone.ToString());
+                            reactionTime.Reset();
+                            reactionTime.Start();
                         }
                         else
                         {
-                            //if (house) //&& VariablesHolder.realistCheck)
-                            //{
-                            //    Vector3 temp = new Vector3(2.0f, 0, 0);
-                            //    startTime = DateTime.Now.Millisecond;
-                            //    Instantiate(spawneeObject, spawnPos2.position + temp, spawnPos2.rotation);
-                            //    reactionTime.Reset();
-                            //    reactionTime.Start();
-                            //    house = false;
-                            //}
-                            //else if (tree) //&& VariablesHolder.realistCheck)
-                            //{
-                            //    Vector3 temp = new Vector3(0.5f, 0, 0);
-                            //    startTime = DateTime.Now.Millisecond;
-                            //    Instantiate(spawneeObject, spawnPos2.position + temp, spawnPos2.rotation);
-                            //    reactionTime.Reset();
-                            //    reactionTime.Start();
-                            //    tree = false;
-                            //}
-                            //else
+                            startTime = DateTime.Now.Millisecond;
+                            GameObject clone = Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
+                            UnityEngine.Debug.Log("Audio:" + VariablesHolder.useAudio);
+                            UnityEngine.Debug.Log("Visuel:" + VariablesHolder.useVisual);
+                            if (VariablesHolder.useAudio)
                             {
-                                startTime = DateTime.Now.Millisecond;
-                                GameObject clone = Instantiate(spawneeObject, spawnPos2.position, spawnPos2.rotation);
-                                UnityEngine.Debug.Log("Audio:" + VariablesHolder.useAudio);
-                                UnityEngine.Debug.Log("Visuel:" + VariablesHolder.useVisual);
-                                if (VariablesHolder.useAudio)
-                                {
-                                    AudioSource sound = clone.GetComponent<AudioSource>();
-                                    //sound.volume = VariablesHolder.audioVolume;
-                                    UnityEngine.Debug.Log(sound);
-                                    sound.Play();
-                                }
-                                if(!VariablesHolder.useVisual)
-                                {
-                                    clone.gameObject.transform.localScale = new Vector3(0,0,0);
-                                }
-                                CreateCheckpoint("Spawn "+ clone.ToString());
-                                TriggerArduino("0");
-                                ArduinoCheckpoint("Spawn " + clone.ToString());
-                                reactionTime.Reset();
-                                reactionTime.Start();
+                                AudioSource sound = clone.GetComponent<AudioSource>();
+                                //sound.volume = VariablesHolder.audioVolume;
+                                UnityEngine.Debug.Log(sound);
+                                sound.Play();
                             }
+                            if (!VariablesHolder.useVisual)
+                            {
+                                clone.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                            }
+                            CreateCheckpoint("Spawn " + clone.ToString());
+                            TriggerArduino("0");
+                            ArduinoCheckpoint("Spawn " + clone.ToString());
+                            reactionTime.Reset();
+                            reactionTime.Start();
                         }
                     }
                 }

@@ -326,7 +326,6 @@ public class Questions : MonoBehaviour
                 timeStartQuestion = DateTime.Now;
             }
         }
-        
         else
         {
             // Do things for final screen after all levels
@@ -392,21 +391,19 @@ public class Questions : MonoBehaviour
             timer.gameObject.SetActive(false);
             buttonRestart.gameObject.SetActive(false);
             WhitBgTL.gameObject.SetActive(false);
-            TextAsset txt;
 
+            TextAsset txt;
             if (VariablesHolderStroop.sequenceLevels[currentIndexSeq] == 0)
             {
                 txt = (TextAsset)Resources.Load("Baseline", typeof(TextAsset));
                 line = 1;
                 flagTuto = false;
-
             }
             else
             {
                 txt = (TextAsset)Resources.Load("tutorial", typeof(TextAsset)); // change name
                 line = 2 * VariablesHolderStroop.sequenceLevels[currentIndexSeq] - 1;
             }
-  
             string all_Info = txt.text;
             string[] info_Line = all_Info.Split('\n');
 

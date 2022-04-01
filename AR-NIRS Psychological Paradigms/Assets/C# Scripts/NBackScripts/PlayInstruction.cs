@@ -22,7 +22,7 @@ public class PlayInstruction : MonoBehaviour {
         else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 2)
             textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you saw 2 objects before \n or press the button in your left hand if it is NOT. \n \n Are you ready?";
         
-        else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 1) //+1 originellement
+        else if (VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] == 1)
         //else
             textInstruction.GetComponent<TMPro.TextMeshProUGUI>().text = "Press the button in your RIGHT hand if the objects is the SAME as the one you just saw \n or press the button in your LEFT hand if it is NOT. \n \n Are you ready?";
 
@@ -49,7 +49,7 @@ public class PlayInstruction : MonoBehaviour {
             // Increase and show the resting time
             //timerRest.gameObject.SetActive(true);
             timerRest.GetComponent<TMPro.TextMeshProUGUI>().text = string.Format(" Resting Time: {0:00}", Mathf.FloorToInt(timeRest));
-            timeRest += Time.deltaTime;
+            timeRest += Time.deltaTime*0.25f;
         }
         else
         {

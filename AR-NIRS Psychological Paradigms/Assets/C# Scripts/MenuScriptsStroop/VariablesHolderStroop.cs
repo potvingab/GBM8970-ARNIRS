@@ -306,10 +306,10 @@ public class VariablesHolderStroop : MonoBehaviour
 		string[] lines = fixedFile.Split('\n');
         if (
 			(lines.Count() == 8) && 
-			(Regex.Replace(lines[0], @"\s", "") == "Level 1") && 
-			(Regex.Replace(lines[2], @"\s", "") == "Level 2") && 
-			(Regex.Replace(lines[4], @"\s", "") == "Level 3") && 
-			(Regex.Replace(lines[6], @"\s", "") == "Level 4") &&
+			(Regex.Replace(lines[0], @"\s", "") == "Level1") && 
+			(Regex.Replace(lines[2], @"\s", "") == "Level2") && 
+			(Regex.Replace(lines[4], @"\s", "") == "Level3") && 
+			(Regex.Replace(lines[6], @"\s", "") == "Level4") &&
 			(lines[1].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[1], @"\s", "").Count()) &&
 			(lines[3].Count(c => (c == ';')) * 2 + 3 == Regex.Replace(lines[3], @"\s", "").Count()) &&
 			(lines[5].Count(c => (c == ';')) * 4 + 3 == lines[5].Count(c => (c == ',')) * 4 + 3) && 

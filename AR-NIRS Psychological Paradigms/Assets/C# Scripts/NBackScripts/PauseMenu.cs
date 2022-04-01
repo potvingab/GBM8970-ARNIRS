@@ -9,25 +9,15 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-
-
     public static bool GameIsPaused = false;
-
     public static bool SameObject = false;
-
     public static bool SaveCondition = true;
-
-    //attention
     public static int clickPosition = -2;
-
     public static int endTime;
-
     public static int differenceTime;
-
     public string saveCurrentText = "";
 
     public GameObject[] orderObject;
-
     public TextMeshProUGUI gameObjectList;
     public TextMeshProUGUI gameObjectListTitle;
 
@@ -42,62 +32,30 @@ public class PauseMenu : MonoBehaviour
     public GameObject endScreen;
     public GameObject endScreenLevel;
     public GameObject endScreenFinal;
-    //public GameObject textInstruction;
-
     
-
-
     public static string[] clicks;
 
     public static string[] reactionTime;
-
-
-    public static string[] allLevelResults ;
-
-
-    //public static string[] allLevelResults = new string[19] {"", "", "", "", "", "", "", "",
-     //   "", "", "", "", "", "", "", "", "", "", ""};
-
-    //public static int[] blockCondition ;
-
-   // public static string[] allLevelResultsSaved = new string[19] {"", "", "", "", "", "", "", "",
-     //   "", "", "", "", "", "", "", "", "", "", ""};
-
-    //public static string[] clicks = new string[15] { "--", "--", "--", "--",
-     //   "--", "--", "--", "--", "--", "--", "--", "--",
-     //   "--", "--", "--"};
-
-    //public static string[] reactionTime = new string[15] { "--", "--", "--", "--",
-       // "--", "--", "--", "--", "--", "--", "--", "--",
-      //  "--", "--", "--"};
+    public static string[] allLevelResults;
 
     public static string currentLevelString = "";
     public static int[] currentLevelObjects;
-    //public static int[] blockCondition = new int[19] { 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 1 };
-
-
+   
     public void Awake()
     {
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
         currentLevelObjects = new int[VariablesHolder.numberOfObjects];
         for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
-        {
-            //UnityEngine.Debug.Log(clicks.Length);
+        { 
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
         }
         allLevelResults = new string[VariablesHolder.sizeOfArray];
         for (int nLevelResults = 0; nLevelResults < VariablesHolder.sizeOfArray; nLevelResults++)
         {
-            // pas besoin je pense
             allLevelResults[nLevelResults] = "";
-            //UnityEngine.Debug.Log(nLevelResults);
-            //blockCondition[nLevelResults] = 2;
-
         }
-        //UnityEngine.Debug.Log(TimeSpawner.sizeOfArray);
-
         GameIsPaused = true;
     }
 
@@ -105,11 +63,6 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         currentLevelString = "--";
-        //UnityEngine.Debug.Log("CurrentLevelObject" + currentLevelObjects.Length);
-        //UnityEngine.Debug.Log(TimeSpawner.allArrayInt.Length);
-        //UnityEngine.Debug.Log(TimeSpawner.currentLevel);
-
-
         currentLevelObjects = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -124,7 +77,6 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-
         gameObjectListTitle.text = TimeSpawner.levelNames[TimeSpawner.currentLevel];
 
         if (!SameObject)
@@ -183,24 +135,6 @@ public class PauseMenu : MonoBehaviour
 
     public void SaveLevelInfo()
     {
-        // !!! A arranger : le bon fichier c'est VariablesHolder.fileName maintenant
-
-        // if (!File.Exists(FileName.nameOfFile))
-        // {
-        //     string titleString = "id,timestamp,n-back,mode,type\n";
-        //     //UnityEngine.Debug.Log(FileName.nameOfFileOriginal);
-        //     //ATTENTION null??
-        //     titleString += FileName.nameOfFileOriginal.Substring(0, FileName.nameOfFileOriginal.Length - 1) + "," + FileName.timeStamp + "," + VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] + "," + FileName.mode + ",VISUAL\n";
-        //     titleString += "Block,Condition,Total Accuracy,Mean Response Time,Weighted Response Time";
-        //     for (int i = 1; i <= VariablesHolder.numberOfObjects; i++)
-        //     {
-        //         titleString += ",Item " + i + ",Expected Answer " + i + ",Subject Answer " + i + ",Accuracy " + i + ",Response Time " + i;
-        //     }
-        //     File.WriteAllText(FileName.nameOfFile, titleString + "\n");
-        // }
-
-
-        //ATTENTION!!!!!!
         string levelString = "";
         if (TimeSpawner.currentLevel < 7)
         {
@@ -221,11 +155,7 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
-            //BlockCondition??????
-            //levelString += "," + blockCondition[TimeSpawner.currentLevel];
-
             string postAccuracy = "";
-            //Nombre de reponse supposee
             int accuracy = VariablesHolder.numberOfObjects - VariablesHolder.sequenceNBack[TimeSpawner.currentLevel] ;
             int n = accuracy;
             int meanRT = 0;
@@ -314,12 +244,7 @@ public class PauseMenu : MonoBehaviour
             }
             levelString += "," + (int)((accuracy * 100) / n) + "," + (int)(meanRT / correctAnswers) + "," + (int)(weightedRT / n) + postAccuracy;
         }
-
-        //UnityEngine.Debug.Log(levelString);
-        //File.AppendAllText(FileName.nameOfFile, levelString + "\n");
-
     }
-
 
 
     public void GetPercentageForLevel()
@@ -358,12 +283,8 @@ public class PauseMenu : MonoBehaviour
     public void ChangeText()
     {
         gameObjectList.text = "";
-
-        //int[] currentLevelObjectsPerc = TimeSpawner.allArrayInt[TimeSpawner.currentLevel];
-        
         for (int i = 0; i < VariablesHolder.numberOfObjects; i++)
         {
-            //if (currentLevelObjectsPerc[i] == 9)
             if(TimeSpawner.allArrayInt[TimeSpawner.currentLevel][0] == 9)
             {
                 gameObjectList.text = "Just Moving trough the scene.";
@@ -371,20 +292,8 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                //if (i < 2)
-                //{
-                //    gameObjectList.text = gameObjectList.text + (currentLevelObjects[i].name + ": No Input Needed; ");
-                //}
-                //else
-                //{
-                //    gameObjectList.text = gameObjectList.text + (currentLevelObjects[i].name + clicks[i]);
-                //}
-                //
-
-                gameObjectList.text = gameObjectList.text + (orderObject[currentLevelObjects[i]].name + ": " + clicks[i] + "; ");
-                
+                gameObjectList.text = gameObjectList.text + (orderObject[currentLevelObjects[i]].name + ": " + clicks[i] + "; ");    
             }
-
         }
         allLevelResults[TimeSpawner.currentLevel] = gameObjectList.text;
     }
@@ -395,9 +304,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUIHead.SetActive(true);
         VariablesHolder.GameSpeed = 1;
         GameIsPaused = false;
-
-        //gameObjectListTitle.text = TimeSpawner.levelNames[TimeSpawner.currentLevel];
-        //ChangeText();
     }
 
     void Pause()
@@ -411,18 +317,15 @@ public class PauseMenu : MonoBehaviour
     {
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
         clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
-        //ATTENTION
        
         for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
             reactionTime[nObject] = "--";
         }
-
         pauseMenuUIHead.SetActive(true);
         SaveCondition = true;
     }
@@ -437,12 +340,10 @@ public class PauseMenu : MonoBehaviour
         
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
-        //clickPosition = -(VariablesHolder.sequenceNBack[TimeSpawner.currentLevel]);
         clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
-        //ATTENTION
-
+       
         for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
@@ -462,16 +363,13 @@ public class PauseMenu : MonoBehaviour
 
     public void SkipTutorials()
     {
-        //ATTENTION
-        
         Destroyer.objectDestroyed = 0;
         TimeSpawner.order = -1;
        
         clickPosition = -2;
         clicks = new string[VariablesHolder.numberOfObjects];
         reactionTime = new string[VariablesHolder.numberOfObjects];
-        //ATTENTION
-
+       
         for (int nObject = 0; nObject < VariablesHolder.numberOfObjects; nObject++)
         {
             clicks[nObject] = "--";
@@ -486,16 +384,8 @@ public class PauseMenu : MonoBehaviour
         listOfResultsWanted.text = allLevelResults[levelChoice];
     }
 
-
-
     public void BackToEndScreen()
     {
-        /*if (TimeSpawner.currentLevel < 1)
-
-        {
-            endScreen.SetActive(true);
-        }
-        *///ATTENTION!!number of level max!!
         if (TimeSpawner.currentLevel < VariablesHolder.numberOfTutorial)
         {
             endScreen.SetActive(true);
@@ -508,26 +398,6 @@ public class PauseMenu : MonoBehaviour
         {
             endScreenFinal.SetActive(true);
         }
-        
-        //UnityEngine.Debug.Log(TimeSpawner.currentLevel);
-        //UnityEngine.Debug.Log(TimeSpawner.sizeOfArray - 1);
-
-
-        /*if (TimeSpawner.currentLevel == VariablesHolder.sizeOfArray-1)
-        {
-            endScreenLevel.SetActive(true);
-        }
-        else
-        {
-            if (TimeSpawner.levelNames[TimeSpawner.currentLevel + 1].Contains("Tutorial"))
-            {
-                endScreen.SetActive(true);
-            }
-            else
-            {
-                endScreenLevel.SetActive(true);
-            }
-        }*/
     }
 
     public void QuitGame()
@@ -536,8 +406,4 @@ public class PauseMenu : MonoBehaviour
         TimeSpawner.serialPort.Close();
         Application.Quit();
     }
-
-
-
-
 }

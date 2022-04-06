@@ -118,6 +118,9 @@ public class VariablesHolderStroop : MonoBehaviour
 		Debug.Log("Number of trials: " + numberTrials);
 
 		// Update "sequence"
+		// Reset the sequences
+		sequence = new List<string>();
+		sequenceLevels = new List<int>();
         // Control is done first
         sequence.Add("Control");
         sequenceLevels.Add(0);

@@ -21,12 +21,15 @@ public class ErrorHandler : MonoBehaviour
         Application.logMessageReceived -= HandleLog;
     }
 
+	// If an error or exception occurs, write it in the bottom of the searcher's screen
     void HandleLog(string logString, string stackTrace, LogType type)
 	{
+		// Only write errors or exceptions that don't contain "index" or "nearest" (Meta minor errors that can be ignored)
         if ((type == LogType.Error) || (type == LogType.Exception) && (!logString.Contains("index") && (!logString.Contains("nearest"))))
 		{
 			errorTextGame.GetComponent<Text>().text = "Error: " + logString;
             errorTextInstruc.GetComponent<Text>().text = "Error: " + logString;
+			// Custom message for Meta-related serious errors
 			if (logString.Contains("meta"))
 			{
 				errorTextGame.GetComponent<Text>().text = "Error: Meta does not function properly. Please connect the headset or read the manual.";
@@ -41,6 +44,7 @@ public class ErrorHandler : MonoBehaviour
         }   
     }
 
+	// Hide the error message
     public void Dismiss()
 	{
         errorTextInstruc.gameObject.SetActive(false);

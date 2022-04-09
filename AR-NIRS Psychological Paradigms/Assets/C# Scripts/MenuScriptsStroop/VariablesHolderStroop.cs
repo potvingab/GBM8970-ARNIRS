@@ -160,21 +160,6 @@ public class VariablesHolderStroop : MonoBehaviour
 		Response.serialPort = new SerialPort(arduinoPort, 9600, Parity.None, 8, StopBits.One);
 		Debug.Log("Arduino port: " + arduinoPort);
 		
-        // Check if valid inputs
-        // Mettre en commentaire ce qui suit si on utilise l'Arduino
-        // if ((fileName.Contains("/")))
-        // {
-        //   errorMessageFileName.SetActive(false);
-        //   FileNameStroopPage.SetActive(false);
-        //   OptionsStroopPage.SetActive(true);
-        // }
-        // else
-        // {
-        //   errorMessageFileName.GetComponent<Text>().text = "Error: Please choose a valid filename";
-        //   errorMessageFileName.SetActive(true);
-        // }
-
-        // Enlever commentaire si on utilise l'Arduino (et mettre le if en haut en commentaire)
         try
         {
             Response.TriggerArduino("C");

@@ -50,8 +50,6 @@ public class Response : Interaction
     {
         // 0: Question
         // 1: Response
-        // Enlever commentaire si on utilise l'Arduino
-        Debug.Log(VariablesHolderStroop.arduinoPort);
         try
         {
             if (!serialPort.IsOpen)

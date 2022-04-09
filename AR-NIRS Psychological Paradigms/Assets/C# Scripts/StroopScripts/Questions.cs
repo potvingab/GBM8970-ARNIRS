@@ -112,7 +112,7 @@ public class Questions : MonoBehaviour
         endGamePage.gameObject.SetActive(false);
     }
 
-    // Called by the "Instruction" button or "Continue" button
+    // Called by the "Play" button
     // Play the right difficulty according to the sequence
     public void playLevel()
     {   
@@ -122,7 +122,7 @@ public class Questions : MonoBehaviour
         flagTimerRest = false;
         timeRest = 0;
         // timeValue = VariablesHolderStroop.trialTime; //Restart timer(added to be able to replay the level before the timer stopped)
-        //Baseline
+        // Baseline
         if (VariablesHolderStroop.sequenceLevels[currentIndexSeq] == 0)
         {
             playTuto(); // The baseline works the same way as the tutorial
@@ -218,11 +218,12 @@ public class Questions : MonoBehaviour
     }
 
     public void playInstruction()
-    // Called by the "Instruction" button or "Continue" button
-    // Play the right intruction according to the sequence
+    // Called by the "Display instructions" button or "Next Level" button
+    // Show the right intruction according to the sequence
     {
         
-        if (currentIndexSeq < (VariablesHolderStroop.numberTrials + 1)){
+        if (currentIndexSeq < (VariablesHolderStroop.numberTrials + 1))
+        {
             if (VariablesHolderStroop.sequence[currentIndexSeq] != "Single Task (Walk)")
             {
                 canvasChercheurJeu.gameObject.SetActive(false);
@@ -230,7 +231,7 @@ public class Questions : MonoBehaviour
                 canvasParticipantInstructions.gameObject.SetActive(true);
                 canvasChercheurInstructions.gameObject.SetActive(true);
 
-                //Afficher les boutons play et/ou tutorial
+                // Show the "play" and/or "tutorial" buttons
                 if (flagTuto == true && flagRestart == false)
                 {
                     playTutoButton.gameObject.SetActive(false);
@@ -304,7 +305,7 @@ public class Questions : MonoBehaviour
             }
             else
             {
-                // Do things for single task (for now, only write "single task")
+                // Do things for single task
                 Response.CreateCheckpoint("Single Task (Walk)");
                 buttonContinue.gameObject.SetActive(false);
                 buttonRestart.gameObject.SetActive(false);

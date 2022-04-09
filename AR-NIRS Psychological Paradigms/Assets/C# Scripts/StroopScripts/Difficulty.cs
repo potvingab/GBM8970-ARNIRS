@@ -89,7 +89,6 @@ public class Difficulty : MonoBehaviour {
     // Difficulty 1: Background Color
     public void backgroundColor()
     {
-        // TODO: Instructions = "Select the color of the rectangle.\n Are you ready?"
         Debug.Log("backgroundColor");
 
         // setActive the right components
@@ -159,7 +158,7 @@ public class Difficulty : MonoBehaviour {
             Questions.indexQuestion = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
             Questions.n_question_fixed++;
         }
-        //Random sequence
+        // Random sequence
         else
         {
             // Sample random indices between 0 and 2
@@ -172,7 +171,6 @@ public class Difficulty : MonoBehaviour {
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Color.white; 
         // Change the text of questionHolder to the question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        //Debug.Log(possibleQuestions[indexQuestion]);
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexQuestion]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexQuestion] + " ");
@@ -220,10 +218,9 @@ public class Difficulty : MonoBehaviour {
             // Sample random indices between 0 and 2
             Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
             Questions.indexColor = UnityEngine.Random.Range(0, 3);
-            //Making sure the written text and text color are not the same
+            // Making sure the written text and text color are not the same
             while (Questions.indexQuestion == Questions.indexColor)
             {
-                Debug.Log("same");
                 Questions.indexQuestion = UnityEngine.Random.Range(0, 3);
                 Questions.indexColor = UnityEngine.Random.Range(0, 3);
             }
@@ -231,7 +228,6 @@ public class Difficulty : MonoBehaviour {
 
         // Change the text of questionHolder to the random question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        //Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
         // Add the correct answer to the list correctAnswers
         Questions.correctAnswers.Add(Questions.possibleQuestions[Questions.indexColor]);
         correctAnswersShown.GetComponent<TMPro.TextMeshProUGUI>().text += (Questions.possibleQuestions[Questions.indexColor] + " ");
@@ -256,7 +252,7 @@ public class Difficulty : MonoBehaviour {
         // Set Active the right components
         BackgroundImage.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
-        //Fixed sequence or tutorial
+        // Fixed sequence or tutorial
         if (VariablesHolderStroop.gameMode == "Fixed" || Questions.flagTuto == true)
         {
             Debug.Log(Questions.question[Questions.n_question_fixed].Split(',')[0]);
@@ -266,7 +262,6 @@ public class Difficulty : MonoBehaviour {
                 Debug.Log("end of trial");
                 Questions.timeValue = 0;
                 Debug.Log(Questions.timeValue);
-                //Questions.end_of_trial = true;
                 return;
 
             }
@@ -286,7 +281,7 @@ public class Difficulty : MonoBehaviour {
 
         }
 
-        //Random sequence
+        // Random sequence
         else
         {
             // Sample random indices either true or false 
@@ -308,7 +303,6 @@ public class Difficulty : MonoBehaviour {
         Rectangle.gameObject.SetActive(bool_Square);
         // Change the text of questionHolder to the random question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
-        //Debug.Log(Questions.possibleQuestions[Questions.indexQuestion]);
         // Change the color of questionHolder to the random color
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().color = Questions.possibleColors[Questions.indexColor];
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().faceColor = Questions.possibleColors[Questions.indexColor];

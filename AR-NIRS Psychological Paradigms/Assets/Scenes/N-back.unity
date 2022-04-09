@@ -2786,7 +2786,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -4999,7 +4999,7 @@ GameObject:
   - component: {fileID: 452264403}
   - component: {fileID: 452264404}
   m_Layer: 5
-  m_Name: Volume_menu
+  m_Name: VolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5023,7 +5023,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 367, y: -253}
+  m_AnchoredPosition: {x: 334, y: -251}
   m_SizeDelta: {x: 21, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &452264404
@@ -9468,7 +9468,7 @@ GameObject:
   - component: {fileID: 771194210}
   - component: {fileID: 771194209}
   m_Layer: 5
-  m_Name: Volume_menu_texte
+  m_Name: VolumeInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9490,7 +9490,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 317, y: -263}
+  m_AnchoredPosition: {x: 284, y: -261}
   m_SizeDelta: {x: 70, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &771194209
@@ -12031,7 +12031,7 @@ GameObject:
   - component: {fileID: 1009500209}
   - component: {fileID: 1009500208}
   m_Layer: 5
-  m_Name: TestInstructionButton
+  m_Name: SendTriggerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12052,8 +12052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.00008392334, y: -0.000045776367}
+  m_SizeDelta: {x: 46.867, y: 11.233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1009500208
 MonoBehaviour:
@@ -12098,8 +12098,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289622582
-  m_fontColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 0.63746, g: 0.6655136, b: 0.7075472, a: 1}
@@ -12116,13 +12116,13 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 41.1
-  m_fontSizeBase: 50
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
@@ -12677,7 +12677,7 @@ GameObject:
   - component: {fileID: 1070861881}
   - component: {fileID: 1070861880}
   m_Layer: 5
-  m_Name: InstructionButton
+  m_Name: SendTriggerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12699,8 +12699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160, y: -260}
-  m_SizeDelta: {x: 250, y: 69.4}
+  m_AnchoredPosition: {x: 290, y: -189}
+  m_SizeDelta: {x: 140.6, y: 33.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1070861880
 MonoBehaviour:
@@ -12721,10 +12721,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.2509804}
-    m_PressedColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.43529412}
-    m_DisabledColor: {r: 0.21176471, g: 0.44705883, b: 0.68235296, a: 0.6156863}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9529412}
+    m_PressedColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 0.92941177}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.6156863}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -18964,7 +18964,7 @@ MonoBehaviour:
     lineCount: 0
     pageCount: 0
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -19593,7 +19593,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -24890,7 +24890,7 @@ GameObject:
   - component: {fileID: 2078211846}
   - component: {fileID: 2078211845}
   m_Layer: 5
-  m_Name: Text
+  m_Name: VolumeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24911,7 +24911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 314.25, y: -233}
+  m_AnchoredPosition: {x: 281.25, y: -231}
   m_SizeDelta: {x: 84.5, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078211845

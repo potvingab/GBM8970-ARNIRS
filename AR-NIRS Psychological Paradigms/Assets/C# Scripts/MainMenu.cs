@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    // Create 3 different files, add the parameters to them and load the N-back scene
     public void PlayNBack()
     {
         String name = VariablesHolder.fileName;
@@ -45,11 +46,11 @@ public class MainMenu : MonoBehaviour
             TimeSpawner.TriggerArduino("0");
             TimeSpawner.CreateCheckpoint("End of Menu");
             SceneManager.LoadScene("N-back");
-
         }
 
     }
 
+    // Create 3 different files, add the parameters to them and load the Stroop scene
     public void PlayStroop()
     {
         String name = VariablesHolderStroop.fileName;

@@ -19,8 +19,8 @@ This is a University project developed by Polytechnique Montréal students in co
 ## Authors
 * Sandrine Bédard
 * Remidler Damour
-* Juliette Pelletier
 * Justine Loignon-Lapointe
+* Juliette Pelletier
 * Gabriel Potvin
 * Kayla Rezendes
 * Chiara Roche

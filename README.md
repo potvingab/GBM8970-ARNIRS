@@ -10,7 +10,7 @@ This is a University project developed by Polytechnique Montréal students in co
 2. Download [build_final_04-13.zip](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/build_final_04-13.zip).
 3. Unzip the file ([How?](https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5)).
 4. Open the folder created and run *AR-NIRS Psychological Paradigms.exe*.
-5. Read the [User Manual]() for more information.
+5. Read the [User Manual](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/user_manual.pdf) for more information.
 
 ## Where is the documentation?
 * [Final report](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/final_report.pdf)

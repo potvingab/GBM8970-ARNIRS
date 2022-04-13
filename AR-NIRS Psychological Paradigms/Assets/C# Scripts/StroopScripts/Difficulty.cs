@@ -42,9 +42,9 @@ public class Difficulty : MonoBehaviour {
             case "G":
                 index = 0;
                 break;
+
             case "R":
                 index = 1;
-                Debug.Log(index);
                 break;
 
             case "B":
@@ -57,7 +57,7 @@ public class Difficulty : MonoBehaviour {
     public void BaseLine()
     {
         Debug.Log("BaseLine");
-        // setActive the right components
+        // Set active the right components
         BackgroundImage.gameObject.SetActive(false);
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);
@@ -70,8 +70,6 @@ public class Difficulty : MonoBehaviour {
         }
         Questions.indexQuestion = file_convert(Questions.question[Questions.n_question_fixed].Split(',')[0]);
         Questions.n_question_fixed++;
-     
-
 
         // Change the text of questionHolder to the  question
         questionHolder.GetComponent<TMPro.TextMeshProUGUI>().text = Questions.possibleQuestions[Questions.indexQuestion];
@@ -91,7 +89,7 @@ public class Difficulty : MonoBehaviour {
     {
         Debug.Log("backgroundColor");
 
-        // setActive the right components
+        // Set active the right components
         BackgroundImage.gameObject.SetActive(true);
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(false);
@@ -139,7 +137,7 @@ public class Difficulty : MonoBehaviour {
         // TODO: Instructions = "Select the written color.\n Are you ready?"
         Debug.Log("blackText");
 
-        // setActive the right components
+        // Set active the right components
         BackgroundImage.gameObject.SetActive(false);
         Rectangle.gameObject.SetActive(false);
         questionHolder.gameObject.SetActive(true);

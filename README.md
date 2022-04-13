@@ -13,5 +13,16 @@ This is a University project developed by Polytechnique Montréal students in co
 5. Read the [User Manual]() for more information.
 
 ## Where is the documentation?
-[Final report]()
-[User Manual]()
+* [Final report](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/final_report.pdf)
+* [User Manual](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/user_manual.pdf)
+
+## Authors
+* Sandrine Bédard
+* Remidler Damour
+* Juliette Pelletier
+* Justine Loignon-Lapointe
+* Gabriel Potvin
+* Kayla Rezendes
+* Chiara Roche
+* Achille Vigneault
+* Khadija Yakoubi

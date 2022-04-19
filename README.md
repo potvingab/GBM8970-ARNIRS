@@ -23,7 +23,7 @@ This is a University project developed by Polytechnique Montréal students in co
 * [Powerpoint presentation](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/PresentationFinale_v2.pptx)
 
 ## Other things
-* [Unity project and C# code](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/AR-NIRS Psychological Paradigms)
+* [Unity project and C# code](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/AR-NIRS%20Psychological%20Paradigms)
 * [CAD files](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Cad)
 * [Arduino code](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Code/Arduino)
 * [MATLAB code](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Code/Matlab)

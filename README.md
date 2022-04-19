@@ -13,8 +13,14 @@ This is a University project developed by Polytechnique Montréal students in co
 5. Read the [User Manual](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/user_manual.pdf) for more information.
 
 ## Where is the documentation?
-* [Final report](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/final_report.pdf)
+* [Reports](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/)
+  * [002: Spécifications fonctionelles](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/GBM8970-ARNIRS.002-v2.3.pdf)
+  * [003: Document de design](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/GBM8970-ARNIRS.003-v4.0.pdf)
+  * [004: Procédure des tests](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/GBM8970-ARNIRS.004-v3.0.pdf)
+  * [005: Résultat des tests](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/GBM8970-ARNIRS.005-v1.0.pdf)
+  * [006: Matrice de traçabilité](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/GBM8970-ARNIRS.006-v3.0.pdf)
 * [User Manual](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/user_manual.pdf)
+* [Powerpoint presentation](https://github.com/potvingab/GBM8970-ARNIRS/raw/main/Documentation/PresentationFinale_v2.pptx)
 
 ## Authors
 * Sandrine Bédard

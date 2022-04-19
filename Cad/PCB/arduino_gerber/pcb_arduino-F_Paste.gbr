@@ -1,0 +1,29 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,(6.0.1)*%
+%TF.CreationDate,2022-03-09T16:15:59-05:00*%
+%TF.ProjectId,pcb_arduino,7063625f-6172-4647-9569-6e6f2e6b6963,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Paste,Top*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW (6.0.1)) date 2022-03-09 16:15:59*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%ADD10R,1.070000X3.270000*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,R*%
+X125342000Y-121539000D03*
+X131452000Y-121539000D03*
+%TD*%
+%TO.C,R*%
+X125342000Y-116713000D03*
+X131452000Y-116713000D03*
+%TD*%
+%TO.C,R*%
+X125342000Y-111887000D03*
+X131452000Y-111887000D03*
+%TD*%
+M02*
